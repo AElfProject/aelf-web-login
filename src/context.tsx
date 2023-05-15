@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useMemo, useRef } from 'react';
 import { SignIn, DIDWalletInfo, SignInInterface } from '@portkey/did-ui-react';
 import PortkeyPlugin from './wallets/PortkeyPlugin';
-import ElfPlugin from './wallets/ElfPlugin';
+import ElfPlugin from './wallets/NightElfPlugin';
 import { PORTKEY, ELF } from './constants';
 
 const INITIAL_STATE = {
