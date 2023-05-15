@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "aelf-web-login": ["../dist/aelf-web-login.mjs"]
+    }
+  }
+}
