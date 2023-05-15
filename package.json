@@ -7,7 +7,9 @@
   "main": "dist/aelf-web-login.js",
   "module": "dist/aelf-web-login.mjs",
   "typings": "dist/aelf-web-login.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "postinstall": "husky install",
     "build": "rollup -c",
@@ -17,7 +19,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@portkey/did-ui-react": "0.0.1-alpha.7.5"
+    "@portkey/did-ui-react": "0.0.1-alpha.7.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -39,6 +43,7 @@
     "@rollup/plugin-url": "^8.0.1",
     "@tsconfig/recommended": "^1.0.2",
     "@types/elliptic": "^6.4.14",
+    "@types/jest": "^29.5.1",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "babel-jest": "^29.3.1",
