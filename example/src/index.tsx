@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import '@portkey/did-ui-react/dist/assets/index.css';
-
+import 'aelf-web-login/dist/index.css';
 import './index.css';
 import './config';
 import WebLoginProvider, { useWebLogin } from 'aelf-web-login';
@@ -18,7 +18,7 @@ function Usage() {
 
 function App() {
   return (
-    <WebLoginProvider>
+    <WebLoginProvider extraWallets={['portkey', 'elf']}>
       <Usage />
     </WebLoginProvider>
   );

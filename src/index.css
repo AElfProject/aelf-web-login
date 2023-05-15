@@ -1,0 +1,52 @@
+.aelf-web-login.aelf-extra-wallets {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.aelf-web-login.aelf-extra-wallets .title {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: #5C6764;
+}
+
+.aelf-web-login.aelf-extra-wallets .wallet-entries {
+  display: flex;
+  flex-direction: row;
+  gap: 56px;
+  margin-top: 16px;
+  margin-bottom: 40px;
+}
+
+.aelf-web-login.aelf-extra-wallets .plugin-entry .icon {
+  width: 42px;
+  height: 42px;
+  background: #FFFFFF;
+  border: 1px solid #E6E7E9;
+  border-radius: 54.5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.aelf-web-login.aelf-extra-wallets .plugin-entry .name {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #5C6764;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

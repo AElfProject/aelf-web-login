@@ -3,11 +3,11 @@ const path = require('path');
 const {CracoAliasPlugin} = require('react-app-alias-ex')
 
 module.exports = {
-  // webpack: {
-  //   alias: {
-  //     'aelf-web-login': path.resolve(__dirname, '../dist/aelf-web-login.js'),
-  //   }
-  // },
+  webpack: {
+    alias: {
+      'aelf-web-login/dist/index.css': path.resolve(__dirname, '../dist/index.css'),
+    }
+  },
   plugins: [{
     plugin: CracoAliasPlugin,
     options: {},

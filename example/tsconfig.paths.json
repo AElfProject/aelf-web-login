@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "aelf-web-login/dist/index.css": ["../dist/index.css"],
       "aelf-web-login": ["../dist/aelf-web-login.mjs"]
     }
   }

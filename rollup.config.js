@@ -1,5 +1,8 @@
 import dts from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
+import copy from 'rollup-plugin-copy'
+import {glob} from 'glob'
+import path from 'path'
 import packageJson from './package.json' assert { type: 'json' }
 
 const name = packageJson.main.replace(/\.js$/, '')
@@ -10,9 +13,27 @@ const bundle = config => ({
   external: id => !/^[./]/.test(id),
 })
 
+const watcher = (globs) => ({
+  buildStart() {
+    for (const item of globs) {
+      glob.sync(path.resolve(item)).forEach((filename) => {
+        this.addWatchFile(filename);
+      });
+    }
+  },
+});
+
 export default [
   bundle({
-    plugins: [esbuild({ jsx: "transform" })],
+    plugins: [
+      watcher(['src/**/*.css']),
+      esbuild({ jsx: "transform" }),
+      copy({
+        targets: [
+          { src: 'src/index.css', dest: 'dist' },
+        ]
+      })
+    ],
     output: [
       {
         file: `${name}.js`,
