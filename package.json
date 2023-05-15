@@ -20,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aelf-react/core": "^0.1.19",
     "@portkey/did-ui-react": "0.0.1-alpha.7.5",
     "react": "18.2.0",
     "react-dom": "18.2.0"

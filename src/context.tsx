@@ -1,8 +1,10 @@
 import React, { createContext, useCallback, useContext, useMemo, useRef } from 'react';
 import { SignIn, DIDWalletInfo, SignInInterface } from '@portkey/did-ui-react';
+import { AElfReactProvider } from '@aelf-react/core';
 import PortkeyPlugin from './wallets/PortkeyPlugin';
 import ElfPlugin from './wallets/NightElfPlugin';
 import { PORTKEY, ELF } from './constants';
+import { getConfig } from './config';
 
 const INITIAL_STATE = {
   openWebLogin: () => {
@@ -76,17 +78,20 @@ export default function Provider({
   );
 
   console.log(state);
+  var aelfReactConfig = getConfig().aelfReact;
 
   return (
-    <WebLoginContext.Provider value={state}>
-      {children}
-      <SignIn
-        ref={signinRef}
-        uiType="Modal"
-        isShowScan
-        extraElement={extraWallets && <ExtraWallets extraWallets={extraWallets} />}
-        onFinish={onFinish}
-      />
-    </WebLoginContext.Provider>
+    <AElfReactProvider appName={aelfReactConfig.appName} nodes={aelfReactConfig.nodes}>
+      <WebLoginContext.Provider value={state}>
+        {children}
+        <SignIn
+          ref={signinRef}
+          uiType="Modal"
+          isShowScan
+          extraElement={extraWallets && <ExtraWallets extraWallets={extraWallets} />}
+          onFinish={onFinish}
+        />
+      </WebLoginContext.Provider>
+    </AElfReactProvider>
   );
 }
