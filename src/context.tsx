@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
-import { AElfReactProvider } from '@aelf-react/core';
+import { AElfReactProvider, useAElfReact } from '@aelf-react/core';
 import PortkeyPlugin from './wallets/PortkeyPlugin';
 import ElfPlugin from './wallets/NightElfPlugin';
 import { PORTKEY, ELF } from './constants';
@@ -9,6 +9,8 @@ import { Portkey } from './wallets/Portkey';
 import { useCheckWallet } from './wallet';
 
 const INITIAL_STATE = {
+  wallet: undefined,
+  setWallet: () => {},
   setModalOpen: () => {},
   checkWebLogin: () => {},
   openWebLogin: () => {},
@@ -18,6 +20,7 @@ const WebLoginContext = createContext<WebLoginContextType>(INITIAL_STATE);
 
 export const useWebLoginContext = () => useContext(WebLoginContext);
 export const useWebLogin: WebLoginHook = () => useWebLoginContext();
+export const useWallet = () => useWebLoginContext().wallet;
 
 export type ExtraWalletNames = 'portkey' | 'elf';
 export type ExtraWallets = Array<ExtraWalletNames>;
@@ -47,8 +50,14 @@ export type WebLoginProviderProps = {
 
 function WebLoginProvider({ extraWallets, children }: WebLoginProviderProps) {
   const [modalOpen, setModalOpen] = useState(false);
+  const walletRef = useRef<WalletInterface>(undefined);
   const onCompleteFunc = useRef<WebLoginCallback>(() => {});
   const checkWallet = useCheckWallet();
+  const { isActive, deactivate } = useAElfReact();
+
+  const setWallet = (wallet: WalletInterface) => {
+    walletRef.current = wallet;
+  };
 
   const openWebLogin = useCallback(() => {
     return new Promise<WalletInterface>(resolve => {
@@ -74,10 +83,18 @@ function WebLoginProvider({ extraWallets, children }: WebLoginProviderProps) {
 
   const logout = useCallback(async () => {
     console.log('logout');
-  }, []);
+    let currentWallet = await checkWallet();
+    await currentWallet?.logout();
+    // TODO: fix
+    localStorage.clear();
+    if (isActive) {
+      await deactivate();
+    }
+  }, [isActive, deactivate]);
 
   const state = useMemo(
     () => ({
+      setWallet,
       setModalOpen,
       login,
       logout,

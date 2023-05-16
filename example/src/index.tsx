@@ -12,6 +12,7 @@ function Usage() {
   return (
     <div>
       <button onClick={webLogin.login}>open</button>
+      <button onClick={webLogin.logout}>logout</button>
     </div>
   );
 }

@@ -2,16 +2,28 @@ import { DIDWalletInfo, did } from '@portkey/did-ui-react';
 import { ChainId } from '@portkey/types';
 import { useAElfReact } from '@aelf-react/core';
 import { AElfContextState } from '@aelf-react/core/dist/types';
-import { WalletInterface } from './types';
+import { CallContractParams, WalletInterface } from './types';
+import { AElfContractProvider, ContractProvider, PortkeyContractProvider } from './contracts';
 
-export abstract class AbstractWallet<T> implements WalletInterface {
-  public readonly walletInfo: T;
+export abstract class AbstractWallet<Info> implements WalletInterface {
+  public readonly walletInfo: Info;
+  private readonly _contracts: Map<string, ContractProvider> = new Map();
 
-  constructor(walletInfo: T) {
+  constructor(walletInfo: Info) {
     this.walletInfo = walletInfo;
   }
 
   abstract initialize(): Promise<void>;
+  abstract logout(): Promise<void>;
+  abstract getContract(contractAddress: string): ContractProvider;
+
+  callContract<T, R>(params: CallContractParams<T>): Promise<R> {
+    let contract = this._contracts[params.contractAddress];
+    if (!contract) {
+      contract = this.getContract(params.contractAddress);
+    }
+    return contract.call(params.methodName, params.args);
+  }
 }
 
 export class PortkeyWallet extends AbstractWallet<DIDWalletInfo> {
@@ -40,18 +52,36 @@ export class PortkeyWallet extends AbstractWallet<DIDWalletInfo> {
         caHash: caInfo.caHash,
       };
     }
-    console.log(did);
+    console.log(did, this.walletInfo);
+    console.log(this.walletInfo.pin, this.appName);
     await did.save(this.walletInfo.pin, this.appName);
+  }
+
+  logout(): Promise<void> {
+    did.reset();
+    return Promise.resolve();
+  }
+
+  getContract(contractAddress: string): ContractProvider {
+    return new PortkeyContractProvider(this.chainId, this.walletInfo, contractAddress);
   }
 }
 
-export class BridgedWallet extends AbstractWallet<AElfContextState['aelfBridges']> {
-  constructor(walletInfo: any) {
+export class ElfWallet extends AbstractWallet<AElfContextState['aelfBridges']> {
+  constructor(walletInfo: any, private _chain: any) {
     super(walletInfo);
   }
 
   initialize(): Promise<void> {
     return Promise.resolve();
+  }
+
+  logout(): Promise<void> {
+    return Promise.resolve();
+  }
+
+  getContract(contractAddress: string): ContractProvider {
+    return new AElfContractProvider(this._chain, contractAddress);
   }
 }
 
