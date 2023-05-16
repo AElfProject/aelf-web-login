@@ -1,36 +1,34 @@
-import React, { createContext, useCallback, useContext, useMemo, useRef } from 'react';
-import { SignIn, DIDWalletInfo, SignInInterface } from '@portkey/did-ui-react';
+import React, { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import { AElfReactProvider } from '@aelf-react/core';
 import PortkeyPlugin from './wallets/PortkeyPlugin';
 import ElfPlugin from './wallets/NightElfPlugin';
 import { PORTKEY, ELF } from './constants';
 import { getConfig } from './config';
+import { WalletInterface, WebLoginCallback, WebLoginContextType, WebLoginHook } from './types';
+import { Portkey } from './wallets/Portkey';
 
 const INITIAL_STATE = {
-  openWebLogin: () => {
-    console.log('openWebLogin');
-  },
-};
-
-export type WebLoginCallback = (didWallet: DIDWalletInfo) => void;
-export type WebLoginContextType = {
-  openWebLogin: (callback: WebLoginCallback) => void;
+  setModalOpen: () => {},
+  openWebLogin: () => {},
 };
 
 const WebLoginContext = createContext<WebLoginContextType>(INITIAL_STATE);
 
-export const useWebLogin = () => {
+export const useWebLogin: WebLoginHook = () => {
   const context = useContext(WebLoginContext);
   return useCallback(() => {
-    return new Promise<DIDWalletInfo>(resolve => {
-      context.openWebLogin(true, didWallet => {
-        resolve(didWallet);
+    return new Promise<WalletInterface>(resolve => {
+      context.openWebLogin(true, wallet => {
+        resolve(wallet);
       });
     });
   }, [context]);
 };
 
-function ExtraWallets({ extraWallets }: { extraWallets: ExtraWallets }) {
+export type ExtraWalletNames = 'portkey' | 'elf';
+export type ExtraWallets = Array<ExtraWalletNames>;
+
+function ExtraWallets({ extraWallets, onLogin }: { extraWallets: ExtraWallets; onLogin: WebLoginCallback }) {
   const plugins = {
     [PORTKEY]: PortkeyPlugin,
     [ELF]: ElfPlugin,
@@ -41,15 +39,12 @@ function ExtraWallets({ extraWallets }: { extraWallets: ExtraWallets }) {
       <div className="wallet-entries">
         {extraWallets.map((walletName: ExtraWalletNames) => {
           const Plugin = plugins[walletName];
-          return <Plugin />;
+          return <Plugin key={walletName} onLogin={onLogin} />;
         })}
       </div>
     </div>
   );
 }
-
-export type ExtraWalletNames = 'portkey' | 'elf';
-export type ExtraWallets = Array<ExtraWalletNames>;
 
 export default function Provider({
   extraWallets,
@@ -58,24 +53,29 @@ export default function Provider({
   extraWallets: ExtraWallets;
   children: React.ReactNode;
 }) {
-  const signinRef = useRef<SignInInterface>();
+  const [modalOpen, setModalOpen] = useState(false);
   const onCompleteFunc = useRef<WebLoginCallback>(() => {});
-
-  const onFinish = useCallback((didWallet: DIDWalletInfo) => {
-    console.log('didWallet:', didWallet);
-    onCompleteFunc.current(didWallet);
-  }, []);
 
   const state = useMemo(
     () => ({
+      setModalOpen,
       openWebLogin: (callback: WebLoginCallback) => {
         console.log('openWebLogin:', callback);
-        signinRef.current?.setOpen(true);
         onCompleteFunc.current = callback;
+        setModalOpen(true);
       },
     }),
     [],
   );
+
+  const onLogin = (error?: Error, wallet?: WalletInterface) => {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log(wallet);
+      onCompleteFunc.current(wallet);
+    }
+  };
 
   console.log(state);
   var aelfReactConfig = getConfig().aelfReact;
@@ -84,12 +84,10 @@ export default function Provider({
     <AElfReactProvider appName={aelfReactConfig.appName} nodes={aelfReactConfig.nodes}>
       <WebLoginContext.Provider value={state}>
         {children}
-        <SignIn
-          ref={signinRef}
-          uiType="Modal"
-          isShowScan
-          extraElement={extraWallets && <ExtraWallets extraWallets={extraWallets} />}
-          onFinish={onFinish}
+        <Portkey
+          open={modalOpen}
+          onLogin={onLogin}
+          extraWallets={<ExtraWallets extraWallets={extraWallets} onLogin={onLogin} />}
         />
       </WebLoginContext.Provider>
     </AElfReactProvider>

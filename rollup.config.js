@@ -27,7 +27,7 @@ export default [
   bundle({
     plugins: [
       watcher(['src/**/*.css']),
-      esbuild({ jsx: "transform" }),
+      esbuild(),
       copy({
         targets: [
           { src: 'src/index.css', dest: 'dist' },
@@ -48,7 +48,7 @@ export default [
     ],
   }),
   bundle({
-    plugins: [dts({ jsx: "transform" })],
+    plugins: [dts()],
     output: {
       file: `${name}.d.ts`,
       format: 'es',
