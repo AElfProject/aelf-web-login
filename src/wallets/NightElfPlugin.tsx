@@ -9,10 +9,13 @@ export default function NightElfPlugin({ onLogin }: WalletComponentProps) {
   const { activate, deactivate, connectEagerly } = useAElfReact();
   const nodes = getConfig().aelfReact.nodes;
 
+  console.log(useAElfReact());
+
   const onClick = async () => {
     try {
       const res = await activate(nodes);
-      onLogin(undefined, new ElfWallet(res));
+      const chain = (res as any).rpcUrl.chain;
+      onLogin(undefined, new ElfWallet(res, chain));
     } catch (e) {
       onLogin(e, undefined);
     }

@@ -32,7 +32,7 @@ export default [
         targets: [
           { src: 'src/index.css', dest: 'dist' },
         ]
-      })
+      }),
     ],
     output: [
       {

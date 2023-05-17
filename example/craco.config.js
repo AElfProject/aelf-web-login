@@ -1,12 +1,13 @@
 /* eslint-disable */
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 const {CracoAliasPlugin} = require('react-app-alias-ex')
 
 module.exports = {
   webpack: {
     alias: {
-      'aelf-web-login/dist/index.css': path.resolve(__dirname, '../dist/index.css'),
-    }
+      'aelf-web-login/dist/index.css': path.resolve(__dirname, './src/aelf-web-login/index.css'),
+    },
   },
   plugins: [{
     plugin: CracoAliasPlugin,
