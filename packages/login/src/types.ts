@@ -5,7 +5,7 @@ export interface CallContractParams<T> {
 }
 
 export interface WalletInterface {
-  initialize(): Promise<void>;
+  error: unknown;
   logout(): Promise<void>;
   callContract<T, R>(params: CallContractParams<T>): Promise<R>;
 }
@@ -27,5 +27,5 @@ export type WebLoginContextType = WebLoginInterface & {
 export type WebLoginHook = () => WebLoginInterface;
 
 export type WalletComponentProps = {
-  onLogin: WebLoginCallback;
+  // onLogin: WebLoginCallback;
 };

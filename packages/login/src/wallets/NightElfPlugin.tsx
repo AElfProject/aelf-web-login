@@ -1,25 +1,39 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useAElfReact } from '@aelf-react/core';
+import { AElfContextState } from '@aelf-react/core/dist/types';
 import PluginEntry from '../components/PluginEntry';
 import { WalletComponentProps } from '../types';
-import { ElfWallet } from '../wallet';
+import { AbstractWallet, ElfWallet } from '../wallet';
 import { getConfig } from '../config';
+import { useWebLoginContext } from '../context';
 
-export default function NightElfPlugin({ onLogin }: WalletComponentProps) {
-  const { activate, deactivate, connectEagerly } = useAElfReact();
+export default function NightElfPlugin() {
+  const aelfReact = useAElfReact();
+  const { activate } = aelfReact;
+  const { setWallet } = useWebLoginContext();
   const nodes = getConfig().aelfReact.nodes;
+  const [currentWallet, setCurrentWallet] = useState<AbstractWallet<AElfContextState>>();
 
-  console.log(useAElfReact());
+  console.log(aelfReact);
 
-  const onClick = async () => {
-    try {
-      const res = await activate(nodes);
-      const chain = (res as any).rpcUrl.chain;
-      onLogin(undefined, new ElfWallet(res, chain));
-    } catch (e) {
-      onLogin(e, undefined);
+  useEffect(() => {
+    if (currentWallet && aelfReact.isActive) {
+      currentWallet.setInfo(aelfReact);
+      setCurrentWallet(undefined);
+      setWallet(currentWallet);
     }
-  };
+  }, [aelfReact.isActive, aelfReact, currentWallet, setCurrentWallet, setWallet]);
+
+  const onClick = useCallback(async () => {
+    try {
+      await activate(nodes);
+      console.log(aelfReact);
+      const wallet = new ElfWallet();
+      setCurrentWallet(wallet);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [activate, aelfReact, nodes, setCurrentWallet]);
 
   return <PluginEntry icon="🧝‍♂️" name="Night Elf" onClick={onClick} />;
 }

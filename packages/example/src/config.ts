@@ -3,7 +3,8 @@ import { setGlobalConfig } from '@aelf-web-login/login';
 const IS_MAINNET = false;
 
 setGlobalConfig({
-  appName: 'Example',
+  appName: 'explorer.aelf.io',
+  chainId: 'AELF',
   portkey: {
     useLocalStorage: true,
     graphQLUrl: '/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql',

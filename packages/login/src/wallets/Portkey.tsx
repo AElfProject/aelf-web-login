@@ -1,23 +1,18 @@
 import React, { ReactNode, useCallback, useRef, useEffect, useState } from 'react';
+import { ChainId } from '@portkey/types';
 import { WalletComponentProps } from '../types';
 import { DIDWalletInfo, SignIn, Unlock, SignInInterface, did } from '@portkey/did-ui-react';
 import { PortkeyWallet } from '../wallet';
 import { useWebLoginContext } from '../context';
 import { getConfig } from '../config';
-import { aes } from '@portkey/utils';
-export function Portkey({
-  open,
-  onLogin,
-  extraWallets,
-}: WalletComponentProps & { open: boolean; extraWallets: ReactNode }) {
+export function Portkey({ open, extraWallets }: WalletComponentProps & { open: boolean; extraWallets: ReactNode }) {
   const signInRef = useRef<SignInInterface>(null);
-  const { setModalOpen } = useWebLoginContext();
+  const { setModalOpen, setWallet } = useWebLoginContext();
   const [password, setPassword] = useState('');
   const [isWrongPassword, setIsWrongPassword] = useState(false);
 
   const appName = getConfig().appName;
-  // TODO: fix this
-  const CHAIN_ID = 'AELF';
+  const chainId = getConfig().chainId;
 
   useEffect(() => {
     if (signInRef.current) {
@@ -31,9 +26,15 @@ export function Portkey({
 
   const onFinish = useCallback(
     (didWallet: DIDWalletInfo) => {
-      onLogin(undefined, new PortkeyWallet(appName, CHAIN_ID, didWallet));
+      const wallet = new PortkeyWallet();
+      wallet.setInfo({
+        appName,
+        chainId: chainId as ChainId,
+        walletInfo: didWallet,
+      });
+      setWallet(wallet);
     },
-    [appName, onLogin],
+    [appName, chainId, setWallet],
   );
 
   const onUnlock = useCallback(async () => {
@@ -44,28 +45,28 @@ export function Portkey({
       return;
     }
 
-    let caInfo = localWallet.didWallet.caInfo[CHAIN_ID];
+    let caInfo = localWallet.didWallet.caInfo[chainId];
     let caHash = caInfo?.caHash;
     if (!caInfo) {
       const key = Object.keys(localWallet.didWallet.caInfo)[0];
       caHash = localWallet.didWallet.caInfo[key].caHash;
       caInfo = await did.didWallet.getHolderInfoByContract({
         caHash: caHash,
-        chainId: CHAIN_ID,
+        chainId: chainId as ChainId,
       });
     }
 
     const didWalletInfo: DIDWalletInfo = {
       caInfo,
       pin: password,
-      chainId: CHAIN_ID,
+      chainId: chainId as ChainId,
       walletInfo: localWallet.didWallet.managementAccount!.wallet as any, // TODO
       accountInfo: localWallet.didWallet.accountInfo as any,
     };
     onFinish(didWalletInfo);
     setIsWrongPassword(false);
     setPassword('');
-  }, [setIsWrongPassword, onFinish, setPassword, password, appName]);
+  }, [setIsWrongPassword, onFinish, setPassword, password, chainId, appName]);
 
   if (PortkeyWallet.checkLocal(appName)) {
     return (
@@ -82,7 +83,7 @@ export function Portkey({
 
   return (
     <SignIn
-      defaultChainId={CHAIN_ID}
+      defaultChainId={chainId as any}
       sandboxId="portkey-ui-sandbox"
       ref={signInRef}
       uiType="Modal"

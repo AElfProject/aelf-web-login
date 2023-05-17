@@ -4,21 +4,27 @@ import '@portkey/did-ui-react/dist/assets/index.css';
 import './index.css';
 import './config';
 import { WebLoginProvider, useWebLogin, useWallet, useCallContract } from '@aelf-web-login/login';
+import configJson from './assets/config.json';
 
 function Usage() {
   const [result, setResult] = useState({});
 
   const webLogin = useWebLogin();
   const wallet = useWallet();
-  const callContract = useCallContract('a', '');
+  const callContract = useCallContract(configJson.tokenConverter, 'Buy');
 
   console.log(wallet);
 
   const onClickCall = async () => {
     try {
-      const res = await callContract({});
+      const res = await callContract({
+        symbol: configJson.SYMBOL,
+        amount: 1,
+      });
+      console.log(res);
       setResult(res);
     } catch (error) {
+      console.log(error);
       setResult({ error: error.message });
     }
   };

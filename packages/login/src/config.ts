@@ -19,6 +19,7 @@ export type AElfReactProviderProps = {
 
 export type WebLoginConfig = {
   appName: string;
+  chainId: string;
   portkey: GlobalConfigProps & { useLocalStorage?: boolean };
   aelfReact: Omit<AElfReactProviderProps, 'children'>;
 };

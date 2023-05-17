@@ -5,15 +5,43 @@ import { AElfContextState } from '@aelf-react/core/dist/types';
 import { CallContractParams, WalletInterface } from './types';
 import { AElfContractProvider, ContractProvider, PortkeyContractProvider } from './contracts';
 
+export enum WalletState {
+  UNINITIALIZED = 'UNINITIALIZED',
+  INITIALIZING = 'INITIALIZING',
+  INITIALIZED = 'INITIALIZED',
+  ERROR = 'ERROR',
+}
+
 export abstract class AbstractWallet<Info> implements WalletInterface {
-  public readonly walletInfo: Info;
+  public error: unknown;
+  public info!: Info;
+  public state: WalletState = WalletState.UNINITIALIZED;
+
   private readonly _contracts: Map<string, ContractProvider> = new Map();
 
-  constructor(walletInfo: Info) {
-    this.walletInfo = walletInfo;
+  isInitialized() {
+    return this.state === WalletState.INITIALIZED;
+  }
+  isInitializing() {
+    return this.state == WalletState.INITIALIZING;
   }
 
-  abstract initialize(): Promise<void>;
+  public setInfo(info: Info) {
+    this.info = info;
+  }
+
+  public async initialize() {
+    this.state = WalletState.INITIALIZING;
+    try {
+      await this.safeInitialize();
+      this.state = WalletState.INITIALIZED;
+    } catch (error) {
+      this.error = error;
+      this.state = WalletState.ERROR;
+    }
+  }
+  protected abstract safeInitialize(): Promise<void>;
+
   abstract logout(): Promise<void>;
   abstract getContract(contractAddress: string): ContractProvider;
 
@@ -26,35 +54,30 @@ export abstract class AbstractWallet<Info> implements WalletInterface {
   }
 }
 
-export class PortkeyWallet extends AbstractWallet<DIDWalletInfo> {
+export type PortkeyWalletInfo = {
+  appName: string;
+  chainId: ChainId;
+  walletInfo: DIDWalletInfo;
+};
+
+export class PortkeyWallet extends AbstractWallet<PortkeyWalletInfo> {
   static checkLocal(appName: string): boolean {
     return !!localStorage.getItem(appName);
   }
 
-  public readonly appName: string;
-  public readonly chainId: ChainId;
-
-  constructor(appName: string, chainId: ChainId, walletInfo: DIDWalletInfo) {
-    super(walletInfo);
-    this.appName = appName;
-    this.chainId = chainId;
-  }
-
-  async initialize(): Promise<void> {
-    console.log(this.walletInfo.chainId, this.chainId);
-    if (this.walletInfo.chainId !== this.chainId) {
+  async safeInitialize(): Promise<void> {
+    const info = this.info;
+    if (info.walletInfo.chainId !== info.chainId) {
       const caInfo = await did.didWallet.getHolderInfoByContract({
-        caHash: this.walletInfo.caInfo.caHash,
-        chainId: this.chainId,
+        caHash: info.walletInfo.caInfo.caHash,
+        chainId: info.chainId,
       });
-      this.walletInfo.caInfo = {
+      info.walletInfo.caInfo = {
         caAddress: caInfo.caAddress,
         caHash: caInfo.caHash,
       };
     }
-    console.log(did, this.walletInfo);
-    console.log(this.walletInfo.pin, this.appName);
-    await did.save(this.walletInfo.pin, this.appName);
+    await did.save(info.walletInfo.pin, info.appName);
   }
 
   logout(): Promise<void> {
@@ -63,16 +86,13 @@ export class PortkeyWallet extends AbstractWallet<DIDWalletInfo> {
   }
 
   getContract(contractAddress: string): ContractProvider {
-    return new PortkeyContractProvider(this.chainId, this.walletInfo, contractAddress);
+    return new PortkeyContractProvider(this.info.chainId, this.info.walletInfo, contractAddress);
   }
 }
 
-export class ElfWallet extends AbstractWallet<AElfContextState['aelfBridges']> {
-  constructor(walletInfo: any, private _chain: any) {
-    super(walletInfo);
-  }
-
-  initialize(): Promise<void> {
+export class ElfWallet extends AbstractWallet<AElfContextState> {
+  safeInitialize(): Promise<void> {
+    console.log(this.info);
     return Promise.resolve();
   }
 
@@ -81,7 +101,10 @@ export class ElfWallet extends AbstractWallet<AElfContextState['aelfBridges']> {
   }
 
   getContract(contractAddress: string): ContractProvider {
-    return new AElfContractProvider(this._chain, contractAddress);
+    console.log(this.info, this.info.account);
+    return new AElfContractProvider(this.info.defaultAElfBridge!.chain, contractAddress, {
+      address: this.info.account!,
+    });
   }
 }
 

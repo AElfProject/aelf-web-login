@@ -14,7 +14,7 @@ export class AElfContractProvider implements ContractProvider {
   private _contract: any;
   private _waitingContract = false;
 
-  constructor(private _chain: any, public address: string) {}
+  constructor(private _chain: any, public address: string, public wallet: { address: string }) {}
 
   async resolveContract(): Promise<Contract> {
     while (this._waitingContract) {
@@ -25,7 +25,8 @@ export class AElfContractProvider implements ContractProvider {
     }
     this._waitingContract = true;
     try {
-      this._contract = await this._chain.contractAt(this.address);
+      console.log(this._chain, this.address);
+      this._contract = await this._chain.contractAt(this.address, this.wallet);
     } finally {
       this._waitingContract = false;
     }
@@ -34,6 +35,7 @@ export class AElfContractProvider implements ContractProvider {
 
   async call<T, R>(methodName: string, args: T): Promise<R> {
     const contract = await this.resolveContract();
+    console.log(contract, methodName, args);
     return await contract[methodName](args);
   }
 }
