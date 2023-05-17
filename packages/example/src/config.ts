@@ -40,7 +40,7 @@ setGlobalConfig({
     },
   },
   aelfReact: {
-    appName: 'Bingo Game',
+    appName: 'explorer.aelf.io',
     nodes: IS_MAINNET
       ? {
           AELF: {

@@ -63,11 +63,13 @@ export class PortkeyContractProvider implements ContractProvider {
       }
 
       // const aelf = new AElf(new AElf.providers.HttpProvider(chainInfo.endPoint));
-      await getContractBasic({
+      const contract = await getContractBasic({
         contractAddress: chainInfo.caContractAddress,
         account: this.didWalletInfo.walletInfo,
         rpcUrl: chainInfo.endPoint,
       });
+      this._contract = contract;
+      return contract;
     } finally {
       this._waitingContract = false;
     }

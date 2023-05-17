@@ -90,9 +90,20 @@ export class PortkeyWallet extends AbstractWallet<PortkeyWalletInfo> {
   }
 }
 
-export class ElfWallet extends AbstractWallet<AElfContextState> {
-  safeInitialize(): Promise<void> {
+export type ElfWalletInfo = {
+  chainId: string;
+  aelfContext: AElfContextState;
+};
+
+export class ElfWallet extends AbstractWallet<ElfWalletInfo> {
+  chain(): any {
+    return this.info.aelfContext.aelfBridges![this.info.chainId!]!.chain;
+  }
+
+  async safeInitialize(): Promise<void> {
     console.log(this.info);
+    const chainInfo = await this.chain().getChainStatus();
+    console.log(chainInfo);
     return Promise.resolve();
   }
 
@@ -101,9 +112,10 @@ export class ElfWallet extends AbstractWallet<AElfContextState> {
   }
 
   getContract(contractAddress: string): ContractProvider {
-    console.log(this.info, this.info.account);
-    return new AElfContractProvider(this.info.defaultAElfBridge!.chain, contractAddress, {
-      address: this.info.account!,
+    console.log(this.info, this.info.aelfContext.account);
+    const bridges = this.info.aelfContext.aelfBridges!;
+    return new AElfContractProvider(bridges[this.info.chainId!]!.chain, contractAddress, {
+      address: this.info.aelfContext.account!,
     });
   }
 }
