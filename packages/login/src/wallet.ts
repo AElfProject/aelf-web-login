@@ -18,7 +18,7 @@ export abstract class AbstractWallet<Info> implements WalletInterface {
   abstract getContract(contractAddress: string): ContractProvider;
 
   callContract<T, R>(params: CallContractParams<T>): Promise<R> {
-    let contract = this._contracts[params.contractAddress];
+    let contract = this._contracts.get(params.contractAddress);
     if (!contract) {
       contract = this.getContract(params.contractAddress);
     }
@@ -90,6 +90,7 @@ export function useCheckWallet(): () => Promise<WalletInterface | undefined> {
   return async () => {
     console.log(aelfReact);
     if (aelfReact.isActive) {
+      // TODO: check wallet
     }
     return undefined;
   };

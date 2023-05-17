@@ -33,26 +33,12 @@ export function Portkey({
     (didWallet: DIDWalletInfo) => {
       onLogin(undefined, new PortkeyWallet(appName, CHAIN_ID, didWallet));
     },
-    [appName],
+    [appName, onLogin],
   );
 
   const onUnlock = useCallback(async () => {
     console.log(password, appName);
     const localWallet = await did.load(password, appName);
-
-    // "U2FsdGVkX19EQFP8aHlVpoNOILKy6d7XnxFifvNWN9fyNahg8yER4vQaD19/tjJ7s/dIgW2tUFObr4BNAoFfQB4YYjc53yv9RzLaoif+oF0SIKSCKcCeUgTkzKA8zsGvaUctsWu4WwiqSDMl7ESAtpIkezxzvIGAeXxOlqICzpNbE/a9jzQdB0nmEVMxtXzxn++ZZMq4eih7jgff6nvilyZIHq5dkfs1vqBxPe/ybLFDwDy4RAuWRR1nFO0fMwoSgU1zrDPIcujq5v60eZ7Hl8rUry52mzIQ9RkcT1BrZ7fuBLMRvNeSOyQQ/nW+t97iGGxWvPGAdaKD+t45Omlr04apL5exGojvyiONb4pCsmLfwRPJiN4Wvz5I66sPYQ+tiqbtYhRGSo2AjNAJQny9PXwcyQFh7JnQGQy45VcOjCfvPWZ7CpeSNxnLbOR+ctC4u9yLRpTFJigi+OO/43ExNTwpFBN9b2rzBMrLUfWyRjj+5XvFbU1LiVThymHy4Jf9asPYEthSaUf0f4MbdkjJjPLoiRjY4CUTmECFnmQJwJY0TQg5lgV5jzXUcHmKgH89";
-    // "U2FsdGVkX19EQFP8aHlVpoNOILKy6d7XnxFifvNWN9fyNahg8yER4vQaD19/tjJ7s/dIgW2tUFObr4BNAoFfQB4YYjc53yv9RzLaoif+oF0SIKSCKcCeUgTkzKA8zsGvaUctsWu4WwiqSDMl7ESAtpIkezxzvIGAeXxOlqICzpNbE/a9jzQdB0nmEVMxtXzxn++ZZMq4eih7jgff6nvilyZIHq5dkfs1vqBxPe/ybLFDwDy4RAuWRR1nFO0fMwoSgU1zrDPIcujq5v60eZ7Hl8rUry52mzIQ9RkcT1BrZ7fuBLMRvNeSOyQQ/nW+t97iGGxWvPGAdaKD+t45Omlr04apL5exGojvyiONb4pCsmLfwRPJiN4Wvz5I66sPYQ+tiqbtYhRGSo2AjNAJQny9PXwcyQFh7JnQGQy45VcOjCfvPWZ7CpeSNxnLbOR+ctC4u9yLRpTFJigi+OO/43ExNTwpFBN9b2rzBMrLUfWyRjj+5XvFbU1LiVThymHy4Jf9asPYEthSaUf0f4MbdkjJjPLoiRjY4CUTmECFnmQJwJY0TQg5lgV5jzXUcHmKgH89";
-
-    const enStr = aes.encrypt('test', '888888');
-    const str = aes.decrypt(enStr, '888888');
-    console.log(
-      str,
-      aes.decrypt(
-        'U2FsdGVkX19EQFP8aHlVpoNOILKy6d7XnxFifvNWN9fyNahg8yER4vQaD19/tjJ7s/dIgW2tUFObr4BNAoFfQB4YYjc53yv9RzLaoif+oF0SIKSCKcCeUgTkzKA8zsGvaUctsWu4WwiqSDMl7ESAtpIkezxzvIGAeXxOlqICzpNbE/a9jzQdB0nmEVMxtXzxn++ZZMq4eih7jgff6nvilyZIHq5dkfs1vqBxPe/ybLFDwDy4RAuWRR1nFO0fMwoSgU1zrDPIcujq5v60eZ7Hl8rUry52mzIQ9RkcT1BrZ7fuBLMRvNeSOyQQ/nW+t97iGGxWvPGAdaKD+t45Omlr04apL5exGojvyiONb4pCsmLfwRPJiN4Wvz5I66sPYQ+tiqbtYhRGSo2AjNAJQny9PXwcyQFh7JnQGQy45VcOjCfvPWZ7CpeSNxnLbOR+ctC4u9yLRpTFJigi+OO/43ExNTwpFBN9b2rzBMrLUfWyRjj+5XvFbU1LiVThymHy4Jf9asPYEthSaUf0f4MbdkjJjPLoiRjY4CUTmECFnmQJwJY0TQg5lgV5jzXUcHmKgH89',
-        '111111',
-      ),
-    );
-    console.log(localWallet);
     if (!localWallet.didWallet.accountInfo.loginAccount) {
       setIsWrongPassword(true);
       return;

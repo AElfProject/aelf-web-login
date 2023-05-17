@@ -10,13 +10,9 @@ import { useCheckWallet } from './wallet';
 
 const INITIAL_STATE = {
   wallet: undefined,
-  setWallet: () => {},
-  setModalOpen: () => {},
-  checkWebLogin: () => {},
-  openWebLogin: () => {},
 };
 
-const WebLoginContext = createContext<WebLoginContextType>(INITIAL_STATE);
+const WebLoginContext = createContext<WebLoginContextType>(INITIAL_STATE as WebLoginContextType);
 
 export const useWebLoginContext = () => useContext(WebLoginContext);
 export const useWebLogin: WebLoginHook = () => useWebLoginContext();
@@ -50,19 +46,23 @@ export type WebLoginProviderProps = {
 
 function WebLoginProvider({ extraWallets, children }: WebLoginProviderProps) {
   const [modalOpen, setModalOpen] = useState(false);
-  const walletRef = useRef<WalletInterface>(undefined);
-  const onCompleteFunc = useRef<WebLoginCallback>(() => {});
+  const walletRef = useRef<WalletInterface>();
+  const onCompleteFunc = useRef<WebLoginCallback>();
   const checkWallet = useCheckWallet();
   const { isActive, deactivate } = useAElfReact();
 
-  const setWallet = (wallet: WalletInterface) => {
+  const setWallet = (wallet?: WalletInterface) => {
     walletRef.current = wallet;
   };
 
   const openWebLogin = useCallback(() => {
-    return new Promise<WalletInterface>(resolve => {
-      onCompleteFunc.current = async (wallet: WalletInterface) => {
-        await wallet?.initialize();
+    return new Promise<WalletInterface>((resolve) => {
+      onCompleteFunc.current = async (error?: unknown, wallet?: WalletInterface) => {
+        if (error) {
+          // TODO: handle error
+          return;
+        }
+        await wallet!.initialize();
         setModalOpen(false);
         resolve(wallet!);
       };
@@ -83,14 +83,14 @@ function WebLoginProvider({ extraWallets, children }: WebLoginProviderProps) {
 
   const logout = useCallback(async () => {
     console.log('logout');
-    let currentWallet = await checkWallet();
+    const currentWallet = await checkWallet();
     await currentWallet?.logout();
     // TODO: fix
     localStorage.clear();
     if (isActive) {
       await deactivate();
     }
-  }, [isActive, deactivate]);
+  }, [isActive, deactivate, checkWallet]);
 
   const state = useMemo(
     () => ({
@@ -109,7 +109,7 @@ function WebLoginProvider({ extraWallets, children }: WebLoginProviderProps) {
       console.error(error);
     } else {
       console.log(wallet);
-      onCompleteFunc.current(wallet);
+      onCompleteFunc.current?.(wallet);
     }
   };
 
@@ -126,7 +126,7 @@ function WebLoginProvider({ extraWallets, children }: WebLoginProviderProps) {
 }
 
 export default function Provider({ extraWallets, children }: WebLoginProviderProps) {
-  var aelfReactConfig = getConfig().aelfReact;
+  const aelfReactConfig = getConfig().aelfReact;
   return (
     <AElfReactProvider appName={aelfReactConfig.appName} nodes={aelfReactConfig.nodes}>
       <WebLoginProvider extraWallets={extraWallets}>{children}</WebLoginProvider>

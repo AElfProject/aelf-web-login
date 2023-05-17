@@ -1,18 +1,25 @@
 /* eslint-disable */
-const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
-const {CracoAliasPlugin} = require('react-app-alias-ex')
+const path = require("path");
+const { getLoader, loaderByName } = require("@craco/craco");
+
+const packages = [];
+packages.push(path.join(__dirname, "../login"));
 
 module.exports = {
   webpack: {
-    alias: {
-      'aelf-web-login/dist/index.css': path.resolve(__dirname, './src/aelf-web-login/index.css'),
+    configure: (webpackConfig, arg) => {
+      const { isFound, match } = getLoader(webpackConfig, loaderByName("babel-loader"));
+      if (isFound) {
+        const include = Array.isArray(match.loader.include)
+          ? match.loader.include
+          : [match.loader.include];
+
+        match.loader.include = include.concat(packages);
+      }
+
+      return webpackConfig;
     },
   },
-  plugins: [{
-    plugin: CracoAliasPlugin,
-    options: {},
-  }],
   devServer: {
     proxy: {
       '/api': {

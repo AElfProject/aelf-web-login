@@ -2,17 +2,21 @@ import { getContractBasic } from '@portkey/contracts';
 import { DIDWalletInfo, did } from '@portkey/did-ui-react';
 import waitNextFrame from './utils/waitNextFrame';
 
+export type Contract = {
+  [key: string]: (...args: any[]) => Promise<any>;
+};
+
 export interface ContractProvider {
   call<T, R>(methodName: string, args: T): Promise<R>;
 }
 
 export class AElfContractProvider implements ContractProvider {
   private _contract: any;
-  private _waitingContract: boolean = false;
+  private _waitingContract = false;
 
   constructor(private _chain: any, public address: string) {}
 
-  async resolveContract() {
+  async resolveContract(): Promise<Contract> {
     while (this._waitingContract) {
       await waitNextFrame();
     }
@@ -29,12 +33,13 @@ export class AElfContractProvider implements ContractProvider {
   }
 
   async call<T, R>(methodName: string, args: T): Promise<R> {
-    return await this.resolveContract()[methodName](args);
+    const contract = await this.resolveContract();
+    return await contract[methodName](args);
   }
 }
 
 export class PortkeyContractProvider implements ContractProvider {
-  private _waitingContract: boolean = false;
+  private _waitingContract = false;
   private _contract: any;
 
   constructor(public chainId: string, public didWalletInfo: DIDWalletInfo, public address: string) {}
@@ -50,7 +55,7 @@ export class PortkeyContractProvider implements ContractProvider {
 
     try {
       const chainsInfo = await did.services.getChainsInfo();
-      const chainInfo = chainsInfo.find(chain => chain.chainId === this.chainId);
+      const chainInfo = chainsInfo.find((chain) => chain.chainId === this.chainId);
       if (!chainInfo) {
         throw new Error(`chain is not running: ${this.chainId}`);
       }

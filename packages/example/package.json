@@ -1,22 +1,20 @@
 {
   "private": true,
-  "name": "aelf-web-login-example",
+  "name": "@aelf-web-login/example",
   "version": "0.0.1-alpha.1.4",
   "scripts": {
     "start": "cross-env craco start",
     "pin": "sh -c '{ for X in {core,empty}; do lerna add @web3-react/$X --exact --no-bootstrap --scope=example-cra; done }'"
   },
   "dependencies": {
-    "@portkey/did-ui-react": "0.0.1-alpha.7.5",
     "@types/react-dom": "^18.0.0",
-    "react-scripts": "^5.0.1"
+    "react-dom": "^18.0.0",
+    "react-scripts": "^5.0.1",
+    "@aelf-web-login/login": "^0.0.1-alpha"
   },
   "devDependencies": {
     "@craco/craco": "^6.4.2",
-    "copy-webpack-plugin": "^11.0.0",
     "cross-env": "^7.0.3",
-    "react-app-alias": "^2.2.2",
-    "react-app-alias-ex": "^2.1.0",
     "ts-loader": "^9.4.0"
   },
   "browserslist": {

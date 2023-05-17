@@ -1,4 +1,4 @@
-import { setGlobalConfig } from 'aelf-web-login';
+import { setGlobalConfig } from '@aelf-web-login/login';
 
 const IS_MAINNET = false;
 
@@ -42,12 +42,16 @@ setGlobalConfig({
     appName: 'Bingo Game',
     nodes: IS_MAINNET
       ? {
-          chainId: 'AELF',
-          rpcUrl: 'https://explorer.aelf.io/chain',
+          AELF: {
+            chainId: 'AELF',
+            rpcUrl: 'https://explorer.aelf.io/chain',
+          },
         }
       : {
-          chainId: 'AELF',
-          rpcUrl: 'https://aelf-test-node.aelf.io',
+          AELF: {
+            chainId: 'AELF',
+            rpcUrl: 'https://explorer.aelf.io/chain',
+          },
         },
   },
 });
