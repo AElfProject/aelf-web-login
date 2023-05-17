@@ -1,12 +1,19 @@
-import React, { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useEffect, useState } from 'react';
 import { AElfReactProvider, useAElfReact } from '@aelf-react/core';
 import PortkeyPlugin from './wallets/PortkeyPlugin';
 import ElfPlugin from './wallets/NightElfPlugin';
 import { PORTKEY, ELF } from './constants';
 import { getConfig } from './config';
-import { WalletInterface, WebLoginCallback, WebLoginContextType, WebLoginHook } from './types';
+import {
+  ExtraWalletNames,
+  WalletInterface,
+  WebLoginContextType,
+  WebLoginHook,
+  WebLoginProviderProps,
+  WebLoginState,
+} from './types';
 import { Portkey } from './wallets/Portkey';
-import { AbstractWallet, useCheckWallet } from './wallet';
+import { AbstractWallet, ElfWallet, PortkeyWallet } from './wallet';
 
 const INITIAL_STATE = {
   wallet: undefined,
@@ -21,10 +28,7 @@ export const useWallet = () => {
   return wallet;
 };
 
-export type ExtraWalletNames = 'portkey' | 'elf';
-export type ExtraWallets = Array<ExtraWalletNames>;
-
-function ExtraWallets({ extraWallets }: { extraWallets: ExtraWallets }) {
+function ExtraWallets({ extraWallets }: { extraWallets: Array<ExtraWalletNames> }) {
   const plugins = {
     [PORTKEY]: PortkeyPlugin,
     [ELF]: ElfPlugin,
@@ -42,16 +46,14 @@ function ExtraWallets({ extraWallets }: { extraWallets: ExtraWallets }) {
   );
 }
 
-export type WebLoginProviderProps = {
-  extraWallets: ExtraWallets;
-  children: React.ReactNode;
-};
-
-function WebLoginProvider({ extraWallets, children }: WebLoginProviderProps) {
+function WebLoginProvider({ connectEagerly, autoShowUnlock, extraWallets, children }: WebLoginProviderProps) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [loginState, setLoginState] = useState(WebLoginState.initial);
+  const [loginError, setLoginError] = useState<any | unknown>();
   const [walletInstance, setWalletInstance] = useState<WalletInterface>();
-  const onCompleteFunc = useRef<WebLoginCallback>();
-  const checkWallet = useCheckWallet();
+
+  const appName = getConfig().appName;
+
   const { isActive, deactivate } = useAElfReact();
 
   const setWallet = useCallback(async (wallet?: WalletInterface) => {
@@ -59,67 +61,52 @@ function WebLoginProvider({ extraWallets, children }: WebLoginProviderProps) {
       const absWallet = wallet as AbstractWallet<any>;
       await absWallet.initialize();
       setWalletInstance(absWallet);
-      setModalOpen(false);
+    } else {
+      setWallet(undefined);
     }
   }, []);
 
-  const openWebLogin = useCallback(() => {
-    return new Promise<WalletInterface>((resolve) => {
-      onCompleteFunc.current = async (error?: unknown, wallet?: WalletInterface) => {
-        if (error) {
-          // TODO: handle error
-          console.error(error);
-          return;
-        }
-        setWallet(wallet);
-        setModalOpen(false);
-        resolve(wallet!);
-      };
-      setModalOpen(true);
-    });
-  }, [setWallet, setModalOpen]);
-
-  const checkWebLogin = useCallback(checkWallet, [checkWallet]);
+  const loginEagerly = useCallback(() => {
+    // TODO:
+  }, []);
 
   const login = useCallback(async () => {
-    let currentWallet = await checkWallet();
-    if (!currentWallet) {
-      currentWallet = await openWebLogin();
-    }
-    return currentWallet;
-  }, [checkWallet, openWebLogin]);
+    setModalOpen(true);
+  }, []);
 
   const logout = useCallback(async () => {
-    console.log('logout');
-    const currentWallet = await checkWallet();
-    await currentWallet?.logout();
-    // TODO: fix
-    localStorage.clear();
-    if (isActive) {
-      await deactivate();
-    }
-  }, [isActive, deactivate, checkWallet]);
+    // TODO:
+  }, []);
 
   const state = useMemo(
     () => ({
       wallet: walletInstance,
+      loginState,
+      loginError,
+      setLoginError,
+      setLoginState,
       setWallet,
       setModalOpen,
+      loginEagerly,
       login,
       logout,
-      openWebLogin,
-      checkWebLogin,
     }),
-    [walletInstance, setWallet, setModalOpen, login, logout, openWebLogin, checkWebLogin],
+    [walletInstance, loginState, loginError, setWallet, loginEagerly, login, logout],
   );
 
-  const onLogin = (error?: Error, wallet?: WalletInterface) => {
-    if (error) {
-      onCompleteFunc.current?.(error);
-    } else {
-      onCompleteFunc.current?.(undefined, wallet);
+  useEffect(() => {
+    if (PortkeyWallet.checkLocalManager(appName)) {
+      if (autoShowUnlock) {
+        login();
+      }
+      return;
     }
-  };
+    if (ElfWallet.checkConnectEagerly()) {
+      if (connectEagerly) {
+        loginEagerly();
+      }
+    }
+  }, []);
 
   return (
     <WebLoginContext.Provider value={state}>
@@ -129,11 +116,11 @@ function WebLoginProvider({ extraWallets, children }: WebLoginProviderProps) {
   );
 }
 
-export default function Provider({ extraWallets, children }: WebLoginProviderProps) {
+export default function Provider({ children, ...props }: WebLoginProviderProps) {
   const aelfReactConfig = getConfig().aelfReact;
   return (
     <AElfReactProvider appName={aelfReactConfig.appName} nodes={aelfReactConfig.nodes}>
-      <WebLoginProvider extraWallets={extraWallets}>{children}</WebLoginProvider>
+      <WebLoginProvider {...props}>{children}</WebLoginProvider>
     </AElfReactProvider>
   );
 }

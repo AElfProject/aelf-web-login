@@ -68,7 +68,7 @@ export function Portkey({ open, extraWallets }: WalletComponentProps & { open: b
     setPassword('');
   }, [setIsWrongPassword, onFinish, setPassword, password, chainId, appName]);
 
-  if (PortkeyWallet.checkLocal(appName)) {
+  if (PortkeyWallet.checkLocalManager(appName)) {
     return (
       <Unlock
         open={open}

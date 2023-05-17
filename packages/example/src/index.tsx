@@ -5,11 +5,12 @@ import './index.css';
 import './config';
 import { WebLoginProvider, useWebLogin, useWallet, useCallContract } from '@aelf-web-login/login';
 import configJson from './assets/config.json';
+import { WebLoginState } from '@aelf-web-login/login/dist/_types/src/types';
 
 function Usage() {
   const [result, setResult] = useState({});
 
-  const webLogin = useWebLogin();
+  const { login, loginEagerly, logout, loginState, loginError } = useWebLogin();
   const wallet = useWallet();
   const callContract = useCallContract(configJson.tokenConverter, 'Buy');
 
@@ -32,8 +33,27 @@ function Usage() {
   return (
     <div>
       <div>
-        <button onClick={webLogin.login}>open</button>
-        <button onClick={webLogin.logout}>logout</button>
+        <button disabled={loginState === WebLoginState.eagerly} onClick={loginEagerly}>
+          loginEagerly
+        </button>
+        <button disabled={loginState === WebLoginState.initial} onClick={login}>
+          login
+        </button>
+        <button disabled={loginState === WebLoginState.lock} onClick={login}>
+          unlock
+        </button>
+        <button disabled={loginState === WebLoginState.login} onClick={logout}>
+          logout
+        </button>
+
+        <div>{loginState === WebLoginState.logining && <div>logining...</div>}</div>
+        <div>
+          {loginError && (
+            <div>
+              login error: {loginError} {loginError.message}
+            </div>
+          )}
+        </div>
       </div>
       <div>
         <button onClick={onClickCall}>Call contract</button>
@@ -48,7 +68,7 @@ function Usage() {
 
 function App() {
   return (
-    <WebLoginProvider extraWallets={['portkey', 'elf']}>
+    <WebLoginProvider extraWallets={['portkey', 'elf']} connectEagerly autoShowUnlock={false}>
       <Usage />
     </WebLoginProvider>
   );

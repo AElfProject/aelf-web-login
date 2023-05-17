@@ -61,7 +61,7 @@ export type PortkeyWalletInfo = {
 };
 
 export class PortkeyWallet extends AbstractWallet<PortkeyWalletInfo> {
-  static checkLocal(appName: string): boolean {
+  static checkLocalManager(appName: string): boolean {
     return !!localStorage.getItem(appName);
   }
 
@@ -96,6 +96,10 @@ export type ElfWalletInfo = {
 };
 
 export class ElfWallet extends AbstractWallet<ElfWalletInfo> {
+  static checkConnectEagerly(): boolean {
+    return localStorage.getItem('aelf-connect-eagerly') === 'true';
+  }
+
   chain(): any {
     return this.info.aelfContext.aelfBridges![this.info.chainId!]!.chain;
   }
@@ -113,20 +117,8 @@ export class ElfWallet extends AbstractWallet<ElfWalletInfo> {
 
   getContract(contractAddress: string): ContractProvider {
     console.log(this.info, this.info.aelfContext.account);
-    const bridges = this.info.aelfContext.aelfBridges!;
-    return new AElfContractProvider(bridges[this.info.chainId!]!.chain, contractAddress, {
+    return new AElfContractProvider(this.chain(), contractAddress, {
       address: this.info.aelfContext.account!,
     });
   }
-}
-
-export function useCheckWallet(): () => Promise<WalletInterface | undefined> {
-  const aelfReact = useAElfReact();
-  return async () => {
-    console.log(aelfReact);
-    if (aelfReact.isActive) {
-      // TODO: check wallet
-    }
-    return undefined;
-  };
 }

@@ -11,19 +11,38 @@ export interface WalletInterface {
 }
 
 export type WebLoginInterface = {
-  login: () => Promise<WalletInterface | undefined>;
-  logout: () => Promise<void>;
-  checkWebLogin: () => Promise<WalletInterface | undefined>;
-  openWebLogin: () => Promise<WalletInterface>;
+  loginError?: any | unknown;
+  loginState: WebLoginState;
+  loginEagerly: () => void;
+  login: () => void;
+  logout: () => void;
 };
 
-export type WebLoginCallback = (error?: any | unknown, wallet?: WalletInterface) => void;
+export enum WebLoginState {
+  initial = 'initial',
+  lock = 'lock',
+  eagerly = 'eagerly',
+  logining = 'logining',
+  login = 'login',
+}
 
 export type WebLoginContextType = WebLoginInterface & {
   wallet?: WalletInterface;
+  setLoginError: (error: any | unknown) => void;
+  setLoginState: (state: WebLoginState) => void;
   setWallet: (wallet?: WalletInterface) => void;
   setModalOpen: (open: boolean) => void;
 };
+
+export type ExtraWalletNames = 'portkey' | 'elf';
+
+export type WebLoginProviderProps = {
+  connectEagerly: boolean;
+  autoShowUnlock: boolean;
+  extraWallets: Array<ExtraWalletNames>;
+  children: React.ReactNode;
+};
+
 export type WebLoginHook = () => WebLoginInterface;
 
 export type WalletComponentProps = {
