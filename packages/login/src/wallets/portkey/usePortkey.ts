@@ -70,8 +70,7 @@ export function usePortkey({
         methodName: params.methodName,
         args: params.args,
       });
-      console.log(result);
-      return result.data;
+      return result as R;
     },
     [chainId, didWalletInfo],
   );

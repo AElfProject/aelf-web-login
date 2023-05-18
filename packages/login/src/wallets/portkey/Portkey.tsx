@@ -50,8 +50,6 @@ export default function Portkey({
     }
   }, [onUnlock, password]);
 
-  console.log(loginState);
-
   if (isManagerExists) {
     return (
       <Unlock
