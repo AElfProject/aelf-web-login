@@ -62,7 +62,7 @@ function Usage() {
         </button>
         <div>
           <h3>Result</h3>
-          <code className="result">{JSON.stringify(result, null, '  ')}</code>
+          <pre className="result">{JSON.stringify(result, null, '  ')}</pre>
         </div>
       </div>
     </div>

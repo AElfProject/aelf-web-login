@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import { useAElfReact } from '@aelf-react/core';
 import { useEffectOnce } from 'react-use';
 import { getConfig } from '../../config';
@@ -15,7 +15,8 @@ export function useElf({
   const chainId = getConfig().chainId;
   const nodes = getConfig().aelfReact.nodes;
 
-  const [initializing, setInitializing] = useState(false);
+  const eagerlyCheckRef = useRef(false);
+  const initializingRef = useRef(false);
   const { isActive, account, aelfBridges, activate, connectEagerly, deactivate } = useAElfReact();
 
   const chain = useMemo(() => {
@@ -24,8 +25,8 @@ export function useElf({
   }, [aelfBridges, chainId]);
 
   const initialWallet = useCallback(async () => {
-    if (initializing) return;
-    setInitializing(true);
+    if (initializingRef.current) return;
+    initializingRef.current = true;
     try {
       await chain!.getChainStatus();
       setWalletType(WalletType.elf);
@@ -34,23 +35,26 @@ export function useElf({
       setLoginError(error);
       setLoginState(WebLoginState.initial);
     }
-    setInitializing(false);
-  }, [initializing, chain, setWalletType, setLoginState, setLoginError]);
+    initializingRef.current = false;
+  }, [chain, setWalletType, setLoginState, setLoginError]);
 
   useEffect(() => {
     if (isActive && loginState === WebLoginState.logining) {
       initialWallet();
     }
-  }, [isActive, chainId, setLoginState, loginState, initialWallet]);
+  }, [isActive, loginState, initialWallet]);
 
   const loginEagerly = useCallback(async () => {
     try {
+      console.log('connectEagerly', loginState);
       setLoginState(WebLoginState.logining);
       await connectEagerly(nodes);
     } catch (e) {
+      localStorage.removeItem('aelf-connect-eagerly');
       setLoginError(e);
+      setLoginState(WebLoginState.initial);
     }
-  }, [connectEagerly, nodes, setLoginError, setLoginState]);
+  }, [connectEagerly, loginState, nodes, setLoginError, setLoginState]);
 
   const login = useCallback(async () => {
     try {
@@ -63,6 +67,7 @@ export function useElf({
 
   const logout = useCallback(async () => {
     try {
+      localStorage.removeItem('aelf-connect-eagerly');
       await deactivate();
     } catch (e) {
       console.warn(e);
@@ -84,16 +89,22 @@ export function useElf({
     [isActive, chain, account],
   );
 
-  useEffectOnce(() => {
+  useEffect(() => {
+    if (eagerlyCheckRef.current) {
+      return;
+    }
+    eagerlyCheckRef.current = true;
     const canEagerly = localStorage.getItem('aelf-connect-eagerly') === 'true';
     if (canEagerly) {
       if (isConnectEagerly) {
-        loginEagerly();
+        if (loginState === WebLoginState.initial) {
+          loginEagerly();
+        }
       } else {
         setLoginState(WebLoginState.eagerly);
       }
     }
-  });
+  }, [loginState, isConnectEagerly, loginEagerly, setLoginState]);
 
   return useMemo<WalletHookInterface>(
     () => ({

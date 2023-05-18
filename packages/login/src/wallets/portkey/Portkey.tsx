@@ -6,6 +6,7 @@ import { WebLoginState } from '../../constants';
 export default function Portkey({
   open,
   loginState,
+  isManagerExists,
   onCancel,
   onFinish,
   onUnlock,
@@ -13,6 +14,7 @@ export default function Portkey({
 }: {
   open: boolean;
   loginState: WebLoginState;
+  isManagerExists: boolean;
   onCancel: () => void;
   onFinish: (didWalletInfo: DIDWalletInfo) => void;
   onUnlock: (password: string) => Promise<boolean>;
@@ -48,7 +50,9 @@ export default function Portkey({
     }
   }, [onUnlock, password]);
 
-  if (loginState === WebLoginState.lock) {
+  console.log(loginState);
+
+  if (isManagerExists) {
     return (
       <Unlock
         open={open}

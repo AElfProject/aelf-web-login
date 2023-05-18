@@ -1,13 +1,13 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { getContractBasic } from '@portkey/contracts';
 import { DIDWalletInfo, did } from '@portkey/did-ui-react';
 import { ChainId } from '@portkey/types';
-import { useEffectOnce } from 'react-use';
 import { getConfig } from '../../config';
 import { CallContractParams, WalletHookInterface, WalletHookParams } from '../types';
 import { WalletType, WebLoginState } from '../../constants';
 
 export type PortkeyInterface = WalletHookInterface & {
+  isManagerExists: boolean;
   onUnlock: (password: string) => Promise<boolean>;
   onFinished: (didWalletInfo: DIDWalletInfo) => void;
 };
@@ -23,7 +23,10 @@ export function usePortkey({
   const appName = getConfig().appName;
   const chainId = getConfig().chainId as ChainId;
 
+  const autoUnlockCheckRef = useRef(false);
   const [didWalletInfo, setDidWalletInfo] = useState<DIDWalletInfo>();
+
+  const isManagerExists = !!localStorage.getItem(appName);
 
   const loginEagerly = useCallback(async () => {
     setLoginState(WebLoginState.logining);
@@ -67,21 +70,26 @@ export function usePortkey({
         methodName: params.methodName,
         args: params.args,
       });
+      console.log(result);
       return result.data;
     },
     [chainId, didWalletInfo],
   );
 
-  useEffectOnce(() => {
-    const canShowUnlock = !!localStorage.getItem(appName);
+  useEffect(() => {
+    if (autoUnlockCheckRef.current) {
+      return;
+    }
+    autoUnlockCheckRef.current = true;
+    const canShowUnlock = isManagerExists;
     if (canShowUnlock) {
-      if (autoShowUnlock) {
+      if (autoShowUnlock && loginState === WebLoginState.initial) {
         loginEagerly();
       } else {
         setLoginState(WebLoginState.lock);
       }
     }
-  });
+  }, [isManagerExists, loginEagerly, setLoginState, autoShowUnlock, loginState]);
 
   const onUnlock = useCallback(
     async (password: string) => {
@@ -144,6 +152,7 @@ export function usePortkey({
 
   return useMemo<PortkeyInterface>(
     () => ({
+      isManagerExists,
       loginEagerly,
       login,
       logout,
@@ -151,6 +160,6 @@ export function usePortkey({
       onFinished,
       onUnlock,
     }),
-    [callContract, login, loginEagerly, logout, onFinished, onUnlock],
+    [callContract, isManagerExists, login, loginEagerly, logout, onFinished, onUnlock],
   );
 }

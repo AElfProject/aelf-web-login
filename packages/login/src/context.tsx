@@ -122,6 +122,7 @@ function WebLoginProvider({ connectEagerly, autoShowUnlock, extraWallets, childr
     <WebLoginContext.Provider value={state}>
       {children}
       <Portkey
+        isManagerExists={portkeyApi.isManagerExists}
         open={modalOpen}
         loginState={loginState}
         onCancel={() => setModalOpen(false)}
