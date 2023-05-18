@@ -1,10 +1,8 @@
-import WebLoginProvider, { useWebLogin, useWallet } from './src/context';
-import useCallContract from './src/hooks/useContract';
+import WebLoginProvider, { useWebLogin } from './src/context';
 import './index.css';
 
 export * from './src/constants';
 export * from './src/config';
-export { useWebLogin, useWallet };
-export { useCallContract };
 
+export { useWebLogin };
 export { WebLoginProvider };

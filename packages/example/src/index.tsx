@@ -3,24 +3,27 @@ import { createRoot } from 'react-dom/client';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import './index.css';
 import './config';
-import { WebLoginProvider, useWebLogin, useWallet, useCallContract } from '@aelf-web-login/login';
+import { WebLoginProvider, useWebLogin, WebLoginState } from '@aelf-web-login/login';
 import configJson from './assets/config.json';
-import { WebLoginState } from '@aelf-web-login/login/dist/_types/src/types';
 
 function Usage() {
   const [result, setResult] = useState({});
 
-  const { login, loginEagerly, logout, loginState, loginError } = useWebLogin();
-  const wallet = useWallet();
-  const callContract = useCallContract(configJson.tokenConverter, 'Buy');
+  const { login, loginEagerly, logout, loginState, loginError, callContract } = useWebLogin();
 
-  console.log(wallet);
+  if (loginError) {
+    console.error(loginError);
+  }
 
   const onClickCall = async () => {
     try {
       const res = await callContract({
-        symbol: configJson.SYMBOL,
-        amount: 1,
+        contractAddress: configJson.tokenConverter,
+        methodName: 'Buy',
+        args: {
+          symbol: configJson.SYMBOL,
+          amount: 1,
+        },
       });
       console.log(res);
       setResult(res);
@@ -31,35 +34,35 @@ function Usage() {
   };
 
   return (
-    <div>
-      <div>
-        <button disabled={loginState === WebLoginState.eagerly} onClick={loginEagerly}>
-          loginEagerly
-        </button>
-        <button disabled={loginState === WebLoginState.initial} onClick={login}>
+    <div className="content">
+      <h2>Login</h2>
+      <div className="buttons">
+        <div>login state: {loginState}</div>
+        <div>{loginError && <div>{/* login error: {loginError.message} */}</div>}</div>
+        <br />
+        <button disabled={loginState !== WebLoginState.initial} onClick={login}>
           login
         </button>
-        <button disabled={loginState === WebLoginState.lock} onClick={login}>
+        <button disabled={loginState !== WebLoginState.eagerly} onClick={loginEagerly}>
+          loginEagerly
+        </button>
+        <button disabled={loginState !== WebLoginState.lock} onClick={login}>
           unlock
         </button>
-        <button disabled={loginState === WebLoginState.login} onClick={logout}>
+        <button disabled={loginState !== WebLoginState.logined} onClick={logout}>
           logout
         </button>
-
-        <div>{loginState === WebLoginState.logining && <div>logining...</div>}</div>
-        <div>
-          {loginError && (
-            <div>
-              login error: {loginError} {loginError.message}
-            </div>
-          )}
-        </div>
       </div>
-      <div>
-        <button onClick={onClickCall}>Call contract</button>
+      <br />
+      <br />
+      <h2>Contract:</h2>
+      <div className="contract">
+        <button disabled={loginState !== WebLoginState.logined} onClick={onClickCall}>
+          Call contract
+        </button>
         <div>
           <h3>Result</h3>
-          <div>{JSON.stringify(result, null, '  ')}</div>
+          <code className="result">{JSON.stringify(result, null, '  ')}</code>
         </div>
       </div>
     </div>

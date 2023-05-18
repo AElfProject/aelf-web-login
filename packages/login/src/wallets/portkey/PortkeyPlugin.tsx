@@ -1,6 +1,5 @@
 import React from 'react';
-import PluginEntry from '../components/PluginEntry';
-import { WalletComponentProps } from '../types';
+import PluginEntry from '../../components/PluginEntry';
 
 export default function PortkeyPlugin() {
   return (
