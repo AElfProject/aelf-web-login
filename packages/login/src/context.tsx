@@ -70,6 +70,7 @@ function WebLoginProvider({ connectEagerly, autoShowUnlock, extraWallets, childr
 
   const invalidApi = useMemo<WalletHookInterface>(() => {
     return {
+      wallet: { address: '' },
       login: createInvalidFunc('login', loginState),
       loginEagerly: createInvalidFunc('loginEagerly', loginState),
       logout: createInvalidFunc('logout', loginState),

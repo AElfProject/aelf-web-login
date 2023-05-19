@@ -10,7 +10,7 @@
     "@types/react-dom": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "^5.0.1",
-    "@aelf-web-login/login": "^0.0.1-alpha"
+    "aelf-web-login": "^0.0.3-alpha"
   },
   "devDependencies": {
     "@craco/craco": "^6.4.2",

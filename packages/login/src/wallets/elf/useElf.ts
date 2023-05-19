@@ -108,11 +108,12 @@ export function useElf({
 
   return useMemo<WalletHookInterface>(
     () => ({
+      wallet: { address: account || '' },
       loginEagerly,
       login,
       logout,
       callContract,
     }),
-    [callContract, login, loginEagerly, logout],
+    [account, callContract, login, loginEagerly, logout],
   );
 }

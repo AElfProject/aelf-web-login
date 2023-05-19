@@ -1,3 +1,3 @@
-import createConfig from '../../rollup.config.mjs';
+const createConfig = require('../../rollup.config.js');
 
-export default createConfig('@aelf-web-login/login');
+module.exports = createConfig('aelf-web-login');

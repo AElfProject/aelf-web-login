@@ -1,5 +1,5 @@
 {
-  "name": "@aelf-web-login/login",
+  "name": "aelf-web-login",
   "keywords": [
     "antd",
     "portkey"
@@ -19,10 +19,9 @@
     "url": "https://github.com/AElf-devops/aelf-web-login.git",
     "directory": "packages/login"
   },
-  "version": "0.0.1-alpha",
+  "version": "0.0.4-alpha",
   "main": "dist/index.js",
   "types": "dist/_types/index.d.ts",
-  "type": "module",
   "scripts": {
     "prebuild": "rm -rf dist",
     "start": "tsc --watch",
@@ -31,7 +30,6 @@
     "build:clean": "rm -rf dist",
     "build:types": "tsc --emitDeclarationOnly",
     "build:source": "rollup --silent --config rollup.config.js",
-    "build:svg": "cd ./src/assets && node getSvg1.cjs",
     "build": "npm run build:clean; npm run build:types & npm run build:source",
     "dev": "rollup --config rollup.config.js --watch",
     "release": "yarn version && yarn build",

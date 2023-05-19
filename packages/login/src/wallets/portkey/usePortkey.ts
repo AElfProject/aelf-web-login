@@ -40,13 +40,14 @@ export function usePortkey({
 
   const logout = useCallback(async () => {
     try {
+      localStorage.removeItem(appName);
       setDidWalletInfo(undefined);
       await did.reset();
     } catch (e) {
       console.warn(e);
     }
     setLoginState(WebLoginState.initial);
-  }, [setLoginState]);
+  }, [appName, setLoginState]);
 
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
@@ -152,6 +153,7 @@ export function usePortkey({
   return useMemo<PortkeyInterface>(
     () => ({
       isManagerExists,
+      wallet: { address: didWalletInfo?.caInfo.caAddress || '' },
       loginEagerly,
       login,
       logout,
@@ -159,6 +161,6 @@ export function usePortkey({
       onFinished,
       onUnlock,
     }),
-    [callContract, isManagerExists, login, loginEagerly, logout, onFinished, onUnlock],
+    [callContract, didWalletInfo?.caInfo.caAddress, isManagerExists, login, loginEagerly, logout, onFinished, onUnlock],
   );
 }

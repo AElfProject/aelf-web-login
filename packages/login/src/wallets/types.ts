@@ -8,6 +8,7 @@ export type WalletHookParams = {
 };
 
 export type WalletHookInterface = {
+  wallet: { address: string };
   loginEagerly: () => void;
   login: () => void;
   logout: () => void;

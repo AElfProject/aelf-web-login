@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import '@portkey/did-ui-react/dist/assets/index.css';
+import 'aelf-web-login/dist/assets/index.css';
 import './index.css';
 import './config';
-import { WebLoginProvider, useWebLogin, WebLoginState } from '@aelf-web-login/login';
+import { WebLoginProvider, useWebLogin, WebLoginState } from 'aelf-web-login';
 import configJson from './assets/config.json';
 
 function Usage() {
   const [result, setResult] = useState({});
 
-  const { login, loginEagerly, logout, loginState, loginError, callContract } = useWebLogin();
+  const { wallet, login, loginEagerly, logout, loginState, loginError, callContract } = useWebLogin();
 
   if (loginError) {
     console.error(loginError);
@@ -37,6 +38,7 @@ function Usage() {
     <div className="content">
       <h2>Login</h2>
       <div className="buttons">
+        <div>wallet: {wallet.address}</div>
         <div>login state: {loginState}</div>
         <div>{loginError && <div>{/* login error: {loginError.message} */}</div>}</div>
         <br />
