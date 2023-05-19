@@ -153,7 +153,12 @@ export function usePortkey({
   return useMemo<PortkeyInterface>(
     () => ({
       isManagerExists,
-      wallet: { address: didWalletInfo?.caInfo.caAddress || '' },
+      wallet: {
+        name: didWalletInfo?.caInfo.caAddress || '',
+        address: didWalletInfo?.caInfo.caAddress || '',
+        publicKey: '',
+        portkeyInfo: didWalletInfo,
+      },
       loginEagerly,
       login,
       logout,
@@ -161,6 +166,6 @@ export function usePortkey({
       onFinished,
       onUnlock,
     }),
-    [callContract, didWalletInfo?.caInfo.caAddress, isManagerExists, login, loginEagerly, logout, onFinished, onUnlock],
+    [callContract, didWalletInfo, isManagerExists, login, loginEagerly, logout, onFinished, onUnlock],
   );
 }

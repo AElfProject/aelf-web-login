@@ -1,4 +1,6 @@
-import { WalletType, WebLoginState } from '../constants';
+import type { AElfContextType } from '@aelf-react/core/dist/types';
+import type { DIDWalletInfo } from '@portkey/did-ui-react';
+import type { WalletType, WebLoginState } from '../constants';
 
 export type WalletHookParams = {
   loginState: WebLoginState;
@@ -8,7 +10,13 @@ export type WalletHookParams = {
 };
 
 export type WalletHookInterface = {
-  wallet: { address: string };
+  wallet: {
+    name?: string;
+    address: string;
+    publicKey?: string;
+    nightElfInfo?: AElfContextType;
+    portkeyInfo?: DIDWalletInfo;
+  };
   loginEagerly: () => void;
   login: () => void;
   logout: () => void;

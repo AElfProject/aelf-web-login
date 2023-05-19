@@ -20,7 +20,7 @@ export type WebLoginInterface = WalletHookInterface & {
 };
 export type WebLoginContextType = WebLoginInterface;
 
-const WebLoginContext = createContext<WebLoginContextType>(INITIAL_STATE as WebLoginContextType);
+export const WebLoginContext = createContext<WebLoginContextType>(INITIAL_STATE as WebLoginContextType);
 
 export const useWebLoginContext = () => useContext(WebLoginContext);
 export const useWebLogin: () => WebLoginInterface = () => {

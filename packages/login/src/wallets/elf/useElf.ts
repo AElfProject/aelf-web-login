@@ -17,7 +17,8 @@ export function useElf({
 
   const eagerlyCheckRef = useRef(false);
   const initializingRef = useRef(false);
-  const { isActive, account, aelfBridges, activate, connectEagerly, deactivate } = useAElfReact();
+  const { isActive, account, pubKey, name, aelfBridges, activate, connectEagerly, deactivate } = useAElfReact();
+  const nightElfInfo = useAElfReact();
 
   const chain = useMemo(() => {
     const bridge = aelfBridges?.[chainId];
@@ -108,12 +109,17 @@ export function useElf({
 
   return useMemo<WalletHookInterface>(
     () => ({
-      wallet: { address: account || '' },
+      wallet: {
+        name,
+        address: account || '',
+        publicKey: pubKey,
+        nightElfInfo,
+      },
       loginEagerly,
       login,
       logout,
       callContract,
     }),
-    [account, callContract, login, loginEagerly, logout],
+    [account, nightElfInfo, name, pubKey, callContract, login, loginEagerly, logout],
   );
 }
