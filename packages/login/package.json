@@ -19,7 +19,7 @@
     "url": "https://github.com/AElf-devops/aelf-web-login.git",
     "directory": "packages/login"
   },
-  "version": "0.0.5-alpha",
+  "version": "0.0.8-alpha",
   "main": "dist/index.js",
   "types": "dist/_types/index.d.ts",
   "scripts": {
@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@aelf-react/core": "^0.1.19",
+    "aelf-sdk": "^3.2.40",
     "@portkey/did-ui-react": "0.0.1-alpha.7.5"
   },
   "devDependencies": {

@@ -1,9 +1,10 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
+import AElf from 'aelf-sdk';
 import { getContractBasic } from '@portkey/contracts';
 import { DIDWalletInfo, did } from '@portkey/did-ui-react';
 import { ChainId } from '@portkey/types';
 import { getConfig } from '../../config';
-import { CallContractParams, WalletHookInterface, WalletHookParams } from '../types';
+import { CallContractParams, SignatureParams, WalletHookInterface, WalletHookParams } from '../types';
 import { WalletType, WebLoginState } from '../../constants';
 
 export type PortkeyInterface = WalletHookInterface & {
@@ -74,6 +75,29 @@ export function usePortkey({
       return result as R;
     },
     [chainId, didWalletInfo],
+  );
+
+  const getSignature = useCallback(
+    async ({ hexToBeSign }: SignatureParams) => {
+      if (!didWalletInfo) {
+        throw new Error('Portkey not login');
+      }
+      const keypair = didWalletInfo.walletInfo.keyPair;
+      const keypairAndUtils = AElf.wallet.ellipticEc.keyFromPrivate(keypair.getPrivate());
+      const signedMsgObject = keypairAndUtils.sign(hexToBeSign);
+      const signedMsgString = [
+        signedMsgObject.r.toString(16, 64),
+        signedMsgObject.s.toString(16, 64),
+        `0${signedMsgObject.recoveryParam.toString()}`,
+      ].join('');
+      return {
+        error: 0,
+        errorMessage: '',
+        signature: signedMsgString,
+        from: 'portkey',
+      };
+    },
+    [didWalletInfo],
   );
 
   useEffect(() => {
@@ -156,7 +180,7 @@ export function usePortkey({
       wallet: {
         name: didWalletInfo?.caInfo.caAddress || '',
         address: didWalletInfo?.caInfo.caAddress || '',
-        publicKey: '',
+        publicKey: didWalletInfo?.walletInfo.keyPair.getPublic('hex') || '',
         portkeyInfo: didWalletInfo,
       },
       loginEagerly,
@@ -165,6 +189,7 @@ export function usePortkey({
       callContract,
       onFinished,
       onUnlock,
+      getSignature,
     }),
     [callContract, didWalletInfo, isManagerExists, login, loginEagerly, logout, onFinished, onUnlock],
   );

@@ -2,7 +2,7 @@ import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react'
 import { useAElfReact } from '@aelf-react/core';
 import { useEffectOnce } from 'react-use';
 import { getConfig } from '../../config';
-import { CallContractParams, WalletHookInterface, WalletHookParams } from '../types';
+import { CallContractParams, SignatureParams, WalletHookInterface, WalletHookParams } from '../types';
 import { WalletType, WebLoginState } from '../../constants';
 
 export function useElf({
@@ -19,6 +19,10 @@ export function useElf({
   const initializingRef = useRef(false);
   const { isActive, account, pubKey, name, aelfBridges, activate, connectEagerly, deactivate } = useAElfReact();
   const nightElfInfo = useAElfReact();
+
+  const bridge = useMemo(() => {
+    return aelfBridges?.[chainId];
+  }, [aelfBridges, chainId]);
 
   const chain = useMemo(() => {
     const bridge = aelfBridges?.[chainId];
@@ -90,6 +94,17 @@ export function useElf({
     [isActive, chain, account],
   );
 
+  const getSignature = useCallback(
+    async (params: SignatureParams) => {
+      if (!bridge || !isActive) {
+        throw new Error('Elf not login');
+      }
+      const signature = await bridge!.getSignature(params);
+      return signature;
+    },
+    [bridge, isActive],
+  );
+
   useEffect(() => {
     if (eagerlyCheckRef.current) {
       return;
@@ -119,7 +134,8 @@ export function useElf({
       login,
       logout,
       callContract,
+      getSignature,
     }),
-    [account, nightElfInfo, name, pubKey, callContract, login, loginEagerly, logout],
+    [name, account, pubKey, nightElfInfo, loginEagerly, login, logout, callContract, getSignature],
   );
 }

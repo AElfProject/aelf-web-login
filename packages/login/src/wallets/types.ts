@@ -9,6 +9,18 @@ export type WalletHookParams = {
   setWalletType: (wallet: WalletType) => void;
 };
 
+export type SignatureParams = {
+  appName: string;
+  address: string;
+  hexToBeSign: string;
+};
+export type SignatureData = {
+  signature: string;
+  error: number;
+  errorMessage: string;
+  from: string;
+};
+
 export type WalletHookInterface = {
   wallet: {
     name?: string;
@@ -21,6 +33,7 @@ export type WalletHookInterface = {
   login: () => void;
   logout: () => void;
   callContract<T, R>(params: CallContractParams<T>): Promise<R>;
+  getSignature(params: SignatureParams): Promise<SignatureData>;
 };
 
 export type WalletHook = (params: WalletHookParams) => WalletHookInterface;

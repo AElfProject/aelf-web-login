@@ -9,8 +9,9 @@ import configJson from './assets/config.json';
 
 function Usage() {
   const [result, setResult] = useState({});
+  const [signatureResult, setSignatureResult] = useState({} as any);
 
-  const { wallet, login, loginEagerly, logout, loginState, loginError, callContract } = useWebLogin();
+  const { wallet, login, loginEagerly, logout, loginState, loginError, callContract, getSignature } = useWebLogin();
 
   if (loginError) {
     console.error(loginError);
@@ -31,6 +32,28 @@ function Usage() {
     } catch (error) {
       console.log(error);
       setResult({ error: error.message });
+    }
+  };
+
+  const rand16Num = (len = 0) => {
+    const result = [];
+    for (let i = 0; i < len; i += 1) {
+      result.push('0123456789abcdef'.charAt(Math.floor(Math.random() * 16)));
+    }
+    return result.join('');
+  };
+
+  const onClickSignature = async () => {
+    try {
+      const res = await getSignature({
+        address: wallet.address,
+        appName: 'example',
+        hexToBeSign: rand16Num(32),
+      });
+      setSignatureResult(res);
+    } catch (error) {
+      console.log(error);
+      setSignatureResult({ error: error.message });
     }
   };
 
@@ -65,6 +88,17 @@ function Usage() {
         <div>
           <h3>Result</h3>
           <pre className="result">{JSON.stringify(result, null, '  ')}</pre>
+        </div>
+      </div>
+
+      <h2>getSignature:</h2>
+      <div className="signature">
+        <button disabled={loginState !== WebLoginState.logined} onClick={onClickSignature}>
+          getSignature
+        </button>
+        <div>
+          <h3>Result</h3>
+          <pre className="result">{JSON.stringify(signatureResult, null, '  ')}</pre>
         </div>
       </div>
     </div>
