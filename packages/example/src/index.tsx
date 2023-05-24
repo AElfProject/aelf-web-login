@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { createRoot } from 'react-dom/client';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import 'aelf-web-login/dist/assets/index.css';
@@ -6,29 +6,26 @@ import './index.css';
 import './config';
 import { WebLoginProvider, useWebLogin, WebLoginState } from 'aelf-web-login';
 import configJson from './assets/config.json';
+import { CallContractParams } from 'aelf-web-login/dist/_types/src/wallets/types';
 
-function Usage() {
+async function callContractWithLog<T, R>(
+  callContract: (params: CallContractParams<T>) => Promise<R>,
+  params: CallContractParams<T>,
+): Promise<R> {
+  console.log('call', params);
+  const res = await callContract(params);
+  console.log('res', res);
+  return res;
+}
+
+function useExampleCall(name: string, func: () => any) {
   const [result, setResult] = useState({});
-  const [signatureResult, setSignatureResult] = useState({} as any);
-  const [profitResult, setProfitResult] = useState({} as any);
+  const { loginState } = useWebLogin();
 
-  const { wallet, login, loginEagerly, logout, loginState, loginError, callContract, getSignature } = useWebLogin();
-
-  if (loginError) {
-    console.error(loginError);
-  }
-
-  const onClickCall = async () => {
+  const onClick = async () => {
     try {
-      const res = await callContract({
-        contractAddress: configJson.tokenConverter,
-        methodName: 'Buy',
-        args: {
-          symbol: configJson.SYMBOL,
-          amount: 1,
-        },
-      });
-      console.log(res);
+      const res = await func();
+      console.log(name, 'res', res);
       setResult(res);
     } catch (error) {
       console.log(error);
@@ -36,30 +33,49 @@ function Usage() {
     }
   };
 
-  const rand16Num = (len = 0) => {
-    const result = [];
-    for (let i = 0; i < len; i += 1) {
-      result.push('0123456789abcdef'.charAt(Math.floor(Math.random() * 16)));
-    }
-    return result.join('');
+  return {
+    name,
+    render: () => {
+      return (
+        <>
+          <h2>{name}:</h2>
+          <div>
+            <button disabled={loginState !== WebLoginState.logined} onClick={onClick}>
+              {name}
+            </button>
+            <div>
+              <h3>Result</h3>
+              <pre className="result">{JSON.stringify(result, null, '  ')}</pre>
+            </div>
+          </div>
+        </>
+      );
+    },
   };
+}
 
-  const onClickSignature = async () => {
-    try {
-      const res = await getSignature({
+function Usage() {
+  const { wallet, login, loginEagerly, logout, loginState, loginError, callContract, getSignature } = useWebLogin();
+
+  const examples = [
+    useExampleCall('callContract', async () => {
+      return await callContractWithLog(callContract, {
+        contractAddress: configJson.tokenConverter,
+        methodName: 'Buy',
+        args: {
+          symbol: configJson.SYMBOL,
+          amount: 1,
+        },
+      });
+    }),
+    useExampleCall('getSignature', async () => {
+      return await getSignature({
         address: wallet.address,
         appName: 'example',
-        hexToBeSign: rand16Num(32),
+        hexToBeSign: '0x' + '0123456789abcdef'.repeat(32),
       });
-      setSignatureResult(res);
-    } catch (error) {
-      console.log(error);
-      setSignatureResult({ error: error.message });
-    }
-  };
-
-  const onClickFetchProfit = async () => {
-    try {
+    }),
+    useExampleCall('fetchProfit', async () => {
       const contractAddress = configJson.profitContractAddr;
       const res = [];
       for (var item of configJson.schemeIds) {
@@ -73,12 +89,35 @@ function Usage() {
         });
         res.push(itemRes);
       }
-      setProfitResult(res);
-    } catch (error) {
-      console.log(error);
-      setProfitResult({ error: error.message });
-    }
-  };
+      return res;
+    }),
+    useExampleCall('AnnounceElection', async () => {
+      return await callContractWithLog(callContract, {
+        contractAddress: 'NrVf8B7XUduXn1oGHZeF1YANFXEXAhvCymz2WPyKZt4DE2zSg',
+        methodName: 'AnnounceElection',
+        args: 'ELF_2vLuU4Xi59xz6QkjdmspGHqeMxbb75ahUXZc1wXzbZdLEGdpuv_AELF',
+      });
+    }),
+    useExampleCall('GetCandidateInformation', async () => {
+      return await callContractWithLog(callContract, {
+        contractAddress: 'NrVf8B7XUduXn1oGHZeF1YANFXEXAhvCymz2WPyKZt4DE2zSg',
+        methodName: 'Vote',
+        args: {
+          candidatePubkey:
+            '047794e5b424177bf03f9d5e541e7bda28056209d814c68aed2670e46d963c85d04da5f69ef82458e86174890743985e297843485b10d0295fc28b8853355cfb8b',
+          amount: 100000000,
+          endTimestamp: {
+            seconds: 1714533239,
+            nanos: 58000000,
+          },
+        },
+      });
+    }),
+  ];
+
+  if (loginError) {
+    console.error(loginError);
+  }
 
   return (
     <div className="content">
@@ -103,38 +142,9 @@ function Usage() {
       </div>
       <br />
       <br />
-      <h2>Contract:</h2>
-      <div className="contract">
-        <button disabled={loginState !== WebLoginState.logined} onClick={onClickCall}>
-          Call contract
-        </button>
-        <div>
-          <h3>Result</h3>
-          <pre className="result">{JSON.stringify(result, null, '  ')}</pre>
-        </div>
-      </div>
-
-      <h2>getSignature:</h2>
-      <div className="signature">
-        <button disabled={loginState !== WebLoginState.logined} onClick={onClickSignature}>
-          getSignature
-        </button>
-        <div>
-          <h3>Result</h3>
-          <pre className="result">{JSON.stringify(signatureResult, null, '  ')}</pre>
-        </div>
-      </div>
-
-      <h2>fetchProfit:</h2>
-      <div className="profit">
-        <button disabled={loginState !== WebLoginState.logined} onClick={onClickFetchProfit}>
-          fetchProfit
-        </button>
-        <div>
-          <h3>Result</h3>
-          <pre className="result">{JSON.stringify(profitResult, null, '  ')}</pre>
-        </div>
-      </div>
+      {examples.map((example, index) => {
+        return <div key={example.name}>{example.render()}</div>;
+      })}
     </div>
   );
 }

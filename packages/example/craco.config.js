@@ -23,7 +23,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://192.168.67.51:5577',
+        target: 'https://did-portkey-test.portkey.finance',
         changeOrigin: true,
         secure: true,
       },

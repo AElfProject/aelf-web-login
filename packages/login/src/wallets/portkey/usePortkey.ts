@@ -191,6 +191,6 @@ export function usePortkey({
       onUnlock,
       getSignature,
     }),
-    [callContract, didWalletInfo, isManagerExists, login, loginEagerly, logout, onFinished, onUnlock],
+    [callContract, didWalletInfo, getSignature, isManagerExists, login, loginEagerly, logout, onFinished, onUnlock],
   );
 }
