@@ -10,6 +10,7 @@ import configJson from './assets/config.json';
 function Usage() {
   const [result, setResult] = useState({});
   const [signatureResult, setSignatureResult] = useState({} as any);
+  const [profitResult, setProfitResult] = useState({} as any);
 
   const { wallet, login, loginEagerly, logout, loginState, loginError, callContract, getSignature } = useWebLogin();
 
@@ -57,6 +58,28 @@ function Usage() {
     }
   };
 
+  const onClickFetchProfit = async () => {
+    try {
+      const contractAddress = configJson.profitContractAddr;
+      const res = [];
+      for (var item of configJson.schemeIds) {
+        const itemRes = await callContract({
+          contractAddress,
+          methodName: 'GetProfitsMap',
+          args: {
+            beneficiary: wallet.address,
+            schemeId: item.schemeId,
+          },
+        });
+        res.push(itemRes);
+      }
+      setProfitResult(res);
+    } catch (error) {
+      console.log(error);
+      setProfitResult({ error: error.message });
+    }
+  };
+
   return (
     <div className="content">
       <h2>Login</h2>
@@ -99,6 +122,17 @@ function Usage() {
         <div>
           <h3>Result</h3>
           <pre className="result">{JSON.stringify(signatureResult, null, '  ')}</pre>
+        </div>
+      </div>
+
+      <h2>fetchProfit:</h2>
+      <div className="profit">
+        <button disabled={loginState !== WebLoginState.logined} onClick={onClickFetchProfit}>
+          fetchProfit
+        </button>
+        <div>
+          <h3>Result</h3>
+          <pre className="result">{JSON.stringify(profitResult, null, '  ')}</pre>
         </div>
       </div>
     </div>
