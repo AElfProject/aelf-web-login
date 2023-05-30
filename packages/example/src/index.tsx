@@ -63,8 +63,8 @@ function Usage() {
         contractAddress: configJson.tokenConverter,
         methodName: 'Buy',
         args: {
-          symbol: configJson.SYMBOL,
-          amount: 1,
+          symbol: configJson.resourceTokens[0].symbol,
+          amount: 10 * configJson.resourceTokens[0].decimals,
         },
       });
     }),

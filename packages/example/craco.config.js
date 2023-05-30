@@ -1,5 +1,6 @@
 /* eslint-disable */
 const path = require("path");
+const webpack = require('webpack');
 const { getLoader, loaderByName } = require("@craco/craco");
 
 const packages = [];
@@ -17,7 +18,22 @@ module.exports = {
         match.loader.include = include.concat(packages);
       }
 
+      webpackConfig.resolve = webpackConfig.resolve || {};
+      webpackConfig.resolve.alias = {
+        ...webpackConfig.resolve.alias,
+        buffer: path.resolve(__dirname, '../../node_modules/buffer'),
+      };
+      console.log(webpackConfig.resolve);
+      // throw new Error();
       return webpackConfig;
+    },
+
+    plugins: {
+      add: [
+        new webpack.ProvidePlugin({
+          Buffer: ['buffer', 'Buffer'],
+        }),
+      ],
     },
   },
   devServer: {

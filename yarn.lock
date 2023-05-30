@@ -2760,6 +2760,26 @@
     reactjs-social-login "^2.6.2"
     uuid "^8.3.2"
 
+"@portkey/did-ui-react@0.0.1-alpha.8.1":
+  version "0.0.1-alpha.8.1"
+  resolved "https://registry.npmmirror.com/@portkey/did-ui-react/-/did-ui-react-0.0.1-alpha.8.1.tgz#1f0791227fdafaf351774f6defeefdc6abdb5173"
+  integrity sha512-pq6iQ0QjDQVD1MjQGAgS6ASuv7600/kN5+6/ZnkizIuKg7M+UGHBHKVCYtW4lDFGyY4e8/Ibf1FGuB0ij3Dwvg==
+  dependencies:
+    "@matt-block/react-recaptcha-v2" "^2.0.0"
+    "@portkey/did" "^0.0.1-alpha.3.3"
+    aelf-sdk "^3.2.40"
+    antd "4.24.4"
+    antd-mobile "5.26.0"
+    bignumber.js "^9.1.0"
+    clsx "^1.2.1"
+    lottie-web "5.9.6"
+    query-string "^6.14.1"
+    react-i18next "^11.18.6"
+    react-qrcode-logo "2.9.0"
+    react-use "^17.4.0"
+    reactjs-social-login "^2.6.2"
+    uuid "^8.3.2"
+
 "@portkey/did@^0.0.1-alpha.3.3":
   version "0.0.1-alpha.3.3"
   resolved "https://registry.npmmirror.com/@portkey/did/-/did-0.0.1-alpha.3.3.tgz#0c3e47e9802c1b35650663cf8113e3a296f6b3b3"
@@ -2794,9 +2814,9 @@
     query-string "^6.14.1"
 
 "@portkey/services@^0.0.1-alpha.2.3":
-  version "0.0.1-alpha.2.4"
-  resolved "https://registry.npmmirror.com/@portkey/services/-/services-0.0.1-alpha.2.4.tgz#8c3bf719069962b0357926092c73d73eaced7403"
-  integrity sha512-hdZsl3lmR1r0t7aEKUEZvjGlU/HvaQiTIb0geTuOcy3kv0nUqIGkB2dyZHhXmP6+LN52n4fVCrS55uM5beFJVQ==
+  version "0.0.1-alpha.2.5"
+  resolved "https://registry.npmmirror.com/@portkey/services/-/services-0.0.1-alpha.2.5.tgz#cc9975b92fe719a31ae3dc72537cfdcf87c26e32"
+  integrity sha512-S5kw3ZP5a4bTjGWTvlYrX8Zlbi9IhRlimWi7C8ig4rBRhcw4GW0ZBJK7MNhRUDFz/TnrKIPYfYPAB3CXgpngeQ==
   dependencies:
     "@portkey/graphql" "^0.0.1-alpha.1.8"
     "@portkey/request" "^0.0.1-alpha.1.7"
@@ -4132,6 +4152,14 @@ aelf-sdk@^3.2.40, aelf-sdk@^3.2.44:
     randombytes "^2.1.0"
     scryptsy "^2.1.0"
     xmlhttprequest "^1.8.0"
+
+aelf-web-login@^0.0.7-alpha:
+  version "0.0.7-alpha"
+  resolved "https://registry.npmmirror.com/aelf-web-login/-/aelf-web-login-0.0.7-alpha.tgz#bc43cba95ac15760db012bf0b9ca77d2681973cd"
+  integrity sha512-ty11RlIuy4mdIWPeW4QdEgYZnN7eXQTChpEkekAtaqHGno/5KfYY/7z+GsIA7NHyh8dhSLEcq9aGF7+LHkQxkw==
+  dependencies:
+    "@aelf-react/core" "^0.1.19"
+    "@portkey/did-ui-react" "0.0.1-alpha.7.5"
 
 after@0.8.2:
   version "0.8.2"

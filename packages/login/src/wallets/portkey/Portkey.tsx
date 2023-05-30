@@ -9,6 +9,7 @@ export default function Portkey({
   isManagerExists,
   onCancel,
   onFinish,
+  onError,
   onUnlock,
   extraWallets,
 }: {
@@ -16,6 +17,7 @@ export default function Portkey({
   loginState: WebLoginState;
   isManagerExists: boolean;
   onCancel: () => void;
+  onError: (error: any) => void;
   onFinish: (didWalletInfo: DIDWalletInfo) => void;
   onUnlock: (password: string) => Promise<boolean>;
   extraWallets: ReactNode;
@@ -37,6 +39,13 @@ export default function Portkey({
       onFinish(didWallet);
     },
     [onFinish],
+  );
+
+  const onErrorInternal = useCallback(
+    (error: any) => {
+      onError(error);
+    },
+    [onError],
   );
 
   const onUnlockInternal = useCallback(async () => {
@@ -72,6 +81,7 @@ export default function Portkey({
       isShowScan
       extraElement={extraWallets}
       onCancel={onCancel}
+      onError={onErrorInternal}
       onFinish={onFinishInternal}
     />
   );

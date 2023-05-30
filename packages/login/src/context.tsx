@@ -129,6 +129,7 @@ function WebLoginProvider({ connectEagerly, autoShowUnlock, extraWallets, childr
         onCancel={() => setModalOpen(false)}
         onFinish={portkeyApi.onFinished}
         onUnlock={portkeyApi.onUnlock}
+        onError={portkeyApi.onError}
         extraWallets={renderExtraWallets()}
       />
     </WebLoginContext.Provider>

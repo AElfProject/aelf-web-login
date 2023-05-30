@@ -10,6 +10,7 @@ import { WalletType, WebLoginState } from '../../constants';
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;
   onUnlock: (password: string) => Promise<boolean>;
+  onError: (error: any) => void;
   onFinished: (didWalletInfo: DIDWalletInfo) => void;
 };
 
@@ -174,6 +175,14 @@ export function usePortkey({
     [appName, chainId, setLoginError, setLoginState, setWalletType],
   );
 
+  const onError = useCallback(
+    (error: any) => {
+      setLoginError(error);
+      setLoginState(WebLoginState.initial);
+    },
+    [setLoginError, setLoginState],
+  );
+
   return useMemo<PortkeyInterface>(
     () => ({
       isManagerExists,
@@ -190,7 +199,19 @@ export function usePortkey({
       onFinished,
       onUnlock,
       getSignature,
+      onError,
     }),
-    [callContract, didWalletInfo, getSignature, isManagerExists, login, loginEagerly, logout, onFinished, onUnlock],
+    [
+      callContract,
+      didWalletInfo,
+      getSignature,
+      isManagerExists,
+      login,
+      loginEagerly,
+      logout,
+      onError,
+      onFinished,
+      onUnlock,
+    ],
   );
 }
