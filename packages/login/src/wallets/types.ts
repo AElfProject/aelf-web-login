@@ -21,13 +21,17 @@ export type SignatureData = {
   from: string;
 };
 
+export type PortkeyInfo = DIDWalletInfo & {
+  nickName: string;
+};
+
 export type WalletHookInterface = {
   wallet: {
     name?: string;
     address: string;
     publicKey?: string;
     nightElfInfo?: AElfContextType;
-    portkeyInfo?: DIDWalletInfo;
+    portkeyInfo?: PortkeyInfo;
   };
   loginEagerly: () => void;
   login: () => void;

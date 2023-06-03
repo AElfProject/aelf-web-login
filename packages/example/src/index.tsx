@@ -20,7 +20,9 @@ async function callContractWithLog<T, R>(
 
 function useExampleCall(name: string, func: () => any) {
   const [result, setResult] = useState({});
-  const { loginState } = useWebLogin();
+  const { loginState, wallet } = useWebLogin();
+
+  console.log(wallet);
 
   const onClick = async () => {
     try {
