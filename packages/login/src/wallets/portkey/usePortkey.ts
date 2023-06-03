@@ -12,6 +12,7 @@ export type PortkeyInterface = WalletHookInterface & {
   onUnlock: (password: string) => Promise<boolean>;
   onError: (error: any) => void;
   onFinished: (didWalletInfo: DIDWalletInfo) => void;
+  onCancel: () => void;
 };
 
 export function usePortkey({
@@ -177,11 +178,18 @@ export function usePortkey({
 
   const onError = useCallback(
     (error: any) => {
+      setModalOpen(false);
       setLoginError(error);
       setLoginState(WebLoginState.initial);
     },
-    [setLoginError, setLoginState],
+    [setLoginError, setLoginState, setModalOpen],
   );
+
+  const onCancel = useCallback(() => {
+    setModalOpen(false);
+    setLoginState(isManagerExists ? WebLoginState.lock : WebLoginState.initial);
+    setLoginError(undefined);
+  }, [setModalOpen, setLoginState, isManagerExists, setLoginError]);
 
   return useMemo<PortkeyInterface>(
     () => ({
@@ -200,6 +208,7 @@ export function usePortkey({
       onUnlock,
       getSignature,
       onError,
+      onCancel,
     }),
     [
       callContract,
@@ -212,6 +221,7 @@ export function usePortkey({
       onError,
       onFinished,
       onUnlock,
+      onCancel,
     ],
   );
 }

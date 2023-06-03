@@ -9,14 +9,14 @@ packages.push(path.join(__dirname, "../login"));
 module.exports = {
   webpack: {
     configure: (webpackConfig, arg) => {
-      const { isFound, match } = getLoader(webpackConfig, loaderByName("babel-loader"));
-      if (isFound) {
-        const include = Array.isArray(match.loader.include)
-          ? match.loader.include
-          : [match.loader.include];
+      // const { isFound, match } = getLoader(webpackConfig, loaderByName("babel-loader"));
+      // if (isFound) {
+      //   const include = Array.isArray(match.loader.include)
+      //     ? match.loader.include
+      //     : [match.loader.include];
 
-        match.loader.include = include.concat(packages);
-      }
+      //   match.loader.include = include.concat(packages);
+      // }
 
       webpackConfig.resolve = webpackConfig.resolve || {};
       webpackConfig.resolve.alias = {

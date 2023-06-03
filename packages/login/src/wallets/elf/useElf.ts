@@ -1,6 +1,5 @@
-import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react';
+import React, { useRef, useMemo, useCallback, useEffect } from 'react';
 import { useAElfReact } from '@aelf-react/core';
-import { useEffectOnce } from 'react-use';
 import { getConfig } from '../../config';
 import { CallContractParams, SignatureParams, WalletHookInterface, WalletHookParams } from '../types';
 import { WalletType, WebLoginState } from '../../constants';

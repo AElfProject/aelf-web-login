@@ -126,7 +126,7 @@ function WebLoginProvider({ connectEagerly, autoShowUnlock, extraWallets, childr
         isManagerExists={portkeyApi.isManagerExists}
         open={modalOpen}
         loginState={loginState}
-        onCancel={() => setModalOpen(false)}
+        onCancel={portkeyApi.onCancel}
         onFinish={portkeyApi.onFinished}
         onUnlock={portkeyApi.onUnlock}
         onError={portkeyApi.onError}

@@ -4,7 +4,7 @@ import '@portkey/did-ui-react/dist/assets/index.css';
 import 'aelf-web-login/dist/assets/index.css';
 import './index.css';
 import './config';
-import { WebLoginProvider, useWebLogin, WebLoginState } from 'aelf-web-login';
+import { WebLoginProvider, useWebLogin, WebLoginState, useLoginState } from 'aelf-web-login';
 import configJson from './assets/config.json';
 import { CallContractParams } from 'aelf-web-login/dist/_types/src/wallets/types';
 
@@ -56,6 +56,8 @@ function useExampleCall(name: string, func: () => any) {
 
 function Usage() {
   const { wallet, login, loginEagerly, logout, loginState, loginError, callContract, getSignature } = useWebLogin();
+
+  useLoginState(state => console.log(state));
 
   const examples = [
     useExampleCall('callContract', async () => {
