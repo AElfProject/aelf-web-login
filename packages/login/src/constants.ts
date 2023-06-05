@@ -10,4 +10,5 @@ export enum WebLoginState {
   eagerly = 'eagerly',
   logining = 'logining',
   logined = 'logined',
+  logouting = 'logouting',
 }

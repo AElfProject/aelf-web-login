@@ -18,7 +18,7 @@ module.exports = function createConfig(packageName) {
   const production = !process.env.ROLLUP_WATCH;
 
   const esbuildPlugin = esbuild({
-    minify: true,
+    minify: false,
     tsconfig: './tsconfig.json',
     platform: 'browser',
     treeShaking: true,
@@ -74,7 +74,7 @@ module.exports = function createConfig(packageName) {
   return [
     {
       input: './index.ts',
-      plugins: [litCssPlugin, minifyHtml, esbuildPlugin, postcssPlugin, urlPlugin, copyPlugin, terserPlugin],
+      plugins: [litCssPlugin, minifyHtml, esbuildPlugin, postcssPlugin, urlPlugin, copyPlugin],
       output: [{ file: './dist/index.js', format: 'cjs', ...output }],
     },
   ];

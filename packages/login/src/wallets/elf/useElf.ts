@@ -70,6 +70,7 @@ export function useElf({
   }, [activate, nodes, setLoginError, setLoginState]);
 
   const logout = useCallback(async () => {
+    setLoginState(WebLoginState.logouting);
     try {
       localStorage.removeItem('aelf-connect-eagerly');
       await deactivate();

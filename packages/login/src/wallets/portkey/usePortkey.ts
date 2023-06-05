@@ -42,6 +42,7 @@ export function usePortkey({
   }, [setLoginState, setModalOpen]);
 
   const logout = useCallback(async () => {
+    setLoginState(WebLoginState.logouting);
     try {
       const originChainId = localStorage.getItem('PortkeyOriginChainId');
       if (originChainId) {
@@ -140,6 +141,13 @@ export function usePortkey({
         });
       }
 
+      const originChainId = localStorage.getItem('PortkeyOriginChainId');
+      let nickName = localWallet.didWallet.accountInfo.nickName || '';
+      if (originChainId) {
+        const holderInfo = await did.getCAHolderInfo(originChainId as ChainId);
+        nickName = holderInfo.nickName;
+      }
+
       const didWalletInfo: DIDWalletInfo = {
         caInfo,
         pin: password,
@@ -150,7 +158,7 @@ export function usePortkey({
       };
       setDidWalletInfo({
         ...didWalletInfo,
-        nickName: localWallet.didWallet.accountInfo.nickName || '',
+        nickName,
       });
       setWalletType(WalletType.portkey);
       setLoginState(WebLoginState.logined);

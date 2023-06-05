@@ -59,7 +59,7 @@ export default function Portkey({
     }
   }, [onUnlock, password]);
 
-  if (isManagerExists) {
+  if (isManagerExists && (loginState === WebLoginState.logining || loginState == WebLoginState.lock)) {
     return (
       <Unlock
         open={open}

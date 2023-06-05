@@ -61,6 +61,7 @@ function WebLoginProvider({ connectEagerly, autoShowUnlock, extraWallets, childr
   });
 
   const login = () => {
+    setLoginStateInternal(WebLoginState.logining);
     setModalOpen(true);
   };
 
