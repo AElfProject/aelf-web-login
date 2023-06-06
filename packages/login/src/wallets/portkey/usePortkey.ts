@@ -22,6 +22,7 @@ export function usePortkey({
   setLoginError,
   setLoginState,
   setModalOpen,
+  setLoading,
 }: WalletHookParams & { autoShowUnlock: boolean; setModalOpen: (open: boolean) => void }) {
   const appName = getConfig().appName;
   const chainId = getConfig().chainId as ChainId;
@@ -130,6 +131,7 @@ export function usePortkey({
         return Promise.resolve(false);
       }
 
+      setLoading(true);
       let caInfo = localWallet.didWallet.caInfo[chainId];
       let caHash = caInfo?.caHash;
       if (!caInfo) {
@@ -156,6 +158,7 @@ export function usePortkey({
         walletInfo: localWallet.didWallet.managementAccount!.wallet as any,
         accountInfo: localWallet.didWallet.accountInfo as any,
       };
+      setLoading(false);
       setDidWalletInfo({
         ...didWalletInfo,
         nickName,
@@ -164,7 +167,7 @@ export function usePortkey({
       setLoginState(WebLoginState.logined);
       return Promise.resolve(true);
     },
-    [appName, chainId, setLoginState, setWalletType],
+    [appName, chainId, setLoading, setLoginState, setWalletType],
   );
 
   const onFinished = useCallback(
@@ -216,7 +219,7 @@ export function usePortkey({
     () => ({
       isManagerExists,
       wallet: {
-        name: didWalletInfo?.caInfo.caAddress || '',
+        name: didWalletInfo?.nickName || didWalletInfo?.caInfo.caAddress || '',
         address: didWalletInfo?.caInfo.caAddress || '',
         publicKey: didWalletInfo?.walletInfo.keyPair.getPublic('hex') || '',
         portkeyInfo: didWalletInfo,

@@ -19,7 +19,7 @@
     "url": "https://github.com/AElf-devops/aelf-web-login.git",
     "directory": "packages/login"
   },
-  "version": "0.0.19-alpha",
+  "version": "0.0.22-alpha",
   "main": "dist/index.js",
   "types": "dist/_types/index.d.ts",
   "scripts": {

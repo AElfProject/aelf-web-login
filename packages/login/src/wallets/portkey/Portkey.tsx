@@ -25,7 +25,6 @@ export default function Portkey({
   const signInRef = useRef<SignInInterface>(null);
   const [password, setPassword] = useState('');
   const [isWrongPassword, setIsWrongPassword] = useState(false);
-
   const chainId = getConfig().chainId;
 
   useEffect(() => {
@@ -51,10 +50,9 @@ export default function Portkey({
   const onUnlockInternal = useCallback(async () => {
     const success = await onUnlock(password);
     if (!success) {
-      setIsWrongPassword(false);
-      setPassword('');
-    } else {
       setIsWrongPassword(true);
+    } else {
+      setIsWrongPassword(false);
       setPassword('');
     }
   }, [onUnlock, password]);

@@ -20,13 +20,16 @@ setGlobalConfig({
   chainId: 'AELF',
   portkey: {
     useLocalStorage: true,
-    graphQLUrl: `${graphQLServer}/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql`,
+    graphQLUrl: `${graphQLServer}/Portkey_DID/PortKeyIndexerCASchema/graphql`,
     connectUrl: connectUrl,
     socialLogin: {
       Portkey: {
         websiteName: 'explorer.aelf.io',
         websiteIcon: 'https://explorer.aelf.io/favicon.main.ico',
       },
+    },
+    requestDefaults: {
+      timeout: 300000,
     },
     network: {
       defaultNetwork: IS_MAINNET ? 'MAIN' : 'TESTNET',
@@ -37,7 +40,7 @@ setGlobalConfig({
           networkType: IS_MAINNET ? 'MAIN' : 'TESTNET',
           isActive: true,
           apiUrl: portkeyApiServer,
-          graphQLUrl: `${graphQLServer}/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql`,
+          graphQLUrl: `${graphQLServer}/Portkey_DID/PortKeyIndexerCASchema/graphql`,
           connectUrl: connectUrl,
         },
       ],
@@ -60,5 +63,3 @@ setGlobalConfig({
         },
   },
 });
-
-console.log(did.connectRequest);

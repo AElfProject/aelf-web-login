@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useCallback, useMemo, useState } from 'react';
+import React, { createContext, useEffect, useContext, useCallback, useMemo, useState } from 'react';
 import { AElfReactProvider } from '@aelf-react/core';
 import { WalletHookInterface } from './wallets/types';
 import { ExtraWalletNames, WebLoginProviderProps } from './types';
@@ -8,6 +8,9 @@ import Portkey from './wallets/portkey/Portkey';
 import { useElf } from './wallets/elf/useElf';
 import { getConfig } from './config';
 import { WalletType, WebLoginState } from './constants';
+import { PortkeyLoading } from '@portkey/did-ui-react';
+import { check } from './wallets/elf/utils';
+import isMobile from './utils/isMobile';
 
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,
@@ -32,7 +35,15 @@ function WebLoginProvider({ connectEagerly, autoShowUnlock, extraWallets, childr
   const [loginError, setLoginError] = useState<any | unknown>();
   const [walletType, setWalletType] = useState<WalletType>(WalletType.unknown);
 
+  const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [bridgeType, setBridgeType] = useState('unknown');
+
+  useEffect(() => {
+    check().then((type) => {
+      setBridgeType(type);
+    });
+  }, []);
 
   const setLoginStateInternal = useCallback(
     (loginState: WebLoginState) => {
@@ -50,6 +61,7 @@ function WebLoginProvider({ connectEagerly, autoShowUnlock, extraWallets, childr
     setLoginError,
     setLoginState: setLoginStateInternal,
     setWalletType,
+    setLoading,
   });
   const portkeyApi = usePortkey({
     autoShowUnlock,
@@ -58,12 +70,13 @@ function WebLoginProvider({ connectEagerly, autoShowUnlock, extraWallets, childr
     setLoginState: setLoginStateInternal,
     setModalOpen,
     setWalletType,
+    setLoading,
   });
 
-  const login = () => {
+  const login = useCallback(() => {
     setLoginStateInternal(WebLoginState.logining);
     setModalOpen(true);
-  };
+  }, [setLoginStateInternal, setModalOpen]);
 
   const createInvalidFunc = (name: string, loginState: WebLoginState) => () => {
     console.log(`Call method '${name}' on invalid state '${loginState}'`);
@@ -100,16 +113,26 @@ function WebLoginProvider({ connectEagerly, autoShowUnlock, extraWallets, childr
       return walletType === WalletType.elf ? elfApi : portkeyApi;
     }
     return invalidApi;
-  }, [loginState, invalidApi, elfApi, portkeyApi, walletType]);
+  }, [loginState, invalidApi, login, elfApi, portkeyApi, walletType]);
 
-  const renderExtraWallets = () => (
-    <div className="aelf-web-login aelf-extra-wallets">
-      <div className="title">Crypto wallet</div>
-      <div className="wallet-entries">
-        <NightElfPlugin onClick={elfApi.login} />
+  const renderExtraWallets = () => {
+    if (bridgeType === 'unknown') {
+      return;
+    }
+
+    if (bridgeType === 'none' && isMobile()) {
+      return;
+    }
+
+    return (
+      <div className="aelf-web-login aelf-extra-wallets">
+        <div className="title">Crypto wallet</div>
+        <div className="wallet-entries">
+          <NightElfPlugin onClick={elfApi.login} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const state = useMemo(
     () => ({
@@ -133,6 +156,7 @@ function WebLoginProvider({ connectEagerly, autoShowUnlock, extraWallets, childr
         onError={portkeyApi.onError}
         extraWallets={renderExtraWallets()}
       />
+      <PortkeyLoading loading={loading} />
     </WebLoginContext.Provider>
   );
 }

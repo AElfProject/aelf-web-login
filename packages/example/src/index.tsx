@@ -127,7 +127,9 @@ function Usage() {
     <div className="content">
       <h2>Login</h2>
       <div className="buttons">
-        <div>wallet: {wallet.address}</div>
+        <div>
+          wallet: {wallet.name} {wallet.address}
+        </div>
         <div>login state: {loginState}</div>
         <div>{loginError && <div>{/* login error: {loginError.message} */}</div>}</div>
         <br />

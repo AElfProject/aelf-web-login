@@ -7,6 +7,7 @@ export type WalletHookParams = {
   setLoginState: (state: WebLoginState) => void;
   setLoginError: (error: any | unknown) => void;
   setWalletType: (wallet: WalletType) => void;
+  setLoading: (loading: boolean) => void;
 };
 
 export type SignatureParams = {

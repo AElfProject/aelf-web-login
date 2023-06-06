@@ -2740,13 +2740,13 @@
     "@portkey/utils" "^0.0.1-alpha.1.8"
     aelf-sdk "^3.2.44"
 
-"@portkey/did-ui-react@0.0.1-alpha.8.5":
-  version "0.0.1-alpha.8.5"
-  resolved "https://registry.npmjs.org/@portkey/did-ui-react/-/did-ui-react-0.0.1-alpha.8.5.tgz#208271818b5ca0a07da17a5fd185cd984c20cfce"
-  integrity sha512-dwqb1OXucXROdP0iaRz/9zGZvjwBWRaGX4v2eqFsalBfXwUOfoQr8ttou2/LhkGiaePWk5SptcDQEy+ossK2jQ==
+"@portkey/did-ui-react@0.0.1-alpha.8.6":
+  version "0.0.1-alpha.8.6"
+  resolved "https://registry.npmjs.org/@portkey/did-ui-react/-/did-ui-react-0.0.1-alpha.8.6.tgz#ae83baf705e9e9dff4bb6c16806a8261e3aeba56"
+  integrity sha512-o+UKviaNP9KUq0cH/f+VO8EAHY1UFmOB8IbeekSI/UcnOx1JZhvfWjFQvgiPlqw9+pZ7K2G8zBJODagGMLVs4g==
   dependencies:
     "@matt-block/react-recaptcha-v2" "^2.0.0"
-    "@portkey/did" "^0.0.1-alpha.3.7"
+    "@portkey/did" "^0.0.1-alpha.3.8"
     aelf-sdk "^3.2.40"
     antd "4.24.4"
     antd-mobile "5.26.0"
@@ -2760,10 +2760,10 @@
     reactjs-social-login "^2.6.2"
     uuid "^8.3.2"
 
-"@portkey/did@^0.0.1-alpha.3.7":
-  version "0.0.1-alpha.3.7"
-  resolved "https://registry.npmjs.org/@portkey/did/-/did-0.0.1-alpha.3.7.tgz#e2bdaf756f1532876a5888fb85c32ea29221868a"
-  integrity sha512-zlCyq5trGoSGOPqyxnPRrW70trsAQE4EtDYQg4gbookvPVctSJf/r04Sz27rfQ97OdYX1jw33hxIqTFR9fqeuQ==
+"@portkey/did@^0.0.1-alpha.3.8":
+  version "0.0.1-alpha.3.8"
+  resolved "https://registry.npmjs.org/@portkey/did/-/did-0.0.1-alpha.3.8.tgz#912fc6748975b0bccf0f729a1a24f41158258aa4"
+  integrity sha512-vPMw4jmwHG0At6KsDN+kfy+02j6ig087U6lowqa/UOgYHKbosih6Mas5h4+YzIwQDhGsVO6gAdRgtqyPvsLzEA==
   dependencies:
     "@portkey/accounts" "^0.0.1-alpha.1.6"
     "@portkey/contracts" "^0.0.1-alpha.1.8"
