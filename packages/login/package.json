@@ -1,6 +1,6 @@
 {
   "name": "aelf-web-login",
-  "version": "0.0.31-alpha",
+  "version": "0.0.33-alpha",
   "main": "dist/index.js",
   "types": "dist/_types/index.d.ts",
   "exports": {
@@ -8,6 +8,7 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
+    "./dist/assets/index.css": "./dist/assets/index.css",
     "./dist/index.js": "./dist/index.js",
     "./dist/_types/index.d.ts": "./dist/_types/index.d.ts"
   },
