@@ -129,6 +129,10 @@ export function useElf({
         address: account || '',
         publicKey: pubKey,
         nightElfInfo,
+        accountInfoSync: {
+          syncCompleted: loginState === WebLoginState.logined,
+          holderInfos: undefined,
+        },
       },
       loginEagerly,
       login,
@@ -136,6 +140,6 @@ export function useElf({
       callContract,
       getSignature,
     }),
-    [name, account, pubKey, nightElfInfo, loginEagerly, login, logout, callContract, getSignature],
+    [name, account, pubKey, nightElfInfo, loginState, loginEagerly, login, logout, callContract, getSignature],
   );
 }

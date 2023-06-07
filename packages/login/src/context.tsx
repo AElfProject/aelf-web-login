@@ -84,12 +84,12 @@ function WebLoginProvider({ connectEagerly, autoShowUnlock, extraWallets, childr
 
   const invalidApi = useMemo<WalletHookInterface>(() => {
     return {
-      wallet: { address: '' },
+      wallet: { address: '', accountInfoSync: { syncCompleted: false, holderInfos: undefined } },
       login: createInvalidFunc('login', loginState),
       loginEagerly: createInvalidFunc('loginEagerly', loginState),
       logout: createInvalidFunc('logout', loginState),
       callContract: createInvalidFunc('callContract', loginState) as any,
-    } as WalletHookInterface;
+    } as unknown as WalletHookInterface;
   }, [loginState]);
 
   // adapt api

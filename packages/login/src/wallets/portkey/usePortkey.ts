@@ -6,6 +6,7 @@ import { ChainId } from '@portkey/types';
 import { getConfig } from '../../config';
 import { CallContractParams, PortkeyInfo, SignatureParams, WalletHookInterface, WalletHookParams } from '../types';
 import { WalletType, WebLoginState } from '../../constants';
+import useAccountInfoSync from './useAccountInfoSync';
 
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;
@@ -31,6 +32,8 @@ export function usePortkey({
   const [didWalletInfo, setDidWalletInfo] = useState<PortkeyInfo>();
 
   const isManagerExists = !!localStorage.getItem(appName);
+
+  const accountInfoSync = useAccountInfoSync(chainId, loginState, !!didWalletInfo, didWalletInfo);
 
   const loginEagerly = useCallback(async () => {
     setLoginState(WebLoginState.logining);
@@ -224,6 +227,7 @@ export function usePortkey({
         address: didWalletInfo?.caInfo.caAddress || '',
         publicKey: didWalletInfo?.walletInfo.keyPair.getPublic('hex') || '',
         portkeyInfo: didWalletInfo,
+        accountInfoSync,
       },
       loginEagerly,
       login,
@@ -236,6 +240,7 @@ export function usePortkey({
       onCancel,
     }),
     [
+      accountInfoSync,
       callContract,
       didWalletInfo,
       getSignature,

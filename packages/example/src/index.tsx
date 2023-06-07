@@ -66,10 +66,8 @@ function Usage() {
   const config = getConfig();
   const { wallet, login, loginEagerly, logout, loginState, loginError, callContract, getSignature } = useWebLogin();
 
+  console.log(wallet);
   useLoginState(state => console.log(state));
-
-  const { syncCompleted, holderInfos } = useAccountInfoSync();
-  console.log(syncCompleted);
 
   const examples = [
     useExampleCall('getHolderInfo', async () => {
@@ -164,8 +162,8 @@ function Usage() {
       <h2>Sync</h2>
       <div>
         chainId: {config.chainId} <br />
-        syncCompleted: {syncCompleted.toString()} <br />
-        holders: {holderInfos.length}
+        syncCompleted: {wallet.accountInfoSync.syncCompleted.toString()} <br />
+        holders: {JSON.stringify(wallet.accountInfoSync)}
       </div>
       <br />
       <br />

@@ -1,6 +1,7 @@
 import type { AElfContextType } from '@aelf-react/core/dist/types';
 import type { DIDWalletInfo } from '@portkey/did-ui-react';
 import type { WalletType, WebLoginState } from '../constants';
+import type { IHolderInfo } from '@portkey/services';
 
 export type WalletHookParams = {
   loginState: WebLoginState;
@@ -26,14 +27,20 @@ export type PortkeyInfo = DIDWalletInfo & {
   nickName: string;
 };
 
-export type WalletHookInterface = {
-  wallet: {
-    name?: string;
-    address: string;
-    publicKey?: string;
-    nightElfInfo?: AElfContextType;
-    portkeyInfo?: PortkeyInfo;
+export type WalletInfo = {
+  name?: string;
+  address: string;
+  publicKey?: string;
+  nightElfInfo?: AElfContextType;
+  portkeyInfo?: PortkeyInfo;
+  accountInfoSync: {
+    syncCompleted: boolean;
+    holderInfos: IHolderInfo | undefined;
   };
+};
+
+export type WalletHookInterface = {
+  wallet: WalletInfo;
   loginEagerly: () => void;
   login: () => void;
   logout: () => void;

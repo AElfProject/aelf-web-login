@@ -75,7 +75,10 @@ module.exports = function createConfig(packageName) {
     {
       input: './index.ts',
       plugins: [litCssPlugin, minifyHtml, esbuildPlugin, postcssPlugin, urlPlugin, copyPlugin],
-      output: [{ file: './dist/index.js', format: 'cjs', ...output }],
+      output: [
+        { file: './dist/index.js', format: 'cjs', ...output },
+        { file: './dist/index.mjs', format: 'esm', ...output },
+      ],
     },
   ];
 }
