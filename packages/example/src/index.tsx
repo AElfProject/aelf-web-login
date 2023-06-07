@@ -4,7 +4,15 @@ import '@portkey/did-ui-react/dist/assets/index.css';
 import 'aelf-web-login/dist/assets/index.css';
 import './index.css';
 import './config';
-import { WebLoginProvider, useWebLogin, WebLoginState, useLoginState } from 'aelf-web-login';
+import {
+  WebLoginProvider,
+  useWebLogin,
+  WebLoginState,
+  useLoginState,
+  useAccountInfoSync,
+  getConfig,
+} from 'aelf-web-login';
+import { did } from '@portkey/did-ui-react';
 import configJson from './assets/config.json';
 import { CallContractParams } from 'aelf-web-login/dist/_types/src/wallets/types';
 
@@ -20,9 +28,7 @@ async function callContractWithLog<T, R>(
 
 function useExampleCall(name: string, func: () => any) {
   const [result, setResult] = useState({});
-  const { loginState, wallet } = useWebLogin();
-
-  console.log(wallet);
+  const { loginState } = useWebLogin();
 
   const onClick = async () => {
     try {
@@ -57,11 +63,18 @@ function useExampleCall(name: string, func: () => any) {
 }
 
 function Usage() {
+  const config = getConfig();
   const { wallet, login, loginEagerly, logout, loginState, loginError, callContract, getSignature } = useWebLogin();
 
   useLoginState(state => console.log(state));
 
+  const { syncCompleted, holderInfos } = useAccountInfoSync();
+  console.log(syncCompleted);
+
   const examples = [
+    useExampleCall('getHolderInfo', async () => {
+      return await did.getHolderInfo({ chainId: 'tDVW' });
+    }),
     useExampleCall('callContract', async () => {
       return await callContractWithLog(callContract, {
         contractAddress: configJson.tokenConverter,
@@ -143,8 +156,16 @@ function Usage() {
           unlock
         </button>
         <button disabled={loginState !== WebLoginState.logined} onClick={logout}>
-          logout
+          {loginState === WebLoginState.logouting ? 'logouting' : 'logout'}
         </button>
+      </div>
+      <br />
+      <br />
+      <h2>Sync</h2>
+      <div>
+        chainId: {config.chainId} <br />
+        syncCompleted: {syncCompleted.toString()} <br />
+        holders: {holderInfos.length}
       </div>
       <br />
       <br />

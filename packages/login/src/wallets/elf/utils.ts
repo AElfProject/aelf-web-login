@@ -34,7 +34,7 @@ export function check() {
     const interval = setInterval(() => {
       if (checking <= 0) {
         if (type === 'unknown') {
-          type = 'AelfBridge';
+          type = 'none';
         }
         clearInterval(interval);
         resolve(type);

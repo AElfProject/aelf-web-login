@@ -1,5 +1,8 @@
 {
   "name": "aelf-web-login",
+  "version": "0.0.25-alpha",
+  "main": "dist/index.js",
+  "types": "dist/_types/index.d.ts",
   "keywords": [
     "antd",
     "portkey"
@@ -19,9 +22,6 @@
     "url": "https://github.com/AElf-devops/aelf-web-login.git",
     "directory": "packages/login"
   },
-  "version": "0.0.22-alpha",
-  "main": "dist/index.js",
-  "types": "dist/_types/index.d.ts",
   "scripts": {
     "prebuild": "rm -rf dist",
     "start": "tsc --watch",
@@ -38,7 +38,7 @@
   "dependencies": {
     "@aelf-react/core": "^0.1.19",
     "aelf-sdk": "^3.2.40",
-    "@portkey/did-ui-react": "0.0.1-alpha.8.6"
+    "@portkey/did-ui-react": "0.0.1-alpha.8.8"
   },
   "devDependencies": {
     "@types/uuid": "^8.3.4",

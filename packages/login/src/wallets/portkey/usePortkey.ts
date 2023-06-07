@@ -184,6 +184,7 @@ export function usePortkey({
             caHash: caInfo.caHash,
           };
         }
+
         const holderInfo = await did.getCAHolderInfo(didWalletInfo.chainId);
         await did.save(didWalletInfo.pin, appName);
         setDidWalletInfo({
