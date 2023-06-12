@@ -1,7 +1,8 @@
 export enum WalletType {
   unknown = 'unknown',
-  portkey = 'portkey',
+  discover = 'discover',
   elf = 'elf',
+  portkey = 'portkey',
 }
 
 export enum WebLoginState {

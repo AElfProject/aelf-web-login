@@ -14,28 +14,32 @@ export default function useAccountInfoSync(
 ) {
   const currentChainId = chainId as ChainId;
   const [syncCompleted, setSyncCompleted] = useState(false);
-  const [holderInfos, setHolderInfos] = useState<IHolderInfo>();
+  const [holderInfo, setHolderInfo] = useState<IHolderInfo>();
 
   useLoginState((state) => {
     if (state !== WebLoginState.logined) {
-      setHolderInfos(undefined);
+      setHolderInfo(undefined);
       setSyncCompleted(false);
     }
   });
 
   const checkHolderInfo = useCallback(async () => {
+    if (loginState !== WebLoginState.logined) {
+      setSyncCompleted(false);
+      setHolderInfo(undefined);
+      return;
+    }
     if (!shouldSync) return;
-    if (loginState !== WebLoginState.logined) return;
-    const holders = await did.didWallet.getHolderInfoByContract({
+    const holder = await did.didWallet.getHolderInfoByContract({
       chainId: currentChainId,
       caHash: didWalletInfo?.caInfo.caHash,
       // manager: did.didWallet.managementAccount!.address,
     });
     if (syncCompleted) return;
-    const filteredHolders = holders.managerInfos.filter(
+    const filteredHolders = holder.managerInfos.filter(
       (manager) => manager?.address === didWalletInfo?.walletInfo?.address,
     );
-    setHolderInfos(holders);
+    setHolderInfo(holder);
     setSyncCompleted(filteredHolders.length > 0);
   }, [
     currentChainId,
@@ -52,6 +56,6 @@ export default function useAccountInfoSync(
 
   return {
     syncCompleted,
-    holderInfos,
+    holderInfo,
   };
 }

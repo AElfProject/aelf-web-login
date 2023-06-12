@@ -18,6 +18,9 @@ export function check() {
         .then(() => {
           type = 'NightElf';
         })
+        .catch((error) => {
+          console.log(error.message);
+        })
         .finally(() => {
           checking--;
         });
@@ -25,6 +28,9 @@ export function check() {
       AelfBridgeCheck.getInstance().check!()
         .then(() => {
           type = 'AelfBridge';
+        })
+        .catch((error) => {
+          console.log(error.message);
         })
         .finally(() => {
           checking--;

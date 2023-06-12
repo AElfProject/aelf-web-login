@@ -7,6 +7,7 @@ import { getConfig } from '../../config';
 import { CallContractParams, PortkeyInfo, SignatureParams, WalletHookInterface, WalletHookParams } from '../types';
 import { WalletType, WebLoginState } from '../../constants';
 import useAccountInfoSync from './useAccountInfoSync';
+import checkSignatureParams from '../../utils/signatureParams';
 
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;
@@ -18,13 +19,18 @@ export type PortkeyInterface = WalletHookInterface & {
 
 export function usePortkey({
   autoShowUnlock,
+  checkAccountInfoSync,
   loginState,
   setWalletType,
   setLoginError,
   setLoginState,
   setModalOpen,
   setLoading,
-}: WalletHookParams & { autoShowUnlock: boolean; setModalOpen: (open: boolean) => void }) {
+}: WalletHookParams & {
+  checkAccountInfoSync: boolean | undefined;
+  autoShowUnlock: boolean;
+  setModalOpen: (open: boolean) => void;
+}) {
   const appName = getConfig().appName;
   const chainId = getConfig().chainId as ChainId;
 
@@ -33,7 +39,8 @@ export function usePortkey({
 
   const isManagerExists = !!localStorage.getItem(appName);
 
-  const accountInfoSync = useAccountInfoSync(chainId, loginState, !!didWalletInfo, didWalletInfo);
+  const shouldCheckAccountInfoSync = !!didWalletInfo && (checkAccountInfoSync === undefined || checkAccountInfoSync);
+  const accountInfoSync = useAccountInfoSync(chainId, loginState, shouldCheckAccountInfoSync, didWalletInfo);
 
   const loginEagerly = useCallback(async () => {
     setLoginState(WebLoginState.logining);
@@ -90,13 +97,21 @@ export function usePortkey({
   );
 
   const getSignature = useCallback(
-    async ({ hexToBeSign }: SignatureParams) => {
+    async (params: SignatureParams) => {
+      checkSignatureParams(params);
       if (!didWalletInfo) {
         throw new Error('Portkey not login');
       }
+      let hex = '';
+      if (params.hexToBeSign) {
+        hex = params.hexToBeSign;
+      } else {
+        hex = params.signInfo;
+      }
+      const signInfo = hex;
       const keypair = didWalletInfo.walletInfo.keyPair;
       const keypairAndUtils = AElf.wallet.ellipticEc.keyFromPrivate(keypair.getPrivate());
-      const signedMsgObject = keypairAndUtils.sign(hexToBeSign);
+      const signedMsgObject = keypairAndUtils.sign(signInfo);
       const signedMsgString = [
         signedMsgObject.r.toString(16, 64),
         signedMsgObject.s.toString(16, 64),

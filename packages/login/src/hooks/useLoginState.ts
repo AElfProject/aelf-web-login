@@ -11,5 +11,5 @@ export default function useLoginState(onChanged: (loginState: WebLoginState) => 
       setPrevLoginState(loginState);
       onChanged(loginState);
     }
-  }, [prevLoginState, setPrevLoginState, loginState, onChanged]);
+  }, [prevLoginState, loginState, onChanged]);
 }

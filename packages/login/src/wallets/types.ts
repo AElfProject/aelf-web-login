@@ -14,7 +14,8 @@ export type WalletHookParams = {
 export type SignatureParams = {
   appName: string;
   address: string;
-  hexToBeSign: string;
+  signInfo: string;
+  hexToBeSign?: string;
 };
 export type SignatureData = {
   signature: string;
@@ -27,15 +28,21 @@ export type PortkeyInfo = DIDWalletInfo & {
   nickName: string;
 };
 
+export type DiscoverInfo = {
+  address: string;
+  nickName?: string;
+};
+
 export type WalletInfo = {
   name?: string;
   address: string;
   publicKey?: string;
   nightElfInfo?: AElfContextType;
   portkeyInfo?: PortkeyInfo;
+  discoverInfo?: DiscoverInfo;
   accountInfoSync: {
     syncCompleted: boolean;
-    holderInfos: IHolderInfo | undefined;
+    holderInfo: IHolderInfo | undefined;
   };
 };
 

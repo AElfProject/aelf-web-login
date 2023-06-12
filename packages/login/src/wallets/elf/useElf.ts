@@ -3,10 +3,13 @@ import { useAElfReact } from '@aelf-react/core';
 import { getConfig } from '../../config';
 import { CallContractParams, SignatureParams, WalletHookInterface, WalletHookParams } from '../types';
 import { WalletType, WebLoginState } from '../../constants';
+import isMobile from '../../utils/isMobile';
+import checkSignatureParams from '../../utils/signatureParams';
 
 export function useElf({
   isConnectEagerly,
   loginState,
+  setLoading,
   setLoginError,
   setLoginState,
   setWalletType,
@@ -14,6 +17,9 @@ export function useElf({
   const chainId = getConfig().chainId;
   const nodes = getConfig().aelfReact.nodes;
 
+  const timeoutLoginingRef = useRef<() => void>(() => {
+    console.log('timeoutLoginingRef');
+  });
   const eagerlyCheckRef = useRef(false);
   const initializingRef = useRef(false);
   const { isActive, account, pubKey, name, aelfBridges, activate, connectEagerly, deactivate } = useAElfReact();
@@ -31,16 +37,21 @@ export function useElf({
   const initialWallet = useCallback(async () => {
     if (initializingRef.current) return;
     initializingRef.current = true;
+    setLoading(true);
     try {
-      await chain!.getChainStatus();
+      if (!isMobile()) {
+        await chain!.getChainStatus();
+      }
       setWalletType(WalletType.elf);
       setLoginState(WebLoginState.logined);
     } catch (error) {
       setLoginError(error);
       setLoginState(WebLoginState.initial);
+    } finally {
+      setLoading(false);
     }
     initializingRef.current = false;
-  }, [chain, setWalletType, setLoginState, setLoginError]);
+  }, [setLoading, chain, setWalletType, setLoginState, setLoginError]);
 
   useEffect(() => {
     if (isActive && loginState === WebLoginState.logining) {
@@ -48,26 +59,50 @@ export function useElf({
     }
   }, [isActive, loginState, initialWallet]);
 
+  const timeoutLogining = useCallback(() => {
+    if (loginState !== WebLoginState.logining) return;
+    if (!isActive) {
+      // TODO cancel callback
+      console.log('cancel login: timeout');
+      localStorage.removeItem('aelf-connect-eagerly');
+      setLoginState(WebLoginState.initial);
+      setLoading(false);
+    }
+  }, [isActive, loginState, setLoading, setLoginState]);
+  timeoutLoginingRef.current = timeoutLogining;
+
+  const login = useCallback(async () => {
+    let timer;
+    try {
+      setLoginState(WebLoginState.logining);
+      timer = setTimeout(() => {
+        timeoutLoginingRef.current();
+      }, 8000);
+      console.log('activate');
+      await activate(nodes);
+      console.log('activated');
+    } catch (e) {
+      setLoading(false);
+      setLoginError(e);
+      setLoginState(WebLoginState.initial);
+    } finally {
+      clearTimeout(timer);
+    }
+  }, [activate, nodes, setLoading, setLoginError, setLoginState]);
+
   const loginEagerly = useCallback(async () => {
+    setLoading(true);
     try {
       console.log('connectEagerly', loginState);
       setLoginState(WebLoginState.logining);
-      await connectEagerly(nodes);
+      await login();
     } catch (e) {
       localStorage.removeItem('aelf-connect-eagerly');
+      setLoading(false);
       setLoginError(e);
       setLoginState(WebLoginState.initial);
     }
-  }, [connectEagerly, loginState, nodes, setLoginError, setLoginState]);
-
-  const login = useCallback(async () => {
-    try {
-      setLoginState(WebLoginState.logining);
-      await activate(nodes);
-    } catch (e) {
-      setLoginError(e);
-    }
-  }, [activate, nodes, setLoginError, setLoginState]);
+  }, [login, loginState, setLoading, setLoginError, setLoginState]);
 
   const logout = useCallback(async () => {
     setLoginState(WebLoginState.logouting);
@@ -94,15 +129,69 @@ export function useElf({
     [isActive, chain, account],
   );
 
-  const getSignature = useCallback(
+  const getSignatureInMobileApp = useCallback(
     async (params: SignatureParams) => {
       if (!bridge || !isActive) {
         throw new Error('Elf not login');
       }
-      const signature = await bridge!.getSignature(params);
-      return signature;
+      if (!bridge.sendMessage) {
+        throw new Error('bridge.sendMessage is not a function');
+      }
+      let hex = '';
+      if (params.hexToBeSign) {
+        hex = params.hexToBeSign!;
+      } else {
+        hex = Buffer.from(params.signInfo, 'utf-8').toString('hex');
+      }
+      const signedMsgObject = await bridge.sendMessage('keyPairUtils', {
+        method: 'sign',
+        arguments: [hex],
+      });
+      if (!signedMsgObject) {
+        throw new Error('signedMsgObject is null');
+      }
+      if (signedMsgObject?.error) {
+        throw new Error(
+          signedMsgObject.errorMessage.message || signedMsgObject.errorMessage || signedMsgObject.message,
+        );
+      }
+      const signedMsgString = [
+        signedMsgObject.r.toString(16, 64),
+        signedMsgObject.s.toString(16, 64),
+        `0${signedMsgObject.recoveryParam.toString()}`,
+      ].join('');
+      return {
+        error: 0,
+        errorMessage: '',
+        signature: signedMsgString,
+        from: 'aelf-bridge',
+      };
     },
     [bridge, isActive],
+  );
+
+  const getSignature = useCallback(
+    async (params: SignatureParams) => {
+      checkSignatureParams(params);
+      if (!bridge || !isActive) {
+        throw new Error('Elf not login');
+      }
+      if (!bridge.getSignature) {
+        return await getSignatureInMobileApp(params);
+      }
+      let hex = '';
+      if (params.hexToBeSign) {
+        hex = params.hexToBeSign!;
+      } else {
+        hex = Buffer.from(params.signInfo, 'utf-8').toString('hex');
+      }
+      const signature = await bridge!.getSignature({
+        address: params.address,
+        hexToBeSign: hex,
+      });
+      return signature;
+    },
+    [bridge, getSignatureInMobileApp, isActive],
   );
 
   useEffect(() => {
@@ -131,7 +220,7 @@ export function useElf({
         nightElfInfo,
         accountInfoSync: {
           syncCompleted: loginState === WebLoginState.logined,
-          holderInfos: undefined,
+          holderInfo: undefined,
         },
       },
       loginEagerly,

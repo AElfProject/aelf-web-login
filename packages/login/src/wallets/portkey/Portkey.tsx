@@ -73,7 +73,6 @@ export default function Portkey({
   return (
     <SignIn
       defaultChainId={chainId as any}
-      sandboxId="portkey-ui-sandbox"
       ref={signInRef}
       uiType="Modal"
       isShowScan

@@ -12,7 +12,7 @@ import {
   useAccountInfoSync,
   getConfig,
 } from 'aelf-web-login';
-import { did } from '@portkey/did-ui-react';
+import { did, PortkeyConfigProvider } from '@portkey/did-ui-react';
 import configJson from './assets/config.json';
 import { CallContractParams } from 'aelf-web-login/dist/_types/src/wallets/types';
 
@@ -87,7 +87,7 @@ function Usage() {
       return await getSignature({
         address: wallet.address,
         appName: 'example',
-        hexToBeSign: '0x' + '0123456789abcdef'.repeat(32),
+        signInfo: '0x' + '0123456789abcdef'.repeat(32),
       });
     }),
     useExampleCall('fetchProfit', async () => {
@@ -176,9 +176,11 @@ function Usage() {
 
 function App() {
   return (
-    <WebLoginProvider extraWallets={['portkey', 'elf']} connectEagerly autoShowUnlock={false}>
-      <Usage />
-    </WebLoginProvider>
+    <PortkeyConfigProvider>
+      <WebLoginProvider extraWallets={['discover', 'elf']} connectEagerly autoShowUnlock={false} checkAccountInfoSync>
+        <Usage />
+      </WebLoginProvider>
+    </PortkeyConfigProvider>
   );
 }
 const container = document.getElementById('root');
