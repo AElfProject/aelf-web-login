@@ -11,6 +11,7 @@ export type DiscoverInterface = WalletHookInterface & {};
 
 const LOGIN_EARGLY_KEY = 'discover.loginEargly';
 
+console.log(detectProvider);
 export function useDiscover({
   autoRequestAccount,
   checkAccountInfoSync,
@@ -33,22 +34,27 @@ export function useDiscover({
   // const shouldCheckAccountInfoSync = !!didWalletInfo && (checkAccountInfoSync === undefined || checkAccountInfoSync);
   // const accountInfoSync = useAccountInfoSync(chainId, loginState, shouldCheckAccountInfoSync, didWalletInfo);
 
-  const detect = useCallback(async () => {
+  const detect = useCallback(async (): Promise<IPortkeyProvider> => {
     if (discoverProvider?.isConnected()) {
-      return;
+      return discoverProvider!;
     }
     const provider = await detectProvider();
     if (provider && provider.isPortkey) {
+      console.log(provider);
+      console.log(provider.request);
       setDiscoverProvider(provider);
+      return provider;
+    } else {
+      throw new Error('Discover provider not found');
     }
   }, [discoverProvider]);
 
   const onAccountsSuccess = useCallback(
-    async (accounts: Accounts) => {
-      const provider = discoverProvider! as IPortkeyProvider;
+    async (provider: IPortkeyProvider, accounts: Accounts) => {
       setLoginError(undefined);
       let nickName = '';
       try {
+        console.log(provider, 'request nickname');
         nickName = await provider.request({ method: 'wallet_getWalletName' });
       } catch (error) {
         console.warn(error);
@@ -61,7 +67,7 @@ export function useDiscover({
       setWalletType(WalletType.discover);
       setLoginState(WebLoginState.logined);
     },
-    [chainId, discoverProvider, setLoginError, setLoginState, setWalletType],
+    [chainId, setLoginError, setLoginState, setWalletType],
   );
 
   const onAccountsFail = useCallback(
@@ -76,35 +82,33 @@ export function useDiscover({
 
   const loginEagerly = useCallback(async () => {
     setLoginState(WebLoginState.logining);
-    const provider = discoverProvider! as IPortkeyProvider;
     try {
+      const provider = await detect();
       const accounts = await provider.request({ method: 'accounts' });
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
-        onAccountsSuccess(accounts);
+        onAccountsSuccess(provider, accounts);
       } else {
         onAccountsFail(undefined);
       }
     } catch (error) {
       onAccountsFail(error);
     }
-    // TODO:
-  }, [chainId, discoverProvider, onAccountsFail, onAccountsSuccess, setLoginState]);
+  }, [chainId, detect, onAccountsFail, onAccountsSuccess, setLoginState]);
 
   const login = useCallback(async () => {
     setLoginState(WebLoginState.logining);
     try {
-      detect();
-      const provider = discoverProvider! as IPortkeyProvider;
+      const provider = await detect();
       const accounts = await provider.request({ method: 'requestAccounts' });
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
-        onAccountsSuccess(accounts);
+        onAccountsSuccess(provider, accounts);
       } else {
         onAccountsFail(undefined);
       }
     } catch (error) {
       onAccountsFail(error);
     }
-  }, [chainId, detect, discoverProvider, onAccountsFail, onAccountsSuccess, setLoginState]);
+  }, [chainId, detect, onAccountsFail, onAccountsSuccess, setLoginState]);
 
   const logout = useCallback(async () => {
     setLoginState(WebLoginState.logouting);

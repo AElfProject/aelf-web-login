@@ -144,10 +144,17 @@ function WebLoginProvider({
       return { ...invalidApi };
     }
     if (loginState === WebLoginState.logined) {
-      return walletType === WalletType.elf ? elfApi : portkeyApi;
+      if (walletType === WalletType.elf) {
+        return elfApi;
+      } else if (walletType === WalletType.portkey) {
+        return portkeyApi;
+      } else if (walletType === WalletType.discover) {
+        return discoverApi;
+      }
+      return invalidApi;
     }
     return invalidApi;
-  }, [loginState, invalidApi, login, elfApi, portkeyApi, walletType]);
+  }, [loginState, invalidApi, login, elfApi, portkeyApi, walletType, discoverApi]);
 
   const renderExtraWallets = () => {
     if (bridgeType === 'unknown') {
