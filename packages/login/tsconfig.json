@@ -14,16 +14,14 @@
     "noImplicitReturns": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-
+    "baseUrl": "./",
+    "rootDir": "./src",
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
     "allowUnreachableCode": false,
-    "experimentalDecorators": true,
-
-    "outDir": "./dist/_types",
-    "declaration": true
+    "experimentalDecorators": true
   },
-  "include": ["global.d.ts", "src", "index.ts"],
+  "include": ["global.d.ts", "src", "src/index.ts"],
   "exclude": ["dist", "node_modules"]
 }

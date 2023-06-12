@@ -14,7 +14,7 @@ import {
 } from 'aelf-web-login';
 import { did, PortkeyConfigProvider } from '@portkey/did-ui-react';
 import configJson from './assets/config.json';
-import { CallContractParams } from 'aelf-web-login/dist/_types/src/wallets/types';
+import { CallContractParams } from 'aelf-web-login/dist/types/wallets/types';
 
 async function callContractWithLog<T, R>(
   callContract: (params: CallContractParams<T>) => Promise<R>,

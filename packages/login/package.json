@@ -1,18 +1,16 @@
 {
   "name": "aelf-web-login",
   "version": "0.0.45-alpha",
-  "main": "dist/index.js",
-  "types": "dist/_types/index.d.ts",
+  "main": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
     },
-    "./dist/assets/index.css": "./dist/assets/index.css",
-    "./dist/index.js": "./dist/index.js",
-    "./dist/_types/index.d.ts": "./dist/_types/index.d.ts"
+    "./dist/assets/index.css": "./dist/assets/index.css"
   },
-  "module": "./dist/index.mjs",
+  "module": "./dist/esm/index.js",
   "keywords": [
     "antd",
     "portkey"
@@ -38,10 +36,11 @@
     "lint": "eslint . --ext .tsx,.ts",
     "lint:md": "remark . -f -q",
     "build:clean": "rm -rf dist",
-    "build:types": "tsc --emitDeclarationOnly",
+    "build:types": "tsc --emitDeclarationOnly --p tsconfig.types.json",
+    "build:tsc": "tsc --p tsconfig.cjs.json && tsc --p tsconfig.esm.json && npm run build:css",
     "build:source": "rollup --silent --config rollup.config.js",
-    "build": "npm run build:clean; npm run build:types & npm run build:source",
-    "dev": "rollup --config rollup.config.js --watch",
+    "build": "npm run build:clean; npm run build:types & npm run build:tsc",
+    "build:css": "lessc ./index.less dist/assets/index.css",
     "release": "yarn version && yarn build",
     "pub": "npm publish"
   },
