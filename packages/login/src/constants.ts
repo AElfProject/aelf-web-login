@@ -13,3 +13,13 @@ export enum WebLoginState {
   logined = 'logined',
   logouting = 'logouting',
 }
+
+export enum WebLoginEvents {
+  LOGIN_ERROR = 'loginError',
+  MODAL_CANCEL = 'modalCancel',
+  BRIDGE_CANCEL = 'bridgeCancel',
+  DISCOVER_DISCONNECTED = 'discoverDisconnected',
+  NETWORK_MISMATCH = 'networkMismatch',
+  ACCOUNTS_MISMATCH = 'accountsMismatch',
+  CHAINID_MISMATCH = 'chainIdMismatch',
+}

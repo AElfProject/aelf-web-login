@@ -1,10 +1,13 @@
+import { EventEmitter } from 'events';
 import type { AElfContextType } from '@aelf-react/core/dist/types';
 import type { DIDWalletInfo } from '@portkey/did-ui-react';
 import type { WalletType, WebLoginState } from '../constants';
 import type { IHolderInfo } from '@portkey/services';
 
-export type WalletHookParams = {
+export type WalletHookParams<T> = {
+  options: T;
   loginState: WebLoginState;
+  eventEmitter: EventEmitter;
   setLoginState: (state: WebLoginState) => void;
   setLoginError: (error: any | unknown) => void;
   setWalletType: (wallet: WalletType) => void;
@@ -55,7 +58,7 @@ export type WalletHookInterface = {
   getSignature(params: SignatureParams): Promise<SignatureData>;
 };
 
-export type WalletHook = (params: WalletHookParams) => WalletHookInterface;
+export type WalletHook<T> = (params: WalletHookParams<T>) => WalletHookInterface;
 
 export interface CallContractParams<T> {
   contractAddress: string;

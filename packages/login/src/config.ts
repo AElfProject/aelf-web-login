@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { ConfigProvider } from '@portkey/did-ui-react';
 import { IStorageSuite } from '@portkey/types/dist/storage';
+import { NetworkType } from '@portkey/provider-types';
 // import type { AElfReactProviderProps } from '@aelf-react/types';
 import { GlobalConfigProps } from '@portkey/did-ui-react/dist/_types/src/components/config-provider/types';
 
@@ -20,6 +21,7 @@ export type AElfReactProviderProps = {
 export type WebLoginConfig = {
   appName: string;
   chainId: string;
+  networkType: NetworkType;
   portkey: GlobalConfigProps & { useLocalStorage?: boolean };
   aelfReact: Omit<AElfReactProviderProps, 'children'>;
 };

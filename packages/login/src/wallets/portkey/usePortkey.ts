@@ -1,13 +1,16 @@
-import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
+import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import AElf from 'aelf-sdk';
 import { getContractBasic } from '@portkey/contracts';
 import { DIDWalletInfo, did } from '@portkey/did-ui-react';
 import { ChainId } from '@portkey/types';
 import { getConfig } from '../../config';
 import { CallContractParams, PortkeyInfo, SignatureParams, WalletHookInterface, WalletHookParams } from '../types';
-import { WalletType, WebLoginState } from '../../constants';
+import { WalletType, WebLoginEvents, WebLoginState } from '../../constants';
 import useAccountInfoSync from './useAccountInfoSync';
 import checkSignatureParams from '../../utils/signatureParams';
+import { PortkeyOptions } from 'src/types';
+
+const PORTKEY_ORIGIN_CHAIN_ID_KEY = 'PortkeyOriginChainId';
 
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;
@@ -18,17 +21,15 @@ export type PortkeyInterface = WalletHookInterface & {
 };
 
 export function usePortkey({
-  autoShowUnlock,
-  checkAccountInfoSync,
+  options,
   loginState,
+  eventEmitter,
   setWalletType,
   setLoginError,
   setLoginState,
   setModalOpen,
   setLoading,
-}: WalletHookParams & {
-  checkAccountInfoSync: boolean | undefined;
-  autoShowUnlock: boolean;
+}: WalletHookParams<PortkeyOptions> & {
   setModalOpen: (open: boolean) => void;
 }) {
   const appName = getConfig().appName;
@@ -39,7 +40,8 @@ export function usePortkey({
 
   const isManagerExists = !!localStorage.getItem(appName);
 
-  const shouldCheckAccountInfoSync = !!didWalletInfo && (checkAccountInfoSync === undefined || checkAccountInfoSync);
+  const shouldCheckAccountInfoSync =
+    !!didWalletInfo && (options.checkAccountInfoSync === undefined || options.checkAccountInfoSync);
   const accountInfoSync = useAccountInfoSync(chainId, loginState, shouldCheckAccountInfoSync, didWalletInfo);
 
   const loginEagerly = useCallback(async () => {
@@ -55,7 +57,7 @@ export function usePortkey({
   const logout = useCallback(async () => {
     setLoginState(WebLoginState.logouting);
     try {
-      const originChainId = localStorage.getItem('PortkeyOriginChainId');
+      const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
       if (originChainId) {
         await did.logout({
           chainId: originChainId as ChainId,
@@ -134,64 +136,74 @@ export function usePortkey({
     autoUnlockCheckRef.current = true;
     const canShowUnlock = isManagerExists;
     if (canShowUnlock) {
-      if (autoShowUnlock && loginState === WebLoginState.initial) {
+      if (options.autoShowUnlock && loginState === WebLoginState.initial) {
         loginEagerly();
       } else {
         setLoginState(WebLoginState.lock);
       }
     }
-  }, [isManagerExists, loginEagerly, setLoginState, autoShowUnlock, loginState]);
+  }, [isManagerExists, loginEagerly, setLoginState, loginState, options.autoShowUnlock]);
 
   const onUnlock = useCallback(
     async (password: string) => {
-      const localWallet = await did.load(password, appName);
-      if (!localWallet.didWallet.accountInfo.loginAccount) {
+      try {
+        const localWallet = await did.load(password, appName);
+        if (!localWallet.didWallet.accountInfo.loginAccount) {
+          return Promise.resolve(false);
+        }
+
+        setLoading(true);
+        let caInfo = localWallet.didWallet.caInfo[chainId];
+        let caHash = caInfo?.caHash;
+        if (!caInfo) {
+          const key = Object.keys(localWallet.didWallet.caInfo)[0];
+          caHash = localWallet.didWallet.caInfo[key].caHash;
+          caInfo = await did.didWallet.getHolderInfoByContract({
+            caHash: caHash,
+            chainId: chainId as ChainId,
+          });
+        }
+
+        const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
+        let nickName = localWallet.didWallet.accountInfo.nickName || '';
+        if (originChainId) {
+          const holderInfo = await did.getCAHolderInfo(originChainId as ChainId);
+          nickName = holderInfo.nickName;
+        }
+
+        const didWalletInfo: DIDWalletInfo = {
+          caInfo,
+          pin: password,
+          chainId: chainId as ChainId,
+          // TODO: fixes any
+          walletInfo: localWallet.didWallet.managementAccount!.wallet as any,
+          accountInfo: localWallet.didWallet.accountInfo as any,
+        };
+        setLoading(false);
+        setDidWalletInfo({
+          ...didWalletInfo,
+          nickName,
+        });
+        setWalletType(WalletType.portkey);
+        setLoginState(WebLoginState.logined);
+        return Promise.resolve(true);
+      } catch (error) {
+        localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
+        setLoading(false);
+        setLoginError(error);
+        setWalletType(WalletType.unknown);
+        setLoginState(WebLoginState.initial);
+        eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
         return Promise.resolve(false);
       }
-
-      setLoading(true);
-      let caInfo = localWallet.didWallet.caInfo[chainId];
-      let caHash = caInfo?.caHash;
-      if (!caInfo) {
-        const key = Object.keys(localWallet.didWallet.caInfo)[0];
-        caHash = localWallet.didWallet.caInfo[key].caHash;
-        caInfo = await did.didWallet.getHolderInfoByContract({
-          caHash: caHash,
-          chainId: chainId as ChainId,
-        });
-      }
-
-      const originChainId = localStorage.getItem('PortkeyOriginChainId');
-      let nickName = localWallet.didWallet.accountInfo.nickName || '';
-      if (originChainId) {
-        const holderInfo = await did.getCAHolderInfo(originChainId as ChainId);
-        nickName = holderInfo.nickName;
-      }
-
-      const didWalletInfo: DIDWalletInfo = {
-        caInfo,
-        pin: password,
-        chainId: chainId as ChainId,
-        // TODO: fixes any
-        walletInfo: localWallet.didWallet.managementAccount!.wallet as any,
-        accountInfo: localWallet.didWallet.accountInfo as any,
-      };
-      setLoading(false);
-      setDidWalletInfo({
-        ...didWalletInfo,
-        nickName,
-      });
-      setWalletType(WalletType.portkey);
-      setLoginState(WebLoginState.logined);
-      return Promise.resolve(true);
     },
-    [appName, chainId, setLoading, setLoginState, setWalletType],
+    [appName, chainId, eventEmitter, setLoading, setLoginError, setLoginState, setWalletType],
   );
 
   const onFinished = useCallback(
     async (didWalletInfo: DIDWalletInfo) => {
       try {
-        localStorage.setItem('PortkeyOriginChainId', didWalletInfo.chainId);
+        localStorage.setItem(PORTKEY_ORIGIN_CHAIN_ID_KEY, didWalletInfo.chainId);
         if (didWalletInfo.chainId !== chainId) {
           const caInfo = await did.didWallet.getHolderInfoByContract({
             caHash: didWalletInfo.caInfo.caHash,
@@ -214,25 +226,30 @@ export function usePortkey({
       } catch (error) {
         setLoginError(error);
         setLoginState(WebLoginState.initial);
+        eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
       }
     },
-    [appName, chainId, setLoginError, setLoginState, setWalletType],
+    [appName, chainId, eventEmitter, setLoginError, setLoginState, setWalletType],
   );
 
   const onError = useCallback(
     (error: any) => {
+      setDidWalletInfo(undefined);
+      setWalletType(WalletType.unknown);
       setModalOpen(false);
       setLoginError(error);
       setLoginState(WebLoginState.initial);
+      eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
     },
-    [setLoginError, setLoginState, setModalOpen],
+    [eventEmitter, setLoginError, setLoginState, setModalOpen, setWalletType],
   );
 
   const onCancel = useCallback(() => {
     setModalOpen(false);
     setLoginState(isManagerExists ? WebLoginState.lock : WebLoginState.initial);
     setLoginError(undefined);
-  }, [setModalOpen, setLoginState, isManagerExists, setLoginError]);
+    eventEmitter.emit(WebLoginEvents.MODAL_CANCEL);
+  }, [setModalOpen, setLoginState, isManagerExists, setLoginError, eventEmitter]);
 
   return useMemo<PortkeyInterface>(
     () => ({

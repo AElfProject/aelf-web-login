@@ -1,14 +1,21 @@
 /* eslint-disable */
 const path = require("path");
-const webpack = require('webpack');
+const { ProvidePlugin } = require('webpack');
 
 module.exports = {
   webpack: {
     configure: (webpackConfig, arg) => {
+      webpackConfig.resolve.fallback = {
+        ...webpackConfig.resolve.fallback,
+        "events": require.resolve("events/"),
+        "buffer": require.resolve("buffer/")
+      }
       return webpackConfig;
     },
-
     plugins: {
+      new ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+      }),
     },
   },
   devServer: {

@@ -1,19 +1,21 @@
-import React, { useRef, useMemo, useCallback, useEffect } from 'react';
+import { useRef, useMemo, useCallback, useEffect } from 'react';
 import { useAElfReact } from '@aelf-react/core';
 import { getConfig } from '../../config';
 import { CallContractParams, SignatureParams, WalletHookInterface, WalletHookParams } from '../types';
-import { WalletType, WebLoginState } from '../../constants';
+import { NightElfOptions } from '../../types';
+import { WalletType, WebLoginState, WebLoginEvents } from '../../constants';
 import isMobile from '../../utils/isMobile';
 import checkSignatureParams from '../../utils/signatureParams';
 
 export function useElf({
-  isConnectEagerly,
+  options,
   loginState,
+  eventEmitter,
   setLoading,
   setLoginError,
   setLoginState,
   setWalletType,
-}: WalletHookParams & { isConnectEagerly: boolean }) {
+}: WalletHookParams<NightElfOptions>) {
   const chainId = getConfig().chainId;
   const nodes = getConfig().aelfReact.nodes;
 
@@ -22,7 +24,7 @@ export function useElf({
   });
   const eagerlyCheckRef = useRef(false);
   const initializingRef = useRef(false);
-  const { isActive, account, pubKey, name, aelfBridges, activate, connectEagerly, deactivate } = useAElfReact();
+  const { isActive, account, pubKey, name, aelfBridges, activate, deactivate } = useAElfReact();
   const nightElfInfo = useAElfReact();
 
   const bridge = useMemo(() => {
@@ -45,13 +47,15 @@ export function useElf({
       setWalletType(WalletType.elf);
       setLoginState(WebLoginState.logined);
     } catch (error) {
+      setWalletType(WalletType.unknown);
       setLoginError(error);
       setLoginState(WebLoginState.initial);
+      eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
     } finally {
       setLoading(false);
     }
     initializingRef.current = false;
-  }, [setLoading, chain, setWalletType, setLoginState, setLoginError]);
+  }, [setLoading, setWalletType, setLoginState, chain, setLoginError, eventEmitter]);
 
   useEffect(() => {
     if (isActive && loginState === WebLoginState.logining) {
@@ -62,13 +66,13 @@ export function useElf({
   const timeoutLogining = useCallback(() => {
     if (loginState !== WebLoginState.logining) return;
     if (!isActive) {
-      // TODO cancel callback
       console.log('cancel login: timeout');
       localStorage.removeItem('aelf-connect-eagerly');
       setLoginState(WebLoginState.initial);
       setLoading(false);
+      eventEmitter.emit(WebLoginEvents.BRIDGE_CANCEL);
     }
-  }, [isActive, loginState, setLoading, setLoginState]);
+  }, [eventEmitter, isActive, loginState, setLoading, setLoginState]);
   timeoutLoginingRef.current = timeoutLogining;
 
   const login = useCallback(async () => {
@@ -85,10 +89,11 @@ export function useElf({
       setLoading(false);
       setLoginError(e);
       setLoginState(WebLoginState.initial);
+      eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, e);
     } finally {
       clearTimeout(timer);
     }
-  }, [activate, nodes, setLoading, setLoginError, setLoginState]);
+  }, [activate, eventEmitter, nodes, setLoading, setLoginError, setLoginState]);
 
   const loginEagerly = useCallback(async () => {
     setLoading(true);
@@ -101,8 +106,9 @@ export function useElf({
       setLoading(false);
       setLoginError(e);
       setLoginState(WebLoginState.initial);
+      eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, e);
     }
-  }, [login, loginState, setLoading, setLoginError, setLoginState]);
+  }, [eventEmitter, login, loginState, setLoading, setLoginError, setLoginState]);
 
   const logout = useCallback(async () => {
     setLoginState(WebLoginState.logouting);
@@ -201,7 +207,7 @@ export function useElf({
     eagerlyCheckRef.current = true;
     const canEagerly = localStorage.getItem('aelf-connect-eagerly') === 'true';
     if (canEagerly) {
-      if (isConnectEagerly) {
+      if (options.connectEagerly) {
         if (loginState === WebLoginState.initial) {
           loginEagerly();
         }
@@ -209,7 +215,7 @@ export function useElf({
         setLoginState(WebLoginState.eagerly);
       }
     }
-  }, [loginState, isConnectEagerly, loginEagerly, setLoginState]);
+  }, [loginState, loginEagerly, setLoginState, options.connectEagerly]);
 
   return useMemo<WalletHookInterface>(
     () => ({

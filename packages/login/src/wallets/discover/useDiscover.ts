@@ -1,35 +1,36 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { ChainId } from '@portkey/types';
-import { IPortkeyProvider, Accounts } from '@portkey/provider-types';
+import { IPortkeyProvider, Accounts, ChainIds, NetworkType, ProviderError } from '@portkey/provider-types';
 import detectProvider from '@portkey/detect-provider';
 import { getConfig } from '../../config';
 import { CallContractParams, DiscoverInfo, SignatureParams, WalletHookInterface, WalletHookParams } from '../types';
-import { WalletType, WebLoginState } from '../../constants';
+import { WalletType, WebLoginEvents, WebLoginState } from '../../constants';
 import checkSignatureParams from '../../utils/signatureParams';
+import { DiscoverOptions } from 'src/types';
+import waitNextFrame from 'src/utils/waitNextFrame';
 
-export type DiscoverInterface = WalletHookInterface & {};
+export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
+export type DiscoverInterface = WalletHookInterface & {
+  discoverDetected: DiscoverDetectState;
+};
 
 const LOGIN_EARGLY_KEY = 'discover.loginEargly';
 
-console.log(detectProvider);
 export function useDiscover({
-  autoRequestAccount,
-  checkAccountInfoSync,
+  options,
+  eventEmitter,
   loginState,
   setWalletType,
   setLoginError,
   setLoginState,
   setLoading,
-}: WalletHookParams & {
-  checkAccountInfoSync: boolean | undefined;
-  autoRequestAccount: boolean;
-  setModalOpen: (open: boolean) => void;
-}) {
+}: WalletHookParams<DiscoverOptions>) {
   const chainId = getConfig().chainId as ChainId;
 
   const autoRequestAccountCheck = useRef(false);
   const [discoverProvider, setDiscoverProvider] = useState<IPortkeyProvider>();
   const [discoverInfo, setDiscoverInfo] = useState<DiscoverInfo>();
+  const [discoverDetected, setDiscoverDetected] = useState<DiscoverDetectState>('unknown');
 
   // const shouldCheckAccountInfoSync = !!didWalletInfo && (checkAccountInfoSync === undefined || checkAccountInfoSync);
   // const accountInfoSync = useAccountInfoSync(chainId, loginState, shouldCheckAccountInfoSync, didWalletInfo);
@@ -38,16 +39,21 @@ export function useDiscover({
     if (discoverProvider?.isConnected()) {
       return discoverProvider!;
     }
+    // TODO: detects in once issue
     const provider = await detectProvider();
     if (provider && provider.isPortkey) {
-      console.log(provider);
-      console.log(provider.request);
       setDiscoverProvider(provider);
+      setDiscoverDetected('detected');
       return provider;
     } else {
+      setDiscoverDetected('not-detected');
       throw new Error('Discover provider not found');
     }
   }, [discoverProvider]);
+
+  useEffect(() => {
+    detect();
+  }, []);
 
   const onAccountsSuccess = useCallback(
     async (provider: IPortkeyProvider, accounts: Accounts) => {
@@ -66,8 +72,9 @@ export function useDiscover({
       });
       setWalletType(WalletType.discover);
       setLoginState(WebLoginState.logined);
+      setLoading(false);
     },
-    [chainId, setLoginError, setLoginState, setWalletType],
+    [chainId, setLoading, setLoginError, setLoginState, setWalletType],
   );
 
   const onAccountsFail = useCallback(
@@ -75,9 +82,11 @@ export function useDiscover({
       localStorage.removeItem(LOGIN_EARGLY_KEY);
       setLoginError(error);
       setDiscoverInfo(undefined);
+      setWalletType(WalletType.unknown);
       setLoginState(WebLoginState.initial);
+      eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
     },
-    [setLoginError, setLoginState],
+    [eventEmitter, setLoginError, setLoginState, setWalletType],
   );
 
   const loginEagerly = useCallback(async () => {
@@ -88,14 +97,22 @@ export function useDiscover({
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
         onAccountsSuccess(provider, accounts);
       } else {
-        onAccountsFail(undefined);
+        onAccountsFail({
+          code: 10001,
+          message: 'discover login eagerly fail',
+        });
       }
-    } catch (error) {
-      onAccountsFail(error);
+    } catch (error: any) {
+      onAccountsFail({
+        code: 10001,
+        message: error?.message || 'unknown error',
+        nativeError: error,
+      });
     }
   }, [chainId, detect, onAccountsFail, onAccountsSuccess, setLoginState]);
 
   const login = useCallback(async () => {
+    setLoading(true);
     setLoginState(WebLoginState.logining);
     try {
       const provider = await detect();
@@ -103,12 +120,14 @@ export function useDiscover({
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
         onAccountsSuccess(provider, accounts);
       } else {
+        setLoading(false);
         onAccountsFail(undefined);
       }
     } catch (error) {
+      setLoading(false);
       onAccountsFail(error);
     }
-  }, [chainId, detect, onAccountsFail, onAccountsSuccess, setLoginState]);
+  }, [chainId, detect, onAccountsFail, onAccountsSuccess, setLoading, setLoginState]);
 
   const logout = useCallback(async () => {
     setLoginState(WebLoginState.logouting);
@@ -117,21 +136,23 @@ export function useDiscover({
     } catch (e) {
       console.warn(e);
     }
-    setDiscoverInfo(undefined);
     setLoginError(undefined);
+    setDiscoverInfo(undefined);
+    setWalletType(WalletType.unknown);
     setLoginState(WebLoginState.initial);
-  }, [setLoginError, setLoginState]);
+  }, [setLoginError, setLoginState, setWalletType]);
 
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
-      if (!discoverInfo) {
+      if (!discoverInfo || !discoverProvider) {
         throw new Error('Discover not connected');
       }
-      // TODO ..
-      const result = undefined;
+      const chain = await discoverProvider.getChain(chainId);
+      const contract = chain.getContract(params.contractAddress);
+      const result = contract.callSendMethod(params.methodName, discoverInfo.address, params.args);
       return result as R;
     },
-    [discoverInfo],
+    [chainId, discoverInfo, discoverProvider],
   );
 
   const getSignature = useCallback(
@@ -171,7 +192,7 @@ export function useDiscover({
       return;
     }
     autoRequestAccountCheck.current = true;
-    const canLoginEargly = autoRequestAccount && !!localStorage.getItem(LOGIN_EARGLY_KEY);
+    const canLoginEargly = options.autoRequestAccount && !!localStorage.getItem(LOGIN_EARGLY_KEY);
     if (canLoginEargly) {
       if (canLoginEargly && loginState === WebLoginState.initial) {
         loginEagerly();
@@ -179,7 +200,68 @@ export function useDiscover({
         setLoginState(WebLoginState.eagerly);
       }
     }
-  }, [loginEagerly, setLoginState, loginState, autoRequestAccount]);
+  }, [loginEagerly, setLoginState, loginState, options.autoRequestAccount]);
+
+  useEffect(() => {
+    if (discoverProvider) {
+      const onDisconnected = (error: ProviderError) => {
+        if (!discoverInfo) return;
+        eventEmitter.emit(WebLoginEvents.DISCOVER_DISCONNECTED, error);
+        if (options.autoLogoutOnDisconnected) {
+          logout();
+        }
+      };
+      const onNetworkChanged = (networkType: NetworkType) => {
+        if (networkType !== getConfig().networkType) {
+          eventEmitter.emit(WebLoginEvents.NETWORK_MISMATCH, networkType);
+          if (options.autoLogoutOnNetworkMismatch) {
+            logout();
+          }
+        }
+      };
+      const onAccountsChanged = (accounts: Accounts) => {
+        if (!discoverInfo) return;
+        if (
+          !accounts[chainId] ||
+          accounts[chainId]!.length === 0 ||
+          accounts[chainId]!.find((addr) => addr !== discoverInfo!.address)
+        ) {
+          eventEmitter.emit(WebLoginEvents.ACCOUNTS_MISMATCH, accounts);
+          if (options.autoLogoutOnAccountMismatch) {
+            logout();
+          }
+        }
+      };
+      const onChainChanged = (chainIds: ChainIds) => {
+        if (chainIds.find((id) => id === chainId)) {
+          eventEmitter.emit(WebLoginEvents.CHAINID_MISMATCH, chainIds);
+          if (options.autoLogoutOnChainMismatch) {
+            logout();
+          }
+        }
+      };
+      discoverProvider.on('disconnected', onDisconnected);
+      discoverProvider.on('networkChanged', onNetworkChanged);
+      discoverProvider.on('accountsChanged', onAccountsChanged);
+      discoverProvider.on('chainChanged', onChainChanged);
+      return () => {
+        discoverProvider.removeListener('disconnected', onDisconnected);
+        discoverProvider.removeListener('networkChanged', onNetworkChanged);
+        discoverProvider.removeListener('networkChanged', onAccountsChanged);
+        discoverProvider.removeListener('chainChanged', onChainChanged);
+      };
+    }
+  }, [
+    chainId,
+    discoverInfo,
+    discoverProvider,
+    eventEmitter,
+    logout,
+    options.autoLogoutOnAccountMismatch,
+    options.autoLogoutOnChainMismatch,
+    options.autoLogoutOnDisconnected,
+    options.autoLogoutOnNetworkMismatch,
+  ]);
 
   return useMemo<DiscoverInterface>(
     () => ({
@@ -193,7 +275,7 @@ export function useDiscover({
           holderInfo: undefined,
         },
       },
-      discoverDetected: !!discoverProvider,
+      discoverDetected,
       loginEagerly,
       login,
       logout,

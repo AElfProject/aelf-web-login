@@ -1,7 +1,8 @@
+import { EventEmitter } from 'events';
 import React, { createContext, useEffect, useContext, useCallback, useMemo, useState } from 'react';
 import { AElfReactProvider } from '@aelf-react/core';
 import { WalletHookInterface } from './wallets/types';
-import { ExtraWalletNames, WebLoginProviderProps } from './types';
+import { NightElfOptions, WebLoginProviderProps } from './types';
 import { usePortkey } from './wallets/portkey/usePortkey';
 import NightElfPlugin from './wallets/elf/NightElfPlugin';
 import Portkey from './wallets/portkey/Portkey';
@@ -17,11 +18,13 @@ import { useDiscover } from './wallets/discover/useDiscover';
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,
   loginError: undefined,
+  eventEmitter: new EventEmitter(),
 };
 
 export type WebLoginInterface = WalletHookInterface & {
   loginState: WebLoginState;
   loginError: any | unknown;
+  eventEmitter: EventEmitter;
 };
 export type WebLoginContextType = WebLoginInterface;
 
@@ -33,12 +36,13 @@ export const useWebLogin: () => WebLoginInterface = () => {
 };
 
 function WebLoginProvider({
-  connectEagerly,
-  autoShowUnlock,
-  checkAccountInfoSync,
+  nightElf: nightEflOpts,
+  portkey: portkeyOpts,
+  discover: discoverOpts,
   extraWallets,
   children,
 }: WebLoginProviderProps) {
+  const eventEmitter = useMemo(() => new EventEmitter(), []);
   const [loginState, setLoginState] = useState(WebLoginState.initial);
   const [loginError, setLoginError] = useState<any | unknown>();
   const [walletType, setWalletType] = useState<WalletType>(WalletType.unknown);
@@ -69,27 +73,27 @@ function WebLoginProvider({
   );
 
   const elfApi = useElf({
-    isConnectEagerly: connectEagerly,
+    options: nightEflOpts,
     loginState,
+    eventEmitter,
     setLoginError,
     setLoginState: setLoginStateInternal,
     setWalletType,
     setLoading,
   });
   const discoverApi = useDiscover({
-    autoRequestAccount: true,
-    checkAccountInfoSync,
+    options: discoverOpts,
     loginState,
+    eventEmitter,
     setLoginError,
     setLoginState: setLoginStateInternal,
-    setModalOpen,
     setWalletType,
     setLoading,
   });
   const portkeyApi = usePortkey({
-    autoShowUnlock,
-    checkAccountInfoSync,
+    options: portkeyOpts,
     loginState,
+    eventEmitter,
     setLoginError,
     setLoginState: setLoginStateInternal,
     setModalOpen,
@@ -157,14 +161,13 @@ function WebLoginProvider({
   }, [loginState, invalidApi, login, elfApi, portkeyApi, walletType, discoverApi]);
 
   const renderExtraWallets = () => {
-    if (bridgeType === 'unknown') {
+    const isMobileDevice = isMobile();
+    const isBridgeNotExist = bridgeType === 'unknown' || (bridgeType === 'none' && isMobileDevice);
+    const isDiscoverMobileNotExist =
+      discoverApi.discoverDetected === 'unknown' || (discoverApi.discoverDetected === 'not-detected' && isMobileDevice);
+    if (isBridgeNotExist || isDiscoverMobileNotExist) {
       return;
     }
-
-    if (bridgeType === 'none' && isMobile()) {
-      return;
-    }
-
     return (
       <div className="aelf-web-login aelf-extra-wallets">
         <div className="title">Crypto wallet</div>
@@ -185,9 +188,10 @@ function WebLoginProvider({
     () => ({
       loginState,
       loginError,
+      eventEmitter,
       ...walletApi,
     }),
-    [loginError, loginState, walletApi],
+    [eventEmitter, loginError, loginState, walletApi],
   );
 
   return (

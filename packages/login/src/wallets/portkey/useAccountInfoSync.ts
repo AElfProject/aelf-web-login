@@ -1,10 +1,9 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { WebLoginState } from '../../constants';
 import { useInterval } from 'ahooks';
 import { ChainId } from '@portkey/types';
 import type { IHolderInfo } from '@portkey/services';
 import { DIDWalletInfo, did } from '@portkey/did-ui-react';
-import useLoginState from '../../hooks/useLoginState';
 
 export default function useAccountInfoSync(
   chainId: string,
@@ -16,12 +15,12 @@ export default function useAccountInfoSync(
   const [syncCompleted, setSyncCompleted] = useState(false);
   const [holderInfo, setHolderInfo] = useState<IHolderInfo>();
 
-  useLoginState((state) => {
-    if (state !== WebLoginState.logined) {
+  useEffect(() => {
+    if (loginState !== WebLoginState.logined) {
       setHolderInfo(undefined);
       setSyncCompleted(false);
     }
-  });
+  }, [loginState]);
 
   const checkHolderInfo = useCallback(async () => {
     if (loginState !== WebLoginState.logined) {

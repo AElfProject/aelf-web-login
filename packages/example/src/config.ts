@@ -18,6 +18,7 @@ export const connectUrl = !IS_MAINNET
 setGlobalConfig({
   appName: 'explorer.aelf.io',
   chainId: 'AELF',
+  networkType: 'TESTNET',
   portkey: {
     useLocalStorage: true,
     graphQLUrl: `${graphQLServer}/Portkey_DID/PortKeyIndexerCASchema/graphql`,

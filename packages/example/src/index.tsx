@@ -11,6 +11,8 @@ import {
   useLoginState,
   useAccountInfoSync,
   getConfig,
+  useWebLoginEvent,
+  WebLoginEvents,
 } from 'aelf-web-login';
 import { did, PortkeyConfigProvider } from '@portkey/did-ui-react';
 import configJson from './assets/config.json';
@@ -24,6 +26,32 @@ async function callContractWithLog<T, R>(
   const res = await callContract(params);
   console.log('res', res);
   return res;
+}
+
+function renderEvents() {
+  const [events, setEvents] = useState([]);
+  for (const key in WebLoginEvents) {
+    useWebLoginEvent(WebLoginEvents[key], (data: any) => {
+      console.log(WebLoginEvents[key], data);
+      events.push({
+        type: key,
+        data,
+      });
+      setEvents([...events]);
+    });
+  }
+  return (
+    <>
+      <h2>Events: </h2>
+      <div>
+        <div className="result">
+          {events.map((item, index) => {
+            return <div key={`${item.type}-${index}`}>{`${item.type} ${JSON.stringify(item.data)}`}</div>;
+          })}
+        </div>
+      </div>
+    </>
+  );
 }
 
 function useExampleCall(name: string, func: () => any) {
@@ -159,6 +187,9 @@ function Usage() {
       </div>
       <br />
       <br />
+      {renderEvents()}
+      <br />
+      <br />
       <h2>Sync</h2>
       <div>
         chainId: {config.chainId} <br />
@@ -177,7 +208,17 @@ function Usage() {
 function App() {
   return (
     <PortkeyConfigProvider>
-      <WebLoginProvider extraWallets={['discover', 'elf']} connectEagerly autoShowUnlock={false} checkAccountInfoSync>
+      <WebLoginProvider
+        extraWallets={['discover', 'elf']}
+        nightElf={{ connectEagerly: true }}
+        portkey={{ autoShowUnlock: false, checkAccountInfoSync: true }}
+        discover={{
+          autoRequestAccount: true,
+          autoLogoutOnAccountMismatch: true,
+          autoLogoutOnChainMismatch: true,
+          autoLogoutOnDisconnected: true,
+          autoLogoutOnNetworkMismatch: true,
+        }}>
         <Usage />
       </WebLoginProvider>
     </PortkeyConfigProvider>
