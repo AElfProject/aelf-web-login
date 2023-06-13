@@ -58,7 +58,7 @@ export function useDiscover({
   const onAccountsSuccess = useCallback(
     async (provider: IPortkeyProvider, accounts: Accounts) => {
       setLoginError(undefined);
-      let nickName = '';
+      let nickName = 'Wallet 01';
       try {
         console.log(provider, 'request nickname');
         nickName = await provider.request({ method: 'wallet_getWalletName' });
