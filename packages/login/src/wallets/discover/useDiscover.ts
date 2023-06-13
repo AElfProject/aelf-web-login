@@ -282,6 +282,6 @@ export function useDiscover({
       callContract,
       getSignature,
     }),
-    [discoverInfo, loginState, discoverProvider, loginEagerly, login, logout, callContract, getSignature],
+    [discoverInfo, loginState, discoverDetected, loginEagerly, login, logout, callContract, getSignature],
   );
 }
