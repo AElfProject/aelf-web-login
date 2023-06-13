@@ -1,6 +1,6 @@
 /* eslint-disable */
 const path = require("path");
-const { ProvidePlugin } = require('webpack');
+const webpack = require('webpack');
 
 module.exports = {
   webpack: {
@@ -13,9 +13,11 @@ module.exports = {
       return webpackConfig;
     },
     plugins: {
-      new ProvidePlugin({
-        Buffer: ['buffer', 'Buffer'],
-      }),
+      add: [
+        new webpack.ProvidePlugin({
+          Buffer: ['buffer', 'Buffer'],
+        }),
+      ]
     },
   },
   devServer: {

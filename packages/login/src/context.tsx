@@ -176,7 +176,9 @@ function WebLoginProvider({
             if (wallet === WalletType.elf) {
               return <NightElfPlugin key={wallet} onClick={elfApi.login} />;
             } else if (wallet === WalletType.discover) {
-              return <DiscoverPlugin key={wallet} onClick={discoverApi.login} />;
+              return (
+                <DiscoverPlugin key={wallet} detectState={discoverApi.discoverDetected} onClick={discoverApi.login} />
+              );
             }
           })}
         </div>
