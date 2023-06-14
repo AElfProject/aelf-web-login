@@ -165,17 +165,20 @@ export function usePortkey({
         }
 
         const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
-        let nickName = localWallet.didWallet.accountInfo.nickName || '';
+        let nickName = localWallet.didWallet.accountInfo.nickName || 'Wallet 01';
         if (originChainId) {
-          const holderInfo = await did.getCAHolderInfo(originChainId as ChainId);
-          nickName = holderInfo.nickName;
+          try {
+            const holderInfo = await did.getCAHolderInfo(originChainId as ChainId);
+            nickName = holderInfo.nickName;
+          } catch (error) {
+            console.warn(error);
+          }
         }
 
         const didWalletInfo: DIDWalletInfo = {
           caInfo,
           pin: password,
-          chainId: chainId as ChainId,
-          // TODO: fixes any
+          chainId: originChainId as ChainId,
           walletInfo: localWallet.didWallet.managementAccount!.wallet as any,
           accountInfo: localWallet.didWallet.accountInfo as any,
         };
@@ -215,11 +218,21 @@ export function usePortkey({
           };
         }
 
-        const holderInfo = await did.getCAHolderInfo(didWalletInfo.chainId);
-        await did.save(didWalletInfo.pin, appName);
+        let nickName = 'Wallet 01';
+        try {
+          const holderInfo = await did.getCAHolderInfo(didWalletInfo.chainId);
+          nickName = holderInfo.nickName;
+        } catch (error) {
+          console.warn(error);
+        }
+        try {
+          await did.save(didWalletInfo.pin, appName);
+        } catch (error) {
+          console.warn(error);
+        }
         setDidWalletInfo({
           ...didWalletInfo,
-          nickName: holderInfo.nickName,
+          nickName,
         });
         setWalletType(WalletType.portkey);
         setLoginState(WebLoginState.logined);
