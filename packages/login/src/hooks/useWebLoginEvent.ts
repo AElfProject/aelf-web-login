@@ -4,6 +4,8 @@ import { useWebLogin } from '../context';
 import { WebLoginEvents } from '../constants';
 
 export default function useWebLoginEvent(eventType: WebLoginEvents.BRIDGE_CANCEL, callback: () => void): void;
+export default function useWebLoginEvent(eventType: WebLoginEvents.LOGINED, callback: () => void): void;
+export default function useWebLoginEvent(eventType: WebLoginEvents.LOGOUT, callback: () => void): void;
 export default function useWebLoginEvent(eventType: WebLoginEvents.MODAL_CANCEL, callback: () => void): void;
 export default function useWebLoginEvent(eventType: WebLoginEvents.LOGIN_ERROR, callback: (error: any) => void): void;
 export default function useWebLoginEvent(

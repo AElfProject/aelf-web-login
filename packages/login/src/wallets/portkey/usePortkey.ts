@@ -69,7 +69,8 @@ export function usePortkey({
     localStorage.removeItem(appName);
     setDidWalletInfo(undefined);
     setLoginState(WebLoginState.initial);
-  }, [appName, setLoginState]);
+    eventEmitter.emit(WebLoginEvents.LOGOUT);
+  }, [appName, eventEmitter, setLoginState]);
 
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
@@ -189,6 +190,7 @@ export function usePortkey({
         });
         setWalletType(WalletType.portkey);
         setLoginState(WebLoginState.logined);
+        eventEmitter.emit(WebLoginEvents.LOGINED);
         return Promise.resolve(true);
       } catch (error) {
         localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
@@ -236,6 +238,7 @@ export function usePortkey({
         });
         setWalletType(WalletType.portkey);
         setLoginState(WebLoginState.logined);
+        eventEmitter.emit(WebLoginEvents.LOGINED);
       } catch (error) {
         setLoginError(error);
         setLoginState(WebLoginState.initial);

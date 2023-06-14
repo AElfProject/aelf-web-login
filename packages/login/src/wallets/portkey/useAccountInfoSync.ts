@@ -15,13 +15,6 @@ export default function useAccountInfoSync(
   const [syncCompleted, setSyncCompleted] = useState(false);
   const [holderInfo, setHolderInfo] = useState<IHolderInfo>();
 
-  useEffect(() => {
-    if (loginState !== WebLoginState.logined) {
-      setHolderInfo(undefined);
-      setSyncCompleted(false);
-    }
-  }, [loginState]);
-
   const checkHolderInfo = useCallback(async () => {
     if (loginState !== WebLoginState.logined) {
       setSyncCompleted(false);
@@ -29,12 +22,12 @@ export default function useAccountInfoSync(
       return;
     }
     if (!shouldSync) return;
+    if (syncCompleted) return;
     const holder = await did.didWallet.getHolderInfoByContract({
       chainId: currentChainId,
       caHash: didWalletInfo?.caInfo.caHash,
       // manager: did.didWallet.managementAccount!.address,
     });
-    if (syncCompleted) return;
     const filteredHolders = holder.managerInfos.filter(
       (manager) => manager?.address === didWalletInfo?.walletInfo?.address,
     );
@@ -48,6 +41,15 @@ export default function useAccountInfoSync(
     shouldSync,
     syncCompleted,
   ]);
+
+  useEffect(() => {
+    if (loginState !== WebLoginState.logined) {
+      setHolderInfo(undefined);
+      setSyncCompleted(false);
+    } else {
+      checkHolderInfo();
+    }
+  }, [checkHolderInfo, loginState]);
 
   useInterval(checkHolderInfo, 10000, {
     immediate: true,

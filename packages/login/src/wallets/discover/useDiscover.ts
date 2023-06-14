@@ -7,7 +7,7 @@ import { CallContractParams, DiscoverInfo, SignatureParams, WalletHookInterface,
 import { WalletType, WebLoginEvents, WebLoginState } from '../../constants';
 import checkSignatureParams from '../../utils/signatureParams';
 import { DiscoverOptions } from 'src/types';
-import waitNextFrame from 'src/utils/waitNextFrame';
+import useChainIdsSync from './useChainIdsSync';
 
 export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
 export type DiscoverInterface = WalletHookInterface & {
@@ -32,8 +32,7 @@ export function useDiscover({
   const [discoverInfo, setDiscoverInfo] = useState<DiscoverInfo>();
   const [discoverDetected, setDiscoverDetected] = useState<DiscoverDetectState>('unknown');
 
-  // const shouldCheckAccountInfoSync = !!didWalletInfo && (checkAccountInfoSync === undefined || checkAccountInfoSync);
-  // const accountInfoSync = useAccountInfoSync(chainId, loginState, shouldCheckAccountInfoSync, didWalletInfo);
+  const chainIdsSync = useChainIdsSync(chainId, loginState, true, discoverProvider);
 
   const detect = useCallback(async (): Promise<IPortkeyProvider> => {
     if (discoverProvider?.isConnected()) {
@@ -73,8 +72,9 @@ export function useDiscover({
       setWalletType(WalletType.discover);
       setLoginState(WebLoginState.logined);
       setLoading(false);
+      eventEmitter.emit(WebLoginEvents.LOGINED);
     },
-    [chainId, setLoading, setLoginError, setLoginState, setWalletType],
+    [chainId, eventEmitter, setLoading, setLoginError, setLoginState, setWalletType],
   );
 
   const onAccountsFail = useCallback(
@@ -140,7 +140,8 @@ export function useDiscover({
     setDiscoverInfo(undefined);
     setWalletType(WalletType.unknown);
     setLoginState(WebLoginState.initial);
-  }, [setLoginError, setLoginState, setWalletType]);
+    eventEmitter.emit(WebLoginEvents.LOGOUT);
+  }, [eventEmitter, setLoginError, setLoginState, setWalletType]);
 
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
@@ -212,6 +213,7 @@ export function useDiscover({
         }
       };
       const onNetworkChanged = (networkType: NetworkType) => {
+        console.log(networkType, getConfig().networkType);
         if (networkType !== getConfig().networkType) {
           eventEmitter.emit(WebLoginEvents.NETWORK_MISMATCH, networkType);
           if (options.autoLogoutOnNetworkMismatch) {
@@ -271,7 +273,8 @@ export function useDiscover({
         publicKey: '',
         discoverInfo,
         accountInfoSync: {
-          syncCompleted: loginState === WebLoginState.logined,
+          syncCompleted: chainIdsSync.syncCompleted,
+          chainIds: chainIdsSync.chainIds,
           holderInfo: undefined,
         },
       },
@@ -282,6 +285,16 @@ export function useDiscover({
       callContract,
       getSignature,
     }),
-    [discoverInfo, loginState, discoverDetected, loginEagerly, login, logout, callContract, getSignature],
+    [
+      discoverInfo,
+      chainIdsSync.syncCompleted,
+      chainIdsSync.chainIds,
+      discoverDetected,
+      loginEagerly,
+      login,
+      logout,
+      callContract,
+      getSignature,
+    ],
   );
 }

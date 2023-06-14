@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { createRoot } from 'react-dom/client';
+import VConsole from 'vconsole';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import 'aelf-web-login/dist/assets/index.css';
 import './index.css';
@@ -17,6 +18,15 @@ import {
 import { did, PortkeyConfigProvider } from '@portkey/did-ui-react';
 import configJson from './assets/config.json';
 import { CallContractParams } from 'aelf-web-login/dist/types/wallets/types';
+
+const win = window as any;
+let showVConsole = () => {};
+if (win.ReactNativeWebView) {
+  const vConsole = new VConsole();
+  showVConsole = () => {
+    vConsole.show();
+  };
+}
 
 async function callContractWithLog<T, R>(
   callContract: (params: CallContractParams<T>) => Promise<R>,
@@ -115,7 +125,7 @@ function Usage() {
       return await getSignature({
         address: wallet.address,
         appName: 'example',
-        signInfo: '0x' + '0123456789abcdef'.repeat(32),
+        signInfo: 'test',
       });
     }),
     useExampleCall('fetchProfit', async () => {
@@ -164,7 +174,7 @@ function Usage() {
 
   return (
     <div className="content">
-      <h2>Login</h2>
+      <h2 onClick={showVConsole}>Login</h2>
       <div className="buttons">
         <div>
           wallet: {wallet.name} {wallet.address}
@@ -192,9 +202,8 @@ function Usage() {
       <br />
       <h2>Sync</h2>
       <div>
-        chainId: {config.chainId} <br />
-        syncCompleted: {wallet.accountInfoSync.syncCompleted.toString()} <br />
-        holders: {JSON.stringify(wallet.accountInfoSync)}
+        chain: {config.chainId} <br />
+        info: {JSON.stringify(wallet.accountInfoSync)}
       </div>
       <br />
       <br />

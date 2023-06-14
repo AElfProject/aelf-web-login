@@ -46,6 +46,7 @@ export function useElf({
       }
       setWalletType(WalletType.elf);
       setLoginState(WebLoginState.logined);
+      eventEmitter.emit(WebLoginEvents.LOGINED);
     } catch (error) {
       setWalletType(WalletType.unknown);
       setLoginError(error);
@@ -119,7 +120,8 @@ export function useElf({
       console.warn(e);
     }
     setLoginState(WebLoginState.initial);
-  }, [deactivate, setLoginState]);
+    eventEmitter.emit(WebLoginEvents.LOGOUT);
+  }, [deactivate, eventEmitter, setLoginState]);
 
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {

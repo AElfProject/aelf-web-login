@@ -47,6 +47,7 @@ function WebLoginProvider({
   const [loginError, setLoginError] = useState<any | unknown>();
   const [walletType, setWalletType] = useState<WalletType>(WalletType.unknown);
 
+  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [noLoading, setNoLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -165,26 +166,42 @@ function WebLoginProvider({
     const isBridgeNotExist = bridgeType === 'unknown' || (bridgeType === 'none' && isMobileDevice);
     const isDiscoverMobileNotExist =
       discoverApi.discoverDetected === 'unknown' || (discoverApi.discoverDetected === 'not-detected' && isMobileDevice);
-    if (isBridgeNotExist || isDiscoverMobileNotExist) {
+    // hide extra wallets when bridge and discover mobile not exist
+    if (isBridgeNotExist && isDiscoverMobileNotExist) {
       return;
     }
     return (
       <div className="aelf-web-login aelf-extra-wallets">
         <div className="title">Crypto wallet</div>
         <div className="wallet-entries">
-          {extraWallets?.map((wallet) => {
-            if (wallet === WalletType.elf) {
-              return <NightElfPlugin key={wallet} onClick={elfApi.login} />;
-            } else if (wallet === WalletType.discover) {
-              return (
-                <DiscoverPlugin key={wallet} detectState={discoverApi.discoverDetected} onClick={discoverApi.login} />
-              );
-            }
-          })}
+          {extraWallets
+            // hide specific wallet when bridge or discover mobile not exist
+            ?.filter((wallet) => {
+              if (wallet === WalletType.elf) {
+                return !isBridgeNotExist;
+              } else if (wallet === WalletType.discover) {
+                return !isDiscoverMobileNotExist;
+              }
+              return true;
+            })
+            .map((wallet) => {
+              if (wallet === WalletType.elf) {
+                return <NightElfPlugin key={wallet} onClick={elfApi.login} />;
+              } else if (wallet === WalletType.discover) {
+                return (
+                  <DiscoverPlugin key={wallet} detectState={discoverApi.discoverDetected} onClick={discoverApi.login} />
+                );
+              }
+            })}
         </div>
       </div>
     );
   };
+
+  const logoutInternal = useCallback(async () => {
+    // TODO: confirm
+    await walletApi.logout();
+  }, [walletApi]);
 
   const state = useMemo(
     () => ({
@@ -192,8 +209,9 @@ function WebLoginProvider({
       loginError,
       eventEmitter,
       ...walletApi,
+      logout: logoutInternal,
     }),
-    [eventEmitter, loginError, loginState, walletApi],
+    [eventEmitter, loginError, loginState, logoutInternal, walletApi],
   );
 
   return (

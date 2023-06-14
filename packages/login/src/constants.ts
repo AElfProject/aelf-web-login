@@ -16,6 +16,8 @@ export enum WebLoginState {
 
 export enum WebLoginEvents {
   LOGIN_ERROR = 'loginError',
+  LOGINED = 'logined',
+  LOGOUT = 'logout',
   MODAL_CANCEL = 'modalCancel',
   BRIDGE_CANCEL = 'bridgeCancel',
   DISCOVER_DISCONNECTED = 'discoverDisconnected',

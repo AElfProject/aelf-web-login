@@ -3,6 +3,7 @@ import type { AElfContextType } from '@aelf-react/core/dist/types';
 import type { DIDWalletInfo } from '@portkey/did-ui-react';
 import type { WalletType, WebLoginState } from '../constants';
 import type { IHolderInfo } from '@portkey/services';
+import type { ChainIds } from '@portkey/provider-types';
 
 export type WalletHookParams<T> = {
   options: T;
@@ -45,7 +46,8 @@ export type WalletInfo = {
   discoverInfo?: DiscoverInfo;
   accountInfoSync: {
     syncCompleted: boolean;
-    holderInfo: IHolderInfo | undefined;
+    holderInfo?: IHolderInfo;
+    chainIds?: ChainIds;
   };
 };
 
