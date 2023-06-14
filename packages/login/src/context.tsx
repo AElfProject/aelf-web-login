@@ -1,8 +1,8 @@
 import { EventEmitter } from 'events';
 import React, { createContext, useEffect, useContext, useCallback, useMemo, useState } from 'react';
 import { AElfReactProvider } from '@aelf-react/core';
-import { WalletHookInterface } from './wallets/types';
-import { NightElfOptions, WebLoginProviderProps } from './types';
+import { WalletHookInterface } from './types';
+import { WebLoginProviderProps } from './types';
 import { usePortkey } from './wallets/portkey/usePortkey';
 import NightElfPlugin from './wallets/elf/NightElfPlugin';
 import Portkey from './wallets/portkey/Portkey';
@@ -199,7 +199,10 @@ function WebLoginProvider({
   };
 
   const logoutInternal = useCallback(async () => {
-    // TODO: confirm
+    setLogoutConfirmOpen(true);
+    // TODO: show confirm modal and wait use to confirm
+    setLogoutConfirmOpen(false);
+    // TODO: check if use cancelled
     await walletApi.logout();
   }, [walletApi]);
 

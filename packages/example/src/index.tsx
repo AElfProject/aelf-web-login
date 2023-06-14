@@ -10,14 +10,13 @@ import {
   useWebLogin,
   WebLoginState,
   useLoginState,
-  useAccountInfoSync,
   getConfig,
   useWebLoginEvent,
   WebLoginEvents,
 } from 'aelf-web-login';
 import { did, PortkeyConfigProvider } from '@portkey/did-ui-react';
 import configJson from './assets/config.json';
-import { CallContractParams } from 'aelf-web-login/dist/types/wallets/types';
+import type { CallContractParams } from 'aelf-web-login';
 
 const win = window as any;
 let showVConsole = () => {};

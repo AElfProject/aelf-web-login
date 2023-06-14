@@ -1,4 +1,4 @@
-import { SignatureParams } from '../wallets/types';
+import { SignatureParams } from '../types';
 
 export default function (params: SignatureParams) {
   if (params.hexToBeSign) {

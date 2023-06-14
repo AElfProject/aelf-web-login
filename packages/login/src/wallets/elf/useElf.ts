@@ -1,7 +1,8 @@
 import { useRef, useMemo, useCallback, useEffect } from 'react';
 import { useAElfReact } from '@aelf-react/core';
 import { getConfig } from '../../config';
-import { CallContractParams, SignatureParams, WalletHookInterface, WalletHookParams } from '../types';
+import { CallContractParams, SignatureParams, WalletHookInterface } from '../../types';
+import { WalletHookParams } from '../types';
 import { NightElfOptions } from '../../types';
 import { WalletType, WebLoginState, WebLoginEvents } from '../../constants';
 import isMobile from '../../utils/isMobile';
