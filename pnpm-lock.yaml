@@ -202,6 +202,9 @@ importers:
       '@portkey/did-ui-react':
         specifier: 0.0.1-alpha.8.8
         version: 0.0.1-alpha.8.8(i18next@22.5.1)(react-dom@18.0.0)(react@18.2.0)
+      '@portkey/graphql':
+        specifier: 0.0.1-alpha.8.9
+        version: 0.0.1-alpha.8.9(react-dom@18.0.0)(react@18.2.0)
       '@portkey/provider-types':
         specifier: 0.0.1-alpha.22
         version: 0.0.1-alpha.22

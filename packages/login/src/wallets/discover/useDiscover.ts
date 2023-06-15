@@ -2,7 +2,6 @@ import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react'
 import { ChainId } from '@portkey/types';
 import { IPortkeyProvider, Accounts, ChainIds, NetworkType, ProviderError } from '@portkey/provider-types';
 import detectProvider from '@portkey/detect-provider';
-import { did } from '@portkey/did';
 import { getConfig } from '../../config';
 import { CallContractParams, DiscoverInfo, SignatureParams, WalletHookInterface } from '../../types';
 import { WalletHookParams } from '../types';
@@ -36,14 +35,6 @@ export function useDiscover({
 
   const chainIdsSync = useChainIdsSync(chainId, loginState, true, discoverProvider);
 
-  const address = useMemo(() => {
-    const addr = discoverInfo?.address;
-    if (addr && addr.startsWith('ELF_')) {
-      return addr.split('_')[1];
-    }
-    return addr;
-  }, [discoverInfo?.address]);
-
   const detect = useCallback(async (): Promise<IPortkeyProvider> => {
     if (discoverProvider?.isConnected()) {
       return discoverProvider!;
@@ -75,6 +66,7 @@ export function useDiscover({
     async (provider: IPortkeyProvider, accounts: Accounts) => {
       setLoginError(undefined);
       let nickName = 'Wallet 01';
+      const address = accounts[chainId]![0].split('_')[1];
       try {
         nickName = await provider.request({ method: 'wallet_getWalletName' });
       } catch (error) {
@@ -82,7 +74,7 @@ export function useDiscover({
       }
       localStorage.setItem(LOGIN_EARGLY_KEY, 'true');
       setDiscoverInfo({
-        address: accounts[chainId]![0],
+        address,
         nickName,
       });
       setWalletType(WalletType.discover);
@@ -285,7 +277,7 @@ export function useDiscover({
     () => ({
       wallet: {
         name: discoverInfo?.nickName || '',
-        address: address || '',
+        address: discoverInfo?.address || '',
         publicKey: '',
         discoverInfo,
         accountInfoSync: {
@@ -302,7 +294,6 @@ export function useDiscover({
       getSignature,
     }),
     [
-      address,
       discoverInfo,
       chainIdsSync.syncCompleted,
       chainIdsSync.chainIds,

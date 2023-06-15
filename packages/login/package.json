@@ -1,6 +1,6 @@
 {
   "name": "aelf-web-login",
-  "version": "0.1.0-alpha.6",
+  "version": "0.1.0-alpha.7",
   "main": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "exports": {
@@ -33,6 +33,7 @@
     "start": "tsc --watch",
     "lint": "eslint . --ext .tsx,.ts",
     "lint:md": "remark . -f -q",
+    "dev": "tsc --p tsconfig.esm.json --watch",
     "build:clean": "rm -rf dist",
     "build:types": "tsc --emitDeclarationOnly --p tsconfig.types.json",
     "build:tsc": "tsc --p tsconfig.esm.json",
@@ -48,6 +49,7 @@
     "@portkey/detect-provider": "0.0.1-alpha.22",
     "@portkey/did": "0.0.1-alpha.8.9",
     "@portkey/did-ui-react": "0.0.1-alpha.8.8",
+    "@portkey/graphql": "0.0.1-alpha.8.9",
     "@portkey/provider-types": "0.0.1-alpha.22",
     "@portkey/types": "0.0.1-alpha.8.9",
     "aelf-sdk": "^3.2.40",
