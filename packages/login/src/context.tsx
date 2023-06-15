@@ -14,6 +14,7 @@ import { check } from './wallets/elf/utils';
 import isMobile from './utils/isMobile';
 import DiscoverPlugin from './wallets/discover/DiscoverPlugin';
 import { useDiscover } from './wallets/discover/useDiscover';
+import ConfirmLogoutDialog from './components/CofirmLogoutDialog/ConfirmLogoutDialog';
 
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,
@@ -220,6 +221,7 @@ function WebLoginProvider({
   return (
     <WebLoginContext.Provider value={state}>
       {children}
+      <ConfirmLogoutDialog visible={logoutConfirmOpen} />
       <Portkey
         isManagerExists={portkeyApi.isManagerExists}
         open={modalOpen}

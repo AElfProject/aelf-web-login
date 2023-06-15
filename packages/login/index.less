@@ -60,3 +60,79 @@
   align-items: center;
   justify-content: center;
 }
+
+.aelf-web-logout-dialog {
+  display: flex;
+  flex-direction: column;
+  font-family: Roboto;
+  &-content {
+    padding: 0 32px 24px;
+    display: flex;
+    flex-direction: column;
+
+    &:first-child {
+      border-bottom: 1px solid #DEE2E8;
+    }
+
+    &-mobile {
+      padding: 12px 16px 24px;
+    }
+  }
+
+  &-close {
+    height: 24px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    >i {
+      width: 16px;
+      height: 16px;
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTciIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNyAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik04LjczMTQ3IDUuNDU0OTlMMTMuNjU5OSAwLjUyNzAwMkMxNC4xMTQ1IDAuMDcyNDYzOCAxNC43NzcgLTAuMTA1MDU0IDE1LjM5NzkgMC4wNjEzMTg5QzE2LjAxODggMC4yMjc2OTIgMTYuNTAzOCAwLjcxMjY3OCAxNi42NzAxIDEuMzMzNTlDMTYuODM2NSAxLjk1NDUgMTYuNjU5IDIuNjE3IDE2LjIwNDUgMy4wNzE1NEwxMS4yNzU1IDcuOTk4OTlMMTYuMjA0NSAxMi45Mjg1QzE2Ljg2ODEgMTMuNTkyMSAxNi45MDQ5IDE0LjY0NTEgMTYuMzE1MSAxNS4zNTJMMTYuMjA0NSAxNS40NzNDMTUuNTAxOCAxNi4xNzU3IDE0LjM2MjYgMTYuMTc1NyAxMy42NTk5IDE1LjQ3M0w4LjczMTQ3IDEwLjU0NUwzLjgwMzAyIDE1LjQ3M0MzLjEzOTQgMTYuMTM2NiAyLjA4NjM2IDE2LjE3MzUgMS4zNzk0OCAxNS41ODM2TDEuMjU4NDggMTUuNDczQzAuNTU1ODIzIDE0Ljc3MDMgMC41NTU4MjMgMTMuNjMxMSAxLjI1ODQ4IDEyLjkyODVMNi4xODY0NyA3Ljk5OTk5TDEuMjU4NDggMy4wNzE1NEMwLjg0MTgxNyAyLjY1NDg4IDAuNjU3OTMyIDIuMDYzNDcgMC43NTgzMjcgMS40ODk1NEwwLjc5Mjc5NCAxLjMzMzU5QzAuOTU5MTY3IDAuNzEyNjc4IDEuNDQ0MTUgMC4yMjc2OTIgMi4wNjUwNiAwLjA2MTMxODlDMi42ODU5NyAtMC4xMDUwNTQgMy4zNDg0OCAwLjA3MjQ2MzggMy44MDMwMiAwLjUyNzAwMkw4LjczMTQ3IDUuNDU0OTlaIiBmaWxsPSIjNTE1QTYyIi8+Cjwvc3ZnPgo=");
+      background-size: 100% 100%;
+    }
+  }
+
+  &-title {
+    margin: 12px 0;
+    line-height: 32px;
+    font-size: 24px;
+    text-align: center;
+    font-weight: 500;
+    color: #515A62;
+    letter-spacing: -1px;
+  }
+
+  &-sub-title {
+    margin-top: 12px;
+    line-height: 24px;
+    font-size: 16px;
+    text-align: center;
+    color: #515A62;
+    letter-spacing: -1px;
+  }
+
+  &-btn {
+    margin: 16px 0 0 0;
+    border-radius: 4px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 48px;
+    margin-top: 16px;
+    font-size: 16px;
+  }
+
+  .ok-btn {
+    background-color: #E7383A;
+    color: #fff;
+  }
+
+  .cancel-btn {
+    color: #5B8EF4;
+    border: 1px solid #5B8EF4;
+  }
+}
