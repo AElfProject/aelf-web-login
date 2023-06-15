@@ -22,6 +22,12 @@ const INITIAL_STATE = {
   eventEmitter: new EventEmitter(),
 };
 
+enum LogoutConfirmResult {
+  default,
+  cancel,
+  ok,
+}
+
 export type WebLoginInterface = WalletHookInterface & {
   loginState: WebLoginState;
   loginError: any | unknown;
@@ -48,7 +54,8 @@ function WebLoginProvider({
   const [loginError, setLoginError] = useState<any | unknown>();
   const [walletType, setWalletType] = useState<WalletType>(WalletType.unknown);
 
-  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(true);
+  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
+  const [logoutConfirmResult, setLogoutConfirmResult] = useState<LogoutConfirmResult>(LogoutConfirmResult.default);
   const [loading, setLoading] = useState(false);
   const [noLoading, setNoLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -205,13 +212,28 @@ function WebLoginProvider({
     );
   };
 
-  const logoutInternal = useCallback(async () => {
-    setLogoutConfirmOpen(true);
-    // TODO: show confirm modal and wait use to confirm
-    setLogoutConfirmOpen(false);
-    // TODO: check if use cancelled
+  const logout = useCallback(async () => {
     await walletApi.logout();
   }, [walletApi]);
+
+  const logoutInternal = useCallback(async () => {
+    if (walletType === WalletType.portkey) {
+      setLogoutConfirmResult(LogoutConfirmResult.default);
+      setLogoutConfirmOpen(true);
+    } else {
+      logout();
+    }
+  }, [logout, walletType]);
+
+  useEffect(() => {
+    if (logoutConfirmResult === LogoutConfirmResult.ok) {
+      setLogoutConfirmOpen(false);
+      setLogoutConfirmResult(LogoutConfirmResult.default);
+      logout();
+    } else if (logoutConfirmResult === LogoutConfirmResult.cancel) {
+      setLogoutConfirmOpen(false);
+    }
+  }, [logout, logoutConfirmResult, walletApi]);
 
   const state = useMemo(
     () => ({
@@ -227,7 +249,11 @@ function WebLoginProvider({
   return (
     <WebLoginContext.Provider value={state}>
       {children}
-      <ConfirmLogoutDialog visible={logoutConfirmOpen} />
+      <ConfirmLogoutDialog
+        visible={logoutConfirmOpen}
+        onCancel={() => setLogoutConfirmResult(LogoutConfirmResult.cancel)}
+        onOk={() => setLogoutConfirmResult(LogoutConfirmResult.ok)}
+      />
       <Portkey
         isManagerExists={portkeyApi.isManagerExists}
         open={modalOpen}
