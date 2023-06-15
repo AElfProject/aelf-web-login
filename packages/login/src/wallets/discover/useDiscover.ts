@@ -45,7 +45,13 @@ export function useDiscover({
       const detectProviderModule = detectProvider as any;
       detectProviderFunc = detectProviderModule.default;
     }
-    const provider = await detectProviderFunc();
+    let provider: IPortkeyProvider | null;
+    try {
+      provider = await detectProviderFunc();
+    } catch (error) {
+      setDiscoverDetected('not-detected');
+      throw new Error('Discover provider not found');
+    }
     if (provider && provider.isPortkey) {
       setDiscoverProvider(provider);
       setDiscoverDetected('detected');
