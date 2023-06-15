@@ -2,6 +2,7 @@ import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react'
 import { ChainId } from '@portkey/types';
 import { IPortkeyProvider, Accounts, ChainIds, NetworkType, ProviderError } from '@portkey/provider-types';
 import detectProvider from '@portkey/detect-provider';
+import { did } from '@portkey/did';
 import { getConfig } from '../../config';
 import { CallContractParams, DiscoverInfo, SignatureParams, WalletHookInterface } from '../../types';
 import { WalletHookParams } from '../types';
@@ -35,12 +36,25 @@ export function useDiscover({
 
   const chainIdsSync = useChainIdsSync(chainId, loginState, true, discoverProvider);
 
+  const address = useMemo(() => {
+    const addr = discoverInfo?.address;
+    if (addr && addr.startsWith('ELF_')) {
+      return addr.split('_')[1];
+    }
+    return addr;
+  }, [discoverInfo?.address]);
+
   const detect = useCallback(async (): Promise<IPortkeyProvider> => {
     if (discoverProvider?.isConnected()) {
       return discoverProvider!;
     }
     // TODO: detects in once issue
-    const provider = await detectProvider();
+    let detectProviderFunc = detectProvider;
+    if (typeof detectProvider !== 'function') {
+      const detectProviderModule = detectProvider as any;
+      detectProviderFunc = detectProviderModule.default;
+    }
+    const provider = await detectProviderFunc();
     if (provider && provider.isPortkey) {
       setDiscoverProvider(provider);
       setDiscoverDetected('detected');
@@ -52,7 +66,9 @@ export function useDiscover({
   }, [discoverProvider]);
 
   useEffect(() => {
-    detect();
+    detect().catch((error: any) => {
+      console.log(error.message);
+    });
   }, []);
 
   const onAccountsSuccess = useCallback(
@@ -60,7 +76,6 @@ export function useDiscover({
       setLoginError(undefined);
       let nickName = 'Wallet 01';
       try {
-        console.log(provider, 'request nickname');
         nickName = await provider.request({ method: 'wallet_getWalletName' });
       } catch (error) {
         console.warn(error);
@@ -270,7 +285,7 @@ export function useDiscover({
     () => ({
       wallet: {
         name: discoverInfo?.nickName || '',
-        address: discoverInfo?.address || '',
+        address: address || '',
         publicKey: '',
         discoverInfo,
         accountInfoSync: {
@@ -287,6 +302,7 @@ export function useDiscover({
       getSignature,
     }),
     [
+      address,
       discoverInfo,
       chainIdsSync.syncCompleted,
       chainIdsSync.chainIds,

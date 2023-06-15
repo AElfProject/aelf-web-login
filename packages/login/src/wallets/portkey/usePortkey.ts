@@ -272,7 +272,7 @@ export function usePortkey({
     () => ({
       isManagerExists,
       wallet: {
-        name: didWalletInfo?.nickName || didWalletInfo?.caInfo.caAddress || '',
+        name: didWalletInfo?.nickName || 'Wallet 01',
         address: didWalletInfo?.caInfo.caAddress || '',
         publicKey: didWalletInfo?.walletInfo.keyPair.getPublic('hex') || '',
         portkeyInfo: didWalletInfo,
