@@ -48,7 +48,7 @@ function WebLoginProvider({
   const [loginError, setLoginError] = useState<any | unknown>();
   const [walletType, setWalletType] = useState<WalletType>(WalletType.unknown);
 
-  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
+  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(true);
   const [loading, setLoading] = useState(false);
   const [noLoading, setNoLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
