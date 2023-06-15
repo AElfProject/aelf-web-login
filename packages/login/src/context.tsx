@@ -11,7 +11,7 @@ import { getConfig } from './config';
 import { WalletType, WebLoginState } from './constants';
 import { PortkeyLoading } from '@portkey/did-ui-react';
 import { check } from './wallets/elf/utils';
-import isMobile from './utils/isMobile';
+import isMobile, { isPortkeyApp } from './utils/isMobile';
 import DiscoverPlugin from './wallets/discover/DiscoverPlugin';
 import { useDiscover } from './wallets/discover/useDiscover';
 
@@ -105,17 +105,23 @@ function WebLoginProvider({
   const login = useCallback(async () => {
     setLoginStateInternal(WebLoginState.logining);
     try {
-      const type = await check();
-      if (type === 'AelfBridge') {
+      if (isPortkeyApp()) {
         setNoLoading(false);
-        elfApi.login();
+        portkeyApi.login();
         return;
+      } else {
+        const type = await check();
+        if (type === 'AelfBridge') {
+          setNoLoading(false);
+          elfApi.login();
+          return;
+        }
       }
     } catch (error) {
       console.warn(error);
     }
     setModalOpen(true);
-  }, [elfApi, setLoginStateInternal]);
+  }, [elfApi, portkeyApi, setLoginStateInternal]);
 
   const createInvalidFunc = (name: string, loginState: WebLoginState) => () => {
     console.log(`Call method '${name}' on invalid state '${loginState}'`);

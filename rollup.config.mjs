@@ -1,14 +1,16 @@
-const esbuild = require('rollup-plugin-esbuild').default;
-const litCss = require('rollup-plugin-lit-css').default;
-const postcss = require('rollup-plugin-postcss');
-const url = require('@rollup/plugin-url').default;
-const postcssUrl = require('postcss-url');
-const copy = require('rollup-plugin-copy');
-const minifyHtml = require('rollup-plugin-minify-html-literals').default;
-const terser = require('rollup-plugin-terser').terser;
-const path = require('path');
+import esbuild from 'rollup-plugin-esbuild';
+import litCss from 'rollup-plugin-lit-css';
+import postcss from 'rollup-plugin-postcss';
+import url from '@rollup/plugin-url';
+import postcssUrl from 'postcss-url';
+import copy from 'rollup-plugin-copy';
 
-module.exports = function createConfig(packageName) {
+import minifyHtml from 'rollup-plugin-minify-html-literals';
+import { terser } from 'rollup-plugin-terser';
+
+import path from 'path';
+
+export default function createConfig(packageName, tsconfig = './tsconfig.json') {
   const output = {
     exports: 'named',
     name: packageName,
@@ -19,7 +21,7 @@ module.exports = function createConfig(packageName) {
 
   const esbuildPlugin = esbuild({
     minify: false,
-    tsconfig: './tsconfig.json',
+    tsconfig,
     platform: 'browser',
     treeShaking: true,
     loaders: {
@@ -73,12 +75,9 @@ module.exports = function createConfig(packageName) {
 
   return [
     {
-      input: './index.ts',
+      input: './src/index.ts',
       plugins: [litCssPlugin, minifyHtml, esbuildPlugin, postcssPlugin, urlPlugin, copyPlugin],
-      output: [
-        { file: './dist/index.js', format: 'cjs', ...output },
-        { file: './dist/index.mjs', format: 'esm', ...output },
-      ],
+      output: [{ file: './dist/umd/index.js', format: 'umd', ...output }],
     },
   ];
-}
+};

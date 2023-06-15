@@ -5,6 +5,12 @@ const webpack = require('webpack');
 module.exports = {
   webpack: {
     configure: (webpackConfig, arg) => {
+      webpackConfig.module.rules = [...webpackConfig.module.rules, {
+        test: /\.m?js$/,
+        resolve: {
+          fullySpecified: false,
+        },
+      }];
       webpackConfig.resolve.fallback = {
         ...webpackConfig.resolve.fallback,
         "events": require.resolve("events/"),

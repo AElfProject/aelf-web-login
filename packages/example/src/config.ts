@@ -1,7 +1,12 @@
 import { setGlobalConfig } from 'aelf-web-login';
-import { did } from '@portkey/did-ui-react';
 
-const IS_MAINNET = false;
+const APPNAME = 'explorer.aelf.io';
+const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
+const CHAIN_ID = 'AELF';
+const NETWORK: string = 'TESTNET';
+const IS_MAINNET = NETWORK !== 'MAIN';
+
+const RPC_SERVER = 'https://explorer.aelf.io/chain';
 
 const graphQLServer = !IS_MAINNET
   ? 'https://dapp-portkey-test.portkey.finance'
@@ -15,52 +20,52 @@ export const connectUrl = !IS_MAINNET
   ? 'https://auth-portkey-test.portkey.finance'
   : 'https://auth-portkey.portkey.finance';
 
+const portkeyScanUrl = `${graphQLServer}/Portkey_DID/PortKeyIndexerCASchema/graphql`;
+
 setGlobalConfig({
-  appName: 'explorer.aelf.io',
-  chainId: 'AELF',
-  networkType: 'TESTNET',
+  appName: APPNAME,
+  chainId: CHAIN_ID,
+  networkType: NETWORK as any,
   portkey: {
     useLocalStorage: true,
-    graphQLUrl: `${graphQLServer}/Portkey_DID/PortKeyIndexerCASchema/graphql`,
+    graphQLUrl: portkeyScanUrl,
     connectUrl: connectUrl,
     socialLogin: {
       Portkey: {
-        websiteName: 'explorer.aelf.io',
-        websiteIcon: 'https://explorer.aelf.io/favicon.main.ico',
+        websiteName: APPNAME,
+        websiteIcon: WEBSITE_ICON,
       },
     },
-    requestDefaults: {
-      timeout: 300000,
-    },
     network: {
-      defaultNetwork: IS_MAINNET ? 'MAIN' : 'TESTNET',
+      defaultNetwork: NETWORK,
       networkList: [
         {
           name: 'aelf MAIN',
           walletType: 'aelf',
-          networkType: IS_MAINNET ? 'MAIN' : 'TESTNET',
+          networkType: NETWORK,
           isActive: true,
           apiUrl: portkeyApiServer,
-          graphQLUrl: `${graphQLServer}/Portkey_DID/PortKeyIndexerCASchema/graphql`,
+          graphQLUrl: portkeyScanUrl,
           connectUrl: connectUrl,
         },
       ],
     },
   } as any,
   aelfReact: {
-    appName: 'explorer.aelf.io',
-    nodes: IS_MAINNET
-      ? {
-          AELF: {
-            chainId: 'AELF',
-            rpcUrl: 'https://explorer.aelf.io/chain',
-          },
-        }
-      : {
-          AELF: {
-            chainId: 'AELF',
-            rpcUrl: 'https://explorer.aelf.io/chain',
-          },
-        },
+    appName: APPNAME,
+    nodes: {
+      AELF: {
+        chainId: 'AELF',
+        rpcUrl: RPC_SERVER,
+      },
+      tDVW: {
+        chainId: 'tDVW',
+        rpcUrl: RPC_SERVER,
+      },
+      tDVV: {
+        chainId: 'tDVV',
+        rpcUrl: RPC_SERVER,
+      },
+    },
   },
 });

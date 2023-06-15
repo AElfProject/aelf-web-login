@@ -167,10 +167,6 @@ function Usage() {
     }),
   ];
 
-  if (loginError) {
-    console.error(loginError);
-  }
-
   return (
     <div className="content">
       <h2 onClick={showVConsole}>Login</h2>

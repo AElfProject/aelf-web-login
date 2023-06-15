@@ -22,3 +22,8 @@ export default function isMobile() {
 
   return result;
 }
+
+export function isPortkeyApp() {
+  const ua = navigator.userAgent;
+  return ua.indexOf('Portkey') !== -1;
+}
