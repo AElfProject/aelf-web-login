@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@aelf-react/core": "^0.1.19",
-    "@portkey/detect-provider": "0.0.1-alpha.22",
+    "@portkey/detect-provider": "0.0.1-alpha.23",
     "@portkey/did": "0.0.1-alpha.8.9",
     "@portkey/did-ui-react": "0.0.1-alpha.8.8",
     "@portkey/graphql": "0.0.1-alpha.8.9",

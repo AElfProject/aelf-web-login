@@ -194,8 +194,8 @@ importers:
         specifier: ^0.1.19
         version: 0.1.19(react@18.2.0)
       '@portkey/detect-provider':
-        specifier: 0.0.1-alpha.22
-        version: 0.0.1-alpha.22
+        specifier: 0.0.1-alpha.23
+        version: 0.0.1-alpha.23
       '@portkey/did':
         specifier: 0.0.1-alpha.8.9
         version: 0.0.1-alpha.8.9(react-dom@18.0.0)
@@ -2858,8 +2858,8 @@ packages:
       aelf-sdk: 3.2.44
     dev: false
 
-  /@portkey/detect-provider@0.0.1-alpha.22:
-    resolution: {integrity: sha512-mnjX+m22akOoXVvKm1QYtd5OjuwJ0Bx6gbl1Ou1F59Br1ZhTgRT4n/NpizsYnJW+QWLZ61CMy194Ymt07Yd34g==}
+  /@portkey/detect-provider@0.0.1-alpha.23:
+    resolution: {integrity: sha512-ZIWTGbN41eMNfzkmETfU5wvBvxBrNEBHwOtt76KjaZliOEYRO7qpsfSkiNBTthy0lT3fOFL7M2xfrzUFbI84yQ==}
     dependencies:
       '@portkey/provider-types': 0.0.1-alpha.22
     dev: false
