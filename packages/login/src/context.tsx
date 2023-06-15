@@ -14,6 +14,7 @@ import { check } from './wallets/elf/utils';
 import isMobile, { isPortkeyApp } from './utils/isMobile';
 import DiscoverPlugin from './wallets/discover/DiscoverPlugin';
 import { useDiscover } from './wallets/discover/useDiscover';
+import ConfirmLogoutDialog from './components/CofirmLogoutDialog/ConfirmLogoutDialog';
 
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,
@@ -47,7 +48,7 @@ function WebLoginProvider({
   const [loginError, setLoginError] = useState<any | unknown>();
   const [walletType, setWalletType] = useState<WalletType>(WalletType.unknown);
 
-  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
+  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(true);
   const [loading, setLoading] = useState(false);
   const [noLoading, setNoLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -226,6 +227,7 @@ function WebLoginProvider({
   return (
     <WebLoginContext.Provider value={state}>
       {children}
+      <ConfirmLogoutDialog visible={logoutConfirmOpen} />
       <Portkey
         isManagerExists={portkeyApi.isManagerExists}
         open={modalOpen}
