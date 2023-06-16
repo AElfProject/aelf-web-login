@@ -115,7 +115,7 @@ function WebLoginProvider({
     try {
       if (isPortkeyApp()) {
         setNoLoading(false);
-        portkeyApi.login();
+        discoverApi.login();
         return;
       } else {
         const type = await check();
@@ -129,7 +129,7 @@ function WebLoginProvider({
       console.warn(error);
     }
     setModalOpen(true);
-  }, [elfApi, portkeyApi, setLoginStateInternal]);
+  }, [discoverApi, elfApi, setLoginStateInternal]);
 
   const createInvalidFunc = (name: string, loginState: WebLoginState) => () => {
     console.log(`Call method '${name}' on invalid state '${loginState}'`);
