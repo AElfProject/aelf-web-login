@@ -53,9 +53,9 @@
     "@portkey/provider-types": "0.0.1-alpha.22",
     "@portkey/types": "0.0.1-alpha.8.9",
     "aelf-sdk": "^3.2.40",
+    "ahooks": "^3.7.7",
     "antd": "4.24.4",
-    "react": "^18.2.0",
-    "react-use": "^17.4.0"
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@types/uuid": "^8.3.4",

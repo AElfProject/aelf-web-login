@@ -11,10 +11,12 @@ import { getConfig } from './config';
 import { WalletType, WebLoginState } from './constants';
 import { PortkeyLoading } from '@portkey/did-ui-react';
 import { check } from './wallets/elf/utils';
-import isMobile, { isPortkeyApp } from './utils/isMobile';
+import isMobile from './utils/isMobile';
+import isPortkeyApp from './utils/isPortkeyApp';
 import DiscoverPlugin from './wallets/discover/DiscoverPlugin';
 import { useDiscover } from './wallets/discover/useDiscover';
 import ConfirmLogoutDialog from './components/CofirmLogoutDialog/ConfirmLogoutDialog';
+import useDebounceFn from 'ahooks/lib/useDebounceFn';
 
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,
@@ -32,8 +34,18 @@ export type WebLoginInterface = WalletHookInterface & {
   loginState: WebLoginState;
   loginError: any | unknown;
   eventEmitter: EventEmitter;
+  walletType: WalletType;
 };
-export type WebLoginContextType = WebLoginInterface;
+
+export type WebLoginInternalInterface = {
+  _api: {
+    nigthElf: WalletHookInterface;
+    portkey: WalletHookInterface;
+    discover: WalletHookInterface;
+  };
+};
+
+export type WebLoginContextType = WebLoginInterface & WebLoginInternalInterface;
 
 export const WebLoginContext = createContext<WebLoginContextType>(INITIAL_STATE as WebLoginContextType);
 
@@ -175,6 +187,84 @@ function WebLoginProvider({
     return invalidApi;
   }, [loginState, invalidApi, login, elfApi, portkeyApi, walletType, discoverApi]);
 
+  const { run: loginInternal } = useDebounceFn(
+    useCallback(async () => {
+      if (loginState === WebLoginState.logined) {
+        console.warn('login failed: loginState is logined');
+        return;
+      }
+      walletApi.login();
+    }, [loginState, walletApi]),
+    {
+      wait: 500,
+      maxWait: 500,
+      leading: true,
+    },
+  );
+
+  const logout = useCallback(async () => {
+    await walletApi.logout();
+  }, [walletApi]);
+
+  const { run: logoutInternal } = useDebounceFn(
+    useCallback(async () => {
+      if (loginState !== WebLoginState.logined) {
+        console.warn('logout failed: loginState is not logined');
+        return;
+      }
+      if (walletType === WalletType.portkey) {
+        setLogoutConfirmResult(LogoutConfirmResult.default);
+        setLogoutConfirmOpen(true);
+      } else {
+        logout();
+      }
+    }, [loginState, logout, walletType]),
+    {
+      wait: 500,
+      maxWait: 500,
+      leading: true,
+    },
+  );
+
+  useEffect(() => {
+    if (logoutConfirmResult === LogoutConfirmResult.ok) {
+      setLogoutConfirmOpen(false);
+      setLogoutConfirmResult(LogoutConfirmResult.default);
+      logout();
+    } else if (logoutConfirmResult === LogoutConfirmResult.cancel) {
+      setLogoutConfirmOpen(false);
+    }
+  }, [logout, logoutConfirmResult, walletApi]);
+
+  const state = useMemo<WebLoginContextType>(
+    () => ({
+      loginState,
+      loginError,
+      eventEmitter,
+      walletType,
+      _api: {
+        nigthElf: elfApi,
+        portkey: portkeyApi,
+        discover: discoverApi,
+      },
+      ...walletApi,
+      login: loginInternal,
+      logout: logoutInternal,
+    }),
+    [
+      discoverApi,
+      elfApi,
+      eventEmitter,
+      loginError,
+      loginInternal,
+      loginState,
+      logoutInternal,
+      portkeyApi,
+      walletApi,
+      walletType,
+    ],
+  );
+
   const renderExtraWallets = () => {
     const isMobileDevice = isMobile();
     const isBridgeNotExist = bridgeType === 'unknown' || (bridgeType === 'none' && isMobileDevice);
@@ -211,40 +301,6 @@ function WebLoginProvider({
       </div>
     );
   };
-
-  const logout = useCallback(async () => {
-    await walletApi.logout();
-  }, [walletApi]);
-
-  const logoutInternal = useCallback(async () => {
-    if (walletType === WalletType.portkey) {
-      setLogoutConfirmResult(LogoutConfirmResult.default);
-      setLogoutConfirmOpen(true);
-    } else {
-      logout();
-    }
-  }, [logout, walletType]);
-
-  useEffect(() => {
-    if (logoutConfirmResult === LogoutConfirmResult.ok) {
-      setLogoutConfirmOpen(false);
-      setLogoutConfirmResult(LogoutConfirmResult.default);
-      logout();
-    } else if (logoutConfirmResult === LogoutConfirmResult.cancel) {
-      setLogoutConfirmOpen(false);
-    }
-  }, [logout, logoutConfirmResult, walletApi]);
-
-  const state = useMemo(
-    () => ({
-      loginState,
-      loginError,
-      eventEmitter,
-      ...walletApi,
-      logout: logoutInternal,
-    }),
-    [eventEmitter, loginError, loginState, logoutInternal, walletApi],
-  );
 
   return (
     <WebLoginContext.Provider value={state}>

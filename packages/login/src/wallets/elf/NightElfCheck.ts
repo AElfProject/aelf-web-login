@@ -12,6 +12,7 @@ export default class NightElfCheck {
         if (win.NightElf) {
           console.log('There is NightElf');
           resolve(true);
+          return;
         }
         setTimeout(() => {
           reject({

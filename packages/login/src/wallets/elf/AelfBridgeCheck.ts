@@ -7,10 +7,12 @@ export default class AelfBridgeCheck {
   constructor() {
     this.check = async () => {
       return new Promise((resolve, reject) => {
+        let timeout = false;
         const bridgeInstance = new AElfBridge({
           timeout: 3000,
         });
         bridgeInstance.connect().then((isConnected: boolean) => {
+          if (timeout) return;
           if (isConnected) {
             resolve(true);
           } else {
@@ -21,6 +23,7 @@ export default class AelfBridgeCheck {
           }
         });
         setTimeout(() => {
+          timeout = true;
           reject({
             error: 200001,
             message: 'timeout, please use AELF Wallet APP or open the page in PC',
