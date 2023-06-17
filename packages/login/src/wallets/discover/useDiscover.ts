@@ -178,13 +178,10 @@ export function useDiscover({
       }
       const provider = discoverProvider! as IPortkeyProvider;
       const signInfo = params.signInfo;
-      if (params.hexToBeSign) {
-        throw new Error('discover is not support hexToBeSign, please use signInfo');
-      }
       const signedMsgObject = await provider.request({
         method: 'wallet_getSignature',
         payload: {
-          data: signInfo,
+          data: signInfo || params.hexToBeSign,
         },
       });
       const signedMsgString = [
