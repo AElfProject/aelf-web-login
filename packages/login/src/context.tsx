@@ -16,7 +16,7 @@ import isPortkeyApp from './utils/isPortkeyApp';
 import DiscoverPlugin from './wallets/discover/DiscoverPlugin';
 import { useDiscover } from './wallets/discover/useDiscover';
 import ConfirmLogoutDialog from './components/CofirmLogoutDialog/ConfirmLogoutDialog';
-import useDebounceFn from 'ahooks/lib/useDebounceFn';
+import { useDebounceFn } from 'ahooks';
 
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,

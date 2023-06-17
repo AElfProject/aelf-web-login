@@ -97,7 +97,9 @@ export type WalletHookInterface = {
   wallet: WalletInfo;
   loginEagerly: () => void;
   login: () => void;
+  loginBySwitch: () => void;
   logout: () => void;
+  logoutBySwitch: () => void;
   // TODO: move this to new hook
   callContract<T, R>(params: CallContractParams<T>): Promise<R>;
   getSignature(params: SignatureParams): Promise<SignatureData>;

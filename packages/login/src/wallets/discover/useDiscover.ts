@@ -9,7 +9,7 @@ import { WalletType, WebLoginEvents, WebLoginState } from '../../constants';
 import checkSignatureParams from '../../utils/signatureParams';
 import { DiscoverOptions } from 'src/types';
 import useChainIdsSync from './useChainIdsSync';
-import { ERR_CODE, ERR_CODE_MSG, makeError } from '../../errors';
+import { ERR_CODE, makeError } from '../../errors';
 
 export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
 export type DiscoverInterface = WalletHookInterface & {
@@ -302,6 +302,8 @@ export function useDiscover({
       loginEagerly,
       login,
       logout,
+      loginBySwitch: login,
+      logoutBySwitch: logout,
       callContract,
       getSignature,
     }),

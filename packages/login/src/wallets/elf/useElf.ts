@@ -235,6 +235,8 @@ export function useElf({
       loginEagerly,
       login,
       logout,
+      loginBySwitch: login,
+      logoutBySwitch: logout,
       callContract,
       getSignature,
     }),

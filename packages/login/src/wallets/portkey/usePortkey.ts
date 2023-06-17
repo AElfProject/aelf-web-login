@@ -73,6 +73,13 @@ export function usePortkey({
     eventEmitter.emit(WebLoginEvents.LOGOUT);
   }, [appName, eventEmitter, setLoginState]);
 
+  const logoutBySwitch = useCallback(async () => {
+    setLoginState(WebLoginState.logouting);
+    setDidWalletInfo(undefined);
+    eventEmitter.emit(WebLoginEvents.LOGOUT);
+    setLoginState(WebLoginState.initial);
+  }, []);
+
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
       if (!didWalletInfo) {
@@ -281,6 +288,8 @@ export function usePortkey({
       loginEagerly,
       login,
       logout,
+      loginBySwitch: login,
+      logoutBySwitch,
       callContract,
       onFinished,
       onUnlock,
@@ -289,17 +298,18 @@ export function usePortkey({
       onCancel,
     }),
     [
-      accountInfoSync,
-      callContract,
-      didWalletInfo,
-      getSignature,
       isManagerExists,
-      login,
+      didWalletInfo,
+      accountInfoSync,
       loginEagerly,
+      login,
       logout,
-      onError,
+      logoutBySwitch,
+      callContract,
       onFinished,
       onUnlock,
+      getSignature,
+      onError,
       onCancel,
     ],
   );
