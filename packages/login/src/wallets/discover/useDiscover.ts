@@ -9,6 +9,7 @@ import { WalletType, WebLoginEvents, WebLoginState } from '../../constants';
 import checkSignatureParams from '../../utils/signatureParams';
 import { DiscoverOptions } from 'src/types';
 import useChainIdsSync from './useChainIdsSync';
+import { ERR_CODE, ERR_CODE_MSG, makeError } from '../../errors';
 
 export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
 export type DiscoverInterface = WalletHookInterface & {
@@ -94,27 +95,30 @@ export function useDiscover({
   const onAccountsFail = useCallback(
     (error: any) => {
       localStorage.removeItem(LOGIN_EARGLY_KEY);
+      setLoading(false);
       setLoginError(error);
       setDiscoverInfo(undefined);
       setWalletType(WalletType.unknown);
       setLoginState(WebLoginState.initial);
       eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
     },
-    [eventEmitter, setLoginError, setLoginState, setWalletType],
+    [eventEmitter, setLoading, setLoginError, setLoginState, setWalletType],
   );
 
   const loginEagerly = useCallback(async () => {
     setLoginState(WebLoginState.logining);
     try {
       const provider = await detect();
+      const network = await provider.request({ method: 'network' });
+      if (network !== getConfig().networkType) {
+        onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
+        return;
+      }
       const accounts = await provider.request({ method: 'accounts' });
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
         onAccountsSuccess(provider, accounts);
       } else {
-        onAccountsFail({
-          code: 10001,
-          message: 'discover login eagerly fail',
-        });
+        onAccountsFail(makeError(ERR_CODE.DISCOVER_LOGIN_EAGERLY_FAIL));
       }
     } catch (error: any) {
       onAccountsFail({
@@ -130,6 +134,11 @@ export function useDiscover({
     setLoginState(WebLoginState.logining);
     try {
       const provider = await detect();
+      const network = await provider.request({ method: 'network' });
+      if (network !== getConfig().networkType) {
+        onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
+        return;
+      }
       const accounts = await provider.request({ method: 'requestAccounts' });
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
         onAccountsSuccess(provider, accounts);
