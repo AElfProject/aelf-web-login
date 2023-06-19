@@ -10,6 +10,7 @@ import checkSignatureParams from '../../utils/signatureParams';
 import { DiscoverOptions } from 'src/types';
 import useChainIdsSync from './useChainIdsSync';
 import { ERR_CODE, makeError } from '../../errors';
+import wait from '../../utils/waitForSeconds';
 
 export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
 export type DiscoverInterface = WalletHookInterface & {
@@ -144,7 +145,7 @@ export function useDiscover({
         onAccountsSuccess(provider, accounts);
       } else {
         setLoading(false);
-        onAccountsFail(undefined);
+        onAccountsFail(makeError(ERR_CODE.ACCOUNTS_IS_EMPTY));
       }
     } catch (error) {
       setLoading(false);
@@ -154,6 +155,7 @@ export function useDiscover({
 
   const logout = useCallback(async () => {
     setLoginState(WebLoginState.logouting);
+    await wait(500);
     try {
       localStorage.removeItem(LOGIN_EARGLY_KEY);
     } catch (e) {
