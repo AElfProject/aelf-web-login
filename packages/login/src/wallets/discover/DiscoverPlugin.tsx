@@ -28,5 +28,5 @@ export default function DiscoverPlugin({
       trailing: false,
     },
   );
-  return <PluginEntry name="Discover" icon="discover" onClick={onClickInternal} />;
+  return <PluginEntry name="Portkey" icon="discover" onClick={onClickInternal} />;
 }
