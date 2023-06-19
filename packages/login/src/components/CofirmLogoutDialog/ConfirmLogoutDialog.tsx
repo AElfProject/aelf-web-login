@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Modal, Button, Row } from 'antd';
 import isMobile from '../../utils/isMobile';
 
-interface ConfirmLogoutDialogInterface {
+interface ConfirmLogoutDialogProps {
   title: string;
   subTitle: string[];
   okTxt: string;
@@ -14,7 +14,7 @@ interface ConfirmLogoutDialogInterface {
   mobileWidth: number;
 }
 
-const defaultProps: Partial<ConfirmLogoutDialogInterface> = {
+const defaultProps: Partial<ConfirmLogoutDialogProps> = {
   title: 'Are you sure you want to exit your wallet?',
   subTitle: [
     'Your current wallet and assets will be removed from this app permanently. This action cannot be undone.',
@@ -29,7 +29,7 @@ const defaultProps: Partial<ConfirmLogoutDialogInterface> = {
   mobileWidth: 343,
 };
 
-export default function ConfirmLogoutDialog(props: Partial<ConfirmLogoutDialogInterface>) {
+export default function ConfirmLogoutDialog(props: Partial<ConfirmLogoutDialogProps>) {
   const { title, subTitle, okTxt, cancelTxt, visible, onOk, onCancel, width, mobileWidth } = {
     ...defaultProps,
     ...props,
