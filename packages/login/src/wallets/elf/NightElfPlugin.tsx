@@ -18,6 +18,7 @@ export default function NightElfPlugin({ onClick }: { onClick: () => void }) {
       wait: 500,
       maxWait: 500,
       leading: true,
+      trailing: false,
     },
   );
   return <PluginEntry icon="elf" name="Night Elf" onClick={onClickInternal} />;

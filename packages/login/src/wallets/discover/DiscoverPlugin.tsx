@@ -25,6 +25,7 @@ export default function DiscoverPlugin({
       wait: 500,
       maxWait: 500,
       leading: true,
+      trailing: false,
     },
   );
   return <PluginEntry name="Discover" icon="discover" onClick={onClickInternal} />;
