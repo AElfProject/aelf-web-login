@@ -1,14 +1,14 @@
 import { WalletType, useMultiWallets, SwitchWalletType } from 'aelf-web-login';
 
 export default function MultiWallets() {
-  const { wallets, current, switchWallet } = useMultiWallets();
+  const { wallets, switching, current, switchWallet } = useMultiWallets();
 
   console.log('current', current);
   console.log('wallets', wallets);
 
   return (
     <div>
-      <h2>MultiWallets</h2>
+      <h2>MultiWallets {switching ? 'switching wallet' : ''}</h2>
       <div>
         <button disabled={current === WalletType.elf} onClick={() => switchWallet('elf')}>
           NightElf

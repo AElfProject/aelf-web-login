@@ -76,9 +76,9 @@ export function usePortkey({
   const logoutBySwitch = useCallback(async () => {
     setLoginState(WebLoginState.logouting);
     setDidWalletInfo(undefined);
-    eventEmitter.emit(WebLoginEvents.LOGOUT);
     setLoginState(WebLoginState.initial);
-  }, []);
+    eventEmitter.emit(WebLoginEvents.LOGOUT);
+  }, [eventEmitter, setLoginState]);
 
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
@@ -272,6 +272,7 @@ export function usePortkey({
     setModalOpen(false);
     setLoginState(isManagerExists ? WebLoginState.lock : WebLoginState.initial);
     setLoginError(undefined);
+    eventEmitter.emit(WebLoginEvents.USER_CANCEL);
     eventEmitter.emit(WebLoginEvents.MODAL_CANCEL);
   }, [setModalOpen, setLoginState, isManagerExists, setLoginError, eventEmitter]);
 

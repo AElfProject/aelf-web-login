@@ -18,6 +18,7 @@ export enum WebLoginEvents {
   LOGIN_ERROR = 'loginError',
   LOGINED = 'logined',
   LOGOUT = 'logout',
+  USER_CANCEL = 'userCancel',
   MODAL_CANCEL = 'modalCancel',
   BRIDGE_CANCEL = 'bridgeCancel',
   DISCOVER_DISCONNECTED = 'discoverDisconnected',

@@ -7,6 +7,7 @@ import { NightElfOptions } from '../../types';
 import { WalletType, WebLoginState, WebLoginEvents } from '../../constants';
 import isMobile from '../../utils/isMobile';
 import checkSignatureParams from '../../utils/signatureParams';
+import { ERR_CODE, makeError } from 'src/errors';
 
 export function useElf({
   options,
@@ -72,6 +73,7 @@ export function useElf({
       localStorage.removeItem('aelf-connect-eagerly');
       setLoginState(WebLoginState.initial);
       setLoading(false);
+      eventEmitter.emit(WebLoginEvents.USER_CANCEL);
       eventEmitter.emit(WebLoginEvents.BRIDGE_CANCEL);
     }
   }, [eventEmitter, isActive, loginState, setLoading, setLoginState]);
