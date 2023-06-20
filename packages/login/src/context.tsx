@@ -74,13 +74,16 @@ function WebLoginProvider({
   const [bridgeType, setBridgeType] = useState('unknown');
 
   useEffect(() => {
-    check()
-      .then((type) => {
-        setBridgeType(type);
-      })
-      .catch((error) => {
-        console.warn(error);
-      });
+    // SSR support
+    if (typeof window !== 'undefined') {
+      check()
+        .then((type) => {
+          setBridgeType(type);
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+    }
   }, []);
 
   const setLoginStateInternal = useCallback(
