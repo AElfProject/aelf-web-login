@@ -3,6 +3,7 @@ import { Accounts, ChainIds, NetworkType } from '@portkey/provider-types';
 import { useWebLogin } from '../context';
 import { WebLoginEvents } from '../constants';
 
+export default function useWebLoginEvent(eventType: WebLoginEvents.DISCOVER_DISCONNECTED, callback: () => void): void;
 export default function useWebLoginEvent(eventType: WebLoginEvents.USER_CANCEL, callback: () => void): void;
 export default function useWebLoginEvent(eventType: WebLoginEvents.LOGINED, callback: () => void): void;
 export default function useWebLoginEvent(eventType: WebLoginEvents.LOGOUT, callback: () => void): void;
