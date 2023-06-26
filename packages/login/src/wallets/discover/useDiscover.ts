@@ -52,9 +52,13 @@ export function useDiscover({
       provider = await detectProviderFunc();
     } catch (error) {
       setDiscoverDetected('not-detected');
-      throw new Error('Discover provider not found');
+      throw error;
     }
-    if (provider && provider.isPortkey) {
+    if (provider) {
+      if (!provider.isPortkey) {
+        setDiscoverDetected('not-detected');
+        throw new Error('Discover provider found, but check isPortkey failed');
+      }
       setDiscoverProvider(provider);
       setDiscoverDetected('detected');
       return provider;

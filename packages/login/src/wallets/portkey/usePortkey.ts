@@ -248,12 +248,15 @@ export function usePortkey({
         setLoginState(WebLoginState.logined);
         eventEmitter.emit(WebLoginEvents.LOGINED);
       } catch (error) {
+        setLoading(false);
+        setDidWalletInfo(undefined);
+        setWalletType(WalletType.unknown);
         setLoginError(error);
         setLoginState(WebLoginState.initial);
         eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
       }
     },
-    [appName, chainId, eventEmitter, setLoginError, setLoginState, setWalletType],
+    [appName, chainId, eventEmitter, setLoading, setLoginError, setLoginState, setWalletType],
   );
 
   const onError = useCallback(
