@@ -63,6 +63,17 @@ export default function CallContract() {
         },
       });
     }),
+
+    useExampleCall('Buy 1 WRITE', async () => {
+      return await callContractWithLog(callSendMethod, {
+        contractAddress: configJson.tokenConverter,
+        methodName: 'Buy',
+        args: {
+          symbol: configJson.resourceTokens[0].symbol,
+          amount: 1 * Math.pow(10, configJson.resourceTokens[0].decimals),
+        },
+      });
+    }),
   ];
   return (
     <div>
