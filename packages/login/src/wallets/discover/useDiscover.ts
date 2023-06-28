@@ -88,6 +88,7 @@ export function useDiscover({
       setDiscoverInfo({
         address,
         nickName,
+        provider,
       });
       setWalletType(WalletType.discover);
       setLoginState(WebLoginState.logined);

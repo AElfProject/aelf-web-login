@@ -1,6 +1,6 @@
 {
   "name": "aelf-web-login",
-  "version": "0.1.0-alpha.19",
+  "version": "0.1.0-alpha.21",
   "main": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "exports": {
@@ -46,16 +46,15 @@
   },
   "dependencies": {
     "@aelf-react/core": "^0.1.19",
-    "@portkey/detect-provider": "0.0.1-alpha.23",
-    "@portkey/did": "0.0.1-alpha.8.9",
-    "@portkey/did-ui-react": "0.0.1-alpha.8.8",
-    "@portkey/graphql": "0.0.1-alpha.8.9",
-    "@portkey/provider-types": "0.0.1-alpha.22",
-    "@portkey/types": "0.0.1-alpha.8.9",
+    "@portkey/detect-provider": "^0.0.1-alpha.23",
+    "@portkey/did": "^0.0.1-alpha.8.9",
+    "@portkey/did-ui-react": "^0.0.1-alpha.8.8",
+    "@portkey/graphql": "^0.0.1-alpha.8.9",
+    "@portkey/provider-types": "^0.0.1-alpha.22",
+    "@portkey/types": "^0.0.1-alpha.8.9",
     "aelf-sdk": "^3.2.40",
     "ahooks": "^3.7.7",
-    "antd": "4.24.4",
-    "react": "^18.2.0"
+    "antd": "^4.24.4"
   },
   "devDependencies": {
     "@types/uuid": "^8.3.4",

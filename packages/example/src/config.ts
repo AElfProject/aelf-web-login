@@ -6,7 +6,7 @@ const CHAIN_ID = 'AELF';
 const NETWORK: string = 'TESTNET';
 const IS_MAINNET = NETWORK === 'MAIN';
 
-const RPC_SERVER = 'https://explorer.aelf.io/chain';
+const RPC_SERVER = 'https://explorer-test.aelf.io/chain';
 
 const graphQLServer = !IS_MAINNET
   ? 'https://dapp-portkey-test.portkey.finance'
@@ -28,6 +28,7 @@ setGlobalConfig({
   appName: APPNAME,
   chainId: CHAIN_ID,
   networkType: NETWORK as any,
+  defaultRpcUrl: RPC_SERVER,
   portkey: {
     useLocalStorage: true,
     graphQLUrl: portkeyScanUrl,

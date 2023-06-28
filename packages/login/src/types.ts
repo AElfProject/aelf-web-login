@@ -1,7 +1,7 @@
 import type { AElfContextType } from '@aelf-react/core/dist/types';
 import type { DIDWalletInfo } from '@portkey/did-ui-react';
 import type { IHolderInfo } from '@portkey/services';
-import type { ChainIds } from '@portkey/provider-types';
+import type { ChainIds, IPortkeyProvider } from '@portkey/provider-types';
 
 /**
  * WebLoginProvider types
@@ -74,6 +74,7 @@ export type PortkeyInfo = DIDWalletInfo & {
 export type DiscoverInfo = {
   address: string;
   nickName?: string;
+  provider?: IPortkeyProvider;
 };
 
 export type WalletInfo = {
@@ -103,4 +104,12 @@ export type WalletHookInterface = {
   // TODO: move this to new hook
   callContract<T, R>(params: CallContractParams<T>): Promise<R>;
   getSignature(params: SignatureParams): Promise<SignatureData>;
+};
+
+/**
+ * useContractApi
+ */
+export type CallContractHookInterface = {
+  callViewMethod<T, R>(params: CallContractParams<T>): Promise<R>;
+  callSendMethod<T, R>(params: CallContractParams<T>): Promise<R>;
 };
