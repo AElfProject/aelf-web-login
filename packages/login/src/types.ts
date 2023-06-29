@@ -10,6 +10,7 @@ export type ExtraWalletNames = 'discover' | 'elf';
 
 export type NightElfOptions = {
   connectEagerly: boolean;
+  onPluginNotFound?: PluginNotFoundCallback;
 };
 
 export type PortkeyOptions = {
@@ -17,12 +18,15 @@ export type PortkeyOptions = {
   checkAccountInfoSync: boolean;
 };
 
+export type PluginNotFoundCallback = (openPluginStorePage: () => void) => void;
+
 export type DiscoverOptions = {
   autoRequestAccount: boolean;
   autoLogoutOnDisconnected: boolean;
   autoLogoutOnNetworkMismatch: boolean;
   autoLogoutOnAccountMismatch: boolean;
   autoLogoutOnChainMismatch: boolean;
+  onPluginNotFound?: PluginNotFoundCallback;
 };
 
 export type WebLoginProviderProps = {

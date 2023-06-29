@@ -293,10 +293,15 @@ function WebLoginProvider({
             })
             .map((wallet) => {
               if (wallet === WalletType.elf) {
-                return <NightElfPlugin key={wallet} onClick={elfApi.login} />;
+                return <NightElfPlugin key={wallet} nightEflOpts={nightEflOpts} onClick={elfApi.login} />;
               } else if (wallet === WalletType.discover) {
                 return (
-                  <DiscoverPlugin key={wallet} detectState={discoverApi.discoverDetected} onClick={discoverApi.login} />
+                  <DiscoverPlugin
+                    key={wallet}
+                    discoverOpts={discoverOpts}
+                    detectState={discoverApi.discoverDetected}
+                    onClick={discoverApi.login}
+                  />
                 );
               }
             })}
