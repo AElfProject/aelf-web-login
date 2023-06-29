@@ -15,6 +15,8 @@ const PORTKEY_ORIGIN_CHAIN_ID_KEY = 'PortkeyOriginChainId';
 
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;
+  isUnlocking: boolean;
+  lock: () => void;
   onUnlock: (password: string) => Promise<boolean>;
   onError: (error: any) => void;
   onFinished: (didWalletInfo: DIDWalletInfo) => void;
@@ -39,7 +41,10 @@ export function usePortkey({
   const autoUnlockCheckRef = useRef(false);
   const [didWalletInfo, setDidWalletInfo] = useState<PortkeyInfo>();
 
-  const isManagerExists = !!localStorage.getItem(appName);
+  const [isUnlocking, setUnlocking] = useState(false);
+  const isManagerExists = useMemo(() => {
+    return loginState && !!localStorage.getItem(appName);
+  }, [appName, loginState]);
 
   const shouldCheckAccountInfoSync =
     !!didWalletInfo && (options.checkAccountInfoSync === undefined || options.checkAccountInfoSync);
@@ -79,6 +84,18 @@ export function usePortkey({
     setLoginState(WebLoginState.initial);
     eventEmitter.emit(WebLoginEvents.LOGOUT);
   }, [eventEmitter, setLoginState]);
+
+  const lock = useCallback(async () => {
+    if (!didWalletInfo) {
+      throw new Error(`lock on invalid didWalletInfo: ${didWalletInfo}`);
+    }
+    if (loginState !== WebLoginState.logined) {
+      throw new Error(`lock on invalid login state: ${loginState}`);
+    }
+    setDidWalletInfo(undefined);
+    setLoginState(WebLoginState.lock);
+    eventEmitter.emit(WebLoginEvents.LOCK);
+  }, [didWalletInfo, eventEmitter, loginState, setLoginState]);
 
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
@@ -155,6 +172,7 @@ export function usePortkey({
 
   const onUnlock = useCallback(
     async (password: string) => {
+      setUnlocking(true);
       try {
         const localWallet = await did.load(password, appName);
         if (!localWallet.didWallet.accountInfo.loginAccount) {
@@ -208,6 +226,8 @@ export function usePortkey({
         setLoginState(WebLoginState.initial);
         eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
         return Promise.resolve(false);
+      } finally {
+        setUnlocking(false);
       }
     },
     [appName, chainId, eventEmitter, setLoading, setLoginError, setLoginState, setWalletType],
@@ -282,6 +302,7 @@ export function usePortkey({
   return useMemo<PortkeyInterface>(
     () => ({
       isManagerExists,
+      isUnlocking,
       wallet: {
         name: didWalletInfo?.nickName || 'Wallet 01',
         address: didWalletInfo?.caInfo.caAddress || '',
@@ -294,6 +315,7 @@ export function usePortkey({
       logout,
       loginBySwitch: login,
       logoutBySwitch,
+      lock,
       callContract,
       onFinished,
       onUnlock,
@@ -303,12 +325,14 @@ export function usePortkey({
     }),
     [
       isManagerExists,
+      isUnlocking,
       didWalletInfo,
       accountInfoSync,
       loginEagerly,
       login,
       logout,
       logoutBySwitch,
+      lock,
       callContract,
       onFinished,
       onUnlock,
