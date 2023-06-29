@@ -13,7 +13,13 @@ function Index() {
     <PortkeyConfigProvider>
       <WebLoginProvider
         extraWallets={['discover', 'elf']}
-        nightElf={{ connectEagerly: true }}
+        nightElf={{
+          connectEagerly: true,
+          onPluginNotFound: openStore => {
+            console.log(123);
+            openStore();
+          },
+        }}
         portkey={{ autoShowUnlock: false, checkAccountInfoSync: true }}
         discover={{
           autoRequestAccount: true,
@@ -21,6 +27,10 @@ function Index() {
           autoLogoutOnChainMismatch: true,
           autoLogoutOnDisconnected: true,
           autoLogoutOnNetworkMismatch: true,
+          onPluginNotFound: openStore => {
+            console.log(234);
+            openStore();
+          },
         }}>
         <App />
       </WebLoginProvider>
