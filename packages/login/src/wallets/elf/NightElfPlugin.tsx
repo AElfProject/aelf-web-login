@@ -2,7 +2,7 @@ import { useDebounceFn } from 'ahooks';
 import PluginEntry from '../../components/PluginEntry';
 import isMobile from '../../utils/isMobile';
 import { check, openPluginPage } from './utils';
-import { NightElfOptions } from 'src/types';
+import { NightElfOptions } from '../../types';
 
 export default function NightElfPlugin({
   nightEflOpts,

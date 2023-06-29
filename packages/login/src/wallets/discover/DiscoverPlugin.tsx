@@ -4,7 +4,7 @@ import { DiscoverDetectState } from './useDiscover';
 import { openPortkeyPluginPage } from '../elf/utils';
 import isMobile from '../../utils/isMobile';
 import { useDebounceFn } from 'ahooks';
-import { DiscoverOptions } from 'src/types';
+import { DiscoverOptions } from '../../types';
 
 export default function DiscoverPlugin({
   detectState,
