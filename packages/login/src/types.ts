@@ -1,7 +1,7 @@
 import type { AElfContextType } from '@aelf-react/core/dist/types';
 import type { DIDWalletInfo } from '@portkey/did-ui-react';
 import type { IHolderInfo } from '@portkey/services';
-import type { ChainIds, IPortkeyProvider } from '@portkey/provider-types';
+import type { Accounts, ChainIds, IPortkeyProvider } from '@portkey/provider-types';
 import { SignInProps } from '@portkey/did-ui-react/dist/_types/src/components/SignIn';
 import { UnlockProps } from '@portkey/did-ui-react/dist/_types/src/components/Unlock';
 import { ReactElement } from 'react';
@@ -82,10 +82,14 @@ export type GetSignatureFunc = (params: SignatureParams) => Promise<SignatureDat
 
 export type PortkeyInfo = DIDWalletInfo & {
   nickName: string;
+  accounts: {
+    [key: string]: string;
+  };
 };
 
 export type DiscoverInfo = {
   address: string;
+  accounts: Accounts;
   nickName?: string;
   provider?: IPortkeyProvider;
 };
@@ -120,8 +124,14 @@ export type WalletHookInterface = {
 };
 
 /**
- * useContractApi
+ * useCallContract
  */
+export type CallContractHookOptions = {
+  chainId?: string;
+  rpcUrl?: string;
+  cache?: boolean;
+};
+
 export type CallContractHookInterface = {
   callViewMethod<T, R>(params: CallContractParams<T>): Promise<R>;
   callSendMethod<T, R>(params: CallContractParams<T>): Promise<R>;

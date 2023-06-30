@@ -87,6 +87,7 @@ export function useDiscover({
       localStorage.setItem(LOGIN_EARGLY_KEY, 'true');
       setDiscoverInfo({
         address,
+        accounts,
         nickName,
         provider,
       });

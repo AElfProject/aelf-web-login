@@ -1,6 +1,10 @@
 import { CallContractParams, WebLoginState, useCallContract, useWebLogin } from 'aelf-web-login';
 import { useState } from 'react';
 import configJson from '../assets/config.json';
+import configTdvwJson from '../assets/config.tdvw.json';
+import { useGetAccount } from 'aelf-web-login';
+
+console.log(configTdvwJson);
 
 async function callContractWithLog<T, R>(
   callContract: (params: CallContractParams<T>) => Promise<R>,
@@ -50,7 +54,13 @@ function useExampleCall(name: string, func: () => any) {
 
 export default function CallContract() {
   const { wallet } = useWebLogin();
+  console.log(wallet);
+  const getAccountTDVW = useGetAccount('tDVW');
   const { callViewMethod, callSendMethod } = useCallContract();
+  const { callViewMethod: callViewMethodTDVW, callSendMethod: callSendMethodTDVW } = useCallContract({
+    chainId: 'tDVW',
+    rpcUrl: 'https://tdvw-test-node.aelf.io',
+  });
 
   const examples = [
     useExampleCall('call getBalance', async () => {
@@ -67,6 +77,28 @@ export default function CallContract() {
     useExampleCall('Buy 1 WRITE', async () => {
       return await callContractWithLog(callSendMethod, {
         contractAddress: configJson.tokenConverter,
+        methodName: 'Buy',
+        args: {
+          symbol: configJson.resourceTokens[0].symbol,
+          amount: 1 * Math.pow(10, configJson.resourceTokens[0].decimals),
+        },
+      });
+    }),
+
+    useExampleCall('call getBalance in tDVW', async () => {
+      return callContractWithLog(callViewMethodTDVW, {
+        contractAddress: configTdvwJson.multiToken,
+        methodName: 'GetBalance',
+        args: {
+          symbol: 'ELF',
+          owner: await getAccountTDVW(),
+        },
+      });
+    }),
+
+    useExampleCall('Buy 1 WRITE in tDVW', async () => {
+      return await callContractWithLog(callSendMethod, {
+        contractAddress: configTdvwJson.tokenConverter,
         methodName: 'Buy',
         args: {
           symbol: configJson.resourceTokens[0].symbol,

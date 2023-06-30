@@ -4,6 +4,7 @@ import useWebLoginEvent from './hooks/useWebLoginEvent';
 import useMultiWallets from './hooks/useMultiWallets';
 import useCallContract from './hooks/useCallContract';
 import usePortkeyLock from './hooks/usePortkeyLock';
+import useGetAccount from './hooks/useGetAccount';
 
 export * from './wallets/types';
 export * from './types';
@@ -22,4 +23,5 @@ export {
   useMultiWallets,
   useCallContract,
   usePortkeyLock,
+  useGetAccount,
 };

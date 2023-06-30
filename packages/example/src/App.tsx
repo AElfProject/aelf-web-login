@@ -1,5 +1,5 @@
 import { Tab } from '@headlessui/react';
-import { WalletType, WebLoginState, getConfig, useWebLogin } from 'aelf-web-login';
+import { WalletType, WebLoginEvents, WebLoginState, getConfig, useWebLogin, useWebLoginEvent } from 'aelf-web-login';
 import VConsole from 'vconsole';
 import MultiWallets from './components/MultiWallets';
 import CallContract from './components/CallContract';
@@ -16,11 +16,38 @@ if (win.ReactNativeWebView) {
   };
 }
 
+function renderEvents() {
+  const [events, setEvents] = useState([]);
+  for (const key in WebLoginEvents) {
+    useWebLoginEvent(WebLoginEvents[key], (data: any) => {
+      console.log(WebLoginEvents[key], data);
+      events.push({
+        type: key,
+        data,
+      });
+      setEvents([...events]);
+    });
+  }
+  return (
+    <>
+      <h2>Events: </h2>
+      <div>
+        <div className="result">
+          {events.map((item, index) => {
+            return <div key={`${item.type}-${index}`}>{`${item.type} ${JSON.stringify(item.data)}`}</div>;
+          })}
+        </div>
+      </div>
+    </>
+  );
+}
+
 export default function App() {
   const config = getConfig();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { wallet, walletType, login, loginEagerly, logout, loginState } = useWebLogin();
   const { isUnlocking, lock } = usePortkeyLock();
+
   return (
     <div>
       <h2 onClick={showVConsole}>Login</h2>
@@ -46,6 +73,7 @@ export default function App() {
           {loginState === WebLoginState.logouting ? 'logouting' : 'logout'}
         </button>
       </div>
+      {renderEvents()}
       <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
         <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
           <ExampleTab>useMultiWallets</ExampleTab>

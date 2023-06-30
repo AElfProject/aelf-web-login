@@ -212,6 +212,9 @@ export function usePortkey({
         setLoading(false);
         setDidWalletInfo({
           ...didWalletInfo,
+          accounts: {
+            [chainId]: caInfo.caAddress,
+          },
           nickName,
         });
         setWalletType(WalletType.portkey);
@@ -262,6 +265,9 @@ export function usePortkey({
         }
         setDidWalletInfo({
           ...didWalletInfo,
+          accounts: {
+            [chainId]: didWalletInfo.caInfo.caAddress,
+          },
           nickName,
         });
         setWalletType(WalletType.portkey);
