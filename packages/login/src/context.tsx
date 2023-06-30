@@ -231,12 +231,15 @@ function WebLoginProvider({
 
   const onPortkeyError = useCallback(
     (error: any) => {
-      // TODO fixes: portkeyApi.onError(error);
+      if (loginState === WebLoginState.logined) {
+        console.warn(error);
+        return;
+      }
       if (walletType === WalletType.portkey || (walletType === WalletType.unknown && modalOpen)) {
         portkeyApi.onError(error);
       }
     },
-    [modalOpen, portkeyApi, walletType],
+    [loginState, modalOpen, portkeyApi, walletType],
   );
 
   useEffect(() => {

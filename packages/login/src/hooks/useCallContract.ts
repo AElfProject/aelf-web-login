@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback } from 'react';
 import AElf from 'aelf-sdk';
 import { ChainId } from '@portkey/provider-types';
 import { did } from '@portkey/did-ui-react';
@@ -8,17 +8,25 @@ import { getConfig } from '../config';
 import { WalletType } from '../constants';
 import { getContractBasic } from '@portkey/contracts';
 
-function useAElfInstance(rpcUrl: string) {
-  return useMemo(() => {
-    return new AElf(new AElf.providers.HttpProvider(rpcUrl));
-  }, [rpcUrl]);
-}
+const getAElfInstance = (() => {
+  const instances = new Map<string, any>();
+  return (rpcUrl: string) => {
+    if (!instances.has(rpcUrl)) {
+      instances.set(rpcUrl, new AElf(new AElf.providers.HttpProvider(rpcUrl)));
+    }
+    return instances.get(rpcUrl);
+  };
+})();
 
-function useViewWallet() {
-  return useMemo(() => {
-    return AElf.wallet.createNewWallet();
-  }, []);
-}
+const getViewWallet = (() => {
+  let wallet: any;
+  return () => {
+    if (!wallet) {
+      wallet = AElf.wallet.createNewWallet();
+    }
+    return wallet;
+  };
+})();
 
 const contractCache = new Map<string, any>();
 
@@ -40,7 +48,6 @@ function useGetContractWithCache(chainId: string, cache: boolean) {
   );
 }
 
-// TODO: cache contracts
 export default function useCallContract(options?: CallContractHookOptions): CallContractHookInterface {
   options = options || {};
   options = {
@@ -50,9 +57,9 @@ export default function useCallContract(options?: CallContractHookOptions): Call
     ...options,
   };
 
-  const viewWallet = useViewWallet();
   const chainId = options.chainId!;
-  const aelfInstance = useAElfInstance(options.rpcUrl!);
+  const viewWallet = getViewWallet();
+  const aelfInstance = getAElfInstance(options.rpcUrl!);
   const { wallet, walletType } = useWebLogin();
   const getContractWithCache = useGetContractWithCache(chainId, options.cache!);
 
