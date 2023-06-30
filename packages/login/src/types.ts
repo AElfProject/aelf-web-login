@@ -2,6 +2,9 @@ import type { AElfContextType } from '@aelf-react/core/dist/types';
 import type { DIDWalletInfo } from '@portkey/did-ui-react';
 import type { IHolderInfo } from '@portkey/services';
 import type { ChainIds, IPortkeyProvider } from '@portkey/provider-types';
+import { SignInProps } from '@portkey/did-ui-react/dist/_types/src/components/SignIn';
+import { UnlockProps } from '@portkey/did-ui-react/dist/_types/src/components/Unlock';
+import { ReactElement } from 'react';
 
 /**
  * WebLoginProvider types
@@ -13,9 +16,15 @@ export type NightElfOptions = {
   onPluginNotFound?: PluginNotFoundCallback;
 };
 
+export type PortkeyComponentProps = JSX.IntrinsicAttributes & (SignInProps | UnlockProps);
+export type PortkeyComponentRenderer = <P extends PortkeyComponentProps>(
+  Component: React.FC<P>,
+  props: P,
+) => ReactElement;
 export type PortkeyOptions = {
   autoShowUnlock: boolean;
   checkAccountInfoSync: boolean;
+  renderPortkeyComponent?: PortkeyComponentRenderer;
 };
 
 export type PluginNotFoundCallback = (openPluginStorePage: () => void) => void;

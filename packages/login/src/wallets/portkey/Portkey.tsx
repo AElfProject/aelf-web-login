@@ -2,11 +2,13 @@ import React, { ReactNode, useCallback, useRef, useEffect, useState } from 'reac
 import { DIDWalletInfo, SignIn, Unlock, SignInInterface } from '@portkey/did-ui-react';
 import { getConfig } from '../../config';
 import { WebLoginState } from '../../constants';
+import { PortkeyComponentRenderer, PortkeyOptions } from '../../types';
 
 export default function Portkey({
   open,
   loginState,
   isManagerExists,
+  portkeyOpts,
   onCancel,
   onFinish,
   onError,
@@ -16,6 +18,7 @@ export default function Portkey({
   open: boolean;
   loginState: WebLoginState;
   isManagerExists: boolean;
+  portkeyOpts: PortkeyOptions;
   onCancel: () => void;
   onError: (error: any) => void;
   onFinish: (didWalletInfo: DIDWalletInfo) => void;
@@ -57,7 +60,24 @@ export default function Portkey({
     }
   }, [onUnlock, password]);
 
+  const renderPortkeyComponentDefault: PortkeyComponentRenderer = (Component, props) => {
+    return <Component {...props} />;
+  };
+
+  const renderPortkeyComponent = portkeyOpts?.renderPortkeyComponent || renderPortkeyComponentDefault;
+
   if (isManagerExists && (loginState === WebLoginState.logining || loginState === WebLoginState.lock)) {
+    if (renderPortkeyComponent) {
+      return renderPortkeyComponent(Unlock, {
+        open,
+        value: password,
+        isWrongPassword,
+        onChange: setPassword,
+        onCancel,
+        onUnlock: onUnlockInternal,
+      });
+    }
+
     return (
       <Unlock
         open={open}
@@ -68,6 +88,19 @@ export default function Portkey({
         onUnlock={onUnlockInternal}
       />
     );
+  }
+
+  if (renderPortkeyComponent) {
+    return renderPortkeyComponent(SignIn, {
+      defaultChainId: chainId as any,
+      ref: signInRef,
+      uiType: 'Modal',
+      isShowScan: true,
+      extraElement: extraWallets,
+      onCancel,
+      onError: onErrorInternal,
+      onFinish: onFinishInternal,
+    });
   }
 
   return (

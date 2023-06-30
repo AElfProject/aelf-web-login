@@ -24,9 +24,9 @@ export default function useWebLoginEvent(
 export default function useWebLoginEvent<T>(eventType: WebLoginEvents, callback: (data: T) => void) {
   const { eventEmitter } = useWebLogin();
   useEffect(() => {
-    eventEmitter.on(eventType, callback);
+    eventEmitter.addListener(eventType, callback);
     return () => {
-      eventEmitter.off(eventType, callback);
+      eventEmitter.removeListener(eventType, callback);
     };
   }, [callback, eventEmitter, eventType]);
 }

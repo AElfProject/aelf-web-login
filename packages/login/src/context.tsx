@@ -229,6 +229,16 @@ function WebLoginProvider({
     },
   );
 
+  const onPortkeyError = useCallback(
+    (error: any) => {
+      // TODO fixes: portkeyApi.onError(error);
+      if (walletType === WalletType.portkey || (walletType === WalletType.unknown && modalOpen)) {
+        portkeyApi.onError(error);
+      }
+    },
+    [modalOpen, portkeyApi, walletType],
+  );
+
   useEffect(() => {
     if (logoutConfirmResult === LogoutConfirmResult.ok) {
       setLogoutConfirmOpen(false);
@@ -319,13 +329,14 @@ function WebLoginProvider({
         onOk={() => setLogoutConfirmResult(LogoutConfirmResult.ok)}
       />
       <Portkey
+        portkeyOpts={portkeyOpts}
         isManagerExists={portkeyApi.isManagerExists}
         open={modalOpen}
         loginState={loginState}
         onCancel={portkeyApi.onCancel}
         onFinish={portkeyApi.onFinished}
         onUnlock={portkeyApi.onUnlock}
-        onError={portkeyApi.onError}
+        onError={onPortkeyError}
         extraWallets={renderExtraWallets()}
       />
       <PortkeyLoading loading={!noLoading && loading} />
