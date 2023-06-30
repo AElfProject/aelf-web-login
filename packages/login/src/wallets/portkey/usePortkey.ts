@@ -287,14 +287,9 @@ export function usePortkey({
 
   const onError = useCallback(
     (error: any) => {
-      setDidWalletInfo(undefined);
-      setWalletType(WalletType.unknown);
-      setModalOpen(false);
-      setLoginError(error);
-      setLoginState(WebLoginState.initial);
-      eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
+      eventEmitter.emit(WebLoginEvents.ERROR, error);
     },
-    [eventEmitter, setLoginError, setLoginState, setModalOpen, setWalletType],
+    [eventEmitter],
   );
 
   const onCancel = useCallback(() => {

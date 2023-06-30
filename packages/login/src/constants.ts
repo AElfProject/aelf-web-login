@@ -15,6 +15,7 @@ export enum WebLoginState {
 }
 
 export enum WebLoginEvents {
+  ERROR = 'commonError',
   LOGIN_ERROR = 'loginError',
   LOGINED = 'logined',
   LOGOUT = 'logout',

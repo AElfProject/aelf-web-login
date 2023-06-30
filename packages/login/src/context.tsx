@@ -229,19 +229,6 @@ function WebLoginProvider({
     },
   );
 
-  const onPortkeyError = useCallback(
-    (error: any) => {
-      if (loginState === WebLoginState.logined) {
-        console.warn(error);
-        return;
-      }
-      if (walletType === WalletType.portkey || (walletType === WalletType.unknown && modalOpen)) {
-        portkeyApi.onError(error);
-      }
-    },
-    [loginState, modalOpen, portkeyApi, walletType],
-  );
-
   useEffect(() => {
     if (logoutConfirmResult === LogoutConfirmResult.ok) {
       setLogoutConfirmOpen(false);
@@ -339,7 +326,7 @@ function WebLoginProvider({
         onCancel={portkeyApi.onCancel}
         onFinish={portkeyApi.onFinished}
         onUnlock={portkeyApi.onUnlock}
-        onError={onPortkeyError}
+        onError={portkeyApi.onError}
         extraWallets={renderExtraWallets()}
       />
       <PortkeyLoading loading={!noLoading && loading} />
