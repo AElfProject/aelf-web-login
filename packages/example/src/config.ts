@@ -67,7 +67,7 @@ setGlobalConfig({
       },
       tDVV: {
         chainId: 'tDVV',
-        rpcUrl: RPC_SERVER,
+        rpcUrl: 'http://192.168.66.106:8000',
       },
     },
   },

@@ -36,6 +36,7 @@ function useExampleCall(name: string, func: () => any) {
     render: () => {
       return (
         <>
+          <hr />
           <h3>{name}:</h3>
           <div>
             <button disabled={loginState !== WebLoginState.logined} onClick={onClick}>
@@ -60,6 +61,11 @@ export default function CallContract() {
   const { callViewMethod: callViewMethodTDVW, callSendMethod: callSendMethodTDVW } = useCallContract({
     chainId: 'tDVW',
     rpcUrl: 'https://tdvw-test-node.aelf.io',
+  });
+
+  const { callViewMethod: callViewMethodTDVV, callSendMethod: callSendMethodTDVV } = useCallContract({
+    chainId: 'tDVV',
+    rpcUrl: 'http://192.168.66.106:8000',
   });
 
   const examples = [
@@ -103,6 +109,17 @@ export default function CallContract() {
         args: {
           symbol: configJson.resourceTokens[0].symbol,
           amount: 1 * Math.pow(10, configJson.resourceTokens[0].decimals),
+        },
+      });
+    }),
+
+    useExampleCall('Approve in tDVV', async () => {
+      return await callContractWithLog(callSendMethodTDVV, {
+        contractAddress: '7RzVGiuVWkvL4VfVHdZfQF2Tri3sgLe9U991bohHFfSRZXuGX',
+        methodName: 'Approve',
+        args: {
+          symbol: 'ELF',
+          amount: '100000000000000000',
         },
       });
     }),

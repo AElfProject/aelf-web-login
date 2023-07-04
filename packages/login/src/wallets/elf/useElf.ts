@@ -7,7 +7,6 @@ import { NightElfOptions } from '../../types';
 import { WalletType, WebLoginState, WebLoginEvents } from '../../constants';
 import isMobile from '../../utils/isMobile';
 import checkSignatureParams from '../../utils/signatureParams';
-import { ERR_CODE, makeError } from 'src/errors';
 
 export function useElf({
   options,
@@ -45,7 +44,17 @@ export function useElf({
     setLoading(true);
     try {
       if (!isMobile()) {
-        await chain!.getChainStatus();
+        if (options.useMultiChain) {
+          if (aelfBridges) {
+            await Promise.all(
+              Object.values(aelfBridges).map((bridge) => {
+                return bridge.chain.getChainStatus();
+              }),
+            );
+          }
+        } else {
+          await chain!.getChainStatus();
+        }
       }
       setWalletType(WalletType.elf);
       setLoginState(WebLoginState.logined);
@@ -59,7 +68,16 @@ export function useElf({
       setLoading(false);
     }
     initializingRef.current = false;
-  }, [setLoading, setWalletType, setLoginState, chain, setLoginError, eventEmitter]);
+  }, [
+    setLoading,
+    setWalletType,
+    setLoginState,
+    eventEmitter,
+    options.useMultiChain,
+    aelfBridges,
+    chain,
+    setLoginError,
+  ]);
 
   useEffect(() => {
     if (switching) return;
@@ -194,7 +212,7 @@ export function useElf({
       if (params.hexToBeSign) {
         hex = params.hexToBeSign!;
       } else {
-        hex = Buffer.from(params.signInfo, 'utf-8').toString('hex');
+        hex = params.signInfo;
       }
       const signedMsgObject = await bridge.sendMessage('keyPairUtils', {
         method: 'sign',
@@ -236,7 +254,7 @@ export function useElf({
       if (params.hexToBeSign) {
         hex = params.hexToBeSign!;
       } else {
-        hex = Buffer.from(params.signInfo, 'utf-8').toString('hex');
+        hex = params.signInfo;
       }
       const signature = await bridge!.getSignature({
         address: params.address,

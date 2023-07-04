@@ -31,6 +31,7 @@ function Index() {
         extraWallets={['discover', 'elf']}
         nightElf={{
           connectEagerly: true,
+          useMultiChain: true,
           onPluginNotFound: openStore => {
             console.log(123);
             openStore();

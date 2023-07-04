@@ -12,6 +12,7 @@ export type ExtraWalletNames = 'discover' | 'elf';
 
 export type NightElfOptions = {
   connectEagerly: boolean;
+  useMultiChain?: boolean;
   onPluginNotFound?: PluginNotFoundCallback;
 };
 
