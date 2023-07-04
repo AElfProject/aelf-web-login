@@ -99,6 +99,7 @@ function WebLoginProvider({
   const elfApi = useElf({
     options: nightEflOpts,
     loginState,
+    walletType,
     eventEmitter,
     setLoginError,
     setLoginState: setLoginStateInternal,
@@ -108,6 +109,7 @@ function WebLoginProvider({
   const discoverApi = useDiscover({
     options: discoverOpts,
     loginState,
+    walletType,
     eventEmitter,
     setLoginError,
     setLoginState: setLoginStateInternal,
@@ -117,6 +119,7 @@ function WebLoginProvider({
   const portkeyApi = usePortkey({
     options: portkeyOpts,
     loginState,
+    walletType,
     eventEmitter,
     setLoginError,
     setLoginState: setLoginStateInternal,
@@ -207,7 +210,22 @@ function WebLoginProvider({
 
   const logout = useCallback(async () => {
     await walletApi.logout();
-  }, [walletApi]);
+    try {
+      await elfApi.logoutSilently();
+    } catch (e) {
+      console.warn(e);
+    }
+    try {
+      await discoverApi.logoutSilently();
+    } catch (e) {
+      console.warn(e);
+    }
+    try {
+      await portkeyApi.logoutSilently();
+    } catch (e) {
+      console.warn(e);
+    }
+  }, [discoverApi, elfApi, portkeyApi, walletApi]);
 
   const { run: logoutInternal } = useDebounceFn(
     useCallback(async () => {

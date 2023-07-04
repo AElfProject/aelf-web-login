@@ -1,4 +1,4 @@
-import { WalletInfo } from 'src/types';
+import { SwitchWalletFunc, WalletInfo } from 'src/types';
 import { useWebLoginContext } from '../context';
 import { WalletType, WebLoginEvents } from '../constants';
 import { useCallback, useState } from 'react';
@@ -23,38 +23,6 @@ type PromiseCallbacks = {
   resolve: () => void;
   reject: (reason?: any) => void;
 };
-
-function useLogoutBySwitch() {
-  const webLoginContext = useWebLoginContext();
-  const { nigthElf, portkey, discover } = webLoginContext._api;
-  const [promise, setPromise] = useState<PromiseCallbacks>();
-
-  useWebLoginEvent(WebLoginEvents.LOGOUT, () => {
-    promise?.resolve();
-  });
-
-  return useCallback(() => {
-    const current = webLoginContext.walletType;
-    if (current === WalletType.unknown) {
-      return Promise.resolve();
-    }
-    const promise = new Promise<void>((resolve, reject) => {
-      setPromise({ resolve, reject });
-    });
-    switch (current) {
-      case 'elf':
-        nigthElf.logoutBySwitch();
-        break;
-      case 'portkey':
-        portkey.logoutBySwitch();
-        break;
-      case 'discover':
-        discover.logoutBySwitch();
-        break;
-    }
-    return promise;
-  }, [discover, nigthElf, portkey, webLoginContext.walletType]);
-}
 
 function useLoginBySwitch() {
   const webLoginContext = useWebLoginContext();
@@ -99,18 +67,44 @@ export default function useMultiWallets(): SwitchWalletsHook {
   const webLoginContext = useWebLoginContext();
   const [switchingWalletType, setSwitchingWalletType] = useState<WalletType>(WalletType.unknown);
   const { nigthElf, portkey, discover } = webLoginContext._api;
+  const currentWalletType = webLoginContext.walletType;
 
-  const logoutBySwitch = useLogoutBySwitch();
   const loginBySwitch = useLoginBySwitch();
 
   const switchWallet = useCallback(
     async (walletType: SwitchWalletType) => {
+      if (currentWalletType === WalletType.unknown) {
+        throw new Error('Please login first');
+      }
       setSwitchingWalletType(walletType as WalletType);
-      await logoutBySwitch();
-      await loginBySwitch(walletType);
+      let switchWalletFunc: SwitchWalletFunc;
+      switch (currentWalletType) {
+        case 'elf':
+          switchWalletFunc = nigthElf.switchWallet;
+          break;
+        case 'portkey':
+          switchWalletFunc = portkey.switchWallet;
+          break;
+        case 'discover':
+          switchWalletFunc = discover.switchWallet;
+          break;
+        default:
+          throw new Error('Please login first');
+      }
+
+      await switchWalletFunc(async (commit, rollback) => {
+        try {
+          await loginBySwitch(walletType);
+          await commit();
+        } catch (e: any) {
+          await rollback();
+          throw e;
+        }
+      });
+
       setSwitchingWalletType(WalletType.unknown);
     },
-    [loginBySwitch, logoutBySwitch],
+    [currentWalletType, discover.switchWallet, loginBySwitch, nigthElf.switchWallet, portkey.switchWallet],
   );
 
   return {

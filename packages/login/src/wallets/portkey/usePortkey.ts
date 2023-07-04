@@ -4,7 +4,14 @@ import { getContractBasic } from '@portkey/contracts';
 import { DIDWalletInfo, did } from '@portkey/did-ui-react';
 import { ChainId } from '@portkey/types';
 import { getConfig } from '../../config';
-import { CallContractParams, PortkeyInfo, SignatureParams, WalletHookInterface } from '../../types';
+import {
+  CallContractParams,
+  DoSwitchFunc,
+  PortkeyInfo,
+  SignatureParams,
+  SwitchWalletFunc,
+  WalletHookInterface,
+} from '../../types';
 import { WalletHookParams } from '../types';
 import { WalletType, WebLoginEvents, WebLoginState } from '../../constants';
 import useAccountInfoSync from './useAccountInfoSync';
@@ -41,6 +48,7 @@ export function usePortkey({
   const autoUnlockCheckRef = useRef(false);
   const [didWalletInfo, setDidWalletInfo] = useState<PortkeyInfo>();
 
+  const [switching, setSwitching] = useState(false);
   const [isUnlocking, setUnlocking] = useState(false);
   const isManagerExists = useMemo(() => {
     return loginState && !!localStorage.getItem(appName);
@@ -78,12 +86,45 @@ export function usePortkey({
     eventEmitter.emit(WebLoginEvents.LOGOUT);
   }, [appName, eventEmitter, setLoginState]);
 
-  const logoutBySwitch = useCallback(async () => {
-    setLoginState(WebLoginState.logouting);
+  const logoutSilently = useCallback(async () => {
     setDidWalletInfo(undefined);
-    setLoginState(WebLoginState.initial);
-    eventEmitter.emit(WebLoginEvents.LOGOUT);
-  }, [eventEmitter, setLoginState]);
+    localStorage.removeItem(appName);
+    const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
+    localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
+    try {
+      if (originChainId) {
+        await did.logout({
+          chainId: originChainId as ChainId,
+        });
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  }, [appName]);
+
+  const switchWallet: SwitchWalletFunc = useCallback(
+    async (doSwitch: DoSwitchFunc) => {
+      if (loginState !== WebLoginState.logined) {
+        throw new Error(`Switch wallet on invalid state: ${loginState}`);
+      }
+      if (switching) {
+        throw new Error('Switching wallet');
+      }
+      setSwitching(true);
+      await doSwitch(
+        async () => {
+          setDidWalletInfo(undefined);
+          setSwitching(false);
+        },
+        async () => {
+          setSwitching(false);
+          setWalletType(WalletType.portkey);
+          setLoginState(WebLoginState.logined);
+        },
+      );
+    },
+    [loginState, setLoginState, setWalletType, switching],
+  );
 
   const lock = useCallback(async () => {
     if (!didWalletInfo) {
@@ -314,8 +355,9 @@ export function usePortkey({
       loginEagerly,
       login,
       logout,
+      switchWallet,
       loginBySwitch: login,
-      logoutBySwitch,
+      logoutSilently,
       lock,
       callContract,
       onFinished,
@@ -332,7 +374,8 @@ export function usePortkey({
       loginEagerly,
       login,
       logout,
-      logoutBySwitch,
+      switchWallet,
+      logoutSilently,
       lock,
       callContract,
       onFinished,

@@ -4,6 +4,7 @@ import { WalletHookInterface } from '../types';
 
 export type WalletHookParams<T> = {
   options: T;
+  walletType: WalletType;
   loginState: WebLoginState;
   eventEmitter: EventEmitter;
   setLoginState: (state: WebLoginState) => void;

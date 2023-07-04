@@ -1,7 +1,7 @@
-import { useRef, useMemo, useCallback, useEffect } from 'react';
+import { useRef, useMemo, useCallback, useEffect, useState } from 'react';
 import { useAElfReact } from '@aelf-react/core';
 import { getConfig } from '../../config';
-import { CallContractParams, SignatureParams, WalletHookInterface } from '../../types';
+import { CallContractParams, DoSwitchFunc, SignatureParams, SwitchWalletFunc, WalletHookInterface } from '../../types';
 import { WalletHookParams } from '../types';
 import { NightElfOptions } from '../../types';
 import { WalletType, WebLoginState, WebLoginEvents } from '../../constants';
@@ -28,6 +28,7 @@ export function useElf({
   const initializingRef = useRef(false);
   const { isActive, account, pubKey, name, aelfBridges, activate, deactivate } = useAElfReact();
   const nightElfInfo = useAElfReact();
+  const [switching, setSwitching] = useState(false);
 
   const bridge = useMemo(() => {
     return aelfBridges?.[chainId];
@@ -61,10 +62,11 @@ export function useElf({
   }, [setLoading, setWalletType, setLoginState, chain, setLoginError, eventEmitter]);
 
   useEffect(() => {
+    if (switching) return;
     if (isActive && loginState === WebLoginState.logining) {
       initialWallet();
     }
-  }, [isActive, loginState, initialWallet]);
+  }, [isActive, loginState, initialWallet, switching]);
 
   const timeoutLogining = useCallback(() => {
     if (loginState !== WebLoginState.logining) return;
@@ -125,6 +127,46 @@ export function useElf({
     setLoginState(WebLoginState.initial);
     eventEmitter.emit(WebLoginEvents.LOGOUT);
   }, [deactivate, eventEmitter, setLoginState]);
+
+  const logoutSilently = useCallback(async () => {
+    try {
+      localStorage.removeItem('aelf-connect-eagerly');
+      await deactivate();
+    } catch (e) {
+      console.warn(e);
+    }
+  }, [deactivate]);
+
+  const switchWallet: SwitchWalletFunc = useCallback(
+    async (doSwitch: DoSwitchFunc) => {
+      if (loginState !== WebLoginState.logined) {
+        throw new Error(`Switch wallet on invalid state: ${loginState}`);
+      }
+      if (switching) {
+        throw new Error('Switching wallet');
+      }
+      setSwitching(true);
+      await doSwitch(
+        async () => {
+          // logout silent
+          try {
+            localStorage.removeItem('aelf-connect-eagerly');
+            await deactivate();
+          } catch (e) {
+            console.warn(e);
+          } finally {
+            setSwitching(false);
+          }
+        },
+        async () => {
+          setSwitching(false);
+          setWalletType(WalletType.elf);
+          setLoginState(WebLoginState.logined);
+        },
+      );
+    },
+    [deactivate, loginState, setLoginState, setWalletType, switching],
+  );
 
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
@@ -237,11 +279,25 @@ export function useElf({
       loginEagerly,
       login,
       logout,
+      switchWallet,
       loginBySwitch: login,
-      logoutBySwitch: logout,
+      logoutSilently,
       callContract,
       getSignature,
     }),
-    [name, account, pubKey, nightElfInfo, loginState, loginEagerly, login, logout, callContract, getSignature],
+    [
+      name,
+      account,
+      pubKey,
+      nightElfInfo,
+      loginState,
+      loginEagerly,
+      login,
+      logout,
+      logoutSilently,
+      switchWallet,
+      callContract,
+      getSignature,
+    ],
   );
 }

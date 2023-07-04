@@ -3,7 +3,14 @@ import { ChainId } from '@portkey/types';
 import { IPortkeyProvider, Accounts, ChainIds, NetworkType, ProviderError } from '@portkey/provider-types';
 import detectProvider from '@portkey/detect-provider';
 import { getConfig } from '../../config';
-import { CallContractParams, DiscoverInfo, SignatureParams, WalletHookInterface } from '../../types';
+import {
+  CallContractParams,
+  DiscoverInfo,
+  DoSwitchFunc,
+  SignatureParams,
+  SwitchWalletFunc,
+  WalletHookInterface,
+} from '../../types';
 import { WalletHookParams } from '../types';
 import { WalletType, WebLoginEvents, WebLoginState } from '../../constants';
 import checkSignatureParams from '../../utils/signatureParams';
@@ -23,6 +30,7 @@ export function useDiscover({
   options,
   eventEmitter,
   loginState,
+  walletType,
   setWalletType,
   setLoginError,
   setLoginState,
@@ -34,6 +42,7 @@ export function useDiscover({
   const [discoverProvider, setDiscoverProvider] = useState<IPortkeyProvider>();
   const [discoverInfo, setDiscoverInfo] = useState<DiscoverInfo>();
   const [discoverDetected, setDiscoverDetected] = useState<DiscoverDetectState>('unknown');
+  const [switching, setSwitching] = useState(false);
 
   const chainIdsSync = useChainIdsSync(chainId, loginState, true, discoverProvider);
 
@@ -146,7 +155,12 @@ export function useDiscover({
         onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
         return;
       }
-      const accounts = await provider.request({ method: 'requestAccounts' });
+      let accounts = await provider.request({ method: 'accounts' });
+      if (accounts[chainId] && accounts[chainId]!.length > 0) {
+        onAccountsSuccess(provider, accounts);
+        return;
+      }
+      accounts = await provider.request({ method: 'requestAccounts' });
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
         onAccountsSuccess(provider, accounts);
       } else {
@@ -160,6 +174,16 @@ export function useDiscover({
   }, [chainId, detect, onAccountsFail, onAccountsSuccess, setLoading, setLoginState]);
 
   const logout = useCallback(async () => {
+    if (walletType !== WalletType.discover) {
+      try {
+        localStorage.removeItem(LOGIN_EARGLY_KEY);
+      } catch (e) {
+        console.warn(e);
+      }
+      setDiscoverInfo(undefined);
+      return;
+    }
+
     setLoginState(WebLoginState.logouting);
     await wait(500);
     try {
@@ -172,7 +196,45 @@ export function useDiscover({
     setWalletType(WalletType.unknown);
     setLoginState(WebLoginState.initial);
     eventEmitter.emit(WebLoginEvents.LOGOUT);
-  }, [eventEmitter, setLoginError, setLoginState, setWalletType]);
+  }, [eventEmitter, setLoginError, setLoginState, setWalletType, walletType]);
+
+  const logoutSilently = useCallback(async () => {
+    try {
+      localStorage.removeItem(LOGIN_EARGLY_KEY);
+    } catch (e) {
+      console.warn(e);
+    }
+    setDiscoverInfo(undefined);
+  }, []);
+
+  const switchWallet: SwitchWalletFunc = useCallback(
+    async (doSwitch: DoSwitchFunc) => {
+      if (loginState !== WebLoginState.logined) {
+        throw new Error(`Switch wallet on invalid state: ${loginState}`);
+      }
+      if (switching) {
+        throw new Error('Switching wallet');
+      }
+      setSwitching(true);
+      await doSwitch(
+        async () => {
+          try {
+            localStorage.removeItem(LOGIN_EARGLY_KEY);
+          } catch (e) {
+            console.warn(e);
+          }
+          setDiscoverInfo(undefined);
+          setSwitching(false);
+        },
+        async () => {
+          setSwitching(false);
+          setWalletType(WalletType.discover);
+          setLoginState(WebLoginState.logined);
+        },
+      );
+    },
+    [loginState, setLoginState, setWalletType, switching],
+  );
 
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
@@ -241,7 +303,6 @@ export function useDiscover({
         }
       };
       const onNetworkChanged = (networkType: NetworkType) => {
-        console.log(networkType, getConfig().networkType);
         if (networkType !== getConfig().networkType) {
           eventEmitter.emit(WebLoginEvents.NETWORK_MISMATCH, networkType);
           if (options.autoLogoutOnNetworkMismatch) {
@@ -310,6 +371,8 @@ export function useDiscover({
       loginEagerly,
       login,
       logout,
+      logoutSilently,
+      switchWallet,
       loginBySwitch: login,
       logoutBySwitch: logout,
       callContract,
@@ -323,6 +386,8 @@ export function useDiscover({
       loginEagerly,
       login,
       logout,
+      logoutSilently,
+      switchWallet,
       callContract,
       getSignature,
     ],

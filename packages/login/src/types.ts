@@ -103,6 +103,12 @@ export type WalletInfo = {
 };
 
 /**
+ * switch wallet
+ */
+export type DoSwitchFunc = (commit: () => Promise<void>, rollback: () => Promise<void>) => Promise<void>;
+export type SwitchWalletFunc = (doSwitch: DoSwitchFunc) => Promise<void>;
+
+/**
  * useWebLogin
  */
 export type WalletHookInterface = {
@@ -111,7 +117,8 @@ export type WalletHookInterface = {
   login: () => void;
   loginBySwitch: () => void;
   logout: () => void;
-  logoutBySwitch: () => void;
+  logoutSilently: () => Promise<void>;
+  switchWallet: SwitchWalletFunc;
   // TODO: move this to new hook
   callContract<T, R>(params: CallContractParams<T>): Promise<R>;
   getSignature(params: SignatureParams): Promise<SignatureData>;
