@@ -72,6 +72,7 @@ export function usePortkey({
     setLoginState(WebLoginState.logouting);
     try {
       const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
+      localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
       if (originChainId) {
         await did.logout({
           chainId: originChainId as ChainId,
@@ -171,25 +172,17 @@ export function usePortkey({
       if (!didWalletInfo) {
         throw new Error('Portkey not login');
       }
-      let hex = '';
+      let signInfo = '';
       if (params.hexToBeSign) {
-        hex = params.hexToBeSign;
+        signInfo = params.hexToBeSign;
       } else {
-        hex = params.signInfo;
+        signInfo = params.signInfo;
       }
-      const signInfo = hex;
-      const keypair = didWalletInfo.walletInfo.keyPair;
-      const keypairAndUtils = AElf.wallet.ellipticEc.keyFromPrivate(keypair.getPrivate());
-      const signedMsgObject = keypairAndUtils.sign(signInfo);
-      const signedMsgString = [
-        signedMsgObject.r.toString(16, 64),
-        signedMsgObject.s.toString(16, 64),
-        `0${signedMsgObject.recoveryParam.toString()}`,
-      ].join('');
+      const signature = did.sign(signInfo).toString('hex');
       return {
         error: 0,
         errorMessage: '',
-        signature: signedMsgString,
+        signature,
         from: 'portkey',
       };
     },

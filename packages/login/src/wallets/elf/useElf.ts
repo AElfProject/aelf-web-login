@@ -149,11 +149,13 @@ export function useElf({
   const logoutSilently = useCallback(async () => {
     try {
       localStorage.removeItem('aelf-connect-eagerly');
-      await deactivate();
+      if (isActive) {
+        await deactivate();
+      }
     } catch (e) {
       console.warn(e);
     }
-  }, [deactivate]);
+  }, [deactivate, isActive]);
 
   const switchWallet: SwitchWalletFunc = useCallback(
     async (doSwitch: DoSwitchFunc) => {

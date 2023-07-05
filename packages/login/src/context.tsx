@@ -211,12 +211,12 @@ function WebLoginProvider({
   const logout = useCallback(async () => {
     await walletApi.logout();
     try {
-      await elfApi.logoutSilently();
+      await discoverApi.logoutSilently();
     } catch (e) {
       console.warn(e);
     }
     try {
-      await discoverApi.logoutSilently();
+      await elfApi.logoutSilently();
     } catch (e) {
       console.warn(e);
     }
