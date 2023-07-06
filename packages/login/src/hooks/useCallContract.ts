@@ -81,7 +81,7 @@ export default function useCallContract(options?: CallContractHookOptions): Call
         case WalletType.discover: {
           const discoverInfo = wallet.discoverInfo!;
           const chain = await discoverInfo.provider!.getChain(chainId as ChainId);
-          const contract = await getContractWithCache(WalletType.unknown, params.contractAddress, async () => {
+          const contract = await getContractWithCache(WalletType.discover, params.contractAddress, async () => {
             return chain.getContract(params.contractAddress);
           });
           const accounts = discoverInfo.accounts;
@@ -102,7 +102,7 @@ export default function useCallContract(options?: CallContractHookOptions): Call
             throw new Error(`Bridge of ${chainId} not found in NightElf`);
           }
           const chain = bridges[chainId]!.chain;
-          const contract = await getContractWithCache(WalletType.unknown, params.contractAddress, async () => {
+          const contract = await getContractWithCache(WalletType.elf, params.contractAddress, async () => {
             return await chain.contractAt(params.contractAddress, {
               address: wallet.address,
             });
@@ -117,7 +117,7 @@ export default function useCallContract(options?: CallContractHookOptions): Call
             throw new Error(`Chain is not running: ${chainId}`);
           }
           const didWalletInfo = wallet.portkeyInfo!;
-          const caContract = await getContractWithCache(WalletType.unknown, params.contractAddress, async () => {
+          const caContract = await getContractWithCache(WalletType.portkey, params.contractAddress, async () => {
             return await getContractBasic({
               contractAddress: chainInfo.caContractAddress,
               account: didWalletInfo.walletInfo,
