@@ -24,7 +24,7 @@ export type DiscoverInterface = WalletHookInterface & {
   discoverDetected: DiscoverDetectState;
 };
 
-const LOGIN_EARGLY_KEY = 'discover.loginEargly';
+export const LOGIN_EARGLY_KEY = 'discover.loginEargly';
 
 export function useDiscover({
   options,
@@ -284,8 +284,8 @@ export function useDiscover({
     }
     autoRequestAccountCheck.current = true;
     const canLoginEargly = options.autoRequestAccount && !!localStorage.getItem(LOGIN_EARGLY_KEY);
-    if (canLoginEargly) {
-      if (canLoginEargly && loginState === WebLoginState.initial) {
+    if (loginState === WebLoginState.initial) {
+      if (canLoginEargly) {
         loginEagerly();
       } else {
         setLoginState(WebLoginState.eagerly);

@@ -117,7 +117,7 @@ export default function useCallContract(options?: CallContractHookOptions): Call
             throw new Error(`Chain is not running: ${chainId}`);
           }
           const didWalletInfo = wallet.portkeyInfo!;
-          const caContract = await getContractWithCache(WalletType.portkey, params.contractAddress, async () => {
+          const caContract = await getContractWithCache(WalletType.portkey, chainInfo.caContractAddress, async () => {
             return await getContractBasic({
               contractAddress: chainInfo.caContractAddress,
               account: didWalletInfo.walletInfo,
