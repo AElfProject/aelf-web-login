@@ -14,7 +14,7 @@ import { check } from './wallets/elf/utils';
 import isMobile from './utils/isMobile';
 import isPortkeyApp from './utils/isPortkeyApp';
 import DiscoverPlugin from './wallets/discover/DiscoverPlugin';
-import { useDiscover } from './wallets/discover/useDiscover';
+import { LOGIN_EARGLY_KEY as DISCOVER_LOGIN_EARGERLY_KEY, useDiscover } from './wallets/discover/useDiscover';
 import ConfirmLogoutDialog from './components/CofirmLogoutDialog/ConfirmLogoutDialog';
 import { useDebounceFn } from 'ahooks';
 
@@ -172,7 +172,8 @@ function WebLoginProvider({
       };
     }
     if (loginState === WebLoginState.eagerly) {
-      return { ...invalidApi, loginEagerly: elfApi.loginEagerly };
+      const isDiscoverEagerly = !!localStorage.getItem(DISCOVER_LOGIN_EARGERLY_KEY);
+      return { ...invalidApi, loginEagerly: isDiscoverEagerly ? discoverApi.loginEagerly : elfApi.loginEagerly };
     }
     if (loginState === WebLoginState.lock) {
       return { ...invalidApi, login: portkeyApi.login, loginEagerly: portkeyApi.loginEagerly };

@@ -30,7 +30,7 @@ function Index() {
       <WebLoginProvider
         extraWallets={['discover', 'elf']}
         nightElf={{
-          connectEagerly: true,
+          connectEagerly: false,
           useMultiChain: true,
           onPluginNotFound: openStore => {
             console.log(123);
@@ -43,7 +43,7 @@ function Index() {
           // SignInComponent: SignInProxy,
         }}
         discover={{
-          autoRequestAccount: true,
+          autoRequestAccount: false,
           autoLogoutOnAccountMismatch: true,
           autoLogoutOnChainMismatch: true,
           autoLogoutOnDisconnected: true,
