@@ -1,5 +1,4 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
-import AElf from 'aelf-sdk';
 import { getContractBasic } from '@portkey/contracts';
 import { DIDWalletInfo, did } from '@portkey/did-ui-react';
 import { ChainId } from '@portkey/types';
@@ -133,6 +132,11 @@ export function usePortkey({
     }
     if (loginState !== WebLoginState.logined) {
       throw new Error(`lock on invalid login state: ${loginState}`);
+    }
+    try {
+      await did.reset();
+    } catch (e) {
+      console.warn(e);
     }
     setDidWalletInfo(undefined);
     setLoginState(WebLoginState.lock);
