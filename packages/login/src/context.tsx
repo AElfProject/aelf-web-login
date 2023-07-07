@@ -24,7 +24,7 @@ const INITIAL_STATE = {
   eventEmitter: new EventEmitter(),
 };
 
-enum LogoutConfirmResult {
+export enum LogoutConfirmResult {
   default,
   cancel,
   ok,
@@ -258,6 +258,8 @@ function WebLoginProvider({
     }
   }, [logout, logoutConfirmResult, walletApi]);
 
+  const ConfirmLogoutDialogComponent = portkeyOpts.ConfirmLogoutDialog || ConfirmLogoutDialog;
+
   const state = useMemo<WebLoginContextType>(
     () => ({
       loginState,
@@ -332,7 +334,7 @@ function WebLoginProvider({
   return (
     <WebLoginContext.Provider value={state}>
       {children}
-      <ConfirmLogoutDialog
+      <ConfirmLogoutDialogComponent
         visible={logoutConfirmOpen}
         onCancel={() => setLogoutConfirmResult(LogoutConfirmResult.cancel)}
         onOk={() => setLogoutConfirmResult(LogoutConfirmResult.ok)}

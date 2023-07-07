@@ -3,6 +3,7 @@ import type { DIDWalletInfo } from '@portkey/did-ui-react';
 import type { IHolderInfo } from '@portkey/services';
 import type { Accounts, ChainIds, IPortkeyProvider } from '@portkey/provider-types';
 import type { RefAttributes } from 'react';
+import { ConfirmLogoutDialogProps } from './components/CofirmLogoutDialog';
 
 /**
  * WebLoginProvider types
@@ -19,6 +20,7 @@ export type PortkeyOptions = {
   autoShowUnlock: boolean;
   checkAccountInfoSync: boolean;
   SignInComponent?: React.FC<any & RefAttributes<unknown>>;
+  ConfirmLogoutDialog?: React.FC<Partial<ConfirmLogoutDialogProps>>;
 };
 
 export type PluginNotFoundCallback = (openPluginStorePage: () => void) => void;

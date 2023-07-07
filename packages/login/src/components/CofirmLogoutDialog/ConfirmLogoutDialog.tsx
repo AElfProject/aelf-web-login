@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Modal, Button, Row } from 'antd';
 import isMobile from '../../utils/isMobile';
 
-interface ConfirmLogoutDialogProps {
+export interface ConfirmLogoutDialogProps {
   title: string;
   subTitle: string[];
   okTxt: string;

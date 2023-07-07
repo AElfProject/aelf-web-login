@@ -13,6 +13,8 @@ export * from './config';
 export * from './errors';
 export * from './hooks/useMultiWallets';
 export * from './hooks/useCallContract';
+export * from './context';
+export type { ConfirmLogoutDialogProps } from './components/CofirmLogoutDialog';
 
 export {
   WebLoginContext,
