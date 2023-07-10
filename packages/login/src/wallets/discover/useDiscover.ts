@@ -283,10 +283,12 @@ export function useDiscover({
       return;
     }
     autoRequestAccountCheck.current = true;
-    const canLoginEargly = options.autoRequestAccount && !!localStorage.getItem(LOGIN_EARGLY_KEY);
-    if (loginState === WebLoginState.initial) {
-      if (canLoginEargly) {
-        loginEagerly();
+    const canLoginEargly = !!localStorage.getItem(LOGIN_EARGLY_KEY);
+    if (canLoginEargly) {
+      if (options.autoRequestAccount) {
+        if (loginState === WebLoginState.initial) {
+          loginEagerly();
+        }
       } else {
         setLoginState(WebLoginState.eagerly);
       }
