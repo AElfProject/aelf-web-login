@@ -53,7 +53,7 @@ export default function App() {
       <h2 onClick={showVConsole}>Login</h2>
       <div className="buttons">
         <div>
-          wallet: {wallet.name} {wallet.address}
+          {getConfig().chainId} wallet: {wallet.name} {wallet.address}
         </div>
         <div>login state: {loginState}</div>
         <br />
