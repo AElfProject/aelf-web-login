@@ -125,6 +125,7 @@ export default function useCallContract(options?: CallContractHookOptions): Call
               rpcUrl: chainInfo.endPoint,
             });
           });
+          console.log(didWalletInfo, params.contractAddress, params.methodName, params.args);
           const result = await caContract.callSendMethod('ManagerForwardCall', didWalletInfo.walletInfo.address, {
             caHash: didWalletInfo.caInfo.caHash,
             contractAddress: params.contractAddress,

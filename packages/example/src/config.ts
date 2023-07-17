@@ -41,17 +41,6 @@ setGlobalConfig({
     },
     network: {
       defaultNetwork: NETWORK,
-      networkList: [
-        {
-          name: 'aelf MAIN',
-          walletType: 'aelf',
-          networkType: NETWORK,
-          isActive: true,
-          apiUrl: portkeyApiServer,
-          graphQLUrl: portkeyScanUrl,
-          connectUrl: connectUrl,
-        },
-      ],
     },
   } as any,
   aelfReact: {

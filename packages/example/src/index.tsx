@@ -7,8 +7,6 @@ import './config';
 import { WebLoginProvider } from 'aelf-web-login';
 import { PortkeyConfigProvider, SignIn } from '@portkey/did-ui-react';
 import App from './App';
-import { SignInProps } from '@portkey/did-ui-react/dist/_types/src/components/SignIn';
-import { createPortal } from 'react-dom';
 
 // const SignInProxy = React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<any>) {
 //   const [renderRoot, setRenderRoot] = React.useState<HTMLElement>();
