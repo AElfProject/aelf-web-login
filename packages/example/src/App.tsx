@@ -48,6 +48,8 @@ export default function App() {
   const { wallet, walletType, login, loginEagerly, logout, loginState } = useWebLogin();
   const { isUnlocking, lock } = usePortkeyLock();
 
+  console.log(loginState);
+
   return (
     <div>
       <h2 onClick={showVConsole}>Login</h2>

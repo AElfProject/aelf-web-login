@@ -6,6 +6,8 @@ import useCallContract from './hooks/useCallContract';
 import usePortkeyLock from './hooks/usePortkeyLock';
 import useGetAccount from './hooks/useGetAccount';
 
+import getContractBasicAsync from './utils/getContractBasicAsync';
+
 export * from './wallets/types';
 export * from './types';
 export * from './constants';
@@ -26,4 +28,5 @@ export {
   useCallContract,
   usePortkeyLock,
   useGetAccount,
+  getContractBasicAsync,
 };

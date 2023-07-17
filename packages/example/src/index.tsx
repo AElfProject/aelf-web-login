@@ -30,7 +30,7 @@ function Index() {
       <WebLoginProvider
         extraWallets={['discover', 'elf']}
         nightElf={{
-          connectEagerly: false,
+          connectEagerly: true,
           useMultiChain: true,
           onPluginNotFound: openStore => {
             console.log(123);

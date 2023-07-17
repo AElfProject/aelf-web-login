@@ -7,6 +7,7 @@ import { CallContractHookInterface, CallContractHookOptions, CallContractParams 
 import { getConfig } from '../config';
 import { WalletType } from '../constants';
 import { getContractBasic } from '@portkey/contracts';
+import { SendOptions } from '@portkey/types';
 
 const getAElfInstance = (() => {
   const instances = new Map<string, any>();
@@ -73,7 +74,10 @@ export default function useCallContract(options?: CallContractHookOptions): Call
     [aelfInstance.chain, getContractWithCache, viewWallet],
   );
   const callSendMethod = useCallback(
-    async function callContractSendFunc<T, R>(params: CallContractParams<T>): Promise<R> {
+    async function callContractSendFunc<T, R>(
+      params: CallContractParams<T>,
+      sendOptions: SendOptions | undefined = undefined,
+    ): Promise<R> {
       if (walletType === WalletType.unknown) {
         throw new Error('Wallet not login');
       }
@@ -82,7 +86,10 @@ export default function useCallContract(options?: CallContractHookOptions): Call
           const discoverInfo = wallet.discoverInfo!;
           const chain = await discoverInfo.provider!.getChain(chainId as ChainId);
           const contract = await getContractWithCache(WalletType.discover, params.contractAddress, async () => {
-            return chain.getContract(params.contractAddress);
+            return getContractBasic({
+              contractAddress: params.contractAddress,
+              chainProvider: chain,
+            });
           });
           const accounts = discoverInfo.accounts;
           const accountsInChain = accounts[chainId as ChainId];
@@ -90,7 +97,7 @@ export default function useCallContract(options?: CallContractHookOptions): Call
             throw new Error(`Account not found in chain: ${chainId}`);
           }
           const address = accountsInChain[0];
-          const result = contract.callSendMethod(params.methodName, address, params.args);
+          const result = contract.callSendMethod(params.methodName, address, params.args, sendOptions);
           return result as R;
         }
         case WalletType.elf: {
@@ -101,13 +108,17 @@ export default function useCallContract(options?: CallContractHookOptions): Call
           if (!bridges[chainId] || !bridges[chainId]!.chain) {
             throw new Error(`Bridge of ${chainId} not found in NightElf`);
           }
-          const chain = bridges[chainId]!.chain;
+          const bridge = bridges[chainId]!;
           const contract = await getContractWithCache(WalletType.elf, params.contractAddress, async () => {
-            return await chain.contractAt(params.contractAddress, {
-              address: wallet.address,
+            return getContractBasic({
+              contractAddress: params.contractAddress,
+              aelfInstance: bridge,
+              account: {
+                address: wallet.nightElfInfo!.account!,
+              },
             });
           });
-          return await contract[params.methodName](params.args);
+          return contract.callSendMethod(params.methodName, wallet.address, params.args, sendOptions) as R;
         }
         case WalletType.portkey: {
           // TODO cache chains info
@@ -125,12 +136,17 @@ export default function useCallContract(options?: CallContractHookOptions): Call
               rpcUrl: chainInfo.endPoint,
             });
           });
-          const result = await caContract.callSendMethod('ManagerForwardCall', didWalletInfo.walletInfo.address, {
-            caHash: didWalletInfo.caInfo.caHash,
-            contractAddress: params.contractAddress,
-            methodName: params.methodName,
-            args: params.args,
-          });
+          const result = await caContract.callSendMethod(
+            'ManagerForwardCall',
+            didWalletInfo.walletInfo.address,
+            {
+              caHash: didWalletInfo.caInfo.caHash,
+              contractAddress: params.contractAddress,
+              methodName: params.methodName,
+              args: params.args,
+            },
+            sendOptions,
+          );
           // compatible with aelf-sdk result of contract
           if (result.transactionId) {
             const anyResult = result as any;

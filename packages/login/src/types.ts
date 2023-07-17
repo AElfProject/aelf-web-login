@@ -4,6 +4,7 @@ import type { IHolderInfo } from '@portkey/services';
 import type { Accounts, ChainIds, IPortkeyProvider } from '@portkey/provider-types';
 import type { RefAttributes } from 'react';
 import { ConfirmLogoutDialogProps } from './components/CofirmLogoutDialog';
+import { SendOptions } from '@portkey/types';
 
 /**
  * WebLoginProvider types
@@ -137,5 +138,14 @@ export type CallContractHookOptions = {
 
 export type CallContractHookInterface = {
   callViewMethod<T, R>(params: CallContractParams<T>): Promise<R>;
-  callSendMethod<T, R>(params: CallContractParams<T>): Promise<R>;
+  callSendMethod<T, R>(params: CallContractParams<T>, sendOptions: SendOptions | undefined): Promise<R>;
+};
+
+/**
+ * useContract
+ */
+export type ContractHookOptions = {
+  chainId?: string;
+  rpcUrl?: string;
+  cache?: boolean;
 };
