@@ -23,6 +23,10 @@ function useExampleCall(name: string, func: () => any) {
   const onClick = async () => {
     try {
       const res = await func();
+      if (res.error) {
+        console.error(res.error);
+        return;
+      }
       console.log(name, 'res', res);
       setResult(res);
     } catch (error) {
@@ -113,13 +117,14 @@ export default function CallContract() {
       });
     }),
 
-    useExampleCall('Approve in tDVV', async () => {
-      return await callContractWithLog(callSendMethodTDVV, {
-        contractAddress: '7RzVGiuVWkvL4VfVHdZfQF2Tri3sgLe9U991bohHFfSRZXuGX',
+    useExampleCall('Approve in tDVW', async () => {
+      return await callContractWithLog(callSendMethodTDVW, {
+        contractAddress: configTdvwJson.multiToken,
         methodName: 'Approve',
         args: {
           symbol: 'ELF',
-          amount: '100000000000000000',
+          spender: configTdvwJson.multiToken,
+          amount: '100000000',
         },
       });
     }),

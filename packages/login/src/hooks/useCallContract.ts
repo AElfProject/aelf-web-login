@@ -32,11 +32,11 @@ const contractCache = new Map<string, any>();
 
 function useGetContractWithCache(chainId: string, cache: boolean) {
   return useCallback(
-    async <T>(walletType: WalletType, address: string, createContract: () => Promise<T>) => {
+    async <T>(walletType: WalletType, key: string, createContract: () => Promise<T>) => {
       if (!cache) {
         return await createContract();
       }
-      const cacheId = `${chainId}-${walletType}-${address}`;
+      const cacheId = `${chainId}-${walletType}-${key}`;
       let contract = contractCache.get(cacheId);
       if (!contract) {
         contract = await createContract();
@@ -117,13 +117,15 @@ export default function useCallContract(options?: CallContractHookOptions): Call
             throw new Error(`Chain is not running: ${chainId}`);
           }
           const didWalletInfo = wallet.portkeyInfo!;
-          const caContract = await getContractWithCache(WalletType.portkey, chainInfo.caContractAddress, async () => {
+          const cacheKey = `${chainInfo.caContractAddress}-${didWalletInfo.walletInfo.address}-${chainInfo.endPoint}`;
+          const caContract = await getContractWithCache(WalletType.portkey, cacheKey, async () => {
             return await getContractBasic({
               contractAddress: chainInfo.caContractAddress,
               account: didWalletInfo.walletInfo,
               rpcUrl: chainInfo.endPoint,
             });
           });
+          console.log(didWalletInfo, params.contractAddress, params.methodName, params.args);
           const result = await caContract.callSendMethod('ManagerForwardCall', didWalletInfo.walletInfo.address, {
             caHash: didWalletInfo.caInfo.caHash,
             contractAddress: params.contractAddress,

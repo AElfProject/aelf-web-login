@@ -73,10 +73,6 @@
   "dependencies": {
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
-    "@portkey/contracts": "1.0.10",
-    "@portkey/did-ui-react": "1.0.10",
-    "@portkey/services": "1.0.10",
-    "@portkey/types": "1.0.10",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "aelf-bridge": "^0.0.10",
     "ahooks": "^3.7.7",

@@ -1,5 +1,5 @@
 import type { AElfContextType } from '@aelf-react/core/dist/types';
-import type { DIDWalletInfo } from '@portkey/did-ui-react';
+import { DIDWalletInfo } from '@portkey/did-ui-react';
 import type { IHolderInfo } from '@portkey/services';
 import type { Accounts, ChainIds, IPortkeyProvider } from '@portkey/provider-types';
 import type { RefAttributes } from 'react';

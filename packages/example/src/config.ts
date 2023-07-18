@@ -2,7 +2,7 @@ import { setGlobalConfig } from 'aelf-web-login';
 
 const APPNAME = 'explorer.aelf.io';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
-const CHAIN_ID = 'AELF';
+const CHAIN_ID = 'tDVW';
 const NETWORK: string = 'TESTNET';
 const IS_MAINNET = NETWORK === 'MAIN';
 
@@ -41,17 +41,6 @@ setGlobalConfig({
     },
     network: {
       defaultNetwork: NETWORK,
-      networkList: [
-        {
-          name: 'aelf MAIN',
-          walletType: 'aelf',
-          networkType: NETWORK,
-          isActive: true,
-          apiUrl: portkeyApiServer,
-          graphQLUrl: portkeyScanUrl,
-          connectUrl: connectUrl,
-        },
-      ],
     },
   } as any,
   aelfReact: {
