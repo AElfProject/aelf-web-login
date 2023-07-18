@@ -4,6 +4,6 @@
 
 ```
 pnpm i
-pnpm dev --filter aelf-web-login
+pnpm login:dev
 pnpm example
 ```

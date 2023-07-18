@@ -212,8 +212,8 @@ importers:
         specifier: ^0.0.1-alpha.22
         version: 0.0.1-alpha.22
       '@portkey/services':
-        specifier: ^0.0.1-alpha.8.9
-        version: 0.0.1-alpha.8.9(react-dom@18.0.0)(react@18.2.0)
+        specifier: ^1.0.8
+        version: 1.0.9(react-dom@18.0.0)(react@18.2.0)
       '@portkey/types':
         specifier: ^1.0.8
         version: 1.0.9
@@ -3015,21 +3015,6 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@portkey/graphql@0.0.1-alpha.9.0(react-dom@18.0.0)(react@18.2.0):
-    resolution: {integrity: sha512-8Os9UyPxXdcIKFJbFJamsmEjj9Cn4GDIa5pUB7ZOEIbdRWElM9uS6v8swhAxjoxFMxpSBnQLEuMp4rGAHUknAw==}
-    dependencies:
-      '@apollo/client': 3.7.15(graphql@16.6.0)(react-dom@18.0.0)(react@18.2.0)(subscriptions-transport-ws@0.11.0)
-      '@portkey/types': 0.0.1-alpha.9.0
-      graphql: 16.6.0
-      subscriptions-transport-ws: 0.11.0(graphql@16.6.0)
-    transitivePeerDependencies:
-      - bufferutil
-      - graphql-ws
-      - react
-      - react-dom
-      - utf-8-validate
-    dev: false
-
   /@portkey/graphql@1.0.9(react-dom@18.0.0)(react@18.2.0):
     resolution: {integrity: sha512-F2VN3fJR+Hk9fBH3Z8fbc7QFgxLLSGVOpjGMSOdeSXlLRzqxhYPZ9EWU+dKvo24vGkcO09487dxswHHEVqp85Q==}
     dependencies:
@@ -3058,34 +3043,11 @@ packages:
       '@types/readable-stream': 2.3.15
     dev: false
 
-  /@portkey/request@0.0.1-alpha.9.0:
-    resolution: {integrity: sha512-yldfnvR1AlXdtcMjlLqRLwA1sUtCv8Tdvtcc75e3pgndiAYAdOKtOPcU1TSIE6idewzJ1Z8EHhqhQvOvljj2zw==}
-    dependencies:
-      '@portkey/types': 0.0.1-alpha.9.0
-      query-string: 6.14.1
-    dev: false
-
   /@portkey/request@1.0.9:
     resolution: {integrity: sha512-73afM9+otCSa4NPrRe4Sw9lDSutNVz1wEoMNI1Yl7+LDm8BrTIKTM4FLYpnobg52cacWO6ZKjK9jhKHWaQH7YQ==}
     dependencies:
       '@portkey/types': 1.0.9
       query-string: 6.14.1
-    dev: false
-
-  /@portkey/services@0.0.1-alpha.8.9(react-dom@18.0.0)(react@18.2.0):
-    resolution: {integrity: sha512-3QGkbmpYxMXFVetOVSWdpAOmgQAq5RRi85F9cN9EiscT/3p8LxKXgVkvTgfUxjHPvM9RzCFf7TUgl8pBNwpohw==}
-    dependencies:
-      '@portkey/graphql': 0.0.1-alpha.9.0(react-dom@18.0.0)(react@18.2.0)
-      '@portkey/request': 0.0.1-alpha.9.0
-      '@portkey/types': 0.0.1-alpha.9.0
-      aelf-sdk: 3.2.44
-      query-string: 7.1.3
-    transitivePeerDependencies:
-      - bufferutil
-      - graphql-ws
-      - react
-      - react-dom
-      - utf-8-validate
     dev: false
 
   /@portkey/services@1.0.9(react-dom@18.0.0)(react@18.2.0):
@@ -3113,12 +3075,6 @@ packages:
       - bufferutil
       - encoding
       - utf-8-validate
-    dev: false
-
-  /@portkey/types@0.0.1-alpha.9.0:
-    resolution: {integrity: sha512-QP5afl4dAhnRPAGktaDOigKZ+AweUo0toCIdy0eU9TUff2tD6TpmVZO6nHrucZrCKYiVwkoTpACfjmHSUywvyg==}
-    dependencies:
-      '@types/elliptic': 6.4.14
     dev: false
 
   /@portkey/types@1.0.0-alpha.4:
