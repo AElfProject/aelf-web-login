@@ -4,6 +4,7 @@ import type { IHolderInfo } from '@portkey/services';
 import type { Accounts, ChainIds, IPortkeyProvider } from '@portkey/provider-types';
 import type { RefAttributes } from 'react';
 import { ConfirmLogoutDialogProps } from './components/CofirmLogoutDialog';
+import { TDesign } from '@portkey/did-ui-react/dist/_types/src/components/SignStep/types';
 
 /**
  * WebLoginProvider types
@@ -21,6 +22,7 @@ export type PortkeyOptions = {
   checkAccountInfoSync: boolean;
   SignInComponent?: React.FC<any & RefAttributes<unknown>>;
   ConfirmLogoutDialog?: React.FC<Partial<ConfirmLogoutDialogProps>>;
+  design?: TDesign;
 };
 
 export type PluginNotFoundCallback = (openPluginStorePage: () => void) => void;
@@ -33,13 +35,17 @@ export type DiscoverOptions = {
   autoLogoutOnChainMismatch: boolean;
   onPluginNotFound?: PluginNotFoundCallback;
 };
-
+interface ICommonConfig {
+  showClose?: boolean;
+  iconSrc?: string;
+}
 export type WebLoginProviderProps = {
   nightElf: NightElfOptions;
   portkey: PortkeyOptions;
   discover: DiscoverOptions;
   extraWallets: Array<ExtraWalletNames>;
   children: React.ReactNode;
+  commonConfig?: ICommonConfig;
 };
 
 /**

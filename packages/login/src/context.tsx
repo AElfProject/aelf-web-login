@@ -8,7 +8,7 @@ import NightElfPlugin from './wallets/elf/NightElfPlugin';
 import Portkey from './wallets/portkey/Portkey';
 import { useElf } from './wallets/elf/useElf';
 import { getConfig } from './config';
-import { WalletType, WebLoginState } from './constants';
+import { CloseIcon, WalletType, WebLoginState } from './constants';
 import { PortkeyLoading } from '@portkey/did-ui-react';
 import { check } from './wallets/elf/utils';
 import isMobile from './utils/isMobile';
@@ -60,6 +60,7 @@ function WebLoginProvider({
   discover: discoverOpts,
   extraWallets,
   children,
+  commonConfig,
 }: WebLoginProviderProps) {
   const eventEmitter = useMemo(() => new EventEmitter(), []);
   const [loginState, setLoginState] = useState(WebLoginState.initial);
@@ -300,6 +301,18 @@ function WebLoginProvider({
     }
     return (
       <div className="aelf-web-login aelf-extra-wallets">
+        {commonConfig?.showClose && (
+          <div className="header">
+            <button className="header-btn" onClick={portkeyApi.onCancel}>
+              <img src={CloseIcon}></img>
+            </button>
+          </div>
+        )}
+        {commonConfig?.iconSrc && (
+          <div className="title-icon">
+            <img src={commonConfig?.iconSrc}></img>
+          </div>
+        )}
         <div className="title">Crypto wallet</div>
         <div className="wallet-entries">
           {extraWallets
