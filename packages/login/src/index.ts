@@ -7,7 +7,10 @@ import usePortkeyLock from './hooks/usePortkeyLock';
 import useGetAccount from './hooks/useGetAccount';
 
 import getContractBasicAsync from './utils/getContractBasicAsync';
+import detectDiscoverProvider from './wallets/discover/detectProvider';
+import detectNightElf from './wallets/elf/detectNightElf';
 
+export * from './utils/pluginPages';
 export * from './wallets/types';
 export * from './types';
 export * from './constants';
@@ -29,4 +32,6 @@ export {
   usePortkeyLock,
   useGetAccount,
   getContractBasicAsync,
+  detectDiscoverProvider,
+  detectNightElf,
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 import PluginEntry from '../../components/PluginEntry';
 import { DiscoverDetectState } from './useDiscover';
-import { openPortkeyPluginPage } from '../elf/utils';
 import isMobile from '../../utils/isMobile';
 import { useDebounceFn } from 'ahooks';
 import { DiscoverOptions } from '../../types';
+import { openPortkeyPluginPage } from '../../utils/pluginPages';
 
 export default function DiscoverPlugin({
   detectState,

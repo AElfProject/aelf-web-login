@@ -1,8 +1,9 @@
 import { useDebounceFn } from 'ahooks';
 import PluginEntry from '../../components/PluginEntry';
 import isMobile from '../../utils/isMobile';
-import { check, openPluginPage } from './utils';
+import { check } from './utils';
 import { NightElfOptions } from '../../types';
+import { openNightElfPluginPage } from '../../utils/pluginPages';
 
 export default function NightElfPlugin({
   nightEflOpts,
@@ -16,9 +17,9 @@ export default function NightElfPlugin({
       const type = await check();
       if (type === 'none' && !isMobile()) {
         if (nightEflOpts?.onPluginNotFound) {
-          nightEflOpts?.onPluginNotFound(openPluginPage);
+          nightEflOpts?.onPluginNotFound(openNightElfPluginPage);
         } else {
-          openPluginPage();
+          openNightElfPluginPage();
         }
         return;
       }
