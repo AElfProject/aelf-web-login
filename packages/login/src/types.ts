@@ -1,10 +1,9 @@
 import type { AElfContextType } from '@aelf-react/core/dist/types';
-import { DIDWalletInfo } from '@portkey/did-ui-react';
+import { DIDWalletInfo, SignIn } from '@portkey/did-ui-react';
 import type { IHolderInfo } from '@portkey/services';
 import type { Accounts, ChainIds, IPortkeyProvider } from '@portkey/provider-types';
 import type { RefAttributes } from 'react';
 import { ConfirmLogoutDialogProps } from './components/CofirmLogoutDialog';
-import { TDesign } from '@portkey/did-ui-react/dist/_types/src/components/SignStep/types';
 
 /**
  * WebLoginProvider types
@@ -16,6 +15,8 @@ export type NightElfOptions = {
   useMultiChain?: boolean;
   onPluginNotFound?: PluginNotFoundCallback;
 };
+
+type TDesign = any; //(typeof SignIn)['defaultProps']['design'];
 
 export type PortkeyOptions = {
   autoShowUnlock: boolean;
