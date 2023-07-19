@@ -1,6 +1,6 @@
 {
   "name": "aelf-web-login",
-  "version": "1.0.0-alpha.10",
+  "version": "1.0.0-alpha.11",
   "main": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "exports": {
@@ -33,7 +33,9 @@
     "start": "tsc --watch",
     "lint": "eslint . --ext .tsx,.ts",
     "lint:md": "remark . -f -q",
-    "dev": "tsc --p tsconfig.esm.json --watch",
+    "dev": "pnpm run dev:tsc & pnpm run dev:types",
+    "dev:tsc": "tsc --p tsconfig.esm.json --watch",
+    "dev:types": "tsc --emitDeclarationOnly --p tsconfig.types.json --watch",
     "build:clean": "rm -rf dist",
     "build:types": "tsc --emitDeclarationOnly --p tsconfig.types.json",
     "build:tsc": "tsc --p tsconfig.esm.json",
@@ -46,14 +48,17 @@
   },
   "dependencies": {
     "@aelf-react/core": "^0.1.19",
-    "@portkey/contracts": "^1.0.0-alpha.5",
-    "@portkey/detect-provider": "^1.0.1-alpha.0",
-    "@portkey/did-ui-react": "^1.1.0-alpha.3",
-    "@portkey/provider-types": "^1.0.1-alpha.0",
-    "@portkey/types": "^1.1.0-alpha.3",
+    "@portkey/contracts": "^1.0.10",
+    "@portkey/detect-provider": "1.0.1-alpha.0",
+    "@portkey/did-ui-react": "^1.0.10",
+    "@portkey/graphql": "^1.0.10",
+    "@portkey/provider-types": "1.0.1-alpha.0",
+    "@portkey/services": "^1.0.10",
+    "@portkey/types": "^1.0.10",
     "aelf-sdk": "^3.2.40",
     "ahooks": "^3.7.7",
-    "antd": "^4.24.4"
+    "antd": "^4.24.4",
+    "typescript": "^4.9.5"
   },
   "devDependencies": {
     "@types/uuid": "^8.3.4",

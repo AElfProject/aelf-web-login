@@ -74,12 +74,12 @@ export default function Portkey({
   }
 
   const SignInComponent = portkeyOpts.SignInComponent || SignIn;
-
   return (
     <SignInComponent
       defaultChainId={chainId as any}
       ref={signInRef}
       uiType="Modal"
+      design={portkeyOpts.design}
       isShowScan
       extraElement={extraWallets}
       onCancel={onCancel}
