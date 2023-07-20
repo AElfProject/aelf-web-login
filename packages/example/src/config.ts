@@ -39,9 +39,6 @@ setGlobalConfig({
         websiteIcon: WEBSITE_ICON,
       },
     },
-    network: {
-      defaultNetwork: NETWORK,
-    },
   } as any,
   aelfReact: {
     appName: APPNAME,

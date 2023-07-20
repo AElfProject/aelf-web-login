@@ -5,7 +5,7 @@ import 'aelf-web-login/dist/assets/index.css';
 import './index.css';
 import './config';
 import { WebLoginProvider } from 'aelf-web-login';
-import { PortkeyConfigProvider } from '@portkey/did-ui-react';
+import { PortkeyProvider } from '@portkey/did-ui-react';
 import App from './App';
 
 // const SignInProxy = React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<any>) {
@@ -24,7 +24,7 @@ import App from './App';
 
 function Index() {
   return (
-    <PortkeyConfigProvider>
+    <PortkeyProvider networkType="TESTNET" theme="dark">
       <WebLoginProvider
         commonConfig={{
           showClose: true,
@@ -43,7 +43,7 @@ function Index() {
         portkey={{
           autoShowUnlock: false,
           checkAccountInfoSync: true,
-          design: 'SocialDesign',
+          // design: 'SocialDesign',
           // SignInComponent: SignInProxy,
         }}
         discover={{
@@ -59,7 +59,7 @@ function Index() {
         }}>
         <App />
       </WebLoginProvider>
-    </PortkeyConfigProvider>
+    </PortkeyProvider>
   );
 }
 const container = document.getElementById('root');

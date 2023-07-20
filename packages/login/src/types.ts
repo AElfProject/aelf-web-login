@@ -5,7 +5,7 @@ import type { Accounts, ChainIds, IPortkeyProvider } from '@portkey/provider-typ
 import type { RefAttributes } from 'react';
 import { ConfirmLogoutDialogProps } from './components/CofirmLogoutDialog';
 import { SendOptions } from '@portkey/types';
-import { SignInProps, TDesign } from '@portkey/did-ui-react/dist/_types/src/components/SignStep/types';
+import { SignInProps, TDesign } from '@portkey/did-ui-react';
 
 /**
  * WebLoginProvider types
