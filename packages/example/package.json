@@ -11,7 +11,7 @@
     "react-dom": "^18.0.0",
     "react-scripts": "^5.0.1",
     "aelf-web-login": "workspace:*",
-    "@portkey/did-ui-react": "1.0.8"
+    "@portkey/did-ui-react": "1.0.10"
   },
   "devDependencies": {
     "@craco/craco": "^6.4.2",
