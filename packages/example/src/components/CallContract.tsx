@@ -5,8 +5,6 @@ import configTdvwJson from '../assets/config.tdvw.json';
 import { useGetAccount } from 'aelf-web-login';
 import { SendOptions } from '@portkey/types';
 
-console.log(configTdvwJson);
-
 async function callContractWithLog<T, R>(
   callContract: (params: CallContractParams<T>, sendOptions?: SendOptions | undefined) => Promise<R>,
   params: CallContractParams<T>,

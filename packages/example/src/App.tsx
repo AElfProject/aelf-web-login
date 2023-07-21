@@ -1,11 +1,10 @@
-import { Tab } from '@headlessui/react';
 import { WalletType, WebLoginEvents, WebLoginState, getConfig, useWebLogin, useWebLoginEvent } from 'aelf-web-login';
 import VConsole from 'vconsole';
 import MultiWallets from './components/MultiWallets';
 import CallContract from './components/CallContract';
-import ExampleTab from './components/base/ExampleTab';
 import { useState } from 'react';
 import { usePortkeyLock } from 'aelf-web-login';
+import { Tabs } from 'antd';
 
 const win = window as any;
 let showVConsole = () => {};
@@ -76,20 +75,21 @@ export default function App() {
         </button>
       </div>
       {renderEvents()}
-      <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
-        <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-          <ExampleTab>useMultiWallets</ExampleTab>
-          <ExampleTab>callContract</ExampleTab>
-        </Tab.List>
-        <Tab.Panels className="mt-2">
-          <Tab.Panel>
-            <MultiWallets />
-          </Tab.Panel>
-          <Tab.Panel>
-            <CallContract />
-          </Tab.Panel>
-        </Tab.Panels>
-      </Tab.Group>
+      <Tabs
+        type="card"
+        items={[
+          {
+            label: 'Call contracts',
+            key: CallContract.name,
+            children: <CallContract />,
+          },
+          {
+            label: 'Use multiple wallets',
+            key: MultiWallets.name,
+            children: <MultiWallets />,
+          },
+        ]}
+      />
     </div>
   );
 }

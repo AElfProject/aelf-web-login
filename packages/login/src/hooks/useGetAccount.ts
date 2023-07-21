@@ -38,7 +38,10 @@ export default function useGetAccount(chainId: string) {
             caHash: wallet.portkeyInfo!.caInfo.caHash,
             chainId: chainId as ChainId,
           });
-          wallet.portkeyInfo!.accounts[chainId] = caInfo.caAddress;
+          wallet.portkeyInfo!.accounts = {
+            ...accounts,
+            [chainId]: caInfo.caAddress,
+          };
           accounts = wallet.portkeyInfo!.accounts;
         }
         if (!accounts[chainId]) {
