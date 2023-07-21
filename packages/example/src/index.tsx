@@ -12,7 +12,7 @@ import { createPortal } from 'react-dom';
 const SignInProxy = React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<any>) {
   const [renderRoot, setRenderRoot] = React.useState<HTMLElement>();
   useEffect(() => {
-    const container = document.createElement('div');
+    const container = (document.querySelector('#sign-in-container') || document.createElement('div')) as HTMLElement;
     container.id = 'sign-in-container';
     document.body.appendChild(container);
     setRenderRoot(container);

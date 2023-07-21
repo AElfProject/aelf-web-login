@@ -235,6 +235,7 @@ function WebLoginProvider({
         console.warn('logout failed: loginState is not logined');
         return;
       }
+      console.log(walletType);
       if (walletType === WalletType.portkey) {
         setLogoutConfirmResult(LogoutConfirmResult.default);
         setLogoutConfirmOpen(true);
@@ -297,7 +298,7 @@ function WebLoginProvider({
       discoverApi.discoverDetected === 'unknown' || (discoverApi.discoverDetected === 'not-detected' && isMobileDevice);
 
     let headerClassName = 'default-header';
-    let contentClassName = 'defualt-content';
+    let contentClassName = 'default-content';
 
     if (portkeyOpts.design === 'Web2Design') {
       headerClassName = 'social-header web2-header';
@@ -366,11 +367,6 @@ function WebLoginProvider({
   return (
     <WebLoginContext.Provider value={state}>
       {children}
-      <ConfirmLogoutDialogComponent
-        visible={logoutConfirmOpen}
-        onCancel={() => setLogoutConfirmResult(LogoutConfirmResult.cancel)}
-        onOk={() => setLogoutConfirmResult(LogoutConfirmResult.ok)}
-      />
       <Portkey
         portkeyOpts={portkeyOpts}
         isManagerExists={portkeyApi.isManagerExists}
@@ -381,6 +377,11 @@ function WebLoginProvider({
         onUnlock={portkeyApi.onUnlock}
         onError={portkeyApi.onError}
         extraWallets={renderExtraWallets()}
+      />
+      <ConfirmLogoutDialogComponent
+        visible={logoutConfirmOpen}
+        onCancel={() => setLogoutConfirmResult(LogoutConfirmResult.cancel)}
+        onOk={() => setLogoutConfirmResult(LogoutConfirmResult.ok)}
       />
       <PortkeyLoading loading={!noLoading && loading} />
     </WebLoginContext.Provider>
