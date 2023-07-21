@@ -301,20 +301,28 @@ function WebLoginProvider({
     }
     return (
       <div className="aelf-web-login aelf-extra-wallets">
-        {commonConfig?.showClose && (
-          <div className="header">
-            <button className="header-btn" onClick={portkeyApi.onCancel}>
-              <img src={CloseIcon}></img>
-            </button>
-          </div>
-        )}
-        {commonConfig?.iconSrc && (
-          <div className="title-icon">
-            <img src={commonConfig?.iconSrc}></img>
-          </div>
-        )}
-        <div className="title">Crypto wallet</div>
-        <div className="wallet-entries">
+        <div className={`${portkeyOpts.design === 'SocialDesign' ? 'social-header' : 'default-header'}`}>
+          {portkeyOpts.design === 'SocialDesign' && (
+            <div>
+              {commonConfig?.showClose && (
+                <div className="header">
+                  <button className="header-btn" onClick={portkeyApi.onCancel}>
+                    <img src={CloseIcon}></img>
+                  </button>
+                </div>
+              )}
+              {commonConfig?.iconSrc && (
+                <div className="title-icon">
+                  <img src={commonConfig?.iconSrc}></img>
+                </div>
+              )}
+            </div>
+          )}
+
+          <div className="title">Crypto wallet</div>
+        </div>
+        <div
+          className={`wallet-entries ${portkeyOpts.design === 'SocialDesign' ? 'social-content' : 'default-content'}`}>
           {extraWallets
             // hide specific wallet when bridge or discover mobile not exist
             ?.filter((wallet) => {
