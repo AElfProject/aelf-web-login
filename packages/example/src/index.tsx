@@ -1,26 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import 'aelf-web-login/dist/assets/index.css';
 import './index.css';
 import './config';
 import { WebLoginProvider } from 'aelf-web-login';
-import { PortkeyProvider } from '@portkey/did-ui-react';
+import { PortkeyProvider, SignIn, SignInProps } from '@portkey/did-ui-react';
 import App from './App';
+import { createPortal } from 'react-dom';
 
-// const SignInProxy = React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<any>) {
-//   const [renderRoot, setRenderRoot] = React.useState<HTMLElement>();
-//   useEffect(() => {
-//     const container = document.createElement('div');
-//     container.id = 'sign-in-container';
-//     document.body.appendChild(container);
-//     setRenderRoot(container);
-//   }, []);
-//   if (!renderRoot) {
-//     return <></>;
-//   }
-//   return createPortal(<SignIn ref={ref} {...props} uiType="Full" />, renderRoot!);
-// });
+const SignInProxy = React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<any>) {
+  const [renderRoot, setRenderRoot] = React.useState<HTMLElement>();
+  useEffect(() => {
+    const container = document.createElement('div');
+    container.id = 'sign-in-container';
+    document.body.appendChild(container);
+    setRenderRoot(container);
+  }, []);
+  if (!renderRoot) {
+    return <></>;
+  }
+  return createPortal(<SignIn ref={ref} {...props} uiType="Full" />, renderRoot!);
+});
 
 function Index() {
   return (
@@ -43,8 +44,8 @@ function Index() {
         portkey={{
           autoShowUnlock: false,
           checkAccountInfoSync: true,
-          // design: 'SocialDesign',
-          // SignInComponent: SignInProxy,
+          design: 'Web2Design',
+          SignInComponent: SignInProxy,
         }}
         discover={{
           autoRequestAccount: false,

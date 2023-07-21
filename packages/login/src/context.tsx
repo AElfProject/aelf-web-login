@@ -239,7 +239,7 @@ function WebLoginProvider({
         setLogoutConfirmResult(LogoutConfirmResult.default);
         setLogoutConfirmOpen(true);
       } else {
-        logout();
+        await logout();
       }
     }, [loginState, logout, walletType]),
     {
@@ -295,13 +295,25 @@ function WebLoginProvider({
     const isBridgeNotExist = bridgeType === 'unknown' || (bridgeType === 'none' && isMobileDevice);
     const isDiscoverMobileNotExist =
       discoverApi.discoverDetected === 'unknown' || (discoverApi.discoverDetected === 'not-detected' && isMobileDevice);
+
+    let headerClassName = 'default-header';
+    let contentClassName = 'defualt-content';
+
+    if (portkeyOpts.design === 'Web2Design') {
+      headerClassName = 'social-header web2-header';
+      contentClassName = 'social-content web2-content';
+    } else if (portkeyOpts.design === 'SocialDesign') {
+      headerClassName = 'social-header';
+      contentClassName = 'social-content';
+    }
+
     // hide extra wallets when bridge and discover mobile not exist
     if (isBridgeNotExist && isDiscoverMobileNotExist) {
       return;
     }
     return (
       <div className="aelf-web-login aelf-extra-wallets">
-        <div className={`${portkeyOpts.design === 'SocialDesign' ? 'social-header' : 'default-header'}`}>
+        <div className={headerClassName}>
           {portkeyOpts.design === 'SocialDesign' && (
             <div>
               {commonConfig?.showClose && (
@@ -321,8 +333,7 @@ function WebLoginProvider({
 
           <div className="title">Crypto wallet</div>
         </div>
-        <div
-          className={`wallet-entries ${portkeyOpts.design === 'SocialDesign' ? 'social-content' : 'default-content'}`}>
+        <div className={`wallet-entries ${contentClassName}`}>
           {extraWallets
             // hide specific wallet when bridge or discover mobile not exist
             ?.filter((wallet) => {
