@@ -235,7 +235,6 @@ function WebLoginProvider({
         console.warn('logout failed: loginState is not logined');
         return;
       }
-      console.log(walletType);
       if (walletType === WalletType.portkey) {
         setLogoutConfirmResult(LogoutConfirmResult.default);
         setLogoutConfirmOpen(true);
