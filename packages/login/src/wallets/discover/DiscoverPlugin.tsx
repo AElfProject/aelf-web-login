@@ -5,6 +5,8 @@ import isMobile from '../../utils/isMobile';
 import { useDebounceFn } from 'ahooks';
 import { DiscoverOptions } from '../../types';
 import { openPortkeyPluginPage } from '../../utils/pluginPages';
+import isPortkeyApp from '../../utils/isPortkeyApp';
+import openPageInDiscover from './openDiscoverPage';
 
 export default function DiscoverPlugin({
   detectState,
@@ -17,6 +19,11 @@ export default function DiscoverPlugin({
 }) {
   const { run: onClickInternal } = useDebounceFn(
     async () => {
+      if (isMobile() && !isPortkeyApp()) {
+        openPageInDiscover();
+        return;
+      }
+
       if (detectState === 'not-detected' && !isMobile()) {
         if (discoverOpts?.onPluginNotFound) {
           discoverOpts?.onPluginNotFound(openPortkeyPluginPage);

@@ -296,6 +296,10 @@ function WebLoginProvider({
     const isDiscoverMobileNotExist =
       discoverApi.discoverDetected === 'unknown' || (discoverApi.discoverDetected === 'not-detected' && isMobileDevice);
 
+    const isShowDiscoverButton = isMobile() && !isPortkeyApp();
+
+    console.log('isShowDiscoverButton', isShowDiscoverButton, isDiscoverMobileNotExist);
+
     let headerClassName = 'default-header';
     let contentClassName = 'default-content';
 
@@ -308,7 +312,7 @@ function WebLoginProvider({
     }
 
     // hide extra wallets when bridge and discover mobile not exist
-    if (isBridgeNotExist && isDiscoverMobileNotExist) {
+    if (isBridgeNotExist && isDiscoverMobileNotExist && !isShowDiscoverButton) {
       return;
     }
     return (
@@ -340,7 +344,7 @@ function WebLoginProvider({
               if (wallet === WalletType.elf) {
                 return !isBridgeNotExist;
               } else if (wallet === WalletType.discover) {
-                return !isDiscoverMobileNotExist;
+                return !isDiscoverMobileNotExist || isShowDiscoverButton;
               }
               return true;
             })

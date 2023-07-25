@@ -45,7 +45,7 @@ function Index() {
           autoShowUnlock: false,
           checkAccountInfoSync: true,
           design: 'Web2Design',
-          SignInComponent: SignInProxy,
+          // SignInComponent: SignInProxy,
         }}
         discover={{
           autoRequestAccount: false,

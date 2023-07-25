@@ -5,10 +5,11 @@ import CallContract from './components/CallContract';
 import { useState } from 'react';
 import { usePortkeyLock } from 'aelf-web-login';
 import { Tabs } from 'antd';
+import isMobile from './utils/isMobile';
 
 const win = window as any;
 let showVConsole = () => {};
-if (win.ReactNativeWebView) {
+if (isMobile() || win.ReactNativeWebView) {
   const vConsole = new VConsole();
   showVConsole = () => {
     vConsole.show();
