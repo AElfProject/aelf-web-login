@@ -5,7 +5,7 @@ import 'aelf-web-login/dist/assets/index.css';
 import './index.css';
 import './config';
 import { WebLoginProvider } from 'aelf-web-login';
-import { PortkeyProvider, SignIn, SignInProps } from '@portkey/did-ui-react';
+import { PortkeyProvider, SignIn, SignInInterface, SignInProps } from '@portkey/did-ui-react';
 import App from './App';
 import { createPortal } from 'react-dom';
 
@@ -20,7 +20,7 @@ const SignInProxy = React.forwardRef(function SignInProxy(props: SignInProps, re
   if (!renderRoot) {
     return <></>;
   }
-  return createPortal(<SignIn ref={ref} {...props} uiType="Full" />, renderRoot!);
+  return createPortal(<SignIn ref={ref} {...props} isShowScan={false} />, renderRoot!);
 });
 
 function Index() {
@@ -44,8 +44,10 @@ function Index() {
         portkey={{
           autoShowUnlock: false,
           checkAccountInfoSync: true,
-          design: 'Web2Design',
-          // SignInComponent: SignInProxy,
+          design: 'SocialDesign',
+          SignInComponent: React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<SignInInterface>) {
+            return <SignIn ref={ref} {...props} isShowScan={false} />;
+          }),
         }}
         discover={{
           autoRequestAccount: false,
