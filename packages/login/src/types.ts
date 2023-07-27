@@ -15,6 +15,7 @@ export type ExtraWalletNames = 'discover' | 'elf';
 export type NightElfOptions = {
   connectEagerly: boolean;
   useMultiChain?: boolean;
+  onClick?: OnClickCryptoWallet;
   onPluginNotFound?: PluginNotFoundCallback;
 };
 
@@ -27,6 +28,7 @@ export type PortkeyOptions = {
 };
 
 export type PluginNotFoundCallback = (openPluginStorePage: () => void) => void;
+export type OnClickCryptoWallet = (continueDefaultBehaviour: () => void) => void;
 
 export type DiscoverOptions = {
   autoRequestAccount: boolean;
@@ -34,6 +36,7 @@ export type DiscoverOptions = {
   autoLogoutOnNetworkMismatch: boolean;
   autoLogoutOnAccountMismatch: boolean;
   autoLogoutOnChainMismatch: boolean;
+  onClick?: OnClickCryptoWallet;
   onPluginNotFound?: PluginNotFoundCallback;
 };
 interface ICommonConfig {

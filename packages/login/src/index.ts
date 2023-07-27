@@ -4,6 +4,7 @@ import useWebLoginEvent from './hooks/useWebLoginEvent';
 import useMultiWallets from './hooks/useMultiWallets';
 import useCallContract from './hooks/useCallContract';
 import usePortkeyLock from './hooks/usePortkeyLock';
+import usePortkeyPreparing from './hooks/usePortkeyPreparing';
 import useGetAccount from './hooks/useGetAccount';
 
 import getContractBasicAsync from './utils/getContractBasicAsync';
@@ -30,6 +31,7 @@ export {
   useMultiWallets,
   useCallContract,
   usePortkeyLock,
+  usePortkeyPreparing,
   useGetAccount,
   getContractBasicAsync,
   detectDiscoverProvider,

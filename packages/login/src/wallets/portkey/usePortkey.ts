@@ -22,6 +22,7 @@ const PORTKEY_ORIGIN_CHAIN_ID_KEY = 'PortkeyOriginChainId';
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;
   isUnlocking: boolean;
+  isPreparing: boolean;
   lock: () => void;
   onUnlock: (password: string) => Promise<boolean>;
   onError: (error: any) => void;
@@ -49,6 +50,7 @@ export function usePortkey({
 
   const [switching, setSwitching] = useState(false);
   const [isUnlocking, setUnlocking] = useState(false);
+  const [isPreparing, setPreparing] = useState(false);
   const isManagerExists = useMemo(() => {
     return loginState && !!localStorage.getItem(appName);
   }, [appName, loginState]);
@@ -276,6 +278,7 @@ export function usePortkey({
 
   const onFinished = useCallback(
     async (didWalletInfo: DIDWalletInfo) => {
+      setPreparing(true);
       try {
         localStorage.setItem(PORTKEY_ORIGIN_CHAIN_ID_KEY, didWalletInfo.chainId);
         if (didWalletInfo.chainId !== chainId) {
@@ -318,6 +321,8 @@ export function usePortkey({
         setLoginError(error);
         setLoginState(WebLoginState.initial);
         eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
+      } finally {
+        setPreparing(false);
       }
     },
     [appName, chainId, eventEmitter, setLoading, setLoginError, setLoginState, setWalletType],
@@ -342,6 +347,7 @@ export function usePortkey({
     () => ({
       isManagerExists,
       isUnlocking,
+      isPreparing,
       wallet: {
         name: didWalletInfo?.nickName || 'Wallet 01',
         address: didWalletInfo?.caInfo.caAddress || '',

@@ -42,5 +42,13 @@ export default function DiscoverPlugin({
       trailing: false,
     },
   );
-  return <PluginEntry name="Portkey" icon="discover" onClick={onClickInternal} />;
+
+  const onClickButton = () => {
+    if (discoverOpts.onClick) {
+      discoverOpts.onClick(onClickInternal);
+    } else {
+      onClickInternal();
+    }
+  };
+  return <PluginEntry name="Portkey" icon="discover" onClick={onClickButton} />;
 }

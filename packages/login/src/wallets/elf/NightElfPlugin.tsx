@@ -33,5 +33,14 @@ export default function NightElfPlugin({
       trailing: false,
     },
   );
-  return <PluginEntry icon="elf" name="Night Elf" onClick={onClickInternal} />;
+
+  const onClickButton = () => {
+    if (nightEflOpts.onClick) {
+      nightEflOpts.onClick(onClickInternal);
+    } else {
+      onClickInternal();
+    }
+  };
+
+  return <PluginEntry icon="elf" name="Night Elf" onClick={onClickButton} />;
 }

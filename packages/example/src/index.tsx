@@ -40,6 +40,9 @@ function Index() {
             console.log(123);
             openStore();
           },
+          onClick: continueDefaultBehaviour => {
+            continueDefaultBehaviour();
+          },
         }}
         portkey={{
           autoShowUnlock: false,
@@ -55,6 +58,9 @@ function Index() {
           autoLogoutOnChainMismatch: true,
           autoLogoutOnDisconnected: true,
           autoLogoutOnNetworkMismatch: true,
+          onClick: continueDefaultBehaviour => {
+            continueDefaultBehaviour();
+          },
           onPluginNotFound: openStore => {
             console.log(234);
             openStore();
