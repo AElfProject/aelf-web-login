@@ -84,8 +84,8 @@ export default function useCallContract(options?: CallContractHookOptions): Call
       switch (walletType) {
         case WalletType.discover: {
           const discoverInfo = wallet.discoverInfo!;
-          const chain = await discoverInfo.provider!.getChain(chainId as ChainId);
           const contract = await getContractWithCache(WalletType.discover, params.contractAddress, async () => {
+            const chain = await discoverInfo.provider!.getChain(chainId as ChainId);
             return getContractBasic({
               contractAddress: params.contractAddress,
               chainProvider: chain,

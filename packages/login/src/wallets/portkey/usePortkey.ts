@@ -372,6 +372,7 @@ export function usePortkey({
     [
       isManagerExists,
       isUnlocking,
+      isPreparing,
       didWalletInfo,
       accountInfoSync,
       loginEagerly,
