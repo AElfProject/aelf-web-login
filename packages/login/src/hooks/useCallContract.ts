@@ -5,9 +5,10 @@ import { did } from '@portkey/did-ui-react';
 import { useWebLogin } from '../context';
 import { CallContractHookInterface, CallContractHookOptions, CallContractParams } from '../types';
 import { getConfig } from '../config';
-import { WalletType } from '../constants';
+import { WalletType, WebLoginEvents } from '../constants';
 import { getContractBasic } from '@portkey/contracts';
 import { SendOptions } from '@portkey/types';
+import useWebLoginEvent from './useWebLoginEvent';
 
 const getAElfInstance = (() => {
   const instances = new Map<string, any>();
@@ -32,6 +33,9 @@ const getViewWallet = (() => {
 const contractCache = new Map<string, any>();
 
 function useGetContractWithCache(chainId: string, cache: boolean) {
+  useWebLoginEvent(WebLoginEvents.LOGINED, () => {
+    contractCache.clear();
+  });
   return useCallback(
     async <T>(walletType: WalletType, key: string, createContract: () => Promise<T>) => {
       if (!cache) {
