@@ -31,6 +31,7 @@ export enum LogoutConfirmResult {
 }
 
 export type WebLoginInterface = WalletHookInterface & {
+  loginId: number;
   loginState: WebLoginState;
   loginError: any | unknown;
   eventEmitter: EventEmitter;
@@ -73,6 +74,7 @@ function WebLoginProvider({
   const [noLoading, setNoLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [bridgeType, setBridgeType] = useState('unknown');
+  const [loginId, setLoginId] = useState(0);
 
   useEffect(() => {
     // SSR support
@@ -88,13 +90,17 @@ function WebLoginProvider({
   }, []);
 
   const setLoginStateInternal = useCallback(
-    (loginState: WebLoginState) => {
-      setLoginState(loginState);
-      if (loginState === WebLoginState.logined) {
+    (newLoginState: WebLoginState) => {
+      const prevState = loginState;
+      setLoginState(newLoginState);
+      if (newLoginState === WebLoginState.logined) {
+        if (prevState !== newLoginState) {
+          setLoginId(loginId + 1);
+        }
         setModalOpen(false);
       }
     },
-    [setLoginState, setModalOpen],
+    [loginId, loginState],
   );
 
   const elfApi = useElf({
@@ -263,6 +269,7 @@ function WebLoginProvider({
 
   const state = useMemo<WebLoginContextType>(
     () => ({
+      loginId,
       loginState,
       loginError,
       eventEmitter,
@@ -277,6 +284,7 @@ function WebLoginProvider({
       logout: logoutInternal,
     }),
     [
+      loginId,
       discoverApi,
       elfApi,
       eventEmitter,

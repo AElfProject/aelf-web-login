@@ -32,7 +32,7 @@ const getViewWallet = (() => {
 
 const contractCache = new Map<string, any>();
 
-function useGetContractWithCache(chainId: string, cache: boolean) {
+function useGetContractWithCache(loginId: number, chainId: string, cache: boolean) {
   useWebLoginEvent(WebLoginEvents.LOGINED, () => {
     contractCache.clear();
   });
@@ -41,7 +41,7 @@ function useGetContractWithCache(chainId: string, cache: boolean) {
       if (!cache) {
         return await createContract();
       }
-      const cacheId = `${chainId}-${walletType}-${key}`;
+      const cacheId = `${loginId}-${chainId}-${walletType}-${key}`;
       let contract = contractCache.get(cacheId);
       if (!contract) {
         contract = await createContract();
@@ -49,7 +49,7 @@ function useGetContractWithCache(chainId: string, cache: boolean) {
       }
       return contract as T;
     },
-    [cache, chainId],
+    [cache, chainId, loginId],
   );
 }
 
@@ -65,8 +65,8 @@ export default function useCallContract(options?: CallContractHookOptions): Call
   const chainId = options.chainId!;
   const viewWallet = getViewWallet();
   const aelfInstance = getAElfInstance(options.rpcUrl!);
-  const { wallet, walletType } = useWebLogin();
-  const getContractWithCache = useGetContractWithCache(chainId, options.cache!);
+  const { loginId, wallet, walletType } = useWebLogin();
+  const getContractWithCache = useGetContractWithCache(loginId, chainId, options.cache!);
 
   const callViewMethod = useCallback(
     async function callContractViewFunc<T, R>(params: CallContractParams<T>): Promise<R> {
@@ -172,6 +172,7 @@ export default function useCallContract(options?: CallContractHookOptions): Call
   );
 
   return {
+    contractHookId: `${loginId}_${chainId}_${walletType}}`,
     callViewMethod,
     callSendMethod,
   };

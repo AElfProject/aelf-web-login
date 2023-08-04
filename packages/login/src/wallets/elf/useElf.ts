@@ -7,6 +7,7 @@ import { NightElfOptions } from '../../types';
 import { WalletType, WebLoginState, WebLoginEvents } from '../../constants';
 import isMobile from '../../utils/isMobile';
 import checkSignatureParams from '../../utils/signatureParams';
+import detectNightElf from './detectNightElf';
 
 export function useElf({
   options,
@@ -43,7 +44,9 @@ export function useElf({
     initializingRef.current = true;
     setLoading(true);
     try {
-      if (!isMobile()) {
+      const type = await detectNightElf();
+
+      if (type !== 'AelfBridge') {
         if (options.useMultiChain) {
           if (aelfBridges) {
             await Promise.all(

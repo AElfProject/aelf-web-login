@@ -146,6 +146,7 @@ export type CallContractHookOptions = {
 };
 
 export type CallContractHookInterface = {
+  contractHookId: string;
   callViewMethod<T, R>(params: CallContractParams<T>): Promise<R>;
   callSendMethod<T, R>(params: CallContractParams<T>, sendOptions: SendOptions | undefined): Promise<R>;
 };
