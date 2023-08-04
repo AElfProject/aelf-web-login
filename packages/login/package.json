@@ -1,6 +1,6 @@
 {
   "name": "aelf-web-login",
-  "version": "1.0.10-alpha",
+  "version": "1.0.11-alpha",
   "main": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "exports": {
@@ -48,13 +48,13 @@
   },
   "dependencies": {
     "@aelf-react/core": "^0.1.19",
-    "@portkey/contracts": "^1.2.1",
+    "@portkey/contracts": "^1.2.2",
     "@portkey/detect-provider": "1.0.1-alpha.0",
-    "@portkey/did-ui-react": "^1.2.1",
+    "@portkey/did-ui-react": "^1.2.2",
     "@portkey/provider-types": "1.0.1-alpha.0",
-    "@portkey/services": "^1.2.1",
-    "@portkey/types": "^1.2.1",
-    "@portkey/utils": "^1.2.1",
+    "@portkey/services": "^1.2.2",
+    "@portkey/types": "^1.2.2",
+    "@portkey/utils": "^1.2.2",
     "aelf-bridge": "^0.0.10",
     "aelf-sdk": "^3.2.40",
     "ahooks": "^3.7.7",
