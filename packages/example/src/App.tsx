@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { usePortkeyLock } from 'aelf-web-login';
 import { Tabs } from 'antd';
 import isMobile from './utils/isMobile';
+import Signature from './components/Signature';
 
 const win = window as any;
 let showVConsole = () => {};
@@ -88,6 +89,11 @@ export default function App() {
             label: 'Use multiple wallets',
             key: MultiWallets.name,
             children: <MultiWallets />,
+          },
+          {
+            label: 'Signature',
+            key: Signature.name,
+            children: <Signature />,
           },
         ]}
       />
