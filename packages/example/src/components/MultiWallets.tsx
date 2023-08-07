@@ -8,7 +8,7 @@ export default function MultiWallets() {
 
   return (
     <div>
-      <h2>MultiWallets {switching ? 'switching wallet' : ''}</h2>
+      <div>switching: {switching ? 'switching wallet' : ''}</div>
       <div>
         <button disabled={current === WalletType.elf} onClick={() => switchWallet('elf')}>
           NightElf

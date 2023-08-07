@@ -33,6 +33,10 @@ setGlobalConfig({
     useLocalStorage: true,
     graphQLUrl: portkeyScanUrl,
     connectUrl: connectUrl,
+    requestDefaults: {
+      baseURL: portkeyApiServer,
+      timeout: 30000,
+    },
     socialLogin: {
       Portkey: {
         websiteName: APPNAME,

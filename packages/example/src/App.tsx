@@ -7,6 +7,7 @@ import { usePortkeyLock } from 'aelf-web-login';
 import { Tabs } from 'antd';
 import isMobile from './utils/isMobile';
 import Signature from './components/Signature';
+import Events from './components/Events';
 
 const win = window as any;
 let showVConsole = () => {};
@@ -15,32 +16,6 @@ if (isMobile() || win.ReactNativeWebView) {
   showVConsole = () => {
     vConsole.show();
   };
-}
-
-function renderEvents() {
-  const [events, setEvents] = useState([]);
-  for (const key in WebLoginEvents) {
-    useWebLoginEvent(WebLoginEvents[key], (data: any) => {
-      console.log(WebLoginEvents[key], data);
-      events.push({
-        type: key,
-        data,
-      });
-      setEvents([...events]);
-    });
-  }
-  return (
-    <>
-      <h2>Events: </h2>
-      <div>
-        <div className="result">
-          {events.map((item, index) => {
-            return <div key={`${item.type}-${index}`}>{`${item.type} ${JSON.stringify(item.data)}`}</div>;
-          })}
-        </div>
-      </div>
-    </>
-  );
 }
 
 export default function App() {
@@ -76,10 +51,14 @@ export default function App() {
           {loginState === WebLoginState.logouting ? 'logouting' : 'logout'}
         </button>
       </div>
-      {renderEvents()}
       <Tabs
         type="card"
         items={[
+          {
+            label: 'Events',
+            key: Events.name,
+            children: <Events />,
+          },
           {
             label: 'Call contracts',
             key: CallContract.name,

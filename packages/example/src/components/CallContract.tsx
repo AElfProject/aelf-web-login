@@ -130,7 +130,6 @@ export default function CallContract() {
   ];
   return (
     <div>
-      <h2>Call Contract</h2>
       {examples.map((example, index) => {
         return <div key={example.name}>{example.render()}</div>;
       })}

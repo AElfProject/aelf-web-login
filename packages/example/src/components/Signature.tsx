@@ -18,7 +18,6 @@ export default function Signature() {
 
   return (
     <div>
-      <h2>Signature</h2>
       <div>
         <button disabled={!wallet.address} onClick={sign}>
           Sign

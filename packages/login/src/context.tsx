@@ -306,8 +306,6 @@ function WebLoginProvider({
 
     const isShowDiscoverButton = isMobile() && !isPortkeyApp();
 
-    console.log('isShowDiscoverButton', isShowDiscoverButton, isDiscoverMobileNotExist);
-
     let headerClassName = 'default-header';
     let contentClassName = 'default-content';
 
