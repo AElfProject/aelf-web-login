@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useMemo } from 'react';
-import { PortkeyProvider, SignIn } from '@portkey/did-ui-react';
+import React, { createContext, useContext, useMemo, useRef } from 'react';
+import { PortkeyProvider, SignIn, SignInInterface } from '@portkey/did-ui-react';
 import { PortkeyState, PortkeyUISDK } from './PortkeyUISDK';
 
 export type PortkeySDKProviderProps = PortkeyState & {
@@ -27,6 +27,7 @@ export function PortkeySDKProvider({
   theme,
   sandboxId,
 }: PortkeySDKProviderProps) {
+  const signInRef = useRef<SignInInterface>(null);
   const portkeySDK = useMemo(
     () => {
       if (customPortkeySDK) {
@@ -35,12 +36,15 @@ export function PortkeySDKProvider({
         }
         return customPortkeySDK;
       }
-      const sdk = new PortkeyUISDK({
-        chainType,
-        networkType,
-        theme,
-        sandboxId,
-      });
+      const sdk = new PortkeyUISDK(
+        {
+          chainType,
+          networkType,
+          theme,
+          sandboxId,
+        },
+        signInRef,
+      );
       return sdk;
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,7 +68,13 @@ export function PortkeySDKProvider({
     return (
       <>
         {children}
-        <SignIn onCancel={portkeySDK.onCancel} onError={portkeySDK.onError} onFinish={portkeySDK.onFinish} />
+        <SignIn
+          ref={signInRef}
+          uiType="Modal"
+          onCancel={() => portkeySDK.onCancel()}
+          onError={(error) => portkeySDK.onError(error)}
+          onFinish={(didWalletInfo) => portkeySDK.onFinish(didWalletInfo)}
+        />
       </>
     );
   };

@@ -1,7 +1,8 @@
 import VConsole from 'vconsole';
 import { useState } from 'react';
-import { Tabs } from 'antd';
+import { Button, Tabs } from 'antd';
 import isMobile from './utils/isMobile';
+import { usePortkeyUISDK } from 'aelf-web-login';
 
 const win = window as any;
 let showVConsole = () => {};
@@ -13,5 +14,14 @@ if (isMobile() || win.ReactNativeWebView) {
 }
 
 export default function App() {
-  return <div></div>;
+  const portkeySDK = usePortkeyUISDK();
+
+  return (
+    <div>
+      <div>
+        <Button onClick={showVConsole}>Show VConsole</Button>
+        <Button onClick={() => portkeySDK.login()}>Login</Button>
+      </div>
+    </div>
+  );
 }

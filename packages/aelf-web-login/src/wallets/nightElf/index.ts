@@ -1,4 +1,4 @@
-import { ILogin, WalletInfo, WalletType } from '../../types';
+import { ILogin, LoginState, WalletInfo, WalletType } from '../../types';
 
 export type NightElfWalletInfo = WalletInfo & {};
 
@@ -8,6 +8,7 @@ export type NightElfWalletInfo = WalletInfo & {};
 export class NightElf implements ILogin<NightElfWalletInfo> {
   walletInfo: NightElfWalletInfo;
   walletType: WalletType = 'NightElf';
+  loginState: LoginState = 'initial';
 
   constructor() {
     this.walletInfo = { address: '' };
