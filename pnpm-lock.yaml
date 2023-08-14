@@ -187,26 +187,26 @@ importers:
         specifier: ^0.1.19
         version: 0.1.19(react@18.2.0)
       '@portkey/contracts':
-        specifier: ^1.2.2
-        version: 1.2.2
+        specifier: ^1.3.0-alpha.1
+        version: 1.3.0-alpha.1
       '@portkey/detect-provider':
         specifier: 1.0.1-alpha.0
         version: 1.0.1-alpha.0
       '@portkey/did-ui-react':
-        specifier: ^1.2.2
-        version: 1.2.2(i18next@22.5.1)(react-dom@18.0.0)(react@18.2.0)
+        specifier: ^1.3.0-alpha.1
+        version: 1.3.0-alpha.1(i18next@22.5.1)(react-dom@18.0.0)(react@18.2.0)
       '@portkey/provider-types':
         specifier: 1.0.1-alpha.0
         version: 1.0.1-alpha.0
       '@portkey/services':
-        specifier: ^1.2.2
-        version: 1.2.2(react-dom@18.0.0)(react@18.2.0)
+        specifier: ^1.3.0-alpha.1
+        version: 1.3.0-alpha.1(react-dom@18.0.0)(react@18.2.0)
       '@portkey/types':
-        specifier: ^1.2.2
-        version: 1.2.2
+        specifier: ^1.3.0-alpha.1
+        version: 1.3.0-alpha.1
       '@portkey/utils':
-        specifier: ^1.2.2
-        version: 1.2.2
+        specifier: ^1.3.0-alpha.1
+        version: 1.3.0-alpha.1
       aelf-bridge:
         specifier: ^0.0.10
         version: 0.0.10
@@ -2890,12 +2890,30 @@ packages:
       aelf-sdk: 3.2.44
     dev: false
 
+  /@portkey/accounts@1.3.0-alpha.1:
+    resolution: {integrity: sha512-Rv4rjmKl7LOMmE4QBIbHK/vvWPFC8zsqUnMeo5Rd0FL5doEzQ9roSw0BNIjkgywx7+tO7hAUetri8vsJpvhatg==}
+    dependencies:
+      '@portkey/types': 1.3.0-alpha.1
+      '@portkey/utils': 1.3.0-alpha.1
+      '@portkey/validator': 1.3.0-alpha.1
+      aelf-sdk: 3.2.44
+    dev: false
+
   /@portkey/contracts@1.2.2:
     resolution: {integrity: sha512-7Q4OynIaEpEvnxLLvqxdKIFJGIcrYGSIGTntgL6llaE0XP9+lh9Sv1p1u6DIaZ1vDhC22LEo8bGJPhUMrULMMw==}
     dependencies:
       '@portkey/provider-types': 1.0.1-alpha.0
       '@portkey/types': 1.2.2
       '@portkey/utils': 1.2.2
+      aelf-sdk: 3.2.44
+    dev: false
+
+  /@portkey/contracts@1.3.0-alpha.1:
+    resolution: {integrity: sha512-l1IdM3SUepQg6y3mon3z6AICOUuCgulN9xL2FJzf2X/z/qOAXxrc3mbuSrPfm/b7czl44rwg0/XK0WihPXbBcw==}
+    dependencies:
+      '@portkey/provider-types': 1.0.1-alpha.0
+      '@portkey/types': 1.3.0-alpha.1
+      '@portkey/utils': 1.3.0-alpha.1
       aelf-sdk: 3.2.44
     dev: false
 
@@ -2935,6 +2953,37 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@portkey/did-ui-react@1.3.0-alpha.1(i18next@22.5.1)(react-dom@18.0.0)(react@18.2.0):
+    resolution: {integrity: sha512-KMdTtil1J1o7RAzvj3FCp6vz2ZiaO6c48rLhlJ1RGUI6Vv4I7RLJVMyIHcBrPsLohPymf/ni7JsFyhQspDViIQ==}
+    dependencies:
+      '@matt-block/react-recaptcha-v2': 2.0.1(react@18.2.0)
+      '@portkey/did': 1.3.0-alpha.1(react-dom@18.0.0)
+      '@portkey/socket': 1.3.0-alpha.1
+      '@rc-component/portal': 1.0.2(react-dom@18.0.0)(react@18.2.0)
+      aelf-sdk: 3.2.44
+      antd: 4.24.4(react-dom@18.0.0)(react@18.2.0)
+      antd-mobile: 5.26.0(react-dom@18.0.0)(react@18.2.0)
+      bignumber.js: 9.1.1
+      clsx: 1.2.1
+      lottie-web: 5.9.6
+      query-string: 7.1.3
+      react-i18next: 11.18.6(i18next@22.5.1)(react-dom@18.0.0)(react@18.2.0)
+      react-qrcode-logo: 2.9.0(react-dom@18.0.0)(react@18.2.0)
+      react-use: 17.4.0(react-dom@18.0.0)(react@18.2.0)
+      reactjs-social-login: 2.6.2(react-dom@18.0.0)(react@18.2.0)
+      spark-md5: 3.0.2
+      uuid: 8.3.2
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - graphql-ws
+      - i18next
+      - react
+      - react-dom
+      - react-native
+      - utf-8-validate
+    dev: false
+
   /@portkey/did@1.2.2(react-dom@18.0.0):
     resolution: {integrity: sha512-EN58LgKcVh+otmHDnfIclpPvj8DoGmlZ63PQ5sIIGw1pTzG17SF7NuSXtmZxoWrc1pSLb1XrG9J6+cybFfeg3A==}
     dependencies:
@@ -2945,6 +2994,25 @@ packages:
       '@portkey/services': 1.2.2(react-dom@18.0.0)(react@18.2.0)
       '@portkey/types': 1.2.2
       '@portkey/utils': 1.2.2
+      aelf-sdk: 3.2.44
+      react: 18.2.0
+    transitivePeerDependencies:
+      - bufferutil
+      - graphql-ws
+      - react-dom
+      - utf-8-validate
+    dev: false
+
+  /@portkey/did@1.3.0-alpha.1(react-dom@18.0.0):
+    resolution: {integrity: sha512-UjuF/0rEH9FQlHWmYWtrPp3719HqIelrSDkEMLYf5Rjg/q6GUQcBVkiEE+zubFRhX13aM42Hx/sJ5trRcLnTfw==}
+    dependencies:
+      '@portkey/accounts': 1.3.0-alpha.1
+      '@portkey/contracts': 1.3.0-alpha.1
+      '@portkey/graphql': 1.3.0-alpha.1(react-dom@18.0.0)(react@18.2.0)
+      '@portkey/request': 1.3.0-alpha.1
+      '@portkey/services': 1.3.0-alpha.1(react-dom@18.0.0)(react@18.2.0)
+      '@portkey/types': 1.3.0-alpha.1
+      '@portkey/utils': 1.3.0-alpha.1
       aelf-sdk: 3.2.44
       react: 18.2.0
     transitivePeerDependencies:
@@ -2969,6 +3037,21 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@portkey/graphql@1.3.0-alpha.1(react-dom@18.0.0)(react@18.2.0):
+    resolution: {integrity: sha512-TvTJJDhBf7xDR7kC1uixOxh9JHBTU/D8vt/2Gs0E3MdqrIbXI5QXscR4XTp8PStzluK7lhdu/Ve45ilyKBD/UQ==}
+    dependencies:
+      '@apollo/client': 3.7.15(graphql@16.6.0)(react-dom@18.0.0)(react@18.2.0)(subscriptions-transport-ws@0.11.0)
+      '@portkey/types': 1.3.0-alpha.1
+      graphql: 16.6.0
+      subscriptions-transport-ws: 0.11.0(graphql@16.6.0)
+    transitivePeerDependencies:
+      - bufferutil
+      - graphql-ws
+      - react
+      - react-dom
+      - utf-8-validate
+    dev: false
+
   /@portkey/provider-types@1.0.1-alpha.0:
     resolution: {integrity: sha512-4tgoL7wJwW3ksS579KvdFFfoQhItKuURf5oKla80dGN9pdxaJ5MfW5vj/SORUZEYObe7WLwwP07zuPPWbBMO+g==}
     dependencies:
@@ -2983,12 +3066,35 @@ packages:
       query-string: 7.1.3
     dev: false
 
+  /@portkey/request@1.3.0-alpha.1:
+    resolution: {integrity: sha512-ZDi7eB5NFeWE2yuWOqCrc6VDdE2M5elKzXwffqMgLtR1l4M3YJjmy30jSKHh/ZgMYwL8MuDohPPbNkdqlAPWyg==}
+    dependencies:
+      '@portkey/types': 1.3.0-alpha.1
+      query-string: 7.1.3
+    dev: false
+
   /@portkey/services@1.2.2(react-dom@18.0.0)(react@18.2.0):
     resolution: {integrity: sha512-GoOw+1vURk+F+DYTjDbTR1I3ApvjuLBQg/Vnb2dEFzsgxyhIroa/qhGqnbOZsaWVFn3WjW1fJ1wbTYLKlBkL/w==}
     dependencies:
       '@portkey/graphql': 1.2.2(react-dom@18.0.0)(react@18.2.0)
       '@portkey/request': 1.2.2
       '@portkey/types': 1.2.2
+      aelf-sdk: 3.2.44
+      query-string: 7.1.3
+    transitivePeerDependencies:
+      - bufferutil
+      - graphql-ws
+      - react
+      - react-dom
+      - utf-8-validate
+    dev: false
+
+  /@portkey/services@1.3.0-alpha.1(react-dom@18.0.0)(react@18.2.0):
+    resolution: {integrity: sha512-EAFAYDYVl1IvraR7hLIiDDajic7UY7tKKuP/JCjPYO855WioT8CufT8a8AW3m9kzlodXk8kNEh8Kv9iyKJWHxw==}
+    dependencies:
+      '@portkey/graphql': 1.3.0-alpha.1(react-dom@18.0.0)(react@18.2.0)
+      '@portkey/request': 1.3.0-alpha.1
+      '@portkey/types': 1.3.0-alpha.1
       aelf-sdk: 3.2.44
       query-string: 7.1.3
     transitivePeerDependencies:
@@ -3010,6 +3116,17 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@portkey/socket@1.3.0-alpha.1:
+    resolution: {integrity: sha512-9EWnFhOupUoCnxRaIQg8a4zQ+lZ4f+nppDaNM2dT7Jl9Vfj5eWR3DOQfF2qg75ErircOP1FK/j5MIbLBSWceDA==}
+    dependencies:
+      '@abp/signalr': 7.2.3
+      '@portkey/utils': 1.3.0-alpha.1
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+    dev: false
+
   /@portkey/types@1.0.0-alpha.4:
     resolution: {integrity: sha512-mOSl89fN+hQ4zun6MF2uuQH5Bz8Owf6eA+N1HJ5fwKUMbQqr+7uI1HJZstoTSLFTLPjVSAIaIauXb2sfdRIm7A==}
     dependencies:
@@ -3022,6 +3139,12 @@ packages:
       '@types/elliptic': 6.4.14
     dev: false
 
+  /@portkey/types@1.3.0-alpha.1:
+    resolution: {integrity: sha512-kOPe2aZs/xgPJeYZCVJbomFfTe6CK01tEvGvDLxQg/8FZ8PowVQu5R+e0TViKj0/gLJz2sIRn4jLU2k3g7PIkg==}
+    dependencies:
+      '@types/elliptic': 6.4.14
+    dev: false
+
   /@portkey/utils@1.2.2:
     resolution: {integrity: sha512-WGIDaJ/sq8Ubhfrzp6SvEab7av5AMDelavc5l4GlD6qujl+4UlirypdQ72au5hdHc4MHrvGm1Ky24c9HnkG1ng==}
     dependencies:
@@ -3029,8 +3152,19 @@ packages:
       query-string: 7.1.3
     dev: false
 
+  /@portkey/utils@1.3.0-alpha.1:
+    resolution: {integrity: sha512-idsEcPHVKV4OH+6ZXe4quqP1bbzPAxTsqBBnf5GpZYyd8kRrd56hTn/eGha1y37fYBA3uNdzYwDIQPhhF6PMDg==}
+    dependencies:
+      aelf-sdk: 3.2.44
+      query-string: 7.1.3
+    dev: false
+
   /@portkey/validator@1.2.2:
     resolution: {integrity: sha512-KjOGEym1O9Q7OAfNSUzEBiUv8ZIDiZ+p8aZIBxanwWRk6KmLsUGVA0Ze/kb8Al47QlrIxzsXeMF+Y3fdmT92Mw==}
+    dev: false
+
+  /@portkey/validator@1.3.0-alpha.1:
+    resolution: {integrity: sha512-H0xjjJLC051lBh98JnG6ehtAmywadnJwNm103mX3M5DHKzPjtEmJp2bcV/mheS82HiOiU3HCGgHPNNWv02PqfA==}
     dev: false
 
   /@protobufjs/aspromise@1.1.2:
@@ -13086,6 +13220,10 @@ packages:
   /sourcemap-codec@1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
     deprecated: Please use @jridgewell/sourcemap-codec instead
+
+  /spark-md5@3.0.2:
+    resolution: {integrity: sha512-wcFzz9cDfbuqe0FZzfi2or1sgyIrsDwmPwfZC4hiNidPdPINjeUwNfv5kldczoEAcjl9Y1L3SM7Uz2PUEQzxQw==}
+    dev: false
 
   /spdx-correct@3.2.0:
     resolution: {integrity: sha512-kN9dJbvnySHULIluDHy32WHRUu3Og7B9sbY7tsFLctQkIqnMh3hErYgdMjTYuqmcXX+lK5T1lnUt3G7zNswmZA==}
