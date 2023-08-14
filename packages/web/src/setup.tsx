@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
-import 'antd/dist/antd.css';
-import '@portkey/did-ui-react/dist/assets/index.css';
 import { PortkeySDKProvider } from 'aelf-web-login';
 
 function SDKRoot() {

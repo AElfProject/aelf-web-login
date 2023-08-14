@@ -13,7 +13,10 @@ module.exports = merge({
     },
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js', '.tsx', '.jsx', '...'],
+    alias: {
+      react: path.resolve('./node_modules/react'),
+    },
   },
   module: {
     rules: [
@@ -31,6 +34,12 @@ module.exports = merge({
         test: /\.(css|less)$/,
         use: ['css-loader', 'less-loader'],
       },
+      {
+        test: /\.m?js$/,
+        resolve: {
+          fullySpecified: false,
+        },
+      }
     ],
   },
 
