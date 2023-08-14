@@ -8,11 +8,9 @@
     ".": "./dist/index.js",
     "./dist/index.css": "./dist/index.css"
   },
-  "type": "module",
-  "module": "./dist/index.js",
   "scripts": {
-    "dev": "rollup --watch --config rollup.config.js",
-    "build": "rollup --silent --config rollup.config.js"
+    "dev": "webpack --watch --config webpack.config.js",
+    "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
   },
