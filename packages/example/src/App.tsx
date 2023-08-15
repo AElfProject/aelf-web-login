@@ -2,7 +2,7 @@ import VConsole from 'vconsole';
 import { useState } from 'react';
 import { Button, Tabs } from 'antd';
 import isMobile from './utils/isMobile';
-import { usePortkeyUISDK } from 'aelf-web-login';
+import { usePortkeyUISDK } from '@aelf-web-login/react';
 
 const win = window as any;
 let showVConsole = () => {};

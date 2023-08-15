@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@aelf-web-login/web",
-  "version": "0.0.1-alpha.1.4",
+  "version": "0.0.1-alpha.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -18,7 +18,8 @@
     "@types/react-dom": "^18.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.0.0",
-    "aelf-web-login": "workspace:*",
+    "@aelf-web-login/core": "workspace:*",
+    "@aelf-web-login/react": "workspace:*",
     "cross-env": "^7.0.3",
     "vconsole": "^3.15.1"
   },

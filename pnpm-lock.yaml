@@ -162,7 +162,7 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(webpack@5.88.2)
 
-  packages/aelf-web-login:
+  packages/core:
     dependencies:
       '@portkey/contracts':
         specifier: ^1.2.2
@@ -216,6 +216,12 @@ importers:
 
   packages/example:
     dependencies:
+      '@aelf-web-login/core':
+        specifier: workspace:*
+        version: link:../core
+      '@aelf-web-login/react':
+        specifier: workspace:*
+        version: link:../react
       '@portkey/did-ui-react':
         specifier: ^1.2.2
         version: 1.2.2(i18next@22.5.1)(react-dom@18.0.0)(react@18.2.0)
@@ -225,9 +231,6 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.0
         version: 18.0.0
-      aelf-web-login:
-        specifier: workspace:*
-        version: link:../aelf-web-login
       ahooks:
         specifier: ^3.7.7
         version: 3.7.7(react@18.2.0)
@@ -257,11 +260,11 @@ importers:
         specifier: ^9.4.0
         version: 9.4.0(typescript@4.9.5)(webpack@5.88.2)
 
-  packages/login:
+  packages/react:
     dependencies:
-      '@aelf-react/core':
-        specifier: ^0.1.19
-        version: 0.1.19(react@18.2.0)
+      '@aelf-web-login/core':
+        specifier: workspace:*
+        version: link:../core
       '@portkey/contracts':
         specifier: ^1.2.2
         version: 1.2.2
@@ -314,12 +317,15 @@ importers:
 
   packages/web:
     devDependencies:
+      '@aelf-web-login/core':
+        specifier: workspace:*
+        version: link:../core
+      '@aelf-web-login/react':
+        specifier: workspace:*
+        version: link:../react
       '@types/react-dom':
         specifier: ^18.0.0
         version: 18.0.0
-      aelf-web-login:
-        specifier: workspace:*
-        version: link:../aelf-web-login
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -356,24 +362,6 @@ packages:
     resolution: {integrity: sha512-hejxDJhSI9Kor4mS9c/JHHQrW/wLXC/XMOJMUcBVkX/5IQd9GU9EW63oalNQyVA3gz3h5obnb0Qcfdv65wc5Pg==}
     dependencies:
       just-compare: 1.5.1
-    dev: false
-
-  /@aelf-react/core@0.1.19(react@18.2.0):
-    resolution: {integrity: sha512-s329rJOfpNJkw9yRkKA4yqk9iLBn0d2tYZolVt82xwThdslGgvkjf2SUsqkfR4p5cqAMzX94Dm9UdBXVtktNCw==}
-    peerDependencies:
-      react: '>=16.8'
-    dependencies:
-      '@aelf-react/types': 0.1.10
-      aelf-bridge: 0.0.10
-      react: 18.2.0
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-    dev: false
-
-  /@aelf-react/types@0.1.10:
-    resolution: {integrity: sha512-oKEI07EeL8dhUqp8ze50mCXOqAS5psoOpdmCNZaFT2R62/GPoAyvtN8oaZAUb1tycpE+eUdkdv8XDblEsIIiLA==}
     dev: false
 
   /@aelfqueen/protobufjs@6.8.9:

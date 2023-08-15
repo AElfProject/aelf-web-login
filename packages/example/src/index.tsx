@@ -2,15 +2,20 @@ import React, { useEffect, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import 'antd/dist/antd.css';
 import '@portkey/did-ui-react/dist/assets/index.css';
-// import 'aelf-web-login/dist/assets/index.css';
+import '@aelf-web-login/react/dist/assets/index.css';
 import './index.css';
 import './config';
 import App from './App';
-import { PortkeySDKProvider } from 'aelf-web-login';
+import { PortkeySDKProvider } from '@aelf-web-login/react';
 
 function Index() {
   return (
-    <PortkeySDKProvider networkType="TESTNET" chainType="aelf">
+    <PortkeySDKProvider
+      networkType="TESTNET"
+      chainType="aelf"
+      defaultChainId="AELF"
+      uiType={'Modal'}
+      design={'SocialDesign'}>
       <App />
     </PortkeySDKProvider>
   );
