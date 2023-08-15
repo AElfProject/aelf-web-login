@@ -1,34 +1,10 @@
-.content {
-  width: 500px;
+.app-theme-switch {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.example-app {
   margin: 0 auto;
-  margin-top: 100px;
-  font-size: 14px;
 }
 
-h2 {
-  padding: 10px;
-}
-
-h3 {
-  padding: 5px;
-}
-
-.buttons, .contract {
-  padding: 20px;
-}
-
-button {
-  padding: 5px;
-  margin: 10px;
-}
-
-button:disabled {
-  color: #ccc;
-  cursor: not-allowed;
-}
-
-.contract .result {
-  background: #eee;
-  padding: 5px;
-  min-height: 100px;
-}

@@ -17,7 +17,7 @@ export default function App() {
   const portkeySDK = usePortkeyUISDK();
 
   return (
-    <div>
+    <div className="example-app">
       <div>
         <Button onClick={showVConsole}>Show VConsole</Button>
         <Button onClick={() => portkeySDK.login()}>Login</Button>

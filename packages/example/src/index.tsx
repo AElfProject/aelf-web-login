@@ -1,23 +1,34 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { WebLoginProvider } from '@aelf-web-login/react';
+import { Switch } from 'antd';
 import 'antd/dist/antd.css';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import '@aelf-web-login/react/dist/assets/index.css';
 import './index.css';
 import './config';
 import App from './App';
-import { PortkeySDKProvider } from '@aelf-web-login/react';
 
 function Index() {
+  const [theme, setTheme] = useState<'dark' | 'light'>('light');
   return (
-    <PortkeySDKProvider
-      networkType="TESTNET"
-      chainType="aelf"
-      defaultChainId="AELF"
-      uiType={'Modal'}
-      design={'SocialDesign'}>
+    <WebLoginProvider
+      portkey={{
+        networkType: 'TESTNET',
+        chainType: 'aelf',
+        defaultChainId: 'AELF',
+        uiType: 'Modal',
+        design: 'Web2Design',
+        theme,
+      }}>
       <App />
-    </PortkeySDKProvider>
+      <Switch
+        className="app-theme-switch"
+        checkedChildren="dark"
+        unCheckedChildren="dark"
+        onChange={checked => setTheme(checked ? 'dark' : 'light')}
+      />
+    </WebLoginProvider>
   );
 }
 

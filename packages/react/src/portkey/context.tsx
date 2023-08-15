@@ -7,7 +7,13 @@ import { PortkeyState } from '../types';
 export type PortkeySDKProviderProps = PortkeyState & {
   customPortkeySDK?: PortkeyUISDK | (() => PortkeyUISDK);
   customPortkeyUI?: boolean;
-  children: React.ReactNode | ((portkeySDK: PortkeyUISDK) => React.ReactNode);
+  socialDesign?:
+    | {
+        logo?: string | undefined;
+        title?: string | undefined;
+      }
+    | undefined;
+  children: React.ReactNode;
 };
 
 type PortkeySDKContextType = PortkeyState & {
@@ -24,17 +30,9 @@ export function usePortkeyState(): PortkeyState {
   return useContext(PortkeySDKContext);
 }
 
-export function PortkeySDKProvider({
-  customPortkeySDK,
-  customPortkeyUI,
-  children,
-  chainType,
-  networkType,
-  theme,
-  uiType,
-  design,
-  defaultChainId,
-}: PortkeySDKProviderProps) {
+export function PortkeySDKProvider(props: PortkeySDKProviderProps) {
+  const { customPortkeySDK, customPortkeyUI, children, chainType, networkType, theme, uiType, design, defaultChainId } =
+    props;
   const signInRef = useRef<SignInInterface>(null);
   const portkeySDK = useMemo(
     () => {
@@ -67,10 +65,6 @@ export function PortkeySDKProvider({
   );
 
   const renderChildren = () => {
-    if (typeof children === 'function') {
-      return children(portkeySDK);
-    }
-
     if (customPortkeyUI) {
       return children;
     }
@@ -83,7 +77,7 @@ export function PortkeySDKProvider({
           design={design}
           uiType={uiType}
           defaultChainId={defaultChainId}
-          extraElement={<ExtraElement />}
+          extraElement={<ExtraElement {...props} />}
           onCancel={() => portkeySDK.onCancel()}
           onError={(error) => portkeySDK.onError(error)}
           onFinish={(didWalletInfo) => portkeySDK.onFinish(didWalletInfo)}
