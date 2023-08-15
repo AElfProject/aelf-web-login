@@ -1,5 +1,5 @@
 import { LoginBase } from './LoginBase';
-import { LoginState, PortkeySDKWalletInfo, WalletInfo, WalletType } from './types';
+import { ILogin, LoginState, PortkeySDKWalletInfo, WalletInfo, WalletType } from './types';
 import { DiscoverWalletInfo } from './wallets/discover';
 import { NightElfWalletInfo } from './wallets/nightElf';
 
@@ -9,26 +9,32 @@ export type WebLoginWalletInfo = WalletInfo & {
   discover?: DiscoverWalletInfo | undefined;
 };
 
-export class WebLogin extends LoginBase<WebLoginWalletInfo> {
+export abstract class WebLogin extends LoginBase<WebLoginWalletInfo> {
   walletInfo: WebLoginWalletInfo;
   walletType: WalletType = 'Unknown';
   loginState: LoginState = 'initial';
+
+  private _current: ILogin<NightElfWalletInfo | PortkeySDKWalletInfo | DiscoverWalletInfo> | undefined;
 
   constructor() {
     super();
     this.walletInfo = { address: '' };
   }
 
-  login(): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
-  logout(): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
+  abstract login(): Promise<void>;
+  abstract logout(): Promise<void>;
+
   getWalletName(): Promise<string | undefined> {
-    throw new Error('Method not implemented.');
+    if (!this._current) {
+      throw new Error('No wallet logined');
+    }
+    return this._current.getWalletName();
   }
+
   getSignature(signInfo: string): Promise<string> {
-    throw new Error('Method not implemented.');
+    if (!this._current) {
+      throw new Error('No wallet logined');
+    }
+    return this._current.getSignature(signInfo);
   }
 }

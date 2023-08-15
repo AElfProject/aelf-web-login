@@ -25,13 +25,3 @@ export interface ILogin<T extends WalletInfo> {
   getWalletName(): Promise<string | undefined>;
   getSignature(signInfo: string): Promise<string>;
 }
-
-export type PortkeySDKLoginType =
-  | 'Google'
-  | 'Apple'
-  | 'Email'
-  | 'Phone'
-  | 'Scan'
-  | 'PortkeyApp'
-  | 'Default'
-  | 'AllInOne';
