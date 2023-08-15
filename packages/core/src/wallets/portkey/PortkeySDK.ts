@@ -1,14 +1,16 @@
-import { ILogin, LoginState, PortkeySDKWalletInfo, WalletType } from '../../types';
+import { LoginBase } from '../../LoginBase';
+import { LoginState, PortkeySDKWalletInfo, WalletType } from '../../types';
 
 /**
- * implement login feature based on aelf-bridge
+ * implement login feature based on portkey sdk
  */
-export abstract class PortkeySDK implements ILogin<PortkeySDKWalletInfo> {
+export abstract class PortkeySDK extends LoginBase<PortkeySDKWalletInfo> {
   walletInfo: PortkeySDKWalletInfo;
   walletType: WalletType = 'PortkeySDK';
   loginState: LoginState = 'initial';
 
   constructor() {
+    super();
     this.walletInfo = { address: '' };
   }
 

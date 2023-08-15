@@ -1,5 +1,6 @@
 import { NightElfProvider } from './nightElf/context';
 import { PortkeySDKProvider, PortkeySDKProviderProps } from './portkey/context';
+import { DiscoverProvider } from './discover/context';
 
 export type WebLoginProps = {
   portkey: Omit<PortkeySDKProviderProps, 'children'>;
@@ -9,7 +10,9 @@ export type WebLoginProps = {
 export function WebLoginProvider(props: WebLoginProps) {
   return (
     <NightElfProvider>
-      <PortkeySDKProvider {...props.portkey}>{props.children}</PortkeySDKProvider>
+      <DiscoverProvider>
+        <PortkeySDKProvider {...props.portkey}>{props.children}</PortkeySDKProvider>
+      </DiscoverProvider>
     </NightElfProvider>
   );
 }

@@ -1,16 +1,18 @@
-import { ILogin, LoginState, WalletInfo, WalletType } from '../../types';
+import { LoginBase } from '../../LoginBase';
+import { LoginState, WalletInfo, WalletType } from '../../types';
 
 export type DiscoverWalletInfo = WalletInfo & {};
 
 /**
- * implement login feature based on aelf-bridge
+ * implement login feature based on detect provider
  */
-export class Discover implements ILogin<DiscoverWalletInfo> {
+export class Discover extends LoginBase<DiscoverWalletInfo> {
   walletInfo: DiscoverWalletInfo;
   walletType: WalletType = 'Discover';
   loginState: LoginState = 'initial';
 
   constructor() {
+    super();
     this.walletInfo = { address: '' };
   }
 

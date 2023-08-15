@@ -3,18 +3,24 @@ import { PortkeyStyleProvider } from '@portkey/did-ui-react';
 import { PortkeySDKProviderProps, usePortkeyState } from './context';
 import IconPortkey from '../icons/IconPortkey';
 import IconNightElf from '../icons/IconNightElf';
+import { useCryptoLogin } from '../hooks/useCyptoLogin';
+import { useDiscover } from '../discover/context';
+import { useNightElf } from '../nightElf/context';
 
 export default function ExtraElement(props: PortkeySDKProviderProps) {
   const portkeyState = usePortkeyState();
   const design = portkeyState.design;
 
+  const discoverLogin = useCryptoLogin(useDiscover());
+  const nightElfLogin = useCryptoLogin(useNightElf());
+
   const renderButtons = ({ iconType }: { iconType: 'circle' | 'plain' }) => {
     return (
       <>
-        <Button className="aelf-web-login-btn" icon={<IconPortkey type={iconType} />}>
+        <Button className="aelf-web-login-btn" icon={<IconPortkey type={iconType} />} onClick={discoverLogin}>
           Portkey
         </Button>
-        <Button className="aelf-web-login-btn" icon={<IconNightElf type={iconType} />}>
+        <Button className="aelf-web-login-btn" icon={<IconNightElf type={iconType} />} onClick={nightElfLogin}>
           Night Elf
         </Button>
       </>
@@ -50,11 +56,11 @@ export default function ExtraElement(props: PortkeySDKProviderProps) {
       <div className="aelf-web-login-extra crypto-design">
         <div className="title">Crypto wallet</div>
         <div className="buttons">
-          <div className="button">
+          <div className="button" onClick={discoverLogin}>
             <IconPortkey type="circle" />
             <span>Portkey</span>
           </div>
-          <div className="button">
+          <div className="button" onClick={nightElfLogin}>
             <IconNightElf type="circle" />
             <span>Night Elf</span>
           </div>

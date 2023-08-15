@@ -1,16 +1,18 @@
-import { ILogin, LoginState, WalletInfo, WalletType } from '../../types';
+import { LoginBase } from '../../LoginBase';
+import { LoginState, WalletInfo, WalletType } from '../../types';
 
 export type NightElfWalletInfo = WalletInfo & {};
 
 /**
  * implement login feature based on aelf-bridge
  */
-export class NightElf implements ILogin<NightElfWalletInfo> {
+export class NightElf extends LoginBase<NightElfWalletInfo> {
   walletInfo: NightElfWalletInfo;
   walletType: WalletType = 'NightElf';
   loginState: LoginState = 'initial';
 
   constructor() {
+    super();
     this.walletInfo = { address: '' };
   }
 
