@@ -21,6 +21,9 @@ export abstract class WebLogin extends LoginBase<WebLoginWalletInfo> {
     this.walletInfo = { address: '' };
   }
 
+  abstract setLoginEagerly(flag: boolean): void;
+  abstract canLoginEagerly(): boolean;
+  abstract loginEagerly(): Promise<void>;
   abstract login(): Promise<void>;
   abstract logout(): Promise<void>;
 

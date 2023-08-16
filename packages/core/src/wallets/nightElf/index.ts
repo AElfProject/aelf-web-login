@@ -16,6 +16,10 @@ export class NightElf extends LoginBase<NightElfWalletInfo> {
     this.walletInfo = { address: '' };
   }
 
+  loginEagerly(): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+
   login(): Promise<void> {
     throw new Error('Method not implemented.');
   }

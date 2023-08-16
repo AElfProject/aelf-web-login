@@ -3,7 +3,7 @@ import { PortkeyStyleProvider } from '@portkey/did-ui-react';
 import { PortkeySDKProviderProps, usePortkeyState } from './context';
 import IconPortkey from '../icons/IconPortkey';
 import IconNightElf from '../icons/IconNightElf';
-import { useCryptoLogin } from '../hooks/useCyptoLogin';
+import { useExtraWalletLogin } from '../hooks/useExtraWalletLogin';
 import { useDiscover } from '../discover/context';
 import { useNightElf } from '../nightElf/context';
 
@@ -11,8 +11,8 @@ export default function ExtraElement(props: PortkeySDKProviderProps) {
   const portkeyState = usePortkeyState();
   const design = portkeyState.design;
 
-  const discoverLogin = useCryptoLogin(useDiscover());
-  const nightElfLogin = useCryptoLogin(useNightElf());
+  const discoverLogin = useExtraWalletLogin(useDiscover());
+  const nightElfLogin = useExtraWalletLogin(useNightElf());
 
   const renderButtons = ({ iconType }: { iconType: 'circle' | 'plain' }) => {
     return (

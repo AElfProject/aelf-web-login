@@ -21,6 +21,8 @@ export interface ILogin<T extends WalletInfo> {
   on(event: EventType, listener: () => void): void;
   off(event: EventType, listener: () => void): void;
   login(): Promise<void>;
+  canLoginEagerly(): boolean;
+  loginEagerly(): Promise<void>;
   logout(): Promise<void>;
   getWalletName(): Promise<string | undefined>;
   getSignature(signInfo: string): Promise<string>;
