@@ -4,3 +4,4 @@ export * from './wallets/discover';
 export * from './types';
 export * from './errors';
 export * from './webLogin';
+export * from './utils/newCancalablePromise';

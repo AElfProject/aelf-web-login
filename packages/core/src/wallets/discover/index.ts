@@ -1,5 +1,5 @@
 import { LoginBase } from '../../LoginBase';
-import { LoginState, WalletInfo, WalletType } from '../../types';
+import { CancelablePromise, LoginState, WalletInfo, WalletType } from '../../types';
 
 export type DiscoverWalletInfo = WalletInfo & {};
 
@@ -20,7 +20,7 @@ export class Discover extends LoginBase<DiscoverWalletInfo> {
     throw new Error('Method not implemented.');
   }
 
-  login(): Promise<void> {
+  login(): CancelablePromise<void> {
     throw new Error('Method not implemented.');
   }
   logout(): Promise<void> {

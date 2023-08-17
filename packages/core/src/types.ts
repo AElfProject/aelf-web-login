@@ -1,4 +1,4 @@
-import type { DIDWalletInfo } from '@portkey/did-ui-react';
+import CancelablePromiseImpl from 'cancelable-promise';
 
 export type LoginState = 'initial' | 'logining' | 'logined' | 'logouting';
 
@@ -8,22 +8,27 @@ export type WalletInfo = {
   address: string;
 };
 
-export type EventType = 'logined';
+export type EventType = 'logined' | 'cancelLogin' | 'commonError';
 
-export type PortkeySDKWalletInfo = WalletInfo & {
-  didWalletInfo?: DIDWalletInfo | undefined;
-};
-
-export interface ILogin<T extends WalletInfo> {
+export interface ILogin<W extends WalletInfo> {
   walletType: WalletType;
-  walletInfo: T;
+  walletInfo: W;
   loginState: LoginState;
-  on(event: EventType, listener: () => void): void;
-  off(event: EventType, listener: () => void): void;
-  login(): Promise<void>;
+  on<T>(event: EventType, listener: (data: T) => void): void;
+  off<T>(event: EventType, listener: (data: T) => void): void;
+  emit<T>(event: EventType, data: T): void;
+  login(): CancelablePromise<void>;
   canLoginEagerly(): boolean;
   loginEagerly(): Promise<void>;
   logout(): Promise<void>;
   getWalletName(): Promise<string | undefined>;
   getSignature(signInfo: string): Promise<string>;
 }
+
+export type CancelablePromise<T> = CancelablePromiseImpl<T>;
+
+export type CancelablePromiseExecutor<T> = (
+  resolve: (value: T | PromiseLike<T>) => void,
+  reject: (reason?: any) => void,
+  onCancel: (cancelHandler: () => void) => void,
+) => void;

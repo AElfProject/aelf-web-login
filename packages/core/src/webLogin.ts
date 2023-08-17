@@ -1,7 +1,8 @@
 import { LoginBase } from './LoginBase';
-import { ILogin, LoginState, PortkeySDKWalletInfo, WalletInfo, WalletType } from './types';
+import { CancelablePromise, ILogin, LoginState, WalletInfo, WalletType } from './types';
 import { DiscoverWalletInfo } from './wallets/discover';
 import { NightElfWalletInfo } from './wallets/nightElf';
+import { PortkeySDKWalletInfo } from './wallets/portkey';
 
 export type WebLoginWalletInfo = WalletInfo & {
   nightElf?: NightElfWalletInfo | undefined;
@@ -14,7 +15,7 @@ export abstract class WebLogin extends LoginBase<WebLoginWalletInfo> {
   walletType: WalletType = 'Unknown';
   loginState: LoginState = 'initial';
 
-  private _current: ILogin<NightElfWalletInfo | PortkeySDKWalletInfo | DiscoverWalletInfo> | undefined;
+  protected _current: ILogin<NightElfWalletInfo | PortkeySDKWalletInfo | DiscoverWalletInfo> | undefined;
 
   constructor() {
     super();
@@ -24,7 +25,7 @@ export abstract class WebLogin extends LoginBase<WebLoginWalletInfo> {
   abstract setLoginEagerly(flag: boolean): void;
   abstract canLoginEagerly(): boolean;
   abstract loginEagerly(): Promise<void>;
-  abstract login(): Promise<void>;
+  abstract login(): CancelablePromise<void>;
   abstract logout(): Promise<void>;
 
   getWalletName(): Promise<string | undefined> {

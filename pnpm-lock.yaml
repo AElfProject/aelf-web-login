@@ -68,6 +68,9 @@ importers:
       browser-resolve:
         specifier: ^2.0.0
         version: 2.0.0
+      concurrently:
+        specifier: ^8.2.0
+        version: 8.2.0
       css-loader:
         specifier: ^6.8.1
         version: 6.8.1(webpack@5.88.2)
@@ -170,6 +173,9 @@ importers:
       '@portkey/detect-provider':
         specifier: 1.0.1-alpha.0
         version: 1.0.1-alpha.0
+      '@portkey/did':
+        specifier: ^1.2.2
+        version: 1.2.2(react-dom@18.0.0)
       '@portkey/did-ui-react':
         specifier: ^1.2.2
         version: 1.2.2(i18next@22.5.1)(react-dom@18.0.0)(react@18.2.0)
@@ -197,6 +203,9 @@ importers:
       antd:
         specifier: ^4.24.4
         version: 4.24.4(react-dom@18.0.0)(react@18.2.0)
+      cancelable-promise:
+        specifier: ^4.3.1
+        version: 4.3.1
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -271,6 +280,9 @@ importers:
       '@portkey/detect-provider':
         specifier: 1.0.1-alpha.0
         version: 1.0.1-alpha.0
+      '@portkey/did':
+        specifier: ^1.2.2
+        version: 1.2.2(react-dom@18.0.0)
       '@portkey/did-ui-react':
         specifier: ^1.2.2
         version: 1.2.2(i18next@22.5.1)(react-dom@18.0.0)(react@18.2.0)
@@ -5393,6 +5405,10 @@ packages:
     resolution: {integrity: sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==}
     engines: {node: '>=10'}
 
+  /cancelable-promise@4.3.1:
+    resolution: {integrity: sha512-A/8PwLk/T7IJDfUdQ68NR24QHa8rIlnN/stiJEBo6dmVUkD4K14LswG0w3VwdeK/o7qOwRUR1k2MhK5Rpy2m7A==}
+    dev: false
+
   /caniuse-api@3.0.0:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
@@ -5685,6 +5701,22 @@ packages:
     resolution: {integrity: sha512-4gEjHJFT9e+2W/77h/DS5SGUgwDaOwprX8L/gl5+3ixnzkVJJsZWDSelmN3Oilw3LNDZjZV0yqH1hLG3k6nghg==}
     dependencies:
       source-map: 0.6.1
+    dev: true
+
+  /concurrently@8.2.0:
+    resolution: {integrity: sha512-nnLMxO2LU492mTUj9qX/az/lESonSZu81UznYDoXtz1IQf996ixVqPAgHXwvHiHCAef/7S8HIK+fTFK7Ifk8YA==}
+    engines: {node: ^14.13.0 || >=16.0.0}
+    hasBin: true
+    dependencies:
+      chalk: 4.1.2
+      date-fns: 2.30.0
+      lodash: 4.17.21
+      rxjs: 7.8.1
+      shell-quote: 1.8.1
+      spawn-command: 0.0.2
+      supports-color: 8.1.1
+      tree-kill: 1.2.2
+      yargs: 17.7.2
     dev: true
 
   /confusing-browser-globals@1.0.11:
@@ -6130,7 +6162,6 @@ packages:
     engines: {node: '>=0.11'}
     dependencies:
       '@babel/runtime': 7.22.5
-    dev: false
 
   /dayjs@1.11.8:
     resolution: {integrity: sha512-LcgxzFoWMEPO7ggRv1Y2N31hUf2R0Vj7fuy/m+Bg1K8rr+KAs1AEy4y9jd5DXe8pbHgX+srkHNS7TH6Q6ZhYeQ==}
@@ -13451,6 +13482,10 @@ packages:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
     deprecated: Please use @jridgewell/sourcemap-codec instead
 
+  /spawn-command@0.0.2:
+    resolution: {integrity: sha512-zC8zGoGkmc8J9ndvml8Xksr1Amk9qBujgbF0JAIWO7kXr43w0h/0GJNM/Vustixu+YE8N/MTrQ7N31FvHUACxQ==}
+    dev: true
+
   /spdx-correct@3.2.0:
     resolution: {integrity: sha512-kN9dJbvnySHULIluDHy32WHRUu3Og7B9sbY7tsFLctQkIqnMh3hErYgdMjTYuqmcXX+lK5T1lnUt3G7zNswmZA==}
     dependencies:
@@ -14069,6 +14104,11 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       punycode: 2.3.0
+    dev: true
+
+  /tree-kill@1.2.2:
+    resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
+    hasBin: true
     dev: true
 
   /trim-newlines@3.0.1:

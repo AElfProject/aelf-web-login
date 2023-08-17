@@ -1,7 +1,9 @@
-import { DIDWalletInfo, SignInInterface } from '@portkey/did-ui-react';
-import { PortkeySDK, makeError, ERR_CODE } from '@aelf-web-login/core';
+import { DIDWalletInfo, SignInInterface, did } from '@portkey/did-ui-react';
+import { PortkeySDK, makeError, ERR_CODE, CancelablePromise, newCancelablePromise } from '@aelf-web-login/core';
 import { RefObject } from 'react';
 import { PortkeyState, PromiseHolder } from '../types';
+
+const ORIGIN_CHAIN_ID_KEY = `AElf.PortkeyUISDK.OriginChainId`;
 
 export class PortkeyUISDK extends PortkeySDK {
   readonly portkeyState: PortkeyState;
@@ -22,10 +24,23 @@ export class PortkeyUISDK extends PortkeySDK {
   }
 
   loginEagerly(): Promise<void> {
-    throw new Error('Method not implemented.');
+    if (this.canLoginEagerly()) {
+      Promise.reject(makeError(ERR_CODE.LOGIN_EAGERLY_FAIL));
+    }
+    this.loginState = 'logining';
+    this.setUnlockOpen(true);
+    return new Promise((resolve, reject) => {
+      this._promiseHolder = {
+        resolve: () => {
+          this.setUnlockOpen(false);
+          resolve();
+        },
+        reject,
+      };
+    });
   }
 
-  login(): Promise<void> {
+  login(): CancelablePromise<void> {
     if (this.portkeyState.uiType !== 'Modal') {
       throw new Error('login only support Modal uiType');
     }
@@ -36,15 +51,27 @@ export class PortkeyUISDK extends PortkeySDK {
     const signIn = this.signInfRef.current!;
     signIn.setOpen(true);
 
-    return new Promise((resolve, reject) => {
+    return newCancelablePromise((resolve, reject, onCancel) => {
+      onCancel(() => {
+        this.loginState = 'initial';
+        this._promiseHolder = undefined;
+        signIn.setOpen(false);
+      });
       this._promiseHolder = {
-        resolve,
-        reject,
+        resolve: () => {
+          signIn.setOpen(false);
+          resolve();
+        },
+        reject: (error: any) => {
+          reject(error);
+        },
       };
     });
   }
 
   logout(): Promise<void> {
+    localStorage.removeItem(ORIGIN_CHAIN_ID_KEY);
+    this.setLoginEagerly(false);
     throw new Error('Method not implemented.');
   }
 
@@ -56,22 +83,36 @@ export class PortkeyUISDK extends PortkeySDK {
     this.loginState = 'logined';
     this.walletInfo = {
       address: didWalletInfo?.caInfo.caAddress || '',
-      didWalletInfo,
+      originChainId: didWalletInfo.chainId,
+      did: did,
     };
+    localStorage.setItem(ORIGIN_CHAIN_ID_KEY, didWalletInfo.chainId);
+    this.setLoginEagerly(true);
     this._promiseHolder?.resolve();
   }
 
   onError(error: any) {
     if (this.loginState !== 'logining') {
+      console.error(error);
       console.warn('onError called when loginState is not logining', this.loginState);
+      this.emit('commonError', {
+        code: ERR_CODE.PORTKEY_SDK_COMMON_ERROR,
+        error: error,
+      });
       return;
     }
     this.loginState = 'initial';
     this._promiseHolder?.reject(error);
   }
 
-  onUnlock(didWalletInfo: DIDWalletInfo) {
-    throw new Error('Method not implemented.');
+  onUnlock() {
+    this.loginState = 'logined';
+    this.walletInfo = {
+      address: did.didWallet!.caInfo[this.portkeyState.defaultChainId]?.caAddress || '',
+      originChainId: localStorage.getItem(ORIGIN_CHAIN_ID_KEY) || undefined,
+      did: did,
+    };
+    this._promiseHolder?.resolve();
   }
 
   onCancel() {

@@ -14,6 +14,7 @@ function Index() {
   return (
     <WebLoginProvider
       portkey={{
+        appName: 'WebLogin.example',
         networkType: 'TESTNET',
         chainType: 'aelf',
         defaultChainId: 'AELF',

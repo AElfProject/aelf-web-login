@@ -1,8 +1,8 @@
-import { EventType, ILogin, LoginState, WalletInfo, WalletType } from './types';
+import { CancelablePromise, EventType, ILogin, LoginState, WalletInfo, WalletType } from './types';
 import { EventEmitter } from 'events';
 
-export abstract class LoginBase<T extends WalletInfo> implements ILogin<T> {
-  abstract walletInfo: T;
+export abstract class LoginBase<W extends WalletInfo> implements ILogin<W> {
+  abstract walletInfo: W;
   abstract walletType: WalletType;
   abstract loginState: LoginState;
 
@@ -16,11 +16,15 @@ export abstract class LoginBase<T extends WalletInfo> implements ILogin<T> {
     return `AElf.WebLogin.${this.walletType}.loginEagerly`;
   }
 
-  on(event: EventType, listener: () => void): void {
+  on<T>(event: EventType, listener: (data: T) => void): void {
     this._events.on(event, listener);
   }
-  off(event: EventType, listener: () => void): void {
+  off<T>(event: EventType, listener: (data: T) => void): void {
     this._events.off(event, listener);
+  }
+
+  emit<T>(event: EventType, data: T) {
+    this._events.emit(event, data);
   }
 
   canLoginEagerly(): boolean {
@@ -37,7 +41,7 @@ export abstract class LoginBase<T extends WalletInfo> implements ILogin<T> {
   }
 
   abstract loginEagerly(): Promise<void>;
-  abstract login(): Promise<void>;
+  abstract login(): CancelablePromise<void>;
   abstract logout(): Promise<void>;
   abstract getWalletName(): Promise<string | undefined>;
   abstract getSignature(signInfo: string): Promise<string>;

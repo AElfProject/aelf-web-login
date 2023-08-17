@@ -1,5 +1,11 @@
+import { DID } from '@portkey/did';
 import { LoginBase } from '../../LoginBase';
-import { LoginState, PortkeySDKWalletInfo, WalletType } from '../../types';
+import { CancelablePromise, LoginState, WalletInfo, WalletType } from '../../types';
+
+export type PortkeySDKWalletInfo = WalletInfo & {
+  originChainId?: string;
+  did?: DID;
+};
 
 /**
  * implement login feature based on portkey sdk
@@ -21,6 +27,6 @@ export abstract class PortkeySDK extends LoginBase<PortkeySDKWalletInfo> {
     throw new Error('Method not implemented.');
   }
 
-  abstract login(): Promise<void>;
+  abstract login(): CancelablePromise<void>;
   abstract logout(): Promise<void>;
 }
