@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { WebLoginProvider } from '@aelf-web-login/react';
+import { WebLoginProvider, useWebLogin } from '@aelf-web-login/react';
+import { SDKDelegate } from './sdk';
+
+const delegate: SDKDelegate = {} as any;
+
+function SDKContent() {
+  const webLogin = useWebLogin();
+  delegate.webLogin = webLogin;
+  return <></>;
+}
 
 function SDKRoot() {
   const [theme, setTheme] = useState<'dark' | 'light'>('light');
+  delegate.setTheme = setTheme;
 
   return (
     <WebLoginProvider
@@ -16,7 +26,7 @@ function SDKRoot() {
         design: 'Web2Design',
         theme,
       }}>
-      <></>
+      <SDKContent />
     </WebLoginProvider>
   );
 }
@@ -30,4 +40,5 @@ export default function setup() {
       <SDKRoot />
     </React.StrictMode>,
   );
+  return delegate;
 }

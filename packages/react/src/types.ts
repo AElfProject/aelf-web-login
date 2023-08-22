@@ -1,6 +1,8 @@
 import type { TDesign, Theme, UI_TYPE } from '@portkey/did-ui-react';
 import type { ChainId, ChainType, NetworkType } from '@portkey/provider-types';
 
+export type { Theme } from '@portkey/did-ui-react';
+
 export type PortkeyState = {
   defaultChainId: ChainId;
   theme?: Theme;

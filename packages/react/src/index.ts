@@ -3,3 +3,4 @@ export * from './portkey/PortkeyUISDK';
 export * from './portkey/ExtraElement';
 export * from './context';
 export * from './webLogin';
+export * from './types';

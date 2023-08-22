@@ -1,10 +1,17 @@
+import { SDK } from './sdk';
 import setup from './setup';
 
-export class SDK {
-  setup = setup;
-  login() {
-    console.log('login');
-  }
-}
+const setupSDK = (() => {
+  let sdk: SDK | undefined = undefined;
+  return () => {
+    if (sdk) return sdk;
+    const delegate = setup();
+    sdk = new SDK(delegate);
+    return sdk;
+  };
+})();
 
-export default new SDK();
+export default {
+  SDK,
+  setupSDK,
+};
