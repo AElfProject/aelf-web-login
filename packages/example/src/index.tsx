@@ -19,7 +19,7 @@ function Index() {
         chainType: 'aelf',
         defaultChainId: 'AELF',
         uiType: 'Modal',
-        design: 'Web2Design',
+        design: 'SocialDesign',
         theme,
       }}>
       <App />

@@ -1,12 +1,23 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { PortkeySDKProvider } from 'aelf-web-login';
+import { WebLoginProvider } from '@aelf-web-login/react';
 
 function SDKRoot() {
+  const [theme, setTheme] = useState<'dark' | 'light'>('light');
+
   return (
-    <PortkeySDKProvider networkType="TESTNET" chainType="aelf">
+    <WebLoginProvider
+      portkey={{
+        appName: 'WebLogin.example',
+        networkType: 'TESTNET',
+        chainType: 'aelf',
+        defaultChainId: 'AELF',
+        uiType: 'Modal',
+        design: 'Web2Design',
+        theme,
+      }}>
       <></>
-    </PortkeySDKProvider>
+    </WebLoginProvider>
   );
 }
 

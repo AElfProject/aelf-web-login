@@ -3,12 +3,13 @@ import { PortkeyProvider, SignIn, SignInInterface, Unlock, did } from '@portkey/
 import { PortkeyUISDK } from './PortkeyUISDK';
 import ExtraElement from './ExtraElement';
 import { PortkeyState } from '../types';
-import { ChainId } from '@portkey/types';
 
 export type PortkeySDKProviderProps = PortkeyState & {
   appName: string;
   customPortkeySDK?: PortkeyUISDK | (() => PortkeyUISDK);
   customPortkeyUI?: boolean;
+  showNightElf?: boolean;
+  showDiscover?: boolean;
   socialDesign?:
     | {
         logo?: string | undefined;

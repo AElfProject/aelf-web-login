@@ -31,8 +31,8 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "start": "tsc --watch",
+    "test": "jest",
     "lint": "eslint . --ext .tsx,.ts",
-    "lint:md": "remark . -f -q",
     "dev": "pnpm run dev:tsc & pnpm run dev:types",
     "dev:tsc": "tsc --p tsconfig.esm.json --watch",
     "dev:types": "tsc --emitDeclarationOnly --p tsconfig.types.json --watch",

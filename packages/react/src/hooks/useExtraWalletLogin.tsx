@@ -4,7 +4,7 @@ export type CryptoWalletType = 'discover' | 'nightElf';
 
 export function useExtraWalletLogin<T extends WalletInfo>(login: ILogin<T>) {
   const handleLogin = () => login.login();
-  // TODO: debounce
-  // TODO: click logic
+  // TODO debounce
+  // TODO check env
   return handleLogin;
 }

@@ -10,19 +10,27 @@ import { useNightElf } from '../nightElf/context';
 export default function ExtraElement(props: PortkeySDKProviderProps) {
   const portkeyState = usePortkeyState();
   const design = portkeyState.design;
+  const showDiscover = props.showDiscover !== false;
+  const showNightElf = props.showNightElf !== false;
 
   const discoverLogin = useExtraWalletLogin(useDiscover());
   const nightElfLogin = useExtraWalletLogin(useNightElf());
 
+  if (!showDiscover && !showDiscover) return <></>;
+
   const renderButtons = ({ iconType }: { iconType: 'circle' | 'plain' }) => {
     return (
       <>
-        <Button className="aelf-web-login-btn" icon={<IconPortkey type={iconType} />} onClick={discoverLogin}>
-          Portkey
-        </Button>
-        <Button className="aelf-web-login-btn" icon={<IconNightElf type={iconType} />} onClick={nightElfLogin}>
-          Night Elf
-        </Button>
+        {showDiscover && (
+          <Button className="aelf-web-login-btn" icon={<IconPortkey type={iconType} />} onClick={discoverLogin}>
+            Portkey
+          </Button>
+        )}
+        {showNightElf && (
+          <Button className="aelf-web-login-btn" icon={<IconNightElf type={iconType} />} onClick={nightElfLogin}>
+            Night Elf
+          </Button>
+        )}
       </>
     );
   };
@@ -56,14 +64,18 @@ export default function ExtraElement(props: PortkeySDKProviderProps) {
       <div className="aelf-web-login-extra crypto-design">
         <div className="title">Crypto wallet</div>
         <div className="buttons">
-          <div className="button" onClick={discoverLogin}>
-            <IconPortkey type="circle" />
-            <span>Portkey</span>
-          </div>
-          <div className="button" onClick={nightElfLogin}>
-            <IconNightElf type="circle" />
-            <span>Night Elf</span>
-          </div>
+          {showDiscover && (
+            <div className="button" onClick={discoverLogin}>
+              <IconPortkey type="circle" />
+              <span>Portkey</span>
+            </div>
+          )}
+          {showNightElf && (
+            <div className="button" onClick={nightElfLogin}>
+              <IconNightElf type="circle" />
+              <span>Night Elf</span>
+            </div>
+          )}
         </div>
       </div>
     </PortkeyStyleProvider>
