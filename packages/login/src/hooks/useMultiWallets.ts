@@ -65,7 +65,7 @@ function useLoginBySwitch() {
 
 export default function useMultiWallets(): SwitchWalletsHook {
   const webLoginContext = useWebLoginContext();
-  const [switchingWalletType, setSwitchingWalletType] = useState<WalletType>(WalletType.unknown);
+  const { switching, switchingWallet, setSwitingWallet } = webLoginContext._multiWallets;
   const { nigthElf, portkey, discover } = webLoginContext._api;
   const currentWalletType = webLoginContext.walletType;
 
@@ -76,7 +76,7 @@ export default function useMultiWallets(): SwitchWalletsHook {
       if (currentWalletType === WalletType.unknown) {
         throw new Error('Please login first');
       }
-      setSwitchingWalletType(walletType as WalletType);
+      setSwitingWallet(walletType as WalletType);
       let switchWalletFunc: SwitchWalletFunc;
       switch (currentWalletType) {
         case 'elf':
@@ -102,15 +102,22 @@ export default function useMultiWallets(): SwitchWalletsHook {
         }
       });
 
-      setSwitchingWalletType(WalletType.unknown);
+      setSwitingWallet(WalletType.unknown);
     },
-    [currentWalletType, discover.switchWallet, loginBySwitch, nigthElf.switchWallet, portkey.switchWallet],
+    [
+      currentWalletType,
+      discover.switchWallet,
+      loginBySwitch,
+      nigthElf.switchWallet,
+      portkey.switchWallet,
+      setSwitingWallet,
+    ],
   );
 
   return {
     current: webLoginContext.walletType,
-    switchingWallet: switchingWalletType,
-    switching: switchingWalletType !== WalletType.unknown,
+    switchingWallet,
+    switching,
     wallets: {
       nightElf: nigthElf.wallet,
       portkey: portkey.wallet,

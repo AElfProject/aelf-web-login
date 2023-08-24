@@ -1,5 +1,5 @@
 import type { AElfContextType } from '@aelf-react/core/dist/types';
-import { DIDWalletInfo } from '@portkey/did-ui-react';
+import { DIDWalletInfo, ISignIn } from '@portkey/did-ui-react';
 import type { IHolderInfo } from '@portkey/services';
 import type { Accounts, ChainIds, IPortkeyProvider } from '@portkey/provider-types';
 import type { RefAttributes } from 'react';
@@ -22,7 +22,7 @@ export type NightElfOptions = {
 export type PortkeyOptions = {
   autoShowUnlock: boolean;
   checkAccountInfoSync: boolean;
-  SignInComponent?: React.FC<SignInProps & RefAttributes<unknown>>;
+  SignInComponent?: React.FC<SignInProps & RefAttributes<ISignIn>>;
   ConfirmLogoutDialog?: React.FC<Partial<ConfirmLogoutDialogProps>>;
   design?: TDesign;
 };

@@ -104,15 +104,18 @@ export function useElf({
 
   const login = useCallback(async () => {
     let timer;
+    let isTimeout = false;
     try {
       setLoginState(WebLoginState.logining);
       timer = setTimeout(() => {
+        isTimeout = true;
         timeoutLoginingRef.current();
       }, 8000);
       console.log('activate');
       await activate(nodes);
       console.log('activated');
     } catch (e) {
+      if (isTimeout) return;
       setLoading(false);
       setLoginError(e);
       setLoginState(WebLoginState.initial);

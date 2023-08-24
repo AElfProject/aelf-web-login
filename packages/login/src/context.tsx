@@ -44,6 +44,12 @@ export type WebLoginInternalInterface = {
     portkey: WalletHookInterface;
     discover: WalletHookInterface;
   };
+  _multiWallets: {
+    current: WalletType;
+    switchingWallet: WalletType;
+    switching: boolean;
+    setSwitingWallet: (walletType: WalletType) => void;
+  };
 };
 
 export type WebLoginContextType = WebLoginInterface & WebLoginInternalInterface;
@@ -67,6 +73,7 @@ function WebLoginProvider({
   const [loginState, setLoginState] = useState(WebLoginState.initial);
   const [loginError, setLoginError] = useState<any | unknown>();
   const [walletType, setWalletType] = useState<WalletType>(WalletType.unknown);
+  const [switchingWalletType, setSwitchingWalletType] = useState<WalletType>(WalletType.unknown);
 
   const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
   const [logoutConfirmResult, setLogoutConfirmResult] = useState<LogoutConfirmResult>(LogoutConfirmResult.default);
@@ -186,6 +193,15 @@ function WebLoginProvider({
       return { ...invalidApi, login: portkeyApi.login, loginEagerly: portkeyApi.loginEagerly };
     }
     if (loginState === WebLoginState.logining) {
+      if (switchingWalletType !== WalletType.unknown) {
+        if (walletType === WalletType.elf) {
+          return elfApi;
+        } else if (walletType === WalletType.portkey) {
+          return portkeyApi;
+        } else if (walletType === WalletType.discover) {
+          return discoverApi;
+        }
+      }
       return { ...invalidApi };
     }
     if (loginState === WebLoginState.logined) {
@@ -279,22 +295,29 @@ function WebLoginProvider({
         portkey: portkeyApi,
         discover: discoverApi,
       },
+      _multiWallets: {
+        current: walletType,
+        switchingWallet: switchingWalletType,
+        switching: switchingWalletType !== WalletType.unknown,
+        setSwitingWallet: setSwitchingWalletType,
+      },
       ...walletApi,
       login: loginInternal,
       logout: logoutInternal,
     }),
     [
       loginId,
-      discoverApi,
-      elfApi,
-      eventEmitter,
-      loginError,
-      loginInternal,
       loginState,
-      logoutInternal,
-      portkeyApi,
-      walletApi,
+      loginError,
+      eventEmitter,
       walletType,
+      elfApi,
+      portkeyApi,
+      discoverApi,
+      switchingWalletType,
+      walletApi,
+      loginInternal,
+      logoutInternal,
     ],
   );
 
