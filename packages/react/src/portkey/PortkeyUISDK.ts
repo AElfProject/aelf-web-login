@@ -2,6 +2,7 @@ import { DIDWalletInfo, SignInInterface, did } from '@portkey/did-ui-react';
 import { PortkeySDK, makeError, ERR_CODE, CancelablePromise, newCancelablePromise } from '@aelf-web-login/core';
 import { RefObject } from 'react';
 import { PortkeyState, PromiseHolder } from '../types';
+import { ChainId } from '@portkey/types';
 
 const ORIGIN_CHAIN_ID_KEY = `AElf.PortkeyUISDK.OriginChainId`;
 
@@ -69,10 +70,19 @@ export class PortkeyUISDK extends PortkeySDK {
     });
   }
 
-  logout(): Promise<void> {
-    localStorage.removeItem(ORIGIN_CHAIN_ID_KEY);
+  async logout(): Promise<void> {
+    if (this.loginState !== 'logined') {
+      throw new Error(`call logout when loginState is ${this.loginState}`);
+    }
+    const originChainId = localStorage.getItem(ORIGIN_CHAIN_ID_KEY);
+    if (originChainId && this.walletInfo.did) {
+      await this.walletInfo.did.logout({
+        chainId: originChainId as ChainId,
+      });
+    }
     this.setLoginEagerly(false);
-    throw new Error('Method not implemented.');
+    localStorage.removeItem(ORIGIN_CHAIN_ID_KEY);
+    this.loginState = 'initial';
   }
 
   onFinish(didWalletInfo: DIDWalletInfo) {
@@ -92,17 +102,12 @@ export class PortkeyUISDK extends PortkeySDK {
   }
 
   onError(error: any) {
-    if (this.loginState !== 'logining') {
-      console.error(error);
-      console.warn('onError called when loginState is not logining', this.loginState);
-      this.emit('commonError', {
-        code: ERR_CODE.PORTKEY_SDK_COMMON_ERROR,
-        error: error,
-      });
-      return;
-    }
-    this.loginState = 'initial';
-    this._promiseHolder?.reject(error);
+    console.error(error);
+    console.warn('onError called when loginState is not logining', this.loginState);
+    this.emit('commonError', {
+      code: ERR_CODE.PORTKEY_SDK_COMMON_ERROR,
+      error: error,
+    });
   }
 
   onUnlock() {

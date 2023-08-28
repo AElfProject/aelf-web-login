@@ -33,6 +33,7 @@
     "start": "tsc --watch",
     "lint": "eslint . --ext .tsx,.ts",
     "lint:md": "remark . -f -q",
+    "test": "jest",
     "dev": "pnpm run dev:tsc & pnpm run dev:types",
     "dev:tsc": "tsc --p tsconfig.esm.json --watch",
     "dev:types": "tsc --emitDeclarationOnly --p tsconfig.types.json --watch",

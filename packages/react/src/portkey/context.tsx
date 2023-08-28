@@ -87,12 +87,7 @@ export function PortkeySDKProvider(props: PortkeySDKProviderProps) {
       setIsWrongPassword(false);
       setPassword('');
 
-      // const didWalletInfo: DIDWalletInfo = {
-      //   pin: password,
-      //   chainId: originChainId as ChainId,
-      //   walletInfo: localWallet.didWallet.managementAccount!.wallet as any,
-      //   accountInfo: localWallet.didWallet.accountInfo as any,
-      // };
+      portkeySDK.onUnlock();
     } catch (error) {
       setIsWrongPassword(true);
       return;

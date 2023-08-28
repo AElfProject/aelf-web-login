@@ -26,7 +26,4 @@ export abstract class PortkeySDK extends LoginBase<PortkeySDKWalletInfo> {
   getSignature(signInfo: string): Promise<string> {
     throw new Error('Method not implemented.');
   }
-
-  abstract login(): CancelablePromise<void>;
-  abstract logout(): Promise<void>;
 }
