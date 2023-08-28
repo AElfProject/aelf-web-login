@@ -1,0 +1,71 @@
+{
+  "name": "@aelf-web-login/core",
+  "version": "0.1.0",
+  "main": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": "./dist/esm/index.js",
+    "./dist/assets/index.css": "./dist/assets/index.css"
+  },
+  "type": "module",
+  "module": "./dist/esm/index.js",
+  "keywords": [
+    "antd",
+    "portkey"
+  ],
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AElf-devops/aelf-web-login.git",
+    "directory": "packages/login"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "start": "tsc --watch",
+    "test": "jest",
+    "lint": "eslint . --ext .tsx,.ts",
+    "dev": "pnpm run dev:tsc & pnpm run dev:types",
+    "dev:tsc": "tsc --p tsconfig.esm.json --watch",
+    "dev:types": "tsc --emitDeclarationOnly --p tsconfig.types.json --watch",
+    "build:clean": "rm -rf dist",
+    "build:types": "tsc --emitDeclarationOnly --p tsconfig.types.json",
+    "build:tsc": "tsc --p tsconfig.esm.json",
+    "build:cjs": "tsc --p tsconfig.cjs.json",
+    "build:umd": "rollup --silent --config rollup.config.js",
+    "build": "npm run build:clean; npm run build:types && npm run build:tsc && npm run build:umd",
+    "release": "yarn version && yarn build",
+    "pub": "npm publish"
+  },
+  "dependencies": {
+    "@portkey/contracts": "^1.2.2",
+    "@portkey/detect-provider": "1.0.1-alpha.0",
+    "@portkey/did": "^1.2.2",
+    "@portkey/did-ui-react": "^1.2.2",
+    "@portkey/provider-types": "1.0.1-alpha.0",
+    "@portkey/services": "^1.2.2",
+    "@portkey/types": "^1.2.2",
+    "@portkey/utils": "^1.2.2",
+    "aelf-bridge": "^0.0.10",
+    "aelf-sdk": "^3.2.40",
+    "ahooks": "^3.7.7",
+    "antd": "^4.24.4",
+    "cancelable-promise": "^4.3.1",
+    "ismobilejs": "^1.1.1",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@types/uuid": "^8.3.4",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "less": "^4.1.3"
+  }
+}
