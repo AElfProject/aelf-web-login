@@ -4,8 +4,9 @@ import type { IHolderInfo } from '@portkey/services';
 import type { Accounts, ChainIds, IPortkeyProvider } from '@portkey/provider-types';
 import type { RefAttributes } from 'react';
 import { ConfirmLogoutDialogProps } from './components/CofirmLogoutDialog';
-import { SendOptions } from '@portkey/types';
+import { ChainId, SendOptions } from '@portkey/types';
 import { SignInProps, TDesign } from '@portkey/did-ui-react';
+import { IPortkeyContract } from '@portkey/contracts';
 
 /**
  * WebLoginProvider types
@@ -159,3 +160,11 @@ export type ContractHookOptions = {
   rpcUrl?: string;
   cache?: boolean;
 };
+
+export interface IPortkeySendAdapterProps<T> {
+  caContract: IPortkeyContract;
+  didWalletInfo: DIDWalletInfo;
+  params: CallContractParams<T>;
+  chainId: ChainId;
+  sendOptions: SendOptions | undefined;
+}

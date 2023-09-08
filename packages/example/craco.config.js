@@ -1,21 +1,24 @@
 /* eslint-disable */
-const path = require("path");
+const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
   webpack: {
     configure: (webpackConfig, arg) => {
-      webpackConfig.module.rules = [...webpackConfig.module.rules, {
-        test: /\.m?js$/,
-        resolve: {
-          fullySpecified: false,
+      webpackConfig.module.rules = [
+        ...webpackConfig.module.rules,
+        {
+          test: /\.m?js$/,
+          resolve: {
+            fullySpecified: false,
+          },
         },
-      }];
+      ];
       webpackConfig.resolve.fallback = {
         ...webpackConfig.resolve.fallback,
-        "events": require.resolve("events/"),
-        "buffer": require.resolve("buffer/")
-      }
+        events: require.resolve('events/'),
+        buffer: require.resolve('buffer/'),
+      };
       return webpackConfig;
     },
     plugins: {
@@ -23,28 +26,28 @@ module.exports = {
         new webpack.ProvidePlugin({
           Buffer: ['buffer', 'Buffer'],
         }),
-      ]
+      ],
     },
   },
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://did-portkey-test.portkey.finance',
+        target: 'https://localtest-applesign.portkey.finance', //https://localtest-applesign.portkey.finance',
         changeOrigin: true,
         secure: true,
       },
       '/connect': {
-        target: "https://auth-portkey-test.portkey.finance",
+        target: 'http://192.168.66.240:8080', //'https://auth-portkey-test.portkey.finance',
         changeOrigin: true,
         secure: true,
       },
       '/AElfIndexer_DApp/PortKeyIndexerCASchema': {
         // source: '/AElfIndexer_DApp/:path*',
         // target: 'http://192.168.67.172:8083',
-        target: 'https://dapp-portkey-test.portkey.finance',
+        target: 'http://192.168.67.172:8083/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql', //'https://dapp-portkey-test.portkey.finance',
         changeOrigin: true,
         secure: true,
-      }
+      },
     },
   },
 };

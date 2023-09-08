@@ -12,12 +12,10 @@ import {
   WalletHookInterface,
 } from '../../types';
 import { WalletHookParams } from '../types';
-import { WalletType, WebLoginEvents, WebLoginState } from '../../constants';
+import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WalletType, WebLoginEvents, WebLoginState } from '../../constants';
 import useAccountInfoSync from './useAccountInfoSync';
 import checkSignatureParams from '../../utils/signatureParams';
 import { PortkeyOptions } from 'src/types';
-
-const PORTKEY_ORIGIN_CHAIN_ID_KEY = 'PortkeyOriginChainId';
 
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;

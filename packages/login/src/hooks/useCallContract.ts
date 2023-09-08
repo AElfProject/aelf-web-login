@@ -1,14 +1,21 @@
 import { useCallback } from 'react';
 import AElf from 'aelf-sdk';
 import { ChainId } from '@portkey/provider-types';
-import { did } from '@portkey/did-ui-react';
+import { did, managerApprove, AuthServe, getChain } from '@portkey/did-ui-react';
 import { useWebLogin } from '../context';
-import { CallContractHookInterface, CallContractHookOptions, CallContractParams } from '../types';
+import {
+  CallContractHookInterface,
+  CallContractHookOptions,
+  CallContractParams,
+  IPortkeySendAdapterProps,
+} from '../types';
 import { getConfig } from '../config';
-import { WalletType, WebLoginEvents } from '../constants';
+import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WalletType, WebLoginEvents } from '../constants';
 import { getContractBasic } from '@portkey/contracts';
 import { SendOptions } from '@portkey/types';
 import useWebLoginEvent from './useWebLoginEvent';
+import { getFaviconUrl, getUrl } from '../utils/getUrl';
+import { AccountTypeEnum } from '@portkey/services';
 
 const getAElfInstance = (() => {
   const instances = new Map<string, any>();
@@ -53,6 +60,61 @@ function useGetContractWithCache(loginId: number, chainId: string, cache: boolea
   );
 }
 
+const sendAdapter = async <T>({
+  caContract,
+  didWalletInfo,
+  params,
+  chainId,
+  sendOptions,
+}: IPortkeySendAdapterProps<T>) => {
+  const chainInfo = await getChain(chainId);
+  // particular case for token contract(contractMethod: managerApprove)
+  // don't deal with caContract(contractMethod: ApproveMethod)
+  // if dapp provides signature, we won't awake signature pop-up again
+  if ((params.contractAddress === chainInfo?.defaultToken.address && params.methodName) === 'Approve') {
+    const { href, hostname: name } = getUrl();
+    const icon = getFaviconUrl(href);
+    const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
+    // use amount from result of managerApprove not from params
+    // dapp user may change amount at pop-up
+    const { amount, guardiansApproved } = (await managerApprove({
+      originChainId,
+      caHash: didWalletInfo.caInfo.caHash,
+      ...params.args,
+      dappInfo: {
+        icon,
+        href,
+        name,
+      },
+    } as any)) as any;
+    return caContract.callSendMethod(
+      'ManagerApprove',
+      '',
+      {
+        caHash: didWalletInfo.caInfo.caHash,
+        ...params.args,
+        guardiansApproved,
+        amount,
+      },
+      {
+        onMethod: 'transactionHash',
+      },
+    );
+  } else {
+    return caContract.callSendMethod(
+      'ManagerForwardCall',
+      didWalletInfo.walletInfo.address,
+      {
+        caHash: didWalletInfo.caInfo.caHash,
+        contractAddress: params.contractAddress,
+        methodName: params.methodName,
+        args: params.args,
+      },
+      sendOptions,
+    );
+  }
+};
+
 export default function useCallContract(options?: CallContractHookOptions): CallContractHookInterface {
   options = options || {};
   options = {
@@ -62,7 +124,7 @@ export default function useCallContract(options?: CallContractHookOptions): Call
     ...options,
   };
 
-  const chainId = options.chainId!;
+  const chainId = options.chainId! as ChainId;
   const viewWallet = getViewWallet();
   const aelfInstance = getAElfInstance(options.rpcUrl!);
   const { loginId, wallet, walletType } = useWebLogin();
@@ -89,7 +151,7 @@ export default function useCallContract(options?: CallContractHookOptions): Call
         case WalletType.discover: {
           const discoverInfo = wallet.discoverInfo!;
           const contract = await getContractWithCache(WalletType.discover, params.contractAddress, async () => {
-            const chain = await discoverInfo.provider!.getChain(chainId as ChainId);
+            const chain = await discoverInfo.provider!.getChain(chainId);
             return getContractBasic({
               contractAddress: params.contractAddress,
               chainProvider: chain,
@@ -140,21 +202,11 @@ export default function useCallContract(options?: CallContractHookOptions): Call
               rpcUrl: chainInfo.endPoint,
             });
           });
-          const result = await caContract.callSendMethod(
-            'ManagerForwardCall',
-            didWalletInfo.walletInfo.address,
-            {
-              caHash: didWalletInfo.caInfo.caHash,
-              contractAddress: params.contractAddress,
-              methodName: params.methodName,
-              args: params.args,
-            },
-            sendOptions,
-          );
+          const result = await sendAdapter({ caContract, didWalletInfo, params, chainId, sendOptions });
           // compatible with aelf-sdk result of contract
-          if (result.transactionId) {
+          if (result?.transactionId) {
             const anyResult = result as any;
-            anyResult.TransactionId = result.transactionId;
+            anyResult.TransactionId = result?.transactionId;
           }
           return result as R;
         }
