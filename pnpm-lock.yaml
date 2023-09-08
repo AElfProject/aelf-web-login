@@ -126,13 +126,13 @@ importers:
   packages/login:
     specifiers:
       '@aelf-react/core': ^0.1.19
-      '@portkey/contracts': ^1.5.0-alpha.6
+      '@portkey/contracts': ^1.5.0-alpha.8
       '@portkey/detect-provider': 1.0.1-alpha.0
       '@portkey/did-ui-react': ^1.5.0-alpha.8
       '@portkey/provider-types': 1.0.1-alpha.0
-      '@portkey/services': ^1.5.0-alpha.6
-      '@portkey/types': ^1.5.0-alpha.6
-      '@portkey/utils': ^1.5.0-alpha.6
+      '@portkey/services': ^1.5.0-alpha.8
+      '@portkey/types': ^1.5.0-alpha.8
+      '@portkey/utils': ^1.5.0-alpha.8
       '@types/uuid': ^8.3.4
       aelf-bridge: ^0.0.10
       aelf-sdk: ^3.2.40
@@ -144,13 +144,13 @@ importers:
       typescript: ^4.9.5
     dependencies:
       '@aelf-react/core': registry.npmjs.org/@aelf-react/core/0.1.19
-      '@portkey/contracts': registry.npmjs.org/@portkey/contracts/1.5.0-alpha.6
+      '@portkey/contracts': registry.npmjs.org/@portkey/contracts/1.5.0-alpha.8
       '@portkey/detect-provider': registry.npmjs.org/@portkey/detect-provider/1.0.1-alpha.0
       '@portkey/did-ui-react': registry.npmjs.org/@portkey/did-ui-react/1.5.0-alpha.8
       '@portkey/provider-types': registry.npmjs.org/@portkey/provider-types/1.0.1-alpha.0
-      '@portkey/services': registry.npmjs.org/@portkey/services/1.5.0-alpha.6
-      '@portkey/types': registry.npmjs.org/@portkey/types/1.5.0-alpha.6
-      '@portkey/utils': registry.npmjs.org/@portkey/utils/1.5.0-alpha.6
+      '@portkey/services': registry.npmjs.org/@portkey/services/1.5.0-alpha.8
+      '@portkey/types': registry.npmjs.org/@portkey/types/1.5.0-alpha.8
+      '@portkey/utils': registry.npmjs.org/@portkey/utils/1.5.0-alpha.8
       aelf-bridge: registry.npmjs.org/aelf-bridge/0.0.10
       aelf-sdk: registry.npmjs.org/aelf-sdk/3.2.44
       ahooks: registry.npmjs.org/ahooks/3.7.8
@@ -3742,21 +3742,6 @@ packages:
       - supports-color
     dev: false
 
-  registry.npmjs.org/@portkey/contracts/1.5.0-alpha.6:
-    resolution: {integrity: sha512-YDOTvb20aq3vvdxLkXCFLanUuAUQTpwkvhT4yjoLhQPTn/roKs5JTGgD3iPc0+elNPzQJlpV/V1e98ojpNkyvA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@portkey/contracts/-/contracts-1.5.0-alpha.6.tgz}
-    name: '@portkey/contracts'
-    version: 1.5.0-alpha.6
-    dependencies:
-      '@portkey/provider-types': registry.npmjs.org/@portkey/provider-types/1.0.1
-      '@portkey/types': registry.npmjs.org/@portkey/types/1.5.0-alpha.6
-      '@portkey/utils': registry.npmjs.org/@portkey/utils/1.5.0-alpha.6
-      aelf-sdk: registry.npmjs.org/aelf-sdk/3.2.45-beta.0
-    transitivePeerDependencies:
-      - encoding
-      - eslint
-      - supports-color
-    dev: false
-
   registry.npmjs.org/@portkey/contracts/1.5.0-alpha.8:
     resolution: {integrity: sha512-S6QfAcueSNsYmwHRgx5qiXayKGUMYndgnl24Gxt4gjCrno4w4nODkvMHsGtLtWpskxGhAtrVytqsQwTCTACTUw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@portkey/contracts/-/contracts-1.5.0-alpha.8.tgz}
     name: '@portkey/contracts'
@@ -3916,13 +3901,13 @@ packages:
       - utf-8-validate
     dev: false
 
-  registry.npmjs.org/@portkey/graphql/1.5.0-alpha.6:
-    resolution: {integrity: sha512-inZ9/v27g8WjvpUWXWflZRRrkwMIY0/Q03UJhG1+XMS6GWcJp1G4CKJ7qktTVwT6UPe5YTcFgKgKH7XdhAUQ0Q==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@portkey/graphql/-/graphql-1.5.0-alpha.6.tgz}
+  registry.npmjs.org/@portkey/graphql/1.5.0-alpha.8:
+    resolution: {integrity: sha512-1VKa1V0FSUGQ081wuV4B1LR46h9yyKop5egOrUnE0u5xuz2TxQZ7dX1Cq6MXnu385QumgXw7Jr7fyTI6b81aQQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@portkey/graphql/-/graphql-1.5.0-alpha.8.tgz}
     name: '@portkey/graphql'
-    version: 1.5.0-alpha.6
+    version: 1.5.0-alpha.8
     dependencies:
       '@apollo/client': registry.npmjs.org/@apollo/client/3.8.3_342buen3n2x2c2a4qo3yhfinfm
-      '@portkey/types': registry.npmjs.org/@portkey/types/1.5.0-alpha.6
+      '@portkey/types': registry.npmjs.org/@portkey/types/1.5.0-alpha.8
       graphql: registry.npmjs.org/graphql/16.8.0
       subscriptions-transport-ws: registry.npmjs.org/subscriptions-transport-ws/0.11.0_graphql@16.8.0
     transitivePeerDependencies:
@@ -4003,15 +3988,6 @@ packages:
       '@types/readable-stream': registry.npmjs.org/@types/readable-stream/2.3.15
     dev: false
 
-  registry.npmjs.org/@portkey/request/1.5.0-alpha.6:
-    resolution: {integrity: sha512-IzWu9CpnEv8h87UzillYTFn6taOmBAKsU3FrndTZMRcBFy1cThokBSj4R1lWhgOg87BNetVpzWVRGbrCCjgsBw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@portkey/request/-/request-1.5.0-alpha.6.tgz}
-    name: '@portkey/request'
-    version: 1.5.0-alpha.6
-    dependencies:
-      '@portkey/types': registry.npmjs.org/@portkey/types/1.5.0-alpha.6
-      query-string: registry.npmjs.org/query-string/7.1.3
-    dev: false
-
   registry.npmjs.org/@portkey/request/1.5.0-alpha.8:
     resolution: {integrity: sha512-hkqAuqlJX7bSSlfSPlTR080HfGVNkUYlArWfrv2MCw4ZYmMOEQ9MstLuoISOAfdX1C8QFIszyTSB3F6hbvZkwg==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@portkey/request/-/request-1.5.0-alpha.8.tgz}
     name: '@portkey/request'
@@ -4021,14 +3997,14 @@ packages:
       query-string: registry.npmjs.org/query-string/7.1.3
     dev: false
 
-  registry.npmjs.org/@portkey/services/1.5.0-alpha.6:
-    resolution: {integrity: sha512-ZojaX5XONZZxG9oTpIL4jEwQrn0MpGP3ARl8yZinTILmJicOdGYkeQaOVM5HZ6I2HMqdnvAJ+acX/jzppLeFQQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@portkey/services/-/services-1.5.0-alpha.6.tgz}
+  registry.npmjs.org/@portkey/services/1.5.0-alpha.8:
+    resolution: {integrity: sha512-S4qTDMv8hNSGJnEKMwFuoiuDA3tY7/+Uufd2rMm/h1hTgmfa0NzC3q0RoSBK+615R139YBXm5q+ys2SvEAfyuQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@portkey/services/-/services-1.5.0-alpha.8.tgz}
     name: '@portkey/services'
-    version: 1.5.0-alpha.6
+    version: 1.5.0-alpha.8
     dependencies:
-      '@portkey/graphql': registry.npmjs.org/@portkey/graphql/1.5.0-alpha.6
-      '@portkey/request': registry.npmjs.org/@portkey/request/1.5.0-alpha.6
-      '@portkey/types': registry.npmjs.org/@portkey/types/1.5.0-alpha.6
+      '@portkey/graphql': registry.npmjs.org/@portkey/graphql/1.5.0-alpha.8
+      '@portkey/request': registry.npmjs.org/@portkey/request/1.5.0-alpha.8
+      '@portkey/types': registry.npmjs.org/@portkey/types/1.5.0-alpha.8
       aelf-sdk: registry.npmjs.org/aelf-sdk/3.2.45-beta.0
       query-string: registry.npmjs.org/query-string/7.1.3
     transitivePeerDependencies:
@@ -4123,19 +4099,6 @@ packages:
     version: 1.5.0-alpha.8
     dependencies:
       '@types/elliptic': registry.npmjs.org/@types/elliptic/6.4.14
-    dev: false
-
-  registry.npmjs.org/@portkey/utils/1.5.0-alpha.6:
-    resolution: {integrity: sha512-yVqdLFQ+mROKw/bvKmh/wBPG+W4lukjvCRh5tkeijmxhnNeihuTHhXD0VLTCGH78bHuH00cP5AX4Rd6WUTCDmQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@portkey/utils/-/utils-1.5.0-alpha.6.tgz}
-    name: '@portkey/utils'
-    version: 1.5.0-alpha.6
-    dependencies:
-      aelf-sdk: registry.npmjs.org/aelf-sdk/3.2.45-beta.0
-      query-string: registry.npmjs.org/query-string/7.1.3
-    transitivePeerDependencies:
-      - encoding
-      - eslint
-      - supports-color
     dev: false
 
   registry.npmjs.org/@portkey/utils/1.5.0-alpha.8:
