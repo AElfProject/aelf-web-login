@@ -70,6 +70,10 @@
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
   },
   "version": "0.0.0",
-  "dependencies": {
+  "dependencies": {},
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
