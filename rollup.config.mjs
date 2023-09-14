@@ -4,9 +4,12 @@ import postcss from 'rollup-plugin-postcss';
 import url from '@rollup/plugin-url';
 import postcssUrl from 'postcss-url';
 import copy from 'rollup-plugin-copy';
-
+import commonjs from '@rollup/plugin-commonjs';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import { babel } from '@rollup/plugin-babel';
 import minifyHtml from 'rollup-plugin-minify-html-literals';
 import { terser } from 'rollup-plugin-terser';
+import replace from '@rollup/plugin-replace';
 
 import path from 'path';
 
@@ -20,6 +23,7 @@ export default function createConfig(packageName, tsconfig = './tsconfig.json') 
   const production = !process.env.ROLLUP_WATCH;
 
   const esbuildPlugin = esbuild({
+    exclude: '/node_modules/**',
     minify: false,
     tsconfig,
     platform: 'browser',
@@ -51,7 +55,7 @@ export default function createConfig(packageName, tsconfig = './tsconfig.json') 
       sass: null,
       stylus: null,
     },
-    extract: path.resolve('dist/assets/index.css'),
+    // extract: path.resolve('dist/assets/index.css'),
     plugins: [
       postcssUrl({
         url: 'inline', // enable inline assets using base64 encoding
@@ -76,8 +80,48 @@ export default function createConfig(packageName, tsconfig = './tsconfig.json') 
   return [
     {
       input: './src/index.ts',
-      plugins: [litCssPlugin, minifyHtml, esbuildPlugin, postcssPlugin, urlPlugin, copyPlugin],
+      plugins: [
+        minifyHtml,
+        esbuildPlugin,
+        nodeResolve({ esmExternals: true, requireReturnsDefault: 'namespace', browser: true, preserveSymlinks: true }),
+        // nodeResolve({ preferBuiltins: false, preserveSymlinks: true, browser: true }),
+        commonjs({
+          include: /node_modules/,
+          // transformMixedEsModules: true,
+          // defaultIsModuleExports: false,
+        }),
+        babel({
+          exclude: /node_modules/,
+          presets: ['@babel/preset-react'],
+          babelHelpers: 'bundled',
+        }),
+        postcssPlugin,
+        litCssPlugin,
+        urlPlugin,
+        copyPlugin,
+      ],
       output: [{ file: './dist/umd/index.js', format: 'umd', ...output }],
+      // external: [
+      //   'aelf-sdk',
+      //   'crypto-js/aes.js',
+      //   'crypto-js/enc-utf8.js',
+      //   'query-string',
+      //   'react',
+      //   'react-is',
+      //   'react-dom',
+      //   'lodash/camelCase',
+      //   'classnames',
+      //   'moment',
+      //   'lodash/padStart',
+      //   'lodash/debounce',
+      //   'json2mq',
+      //   'shallowequal',
+      //   'lodash/padEnd',
+      //   'lodash/isEqual',
+      //   'copy-to-clipboard',
+      //   'fast-deep-equal/react',
+      //   'js-cookie',
+      // ],
     },
   ];
-};
+}
