@@ -2,24 +2,24 @@ import { setGlobalConfig } from 'aelf-web-login';
 
 const APPNAME = 'explorer.aelf.io';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
-const CHAIN_ID = 'AELF';
+const CHAIN_ID = 'tDVW';
 const NETWORK: string = 'TESTNET';
 const IS_MAINNET = NETWORK === 'MAIN';
+// portkey ip docs: https://hoopox.feishu.cn/wiki/GjdWwSqc3imGYxkE85bc8KEFnFd
+const RPC_SERVER = 'https://localtest-applesign2.portkey.finance/api/app/search/chainsinfoindex';
 
-const RPC_SERVER = 'https://localtest-applesign.portkey.finance/api/app/search/chainsinfoindex';
-
-const graphQLServer = 'http://192.168.67.172:8083/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql';
+const graphQLServer = 'http://192.168.67.51:8083/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql';
 // !IS_MAINNET
 //   ? 'https://dapp-portkey-test.portkey.finance'
 //   : 'https://dapp-portkey.portkey.finance';
 
-const portkeyApiServer = 'https://localtest-applesign.portkey.finance';
+const portkeyApiServer = 'https://localtest-applesign2.portkey.finance';
 // !IS_MAINNET
 // ? 'https://did-portkey-test.portkey.finance'
 // : 'https://did-portkey.portkey.finance';
 
 // did.config.setConfig
-export const connectUrl = 'http://192.168.66.240:8080';
+export const connectUrl = 'http://192.168.67.51:8080';
 // !IS_MAINNET
 //   ? 'https://auth-portkey-test.portkey.finance'
 //   : 'https://auth-portkey.portkey.finance';
@@ -37,7 +37,7 @@ setGlobalConfig({
     // graphQLUrl: portkeyScanUrl,
     // connectUrl: connectUrl,
     requestDefaults: {
-      baseURL: portkeyApiServer,
+      // baseURL: portkeyApiServer,
       timeout: 100000,
     },
     socialLogin: {

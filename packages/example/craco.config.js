@@ -32,19 +32,19 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://localtest-applesign.portkey.finance', //https://localtest-applesign.portkey.finance',
+        target: 'https://localtest-applesign2.portkey.finance', //https://localtest-applesign.portkey.finance',
         changeOrigin: true,
         secure: true,
       },
       '/connect': {
-        target: 'http://192.168.66.240:8080', //'https://auth-portkey-test.portkey.finance',
+        target: 'http://192.168.67.51:8080', //'https://auth-portkey-test.portkey.finance',
         changeOrigin: true,
         secure: true,
       },
       '/AElfIndexer_DApp/PortKeyIndexerCASchema': {
         // source: '/AElfIndexer_DApp/:path*',
         // target: 'http://192.168.67.172:8083',
-        target: 'http://192.168.67.172:8083/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql', //'https://dapp-portkey-test.portkey.finance',
+        target: 'http://192.168.67.51:8083/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql', //'https://dapp-portkey-test.portkey.finance',
         changeOrigin: true,
         secure: true,
       },

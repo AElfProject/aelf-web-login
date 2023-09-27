@@ -79,6 +79,7 @@ const sendAdapter = async <T>({
     // dapp user may change amount at pop-up
     const { amount, guardiansApproved } = (await managerApprove({
       originChainId,
+      targetChainId: chainId,
       caHash: didWalletInfo.caInfo.caHash,
       ...params.args,
       dappInfo: {

@@ -71,11 +71,14 @@ export default function CallContract() {
   const { callViewMethod, callSendMethod } = useCallContract();
   const { callViewMethod: callViewMethodAELF, callSendMethod: callSendMethodAELF } = useCallContract({
     chainId: 'AELF',
-    rpcUrl: 'https://localtest-applesign.portkey.finance/api/app/search/chainsinfoindex',
+    // test2
+    rpcUrl: 'https://localtest-applesign2.portkey.finance/api/app/search/chainsinfoindex',
   });
   const { callViewMethod: callViewMethodTDVW, callSendMethod: callSendMethodTDVW } = useCallContract({
     chainId: 'tDVW',
-    rpcUrl: 'https://tdvw-test-node.aelf.io',
+    // test2
+    rpcUrl: 'https://localtest-applesign2.portkey.finance/api/app/search/chainsinfoindex',
+    // rpcUrl: 'https://tdvw-test-node.aelf.io',
   });
 
   const { callViewMethod: callViewMethodTDVV, callSendMethod: callSendMethodTDVV } = useCallContract({
