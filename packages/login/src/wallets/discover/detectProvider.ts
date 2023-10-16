@@ -1,6 +1,7 @@
 import detectProvider from '@portkey/detect-provider';
+import { IPortkeyProvider } from '@portkey/provider-types';
 
-export default async function detectDiscoverProvider() {
+export default async function detectDiscoverProvider(): Promise<IPortkeyProvider | null> {
   let detectProviderFunc = detectProvider;
   if (typeof detectProvider !== 'function') {
     const detectProviderModule = detectProvider as any;
