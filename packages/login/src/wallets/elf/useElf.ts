@@ -122,7 +122,7 @@ export function useElf({
       setLoginState(WebLoginState.initial);
       eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, e);
     } finally {
-      clearTimeout(timer);
+      clearTimeout(timer as unknown as Number);
     }
   }, [activate, eventEmitter, nodes, setLoading, setLoginError, setLoginState]);
 
