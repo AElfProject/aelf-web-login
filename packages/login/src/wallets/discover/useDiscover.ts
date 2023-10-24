@@ -18,6 +18,7 @@ import { DiscoverOptions } from 'src/types';
 import useChainIdsSync from './useChainIdsSync';
 import { ERR_CODE, makeError } from '../../errors';
 import wait from '../../utils/waitForSeconds';
+import { zeroFill } from '../../utils/zeroFill';
 
 export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
 export type DiscoverInterface = WalletHookInterface & {
@@ -264,8 +265,8 @@ export function useDiscover({
         },
       });
       const signedMsgString = [
-        signedMsgObject.r.toString(16, 64),
-        signedMsgObject.s.toString(16, 64),
+        zeroFill(signedMsgObject.r),
+        zeroFill(signedMsgObject.s),
         `0${signedMsgObject.recoveryParam!.toString()}`,
       ].join('');
       return {
