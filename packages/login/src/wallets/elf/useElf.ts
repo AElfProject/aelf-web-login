@@ -8,6 +8,7 @@ import { WalletType, WebLoginState, WebLoginEvents } from '../../constants';
 import isMobile from '../../utils/isMobile';
 import checkSignatureParams from '../../utils/signatureParams';
 import detectNightElf from './detectNightElf';
+import BN from 'bn.js';
 
 export function useElf({
   options,
@@ -234,11 +235,9 @@ export function useElf({
           signedMsgObject.errorMessage.message || signedMsgObject.errorMessage || signedMsgObject.message,
         );
       }
-      const signedMsgString = [
-        signedMsgObject.r.toString(16, 64),
-        signedMsgObject.s.toString(16, 64),
-        `0${signedMsgObject.recoveryParam.toString()}`,
-      ].join('');
+      const r = BN.isBN(signedMsgObject.r) ? signedMsgObject.r.toString(16, 64) : signedMsgObject.r.padStart(64, '0');
+      const s = BN.isBN(signedMsgObject.s) ? signedMsgObject.s.toString(16, 64) : signedMsgObject.s.padStart(64, '0');
+      const signedMsgString = [r, s, `0${signedMsgObject.recoveryParam.toString()}`].join('');
       return {
         error: 0,
         errorMessage: '',
