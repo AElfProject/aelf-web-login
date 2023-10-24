@@ -55,6 +55,7 @@
     "@portkey/services": "1.3.0-alpha.3",
     "@portkey/types": "1.3.0-alpha.3",
     "@portkey/utils": "1.3.0-alpha.3",
+    "@types/bn.js": "^5.1.3",
     "aelf-bridge": "^0.0.10",
     "aelf-sdk": "^3.2.40",
     "ahooks": "^3.7.7",
