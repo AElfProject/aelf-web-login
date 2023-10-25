@@ -8,6 +8,7 @@ import { WalletType, WebLoginState, WebLoginEvents } from '../../constants';
 import isMobile from '../../utils/isMobile';
 import checkSignatureParams from '../../utils/signatureParams';
 import detectNightElf from './detectNightElf';
+import { zeroFill } from '../../utils/zeroFill';
 
 export function useElf({
   options,
@@ -235,8 +236,8 @@ export function useElf({
         );
       }
       const signedMsgString = [
-        signedMsgObject.r.toString(16, 64),
-        signedMsgObject.s.toString(16, 64),
+        zeroFill(signedMsgObject.r),
+        zeroFill(signedMsgObject.s),
         `0${signedMsgObject.recoveryParam.toString()}`,
       ].join('');
       return {
