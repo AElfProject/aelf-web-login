@@ -60,7 +60,7 @@ function useGetContractWithCache(loginId: number, chainId: string, cache: boolea
   );
 }
 
-const sendAdapter = async <T>({
+export const sendAdapter = async <T>({
   caContract,
   didWalletInfo,
   params,

@@ -166,5 +166,5 @@ export interface IPortkeySendAdapterProps<T> {
   didWalletInfo: DIDWalletInfo;
   params: CallContractParams<T>;
   chainId: ChainId;
-  sendOptions: SendOptions | undefined;
+  sendOptions?: SendOptions;
 }
