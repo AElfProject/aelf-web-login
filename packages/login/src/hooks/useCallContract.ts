@@ -72,7 +72,7 @@ export const sendAdapter = async <T>({
   // don't deal with caContract(contractMethod: ApproveMethod)
   // if dapp provides signature, we won't awake signature pop-up again
   if ((params.contractAddress === chainInfo?.defaultToken.address && params.methodName) === 'Approve') {
-    const { href, hostname: name } = getUrl();
+    const { origin, href, hostname: name } = getUrl();
     const icon = getFaviconUrl(href);
     const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
     // use amount from result of managerApprove not from params
@@ -84,7 +84,7 @@ export const sendAdapter = async <T>({
       ...params.args,
       dappInfo: {
         icon,
-        href,
+        href: origin,
         name,
       },
     } as any)) as any;
@@ -203,6 +203,7 @@ export default function useCallContract(options?: CallContractHookOptions): Call
               rpcUrl: chainInfo.endPoint,
             });
           });
+          console.log(caContract, didWalletInfo, sendOptions, 'xxxxxx');
           const result = await sendAdapter({ caContract, didWalletInfo, params, chainId, sendOptions });
           // compatible with aelf-sdk result of contract
           if (result?.transactionId) {

@@ -6,23 +6,20 @@ const CHAIN_ID = 'tDVW';
 const NETWORK: string = 'TESTNET';
 const IS_MAINNET = NETWORK === 'MAIN';
 // portkey ip docs: https://hoopox.feishu.cn/wiki/GjdWwSqc3imGYxkE85bc8KEFnFd
-const RPC_SERVER = 'https://localtest-applesign2.portkey.finance/api/app/search/chainsinfoindex';
+const RPC_SERVER = 'https://explorer-test.aelf.io/chain';
 
-const graphQLServer = 'http://192.168.67.51:8083/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql';
-// !IS_MAINNET
-//   ? 'https://dapp-portkey-test.portkey.finance'
-//   : 'https://dapp-portkey.portkey.finance';
+const graphQLServer = !IS_MAINNET
+  ? 'https://dapp-portkey-test.portkey.finance'
+  : 'https://dapp-portkey.portkey.finance';
 
-const portkeyApiServer = 'https://localtest-applesign2.portkey.finance';
-// !IS_MAINNET
-// ? 'https://did-portkey-test.portkey.finance'
-// : 'https://did-portkey.portkey.finance';
+const portkeyApiServer = !IS_MAINNET
+  ? 'https://did-portkey-test.portkey.finance'
+  : 'https://did-portkey.portkey.finance';
 
 // did.config.setConfig
-export const connectUrl = 'http://192.168.67.51:8080';
-// !IS_MAINNET
-//   ? 'https://auth-portkey-test.portkey.finance'
-//   : 'https://auth-portkey.portkey.finance';
+export const connectUrl = !IS_MAINNET
+  ? 'https://auth-portkey-test.portkey.finance'
+  : 'https://auth-portkey.portkey.finance';
 
 let portkeyScanUrl = `${graphQLServer}/Portkey_DID/PortKeyIndexerCASchema/graphql`;
 // portkeyScanUrl = '/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql';
@@ -34,11 +31,11 @@ setGlobalConfig({
   defaultRpcUrl: RPC_SERVER,
   portkey: {
     useLocalStorage: true,
-    // graphQLUrl: portkeyScanUrl,
-    // connectUrl: connectUrl,
+    graphQLUrl: portkeyScanUrl,
+    connectUrl: connectUrl,
     requestDefaults: {
-      // baseURL: portkeyApiServer,
-      timeout: 100000,
+      baseURL: portkeyApiServer,
+      timeout: 30000,
     },
     socialLogin: {
       Portkey: {
@@ -60,7 +57,7 @@ setGlobalConfig({
       },
       tDVV: {
         chainId: 'tDVV',
-        rpcUrl: RPC_SERVER,
+        rpcUrl: 'http://192.168.66.106:8000',
       },
     },
   },

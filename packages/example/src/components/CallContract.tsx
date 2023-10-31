@@ -65,7 +65,7 @@ function useExampleCall(name: string, func: () => any) {
 }
 
 export default function CallContract() {
-  const { wallet } = useWebLogin();
+  const { wallet, callContract } = useWebLogin();
   console.log(wallet);
   const getAccountTDVW = useGetAccount('tDVW');
   const { callViewMethod, callSendMethod } = useCallContract();
@@ -105,6 +105,18 @@ export default function CallContract() {
         args: {
           symbol: configJson.resourceTokens[0].symbol,
           amount: 1 * Math.pow(10, configJson.resourceTokens[0].decimals),
+        },
+      });
+    }),
+
+    useExampleCall('Approve in tDVW with useWebLogin', async () => {
+      return await callContract({
+        contractAddress: configTdvwJson.multiToken,
+        methodName: 'Approve',
+        args: {
+          symbol: 'ELF',
+          spender: configTdvwJson.multiToken,
+          amount: '100000000',
         },
       });
     }),
