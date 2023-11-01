@@ -203,7 +203,6 @@ export default function useCallContract(options?: CallContractHookOptions): Call
               rpcUrl: chainInfo.endPoint,
             });
           });
-          console.log(caContract, didWalletInfo, sendOptions, 'xxxxxx');
           const result = await sendAdapter({ caContract, didWalletInfo, params, chainId, sendOptions });
           // compatible with aelf-sdk result of contract
           if (result?.transactionId) {
