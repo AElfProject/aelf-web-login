@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup
+      # - uses: ./.github/actions/setup
       # - run: yarn build
       # - run: yarn test
       # - run: yarn make-badges
