@@ -33,9 +33,10 @@
     "start": "tsc --watch",
     "lint": "eslint . --ext .tsx,.ts",
     "lint:md": "remark . -f -q",
-    "dev": "pnpm run dev:tsc & pnpm run dev:types",
+    "dev": "pnpm run dev:tsc & pnpm run dev:types & pnpm run dev:css",
     "dev:tsc": "tsc --p tsconfig.esm.json --watch",
     "dev:types": "tsc --emitDeclarationOnly --p tsconfig.types.json --watch",
+    "dev:css": "lessc-watcher --src ./index.less --dst ./dist/assets/index.css",
     "build:clean": "rm -rf dist",
     "build:types": "tsc --emitDeclarationOnly --p tsconfig.types.json",
     "build:tsc": "tsc --p tsconfig.esm.json",
@@ -61,6 +62,7 @@
     "ahooks": "^3.7.7",
     "antd": "^4.24.4",
     "bn.js": "^5.2.1",
+    "lessc-watcher": "^1.2.2",
     "typescript": "^4.9.5"
   },
   "devDependencies": {
