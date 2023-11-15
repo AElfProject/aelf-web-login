@@ -5,7 +5,6 @@ import { CallContractParams, DoSwitchFunc, SignatureParams, SwitchWalletFunc, Wa
 import { WalletHookParams } from '../types';
 import { NightElfOptions } from '../../types';
 import { WalletType, WebLoginState, WebLoginEvents } from '../../constants';
-import isMobile from '../../utils/isMobile';
 import checkSignatureParams from '../../utils/signatureParams';
 import detectNightElf from './detectNightElf';
 import { zeroFill } from '../../utils/zeroFill';
@@ -131,6 +130,17 @@ export function useElf({
     try {
       console.log('connectEagerly', loginState);
       setLoginState(WebLoginState.logining);
+      const type = await detectNightElf();
+      if (type === 'NightElf') {
+        const instance = (window as any).NightElf || (window.parent as any).NightElf;
+        const { locked } = await new instance.AElf({
+          httpProvider: getConfig().defaultRpcUrl!,
+        }).getExtensionInfo();
+        if (locked) {
+          setLoginState(WebLoginState.initial);
+          return;
+        }
+      }
       await login();
     } catch (e) {
       localStorage.removeItem('aelf-connect-eagerly');
