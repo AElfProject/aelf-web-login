@@ -54,7 +54,7 @@ function Index() {
           }) as any,
         }}
         discover={{
-          autoRequestAccount: false,
+          autoRequestAccount: true,
           autoLogoutOnAccountMismatch: true,
           autoLogoutOnChainMismatch: true,
           autoLogoutOnDisconnected: true,

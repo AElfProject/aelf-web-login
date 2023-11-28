@@ -126,6 +126,11 @@ export function useDiscover({
     setLoginState(WebLoginState.logining);
     try {
       const provider = await detect();
+      const { isUnlocked } = await provider.request({ method: 'wallet_getWalletState' });
+      if (!isUnlocked) {
+        setLoginState(WebLoginState.initial);
+        return;
+      }
       const network = await provider.request({ method: 'network' });
       if (network !== getConfig().networkType) {
         onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
