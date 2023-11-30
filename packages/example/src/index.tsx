@@ -6,7 +6,7 @@ import 'aelf-web-login/dist/assets/index.css';
 import './index.css';
 import './config';
 import { WebLoginProvider } from 'aelf-web-login';
-import { ISignIn, PortkeyProvider, SignIn, SignInInterface, SignInProps } from '@portkey/did-ui-react';
+import { ISignIn, PortkeyProvider, PortkeyAssetProvider, SignIn, SignInInterface, SignInProps } from 'aelf-web-login';
 import App from './App';
 import { createPortal } from 'react-dom';
 

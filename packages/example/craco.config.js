@@ -1,21 +1,24 @@
 /* eslint-disable */
-const path = require("path");
+const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
   webpack: {
     configure: (webpackConfig, arg) => {
-      webpackConfig.module.rules = [...webpackConfig.module.rules, {
-        test: /\.m?js$/,
-        resolve: {
-          fullySpecified: false,
+      webpackConfig.module.rules = [
+        ...webpackConfig.module.rules,
+        {
+          test: /\.m?js$/,
+          resolve: {
+            fullySpecified: false,
+          },
         },
-      }];
+      ];
       webpackConfig.resolve.fallback = {
         ...webpackConfig.resolve.fallback,
-        "events": require.resolve("events/"),
-        "buffer": require.resolve("buffer/")
-      }
+        events: require.resolve('events/'),
+        buffer: require.resolve('buffer/'),
+      };
       return webpackConfig;
     },
     plugins: {
@@ -23,7 +26,7 @@ module.exports = {
         new webpack.ProvidePlugin({
           Buffer: ['buffer', 'Buffer'],
         }),
-      ]
+      ],
     },
   },
   devServer: {
@@ -34,7 +37,7 @@ module.exports = {
         secure: true,
       },
       '/connect': {
-        target: "https://auth-portkey-test.portkey.finance",
+        target: 'https://auth-portkey-test.portkey.finance',
         changeOrigin: true,
         secure: true,
       },
@@ -44,7 +47,7 @@ module.exports = {
         target: 'https://dapp-portkey-test.portkey.finance',
         changeOrigin: true,
         secure: true,
-      }
+      },
     },
   },
 };

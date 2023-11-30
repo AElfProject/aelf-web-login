@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { getContractBasic } from '@portkey/contracts';
-import { DIDWalletInfo, did } from '@portkey/did-ui-react';
+import { DIDWalletInfo, did, managerApprove, getChain } from '@portkey/did-ui-react';
 import { ChainId } from '@portkey/types';
 import { getConfig } from '../../config';
 import {
@@ -12,12 +12,11 @@ import {
   WalletHookInterface,
 } from '../../types';
 import { WalletHookParams } from '../types';
-import { WalletType, WebLoginEvents, WebLoginState } from '../../constants';
+import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WalletType, WebLoginEvents, WebLoginState } from '../../constants';
 import useAccountInfoSync from './useAccountInfoSync';
 import checkSignatureParams from '../../utils/signatureParams';
 import { PortkeyOptions } from 'src/types';
-
-const PORTKEY_ORIGIN_CHAIN_ID_KEY = 'PortkeyOriginChainId';
+import { sendAdapter } from '../../hooks/useCallContract';
 
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;
@@ -161,12 +160,7 @@ export function usePortkey({
         account: didWalletInfo.walletInfo,
         rpcUrl: chainInfo.endPoint,
       });
-      const result = await caContract.callSendMethod('ManagerForwardCall', didWalletInfo.walletInfo.address, {
-        caHash: didWalletInfo.caInfo.caHash,
-        contractAddress: params.contractAddress,
-        methodName: params.methodName,
-        args: params.args,
-      });
+      const result = await sendAdapter({ caContract, didWalletInfo, params, chainId });
       return result as R;
     },
     [chainId, didWalletInfo],

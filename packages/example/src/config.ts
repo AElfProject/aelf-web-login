@@ -5,7 +5,7 @@ const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
 const CHAIN_ID = 'tDVW';
 const NETWORK: string = 'TESTNET';
 const IS_MAINNET = NETWORK === 'MAIN';
-
+// portkey ip docs: https://hoopox.feishu.cn/wiki/GjdWwSqc3imGYxkE85bc8KEFnFd
 const RPC_SERVER = 'https://explorer-test.aelf.io/chain';
 
 const graphQLServer = !IS_MAINNET

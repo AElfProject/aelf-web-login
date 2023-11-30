@@ -7,6 +7,8 @@ import usePortkeyLock from './hooks/usePortkeyLock';
 import usePortkeyPreparing from './hooks/usePortkeyPreparing';
 import useGetAccount from './hooks/useGetAccount';
 
+export * from '@portkey/did-ui-react';
+
 import getContractBasicAsync from './utils/getContractBasicAsync';
 import detectDiscoverProvider from './wallets/discover/detectProvider';
 import detectNightElf from './wallets/elf/detectNightElf';

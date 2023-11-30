@@ -7,19 +7,16 @@
     "pin": "sh -c '{ for X in {core,empty}; do lerna add @web3-react/$X --exact --no-bootstrap --scope=example-cra; done }'"
   },
   "dependencies": {
+    "@portkey/did-ui-react": "1.5.1",
+    "@portkey/types": "1.5.1",
     "@types/react-dom": "^18.0.0",
+    "aelf-web-login": "workspace:*",
+    "ahooks": "^3.7.7",
+    "antd": "^4.24.4",
+    "react": "^18.2.0",
     "react-dom": "^18.0.0",
     "react-scripts": "^5.0.1",
-    "aelf-web-login": "workspace:*",
-    "antd": "^4.24.4",
-    "ahooks": "^3.7.7",
-    "react": "^18.2.0",
-    "vconsole": "^3.15.1",
-    "@portkey/contracts": "1.4.4-alpha.7",
-    "@portkey/did-ui-react": "1.4.4-alpha.7",
-    "@portkey/services": "1.4.4-alpha.7",
-    "@portkey/types": "1.4.4-alpha.7",
-    "@portkey/utils": "1.4.4-alpha.7"
+    "vconsole": "^3.15.1"
   },
   "devDependencies": {
     "@craco/craco": "^6.4.2",

@@ -1,4 +1,4 @@
-import { CallContractParams, WebLoginState, useCallContract, useWebLogin } from 'aelf-web-login';
+import { CallContractParams, WebLoginState, useCallContract, useWebLogin, PortkeyAssetProvider } from 'aelf-web-login';
 import { useState } from 'react';
 import configJson from '../assets/config.json';
 import configTdvwJson from '../assets/config.tdvw.json';
@@ -42,9 +42,17 @@ function useExampleCall(name: string, func: () => any) {
           <hr />
           <h3>{name}:</h3>
           <div>
-            <button disabled={loginState !== WebLoginState.logined} onClick={onClick}>
-              {name}
-            </button>
+            {name === 'Approve in AELF' ? (
+              // <PortkeyAssetProvider originChainId={'AELF'}>
+              <button disabled={loginState !== WebLoginState.logined} onClick={onClick}>
+                {name}
+              </button>
+            ) : (
+              // </PortkeyAssetProvider>
+              <button disabled={loginState !== WebLoginState.logined} onClick={onClick}>
+                {name}
+              </button>
+            )}
             <div>
               <h4>Result</h4>
               <pre className="result">{JSON.stringify(result, null, '  ')}</pre>
@@ -57,13 +65,20 @@ function useExampleCall(name: string, func: () => any) {
 }
 
 export default function CallContract() {
-  const { wallet } = useWebLogin();
+  const { wallet, callContract } = useWebLogin();
   console.log(wallet);
   const getAccountTDVW = useGetAccount('tDVW');
   const { callViewMethod, callSendMethod } = useCallContract();
+  const { callViewMethod: callViewMethodAELF, callSendMethod: callSendMethodAELF } = useCallContract({
+    chainId: 'AELF',
+    // test2
+    rpcUrl: 'https://localtest-applesign2.portkey.finance/api/app/search/chainsinfoindex',
+  });
   const { callViewMethod: callViewMethodTDVW, callSendMethod: callSendMethodTDVW } = useCallContract({
     chainId: 'tDVW',
-    rpcUrl: 'https://tdvw-test-node.aelf.io',
+    // test2
+    rpcUrl: 'https://localtest-applesign2.portkey.finance/api/app/search/chainsinfoindex',
+    // rpcUrl: 'https://tdvw-test-node.aelf.io',
   });
 
   const { callViewMethod: callViewMethodTDVV, callSendMethod: callSendMethodTDVV } = useCallContract({
@@ -90,6 +105,30 @@ export default function CallContract() {
         args: {
           symbol: configJson.resourceTokens[0].symbol,
           amount: 1 * Math.pow(10, configJson.resourceTokens[0].decimals),
+        },
+      });
+    }),
+
+    useExampleCall('Approve in tDVW with useWebLogin', async () => {
+      return await callContract({
+        contractAddress: configTdvwJson.multiToken,
+        methodName: 'Approve',
+        args: {
+          symbol: 'ELF',
+          spender: configTdvwJson.multiToken,
+          amount: '100000000',
+        },
+      });
+    }),
+
+    useExampleCall('Approve in AELF', async () => {
+      return await callContractWithLog(callSendMethodAELF, {
+        contractAddress: configJson.multiToken,
+        methodName: 'Approve',
+        args: {
+          symbol: 'ELF',
+          spender: configJson.multiToken,
+          amount: '100000000',
         },
       });
     }),

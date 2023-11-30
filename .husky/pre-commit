@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# yarn test && yarn make-badges && git add 'README.md'
+yarn make-badges && git add 'README.md'
 
 npx lint-staged
