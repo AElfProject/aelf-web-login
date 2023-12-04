@@ -301,6 +301,14 @@ export function useElf({
     }
   }, [loginState, loginEagerly, setLoginState, options.connectEagerly]);
 
+  useEffect(() => {
+    const onNightElfLockWallet = () => {
+      logout();
+    };
+    document.addEventListener('nightElfLockWallet', onNightElfLockWallet);
+    return document.addEventListener('nightElfLockWallet', onNightElfLockWallet);
+  }, []);
+
   return useMemo<WalletHookInterface>(
     () => ({
       wallet: {
