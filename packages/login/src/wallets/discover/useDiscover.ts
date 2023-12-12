@@ -179,30 +179,33 @@ export function useDiscover({
     }
   }, [chainId, detect, onAccountsFail, onAccountsSuccess, setLoading, setLoginState]);
 
-  const logout = useCallback(async () => {
-    if (walletType !== WalletType.discover) {
+  const logout = useCallback(
+    async (isLock = false) => {
+      if (walletType !== WalletType.discover) {
+        try {
+          localStorage.removeItem(LOGIN_EARGLY_KEY);
+        } catch (e) {
+          console.warn(e);
+        }
+        setDiscoverInfo(undefined);
+        return;
+      }
+
+      setLoginState(WebLoginState.logouting);
+      await wait(500);
       try {
         localStorage.removeItem(LOGIN_EARGLY_KEY);
       } catch (e) {
         console.warn(e);
       }
+      setLoginError(undefined);
       setDiscoverInfo(undefined);
-      return;
-    }
-
-    setLoginState(WebLoginState.logouting);
-    await wait(500);
-    try {
-      localStorage.removeItem(LOGIN_EARGLY_KEY);
-    } catch (e) {
-      console.warn(e);
-    }
-    setLoginError(undefined);
-    setDiscoverInfo(undefined);
-    setWalletType(WalletType.unknown);
-    setLoginState(WebLoginState.initial);
-    eventEmitter.emit(WebLoginEvents.LOGOUT);
-  }, [eventEmitter, setLoginError, setLoginState, setWalletType, walletType]);
+      setWalletType(WalletType.unknown);
+      setLoginState(isLock ? WebLoginState.lock : WebLoginState.initial);
+      eventEmitter.emit(isLock ? WebLoginEvents.LOCK : WebLoginEvents.LOGOUT);
+    },
+    [eventEmitter, setLoginError, setLoginState, setWalletType, walletType],
+  );
 
   const logoutSilently = useCallback(async () => {
     try {
@@ -327,7 +330,7 @@ export function useDiscover({
         ) {
           eventEmitter.emit(WebLoginEvents.ACCOUNTS_MISMATCH, accounts);
           if (options.autoLogoutOnAccountMismatch) {
-            logout();
+            logout(true);
           }
         }
       };
