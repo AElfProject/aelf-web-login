@@ -330,8 +330,6 @@ export function useDiscover({
         ) {
           eventEmitter.emit(WebLoginEvents.ACCOUNTS_MISMATCH, accounts);
           if (options.autoLogoutOnAccountMismatch) {
-            logout();
-          } else {
             logout(true);
           }
         }
