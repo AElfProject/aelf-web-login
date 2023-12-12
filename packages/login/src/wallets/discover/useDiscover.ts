@@ -128,7 +128,7 @@ export function useDiscover({
       const provider = await detect();
       const { isUnlocked } = await provider.request({ method: 'wallet_getWalletState' });
       if (!isUnlocked) {
-        setLoginState(WebLoginState.initial);
+        setLoginState(WebLoginState.lock);
         return;
       }
       const network = await provider.request({ method: 'network' });
@@ -330,6 +330,8 @@ export function useDiscover({
         ) {
           eventEmitter.emit(WebLoginEvents.ACCOUNTS_MISMATCH, accounts);
           if (options.autoLogoutOnAccountMismatch) {
+            logout();
+          } else {
             logout(true);
           }
         }
