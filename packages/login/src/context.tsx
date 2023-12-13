@@ -17,6 +17,8 @@ import DiscoverPlugin from './wallets/discover/DiscoverPlugin';
 import { LOGIN_EARGLY_KEY as DISCOVER_LOGIN_EARGERLY_KEY, useDiscover } from './wallets/discover/useDiscover';
 import ConfirmLogoutDialog from './components/CofirmLogoutDialog/ConfirmLogoutDialog';
 import { useDebounceFn } from 'ahooks';
+import detectProvider from '@portkey/detect-provider';
+import { IPortkeyProvider } from '@portkey/provider-types';
 
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,
@@ -74,7 +76,7 @@ function WebLoginProvider({
   const [loginError, setLoginError] = useState<any | unknown>();
   const [walletType, setWalletType] = useState<WalletType>(WalletType.unknown);
   const [switchingWalletType, setSwitchingWalletType] = useState<WalletType>(WalletType.unknown);
-
+  const [isDiscoverLock, setIsDiscoverLock] = useState(false);
   const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
   const [logoutConfirmResult, setLogoutConfirmResult] = useState<LogoutConfirmResult>(LogoutConfirmResult.default);
   const [loading, setLoading] = useState(false);
@@ -83,7 +85,25 @@ function WebLoginProvider({
   const [bridgeType, setBridgeType] = useState('unknown');
   const [loginId, setLoginId] = useState(0);
 
+  const getIsDiscoverLocked = useCallback(async () => {
+    let detectProviderFunc = detectProvider;
+    if (typeof detectProvider !== 'function') {
+      const detectProviderModule = detectProvider as any;
+      detectProviderFunc = detectProviderModule.default;
+    }
+    const provider = (await detectProviderFunc()) as IPortkeyProvider;
+    const { isUnlocked } = await provider?.request({ method: 'wallet_getWalletState' });
+    return !isUnlocked;
+  }, []);
   useEffect(() => {
+    const getIsLocked = async () => {
+      const isLocked = await getIsDiscoverLocked();
+      setIsDiscoverLock(isLocked);
+      if (isLocked) {
+        setLoginState(WebLoginState.lock);
+      }
+    };
+    getIsLocked();
     // SSR support
     if (typeof window !== 'undefined') {
       check()
@@ -190,6 +210,9 @@ function WebLoginProvider({
       return { ...invalidApi, loginEagerly: isDiscoverEagerly ? discoverApi.loginEagerly : elfApi.loginEagerly };
     }
     if (loginState === WebLoginState.lock) {
+      if (isDiscoverLock) {
+        return { ...invalidApi, login: discoverApi.unLock, loginEagerly: discoverApi.loginEagerly };
+      }
       return { ...invalidApi, login: portkeyApi.login, loginEagerly: portkeyApi.loginEagerly };
     }
     if (loginState === WebLoginState.logining) {

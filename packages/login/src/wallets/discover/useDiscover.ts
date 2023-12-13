@@ -23,6 +23,7 @@ import { zeroFill } from '../../utils/zeroFill';
 export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
 export type DiscoverInterface = WalletHookInterface & {
   discoverDetected: DiscoverDetectState;
+  unLock: () => void;
 };
 
 export const LOGIN_EARGLY_KEY = 'discover.loginEargly';
@@ -178,6 +179,23 @@ export function useDiscover({
       onAccountsFail(error);
     }
   }, [chainId, detect, onAccountsFail, onAccountsSuccess, setLoading, setLoginState]);
+
+  const unLock = useCallback(async () => {
+    setLoading(true);
+    try {
+      const provider = await detect();
+      const accounts = await provider.request({ method: 'requestAccounts' });
+      if (accounts[chainId] && accounts[chainId]!.length > 0) {
+        onAccountsSuccess(provider, accounts);
+      } else {
+        setLoading(false);
+        onAccountsFail(makeError(ERR_CODE.ACCOUNTS_IS_EMPTY));
+      }
+    } catch (error) {
+      setLoading(false);
+      onAccountsFail(error);
+    }
+  }, [onAccountsFail, onAccountsSuccess, setLoading]);
 
   const logout = useCallback(
     async (isLock = false) => {
@@ -383,6 +401,7 @@ export function useDiscover({
       login,
       logout,
       logoutSilently,
+      unLock,
       switchWallet,
       loginBySwitch: login,
       logoutBySwitch: logout,
@@ -398,6 +417,7 @@ export function useDiscover({
       login,
       logout,
       logoutSilently,
+      unLock,
       switchWallet,
       callContract,
       getSignature,
