@@ -45,10 +45,10 @@ export function useElf({
     setLoading(true);
     try {
       const type = await detectNightElf();
-
       if (type !== 'AelfBridge') {
         if (options.useMultiChain) {
           if (aelfBridges) {
+            console.log(aelfBridges, 'aelfBridges');
             await Promise.all(
               Object.values(aelfBridges).map((bridge) => {
                 return bridge.chain.getChainStatus();
@@ -84,6 +84,7 @@ export function useElf({
 
   useEffect(() => {
     if (switching) return;
+    console.log(isActive, loginState === WebLoginState.logining, 'xxxx');
     if (isActive && loginState === WebLoginState.logining) {
       initialWallet();
     }
@@ -110,7 +111,7 @@ export function useElf({
       timer = setTimeout(() => {
         isTimeout = true;
         timeoutLoginingRef.current();
-      }, 8000);
+      }, 16000);
       console.log('activate');
       await activate(nodes);
       console.log('activated');
@@ -128,7 +129,6 @@ export function useElf({
   const loginEagerly = useCallback(async () => {
     setLoading(true);
     try {
-      console.log('connectEagerly', loginState);
       setLoginState(WebLoginState.logining);
       const type = await detectNightElf();
       if (type === 'NightElf') {
