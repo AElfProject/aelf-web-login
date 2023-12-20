@@ -346,7 +346,7 @@ export function useDiscover({
       return () => {
         discoverProvider.removeListener('disconnected', onDisconnected);
         discoverProvider.removeListener('networkChanged', onNetworkChanged);
-        discoverProvider.removeListener('networkChanged', onAccountsChanged);
+        discoverProvider.removeListener('accountsChanged', onAccountsChanged);
         discoverProvider.removeListener('chainChanged', onChainChanged);
       };
     }

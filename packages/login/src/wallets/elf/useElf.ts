@@ -110,7 +110,7 @@ export function useElf({
       timer = setTimeout(() => {
         isTimeout = true;
         timeoutLoginingRef.current();
-      }, 8000);
+      }, 16000);
       console.log('activate');
       await activate(nodes);
       console.log('activated');
@@ -300,6 +300,14 @@ export function useElf({
       }
     }
   }, [loginState, loginEagerly, setLoginState, options.connectEagerly]);
+
+  useEffect(() => {
+    const onNightElfLockWallet = () => {
+      logout();
+    };
+    document.addEventListener('nightElfLockWallet', onNightElfLockWallet);
+    return document.addEventListener('nightElfLockWallet', onNightElfLockWallet);
+  }, []);
 
   return useMemo<WalletHookInterface>(
     () => ({
