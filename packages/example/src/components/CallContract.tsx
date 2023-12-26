@@ -1,8 +1,8 @@
-import { CallContractParams, WebLoginState, useCallContract, useWebLogin, PortkeyAssetProvider } from 'aelf-web-login';
+import { CallContractParams, WebLoginState, useCallContract, useWebLogin } from 'aelf-web-login-v2';
 import { useState } from 'react';
 import configJson from '../assets/config.json';
 import configTdvwJson from '../assets/config.tdvw.json';
-import { useGetAccount } from 'aelf-web-login';
+import { useGetAccount } from 'aelf-web-login-v2';
 import { SendOptions } from '@portkey/types';
 
 async function callContractWithLog<T, R>(

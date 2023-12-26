@@ -1,9 +1,9 @@
-import { WalletType, WebLoginEvents, WebLoginState, getConfig, useWebLogin, useWebLoginEvent } from 'aelf-web-login';
+import { WalletType, WebLoginState, getConfig, useWebLogin } from 'aelf-web-login-v2';
 import VConsole from 'vconsole';
 import MultiWallets from './components/MultiWallets';
 import CallContract from './components/CallContract';
 import { useState } from 'react';
-import { usePortkeyLock } from 'aelf-web-login';
+import { usePortkeyLock } from 'aelf-web-login-v2';
 import { Tabs } from 'antd';
 import isMobile from './utils/isMobile';
 import Signature from './components/Signature';
@@ -21,7 +21,7 @@ if (isMobile() || win.ReactNativeWebView) {
 export default function App() {
   const config = getConfig();
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const { wallet, walletType, login, loginEagerly, logout, loginState } = useWebLogin();
+  const { wallet, walletType, login, logout, loginState } = useWebLogin();
   const { isUnlocking, lock } = usePortkeyLock();
 
   return (
@@ -36,12 +36,12 @@ export default function App() {
         <button disabled={loginState !== WebLoginState.initial} onClick={login}>
           login
         </button>
-        <button disabled={loginState !== WebLoginState.eagerly} onClick={loginEagerly}>
+        {/* <button disabled={loginState !== WebLoginState.eagerly} onClick={loginEagerly}>
           loginEagerly
-        </button>
-        <button disabled={loginState !== WebLoginState.logined || walletType !== WalletType.portkey} onClick={lock}>
+        </button> */}
+        {/* <button disabled={loginState !== WebLoginState.logined || walletType !== WalletType.portkey} onClick={lock}>
           lock
-        </button>
+        </button> */}
         <button disabled={loginState !== WebLoginState.lock} onClick={login}>
           {isUnlocking ? 'unlocking' : 'unlock'}
         </button>

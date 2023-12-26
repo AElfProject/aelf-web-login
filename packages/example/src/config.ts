@@ -1,4 +1,5 @@
-import { setGlobalConfig } from 'aelf-web-login';
+import * as PortkeyInstance from '@portkey/did-ui-react';
+import { setGlobalConfig, WebLoginInstance } from 'aelf-web-login-v2';
 
 const APPNAME = 'explorer.aelf.io';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
@@ -24,6 +25,8 @@ export const connectUrl = !IS_MAINNET
 let portkeyScanUrl = `${graphQLServer}/Portkey_DID/PortKeyIndexerCASchema/graphql`;
 // portkeyScanUrl = '/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql';
 
+new WebLoginInstance().initAelfWebLogin(PortkeyInstance);
+
 setGlobalConfig({
   appName: APPNAME,
   chainId: CHAIN_ID,
@@ -44,21 +47,21 @@ setGlobalConfig({
       },
     },
   } as any,
-  aelfReact: {
-    appName: APPNAME,
-    nodes: {
-      AELF: {
-        chainId: 'AELF',
-        rpcUrl: RPC_SERVER,
-      },
-      tDVW: {
-        chainId: 'tDVW',
-        rpcUrl: RPC_SERVER,
-      },
-      tDVV: {
-        chainId: 'tDVV',
-        rpcUrl: 'http://192.168.66.106:8000',
-      },
-    },
-  },
+  // aelfReact: {
+  //   appName: APPNAME,
+  //   nodes: {
+  //     AELF: {
+  //       chainId: 'AELF',
+  //       rpcUrl: RPC_SERVER,
+  //     },
+  //     tDVW: {
+  //       chainId: 'tDVW',
+  //       rpcUrl: RPC_SERVER,
+  //     },
+  //     tDVV: {
+  //       chainId: 'tDVV',
+  //       rpcUrl: 'http://192.168.66.106:8000',
+  //     },
+  //   },
+  // },
 });

@@ -16,6 +16,7 @@
     "login:dev": "pnpm --filter aelf-web-login dev",
     "login:build": "pnpm --filter aelf-web-login build",
     "login:pub": "pnpm --filter aelf-web-login pub",
+    "loginV2:dev": "pnpm --filter aelf-web-login-v2 dev",
     "example": "pnpm --filter @aelf-web-login/example start",
     "test": "jest",
     "test:browser": "jest --config=jest.browser.config.ts",
@@ -70,6 +71,5 @@
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
   },
   "version": "0.0.0",
-  "dependencies": {
-  }
+  "dependencies": {}
 }
