@@ -1,6 +1,6 @@
 {
   "name": "aelf-web-login",
-  "version": "1.1.8-alpha.3",
+  "version": "1.1.9-alpha",
   "main": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "exports": {

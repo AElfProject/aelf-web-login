@@ -45,8 +45,11 @@ export default function App() {
         <button disabled={loginState !== WebLoginState.lock} onClick={login}>
           {isUnlocking ? 'unlocking' : 'unlock'}
         </button>
-        <button disabled={loginState !== WebLoginState.logined} onClick={logout}>
+        <button disabled={loginState !== WebLoginState.logined} onClick={() => logout()}>
           {loginState === WebLoginState.logouting ? 'logouting' : 'logout'}
+        </button>
+        <button disabled={loginState !== WebLoginState.logined} onClick={() => logout({ noModal: true })}>
+          {loginState === WebLoginState.logouting ? 'logouting' : 'logoutNoModal'}
         </button>
       </div>
       <Tabs

@@ -252,18 +252,21 @@ function WebLoginProvider({
   }, [discoverApi, elfApi, portkeyApi, walletApi]);
 
   const { run: logoutInternal } = useDebounceFn(
-    useCallback(async () => {
-      if (loginState !== WebLoginState.logined) {
-        console.warn('logout failed: loginState is not logined');
-        return;
-      }
-      if (walletType === WalletType.portkey) {
-        setLogoutConfirmResult(LogoutConfirmResult.default);
-        setLogoutConfirmOpen(true);
-      } else {
-        await logout();
-      }
-    }, [loginState, logout, walletType]),
+    useCallback(
+      async (options) => {
+        if (loginState !== WebLoginState.logined) {
+          console.warn('logout failed: loginState is not logined');
+          return;
+        }
+        if (walletType === WalletType.portkey && !options?.noModal) {
+          setLogoutConfirmResult(LogoutConfirmResult.default);
+          setLogoutConfirmOpen(true);
+        } else {
+          await logout();
+        }
+      },
+      [loginState, logout, walletType],
+    ),
     {
       wait: 500,
       maxWait: 500,

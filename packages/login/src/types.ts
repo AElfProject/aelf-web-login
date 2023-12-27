@@ -120,7 +120,9 @@ export type WalletInfo = {
  */
 export type DoSwitchFunc = (commit: () => Promise<void>, rollback: () => Promise<void>) => Promise<void>;
 export type SwitchWalletFunc = (doSwitch: DoSwitchFunc) => Promise<void>;
-
+export interface LogoutOptions {
+  noModal?: boolean;
+}
 /**
  * useWebLogin
  */
@@ -129,7 +131,7 @@ export type WalletHookInterface = {
   loginEagerly: () => void;
   login: () => void;
   loginBySwitch: () => void;
-  logout: () => void;
+  logout: (options?: LogoutOptions) => void;
   logoutSilently: () => Promise<void>;
   switchWallet: SwitchWalletFunc;
   // TODO: move this to new hook
