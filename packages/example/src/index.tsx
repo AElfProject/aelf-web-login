@@ -6,9 +6,11 @@ import 'aelf-web-login/dist/assets/index.css';
 import './index.css';
 import './config';
 import { WebLoginProvider } from 'aelf-web-login';
-import { ISignIn, PortkeyProvider, PortkeyAssetProvider, SignIn, SignInInterface, SignInProps } from 'aelf-web-login';
+import { ISignIn, PortkeyProvider, SignIn, SignInProps } from '@portkey-v1/did-ui-react';
+import { PortkeyProvider as PortkeyProviderV2, SignIn as SignInV2 } from '@portkey/did-ui-react';
 import App from './App';
 import { createPortal } from 'react-dom';
+import { getVersion } from './config';
 
 const SignInProxy = React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<any>) {
   const [renderRoot, setRenderRoot] = React.useState<HTMLElement>();
@@ -23,10 +25,18 @@ const SignInProxy = React.forwardRef(function SignInProxy(props: SignInProps, re
   }
   return createPortal(<SignIn ref={ref} {...props} isShowScan={false} />, renderRoot!);
 });
-
+const PortkeyProviderVersion = ({ children, ...props }: any) => {
+  const version = getVersion();
+  if (version === '2') {
+    return <PortkeyProviderV2 {...props}>{children}</PortkeyProviderV2>;
+  } else {
+    return <PortkeyProvider {...props}>{children}</PortkeyProvider>;
+  }
+};
 function Index() {
+  const version = getVersion();
   return (
-    <PortkeyProvider networkType="TESTNET" theme="dark">
+    <PortkeyProviderVersion networkType="TESTNET" theme="dark">
       <WebLoginProvider
         commonConfig={{
           showClose: true,
@@ -49,9 +59,12 @@ function Index() {
           autoShowUnlock: false,
           checkAccountInfoSync: true,
           design: 'SocialDesign',
-          SignInComponent: React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<ISignIn>) {
-            return <SignIn ref={ref} {...props} isShowScan={false} />;
-          }) as any,
+          // SignInComponent: React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<ISignIn>) {
+          //   if (version === '2') {
+          //     return <SignInV2 ref={ref} {...props} isShowScan={false} />;
+          //   }
+          //   return <SignIn ref={ref} {...props} isShowScan={false} />;
+          // }) as any,
         }}
         discover={{
           autoRequestAccount: true,
@@ -69,7 +82,7 @@ function Index() {
         }}>
         <App />
       </WebLoginProvider>
-    </PortkeyProvider>
+    </PortkeyProviderVersion>
   );
 }
 const container = document.getElementById('root');

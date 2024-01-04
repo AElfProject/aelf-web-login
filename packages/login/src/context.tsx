@@ -4,12 +4,15 @@ import { AElfReactProvider } from '@aelf-react/core';
 import { WalletHookInterface } from './types';
 import { WebLoginProviderProps } from './types';
 import { usePortkey } from './wallets/portkey/usePortkey';
+import { usePortkey as usePortkeyV2 } from './wallets/portkey/usePortkeyV2';
 import NightElfPlugin from './wallets/elf/NightElfPlugin';
 import Portkey from './wallets/portkey/Portkey';
+import PortkeyV2 from './wallets/portkey/PortkeyV2';
 import { useElf } from './wallets/elf/useElf';
 import { getConfig } from './config';
 import { CloseIcon, WalletType, WebLoginState } from './constants';
-import { PortkeyLoading } from '@portkey/did-ui-react';
+import { PortkeyLoading as PortkeyLoadingV2 } from '@portkey/did-ui-react';
+import { PortkeyLoading } from '@portkey-v1/did-ui-react';
 import { check } from './wallets/elf/utils';
 import isMobile from './utils/isMobile';
 import isPortkeyApp from './utils/isPortkeyApp';
@@ -83,6 +86,8 @@ function WebLoginProvider({
   const [bridgeType, setBridgeType] = useState('unknown');
   const [loginId, setLoginId] = useState(0);
 
+  const version = getConfig().version;
+
   useEffect(() => {
     // SSR support
     if (typeof window !== 'undefined') {
@@ -130,7 +135,7 @@ function WebLoginProvider({
     setWalletType,
     setLoading,
   });
-  const portkeyApi = usePortkey({
+  const portkeyApi = (version === '2' ? usePortkeyV2 : usePortkey)({
     options: portkeyOpts,
     loginState,
     walletType,
@@ -402,23 +407,41 @@ function WebLoginProvider({
   return (
     <WebLoginContext.Provider value={state}>
       {children}
-      <Portkey
-        portkeyOpts={portkeyOpts}
-        isManagerExists={portkeyApi.isManagerExists}
-        open={modalOpen}
-        loginState={loginState}
-        onCancel={portkeyApi.onCancel}
-        onFinish={portkeyApi.onFinished}
-        onUnlock={portkeyApi.onUnlock}
-        onError={portkeyApi.onError}
-        extraWallets={renderExtraWallets()}
-      />
+      {version === '2' ? (
+        <PortkeyV2
+          portkeyOpts={portkeyOpts}
+          isManagerExists={portkeyApi.isManagerExists}
+          open={modalOpen}
+          loginState={loginState}
+          onCancel={portkeyApi.onCancel}
+          onFinish={portkeyApi.onFinished}
+          onUnlock={portkeyApi.onUnlock}
+          onError={portkeyApi.onError}
+          extraWallets={renderExtraWallets()}
+        />
+      ) : (
+        <Portkey
+          portkeyOpts={portkeyOpts}
+          isManagerExists={portkeyApi.isManagerExists}
+          open={modalOpen}
+          loginState={loginState}
+          onCancel={portkeyApi.onCancel}
+          onFinish={portkeyApi.onFinished}
+          onUnlock={portkeyApi.onUnlock}
+          onError={portkeyApi.onError}
+          extraWallets={renderExtraWallets()}
+        />
+      )}
       <ConfirmLogoutDialogComponent
         visible={logoutConfirmOpen}
         onCancel={() => setLogoutConfirmResult(LogoutConfirmResult.cancel)}
         onOk={() => setLogoutConfirmResult(LogoutConfirmResult.ok)}
       />
-      <PortkeyLoading loading={!noLoading && loading} />
+      {version === '2' ? (
+        <PortkeyLoadingV2 loading={!noLoading && loading} />
+      ) : (
+        <PortkeyLoading loading={!noLoading && loading} />
+      )}
     </WebLoginContext.Provider>
   );
 }

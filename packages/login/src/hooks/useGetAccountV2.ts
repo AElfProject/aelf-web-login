@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { WalletType, WebLoginState } from '../constants';
 import { useWebLogin } from '../context';
 import { ChainId } from '@portkey/provider-types';
-import { did } from '@portkey-v1/did-ui-react';
+import { did } from '@portkey/did-ui-react';
 
 export default function useGetAccount(chainId: string) {
   const { loginState, walletType, wallet } = useWebLogin();

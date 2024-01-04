@@ -2,11 +2,11 @@ import { setGlobalConfig } from 'aelf-web-login';
 
 const APPNAME = 'explorer.aelf.io';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
-const CHAIN_ID = 'tDVW';
+const CHAIN_ID = 'AELF';
 const NETWORK: string = 'TESTNET';
-const IS_MAINNET = NETWORK === 'MAIN';
+const IS_MAINNET = true; //NETWORK === 'MAIN';
 // portkey ip docs: https://hoopox.feishu.cn/wiki/GjdWwSqc3imGYxkE85bc8KEFnFd
-const RPC_SERVER = 'https://explorer-test.aelf.io/chain';
+const RPC_SERVER = 'https://explorer.aelf.io/chain';
 
 const graphQLServer = !IS_MAINNET
   ? 'https://dapp-portkey-test.portkey.finance'
@@ -23,8 +23,15 @@ export const connectUrl = !IS_MAINNET
 
 let portkeyScanUrl = `${graphQLServer}/Portkey_DID/PortKeyIndexerCASchema/graphql`;
 // portkeyScanUrl = '/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql';
-
+let version = '2';
+export const getVersion = () => {
+  return version;
+};
+export const setVersion = (v: string) => {
+  version = v;
+};
 setGlobalConfig({
+  version,
   appName: APPNAME,
   chainId: CHAIN_ID,
   networkType: NETWORK as any,

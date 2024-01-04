@@ -1,6 +1,6 @@
 import { WalletInfo } from '../types';
 
-import { getContractBasic as getContractBasicInternal } from '@portkey-v1/contracts';
+import { getContractBasic as getContractBasicInternal } from '@portkey/contracts';
 import { did } from '@portkey/did-ui-react';
 import { getConfig } from '../config';
 import { WalletType } from '../constants';

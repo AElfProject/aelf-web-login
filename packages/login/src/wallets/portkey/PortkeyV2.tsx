@@ -1,10 +1,10 @@
 import React, { ReactNode, useCallback, useRef, useEffect, useState, useMemo } from 'react';
-import { DIDWalletInfo, SignIn, Unlock, SignInInterface } from '@portkey-v1/did-ui-react';
+import { DIDWalletInfo, SignIn, Unlock, SignInInterface } from '@portkey/did-ui-react';
 import { getConfig } from '../../config';
 import { WebLoginState } from '../../constants';
 import { PortkeyOptions } from '../../types';
 
-export default function Portkey({
+export default function PortkeyV2({
   open,
   loginState,
   isManagerExists,
@@ -74,6 +74,7 @@ export default function Portkey({
   }
 
   const SignInComponent = portkeyOpts.SignInComponent || SignIn;
+  console.log(signInRef, portkeyOpts.design, extraWallets, 'xxxxx');
   return (
     <SignInComponent
       defaultChainId={chainId as any}

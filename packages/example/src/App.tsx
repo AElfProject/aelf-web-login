@@ -3,7 +3,7 @@ import VConsole from 'vconsole';
 import MultiWallets from './components/MultiWallets';
 import CallContract from './components/CallContract';
 import { useState } from 'react';
-import { usePortkeyLock } from 'aelf-web-login';
+import { usePortkeyLock, usePortkeyLockV2 } from 'aelf-web-login';
 import { Tabs } from 'antd';
 import isMobile from './utils/isMobile';
 import Signature from './components/Signature';
@@ -22,7 +22,7 @@ export default function App() {
   const config = getConfig();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { wallet, walletType, login, loginEagerly, logout, loginState } = useWebLogin();
-  const { isUnlocking, lock } = usePortkeyLock();
+  const { isUnlocking, lock } = config.version === '2' ? usePortkeyLockV2() : usePortkeyLock();
 
   return (
     <div>

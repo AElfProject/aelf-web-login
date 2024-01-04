@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
-import { getContractBasic } from '@portkey-v1/contracts';
-import { DIDWalletInfo, did, managerApprove, getChain } from '@portkey-v1/did-ui-react';
+import { getContractBasic } from '@portkey/contracts';
+import { DIDWalletInfo, did, managerApprove, getChain } from '@portkey/did-ui-react';
 import { ChainId } from '@portkey/types';
 import { getConfig } from '../../config';
 import {
@@ -13,7 +13,7 @@ import {
 } from '../../types';
 import { WalletHookParams } from '../types';
 import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WalletType, WebLoginEvents, WebLoginState } from '../../constants';
-import useAccountInfoSync from './useAccountInfoSync';
+import useAccountInfoSync from './useAccountInfoSyncV2';
 import checkSignatureParams from '../../utils/signatureParams';
 import { PortkeyOptions } from 'src/types';
 import { sendAdapter } from '../../hooks/useCallContract';

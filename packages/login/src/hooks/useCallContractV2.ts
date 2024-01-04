@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import AElf from 'aelf-sdk';
 import { ChainId } from '@portkey/provider-types';
-import { did, managerApprove, AuthServe, getChain } from '@portkey-v1/did-ui-react';
+import { did, managerApprove, AuthServe, getChain } from '@portkey/did-ui-react';
 import { useWebLogin } from '../context';
 import {
   CallContractHookInterface,
@@ -11,7 +11,7 @@ import {
 } from '../types';
 import { getConfig } from '../config';
 import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WalletType, WebLoginEvents } from '../constants';
-import { getContractBasic } from '@portkey-v1/contracts';
+import { getContractBasic } from '@portkey/contracts';
 import { SendOptions } from '@portkey/types';
 import useWebLoginEvent from './useWebLoginEvent';
 import { getFaviconUrl, getUrl } from '../utils/getUrl';

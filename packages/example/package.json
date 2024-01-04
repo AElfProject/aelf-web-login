@@ -7,8 +7,10 @@
     "pin": "sh -c '{ for X in {core,empty}; do lerna add @web3-react/$X --exact --no-bootstrap --scope=example-cra; done }'"
   },
   "dependencies": {
-    "@portkey/did-ui-react": "1.5.1",
-    "@portkey/types": "1.5.1",
+    "@portkey/did-ui-react": "2.0.0-alpha.0",
+    "@portkey/types": "2.0.0-alpha.0",
+    "@portkey-v1/did-ui-react": "1.5.4-alpha.4",
+    "@portkey-v1/types": "1.5.4-alpha.4",
     "@types/react-dom": "^18.0.0",
     "aelf-web-login": "workspace:*",
     "ahooks": "^3.7.7",

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { ConfigProvider } from '@portkey/did-ui-react';
+import { ConfigProvider as ConfigProviderV2 } from '@portkey/did-ui-react';
+import { ConfigProvider } from '@portkey-v1/did-ui-react';
 import { IStorageSuite } from '@portkey/types';
 import { NetworkType } from '@portkey/provider-types';
 // import type { AElfReactProviderProps } from '@aelf-react/types';
@@ -19,6 +20,7 @@ export type AElfReactProviderProps = {
 };
 
 export type WebLoginConfig = {
+  version?: string;
   appName: string;
   chainId: string;
   defaultRpcUrl: string;
@@ -46,7 +48,7 @@ export function setGlobalConfig(config: WebLoginConfig) {
   if (config.portkey.useLocalStorage) {
     config.portkey.storageMethod = new Store();
   }
-  ConfigProvider.setGlobalConfig(config.portkey);
+  (config.version === '2' ? ConfigProviderV2 : ConfigProvider).setGlobalConfig(config.portkey);
 }
 
 export function getConfig() {
