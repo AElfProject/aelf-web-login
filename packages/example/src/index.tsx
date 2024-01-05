@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import 'antd/dist/antd.css';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import 'aelf-web-login/dist/assets/index.css';
 import './index.css';
 import './config';
-import { WebLoginProvider } from 'aelf-web-login';
-import { ISignIn, PortkeyProvider, SignIn, SignInProps } from '@portkey-v1/did-ui-react';
-import { PortkeyProvider as PortkeyProviderV2, SignIn as SignInV2 } from '@portkey/did-ui-react';
+import { WebLoginProvider, event$, getConfig, WebLoginConfig } from 'aelf-web-login';
+import { PortkeyDidV1 } from 'aelf-web-login';
+import { PortkeyDidV2 } from 'aelf-web-login';
 import App from './App';
 import { createPortal } from 'react-dom';
-import { getVersion } from './config';
 
-const SignInProxy = React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<any>) {
+const SignInProxy = React.forwardRef(function SignInProxy(
+  props: PortkeyDidV1.SignInProps | PortkeyDidV2.SignInProps,
+  ref: React.Ref<any>,
+) {
+  const version = getConfig().version;
   const [renderRoot, setRenderRoot] = React.useState<HTMLElement>();
   useEffect(() => {
     const container = (document.querySelector('#sign-in-container') || document.createElement('div')) as HTMLElement;
@@ -23,18 +26,27 @@ const SignInProxy = React.forwardRef(function SignInProxy(props: SignInProps, re
   if (!renderRoot) {
     return <></>;
   }
-  return createPortal(<SignIn ref={ref} {...props} isShowScan={false} />, renderRoot!);
-});
-const PortkeyProviderVersion = ({ children, ...props }: any) => {
-  const version = getVersion();
   if (version === '2') {
-    return <PortkeyProviderV2 {...props}>{children}</PortkeyProviderV2>;
-  } else {
-    return <PortkeyProvider {...props}>{children}</PortkeyProvider>;
+    return createPortal(<PortkeyDidV2.SignIn ref={ref} {...props} isShowScan={false} />, renderRoot!);
   }
-};
+  return createPortal(<PortkeyDidV1.SignIn ref={ref} {...props} isShowScan={false} />, renderRoot!);
+});
+
 function Index() {
-  const version = getVersion();
+  const [version, setVersion] = useState(getConfig().version);
+  event$.useSubscription((config: WebLoginConfig) => {
+    setVersion(config.version);
+  });
+  const PortkeyProviderVersion = useCallback(
+    ({ children, ...props }: any) => {
+      if (version === '2') {
+        return <PortkeyDidV2.PortkeyProvider {...props}>{children}</PortkeyDidV2.PortkeyProvider>;
+      } else {
+        return <PortkeyDidV1.PortkeyProvider {...props}>{children}</PortkeyDidV1.PortkeyProvider>;
+      }
+    },
+    [version],
+  );
   return (
     <PortkeyProviderVersion networkType="TESTNET" theme="dark">
       <WebLoginProvider

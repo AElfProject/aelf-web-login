@@ -1,5 +1,6 @@
 import React, { ReactNode, useCallback, useRef, useEffect, useState, useMemo } from 'react';
 import { DIDWalletInfo, SignIn, Unlock, SignInInterface } from '@portkey/did-ui-react';
+import { PortkeyDidV2 } from '../../index';
 import { getConfig } from '../../config';
 import { WebLoginState } from '../../constants';
 import { PortkeyOptions } from '../../types';
@@ -25,6 +26,7 @@ export default function PortkeyV2({
   onUnlock: (password: string) => Promise<boolean>;
   extraWallets: ReactNode;
 }) {
+  console.log('use me v2');
   const signInRef = useRef<SignInInterface>(null);
   const [password, setPassword] = useState('');
   const [isWrongPassword, setIsWrongPassword] = useState(false);
@@ -62,7 +64,7 @@ export default function PortkeyV2({
 
   if (isManagerExists && (loginState === WebLoginState.logining || loginState === WebLoginState.lock)) {
     return (
-      <Unlock
+      <PortkeyDidV2.Unlock
         open={open}
         value={password}
         isWrongPassword={isWrongPassword}
@@ -73,8 +75,7 @@ export default function PortkeyV2({
     );
   }
 
-  const SignInComponent = portkeyOpts.SignInComponent || SignIn;
-  console.log(signInRef, portkeyOpts.design, extraWallets, 'xxxxx');
+  const SignInComponent = portkeyOpts.SignInComponent || PortkeyDidV2.SignIn;
   return (
     <SignInComponent
       defaultChainId={chainId as any}

@@ -10,7 +10,8 @@ import usePortkeyPreparing from './hooks/usePortkeyPreparing';
 import useGetAccount from './hooks/useGetAccount';
 import useGetAccountV2 from './hooks/useGetAccountV2';
 
-// export * from '@portkey/did-ui-react';
+export * as PortkeyDidV1 from '@portkey-v1/did-ui-react';
+export * as PortkeyDidV2 from '@portkey/did-ui-react';
 
 import getContractBasicAsync from './utils/getContractBasicAsync';
 import detectDiscoverProvider from './wallets/discover/detectProvider';

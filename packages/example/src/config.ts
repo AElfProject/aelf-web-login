@@ -1,4 +1,4 @@
-import { setGlobalConfig } from 'aelf-web-login';
+import { event$, setGlobalConfig } from 'aelf-web-login';
 
 const APPNAME = 'explorer.aelf.io';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
@@ -23,49 +23,46 @@ export const connectUrl = !IS_MAINNET
 
 let portkeyScanUrl = `${graphQLServer}/Portkey_DID/PortKeyIndexerCASchema/graphql`;
 // portkeyScanUrl = '/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql';
-let version = '2';
-export const getVersion = () => {
-  return version;
-};
-export const setVersion = (v: string) => {
-  version = v;
-};
-setGlobalConfig({
-  version,
-  appName: APPNAME,
-  chainId: CHAIN_ID,
-  networkType: NETWORK as any,
-  defaultRpcUrl: RPC_SERVER,
-  portkey: {
-    useLocalStorage: true,
-    graphQLUrl: portkeyScanUrl,
-    connectUrl: connectUrl,
-    requestDefaults: {
-      baseURL: portkeyApiServer,
-      timeout: 30000,
-    },
-    socialLogin: {
-      Portkey: {
-        websiteName: APPNAME,
-        websiteIcon: WEBSITE_ICON,
-      },
-    },
-  } as any,
-  aelfReact: {
+
+export const changeGlobalConfig = config => {
+  setGlobalConfig({
     appName: APPNAME,
-    nodes: {
-      AELF: {
-        chainId: 'AELF',
-        rpcUrl: RPC_SERVER,
+    chainId: CHAIN_ID,
+    networkType: NETWORK as any,
+    defaultRpcUrl: RPC_SERVER,
+    portkey: {
+      useLocalStorage: true,
+      graphQLUrl: portkeyScanUrl,
+      connectUrl: connectUrl,
+      requestDefaults: {
+        baseURL: portkeyApiServer,
+        timeout: 30000,
       },
-      tDVW: {
-        chainId: 'tDVW',
-        rpcUrl: RPC_SERVER,
+      socialLogin: {
+        Portkey: {
+          websiteName: APPNAME,
+          websiteIcon: WEBSITE_ICON,
+        },
       },
-      tDVV: {
-        chainId: 'tDVV',
-        rpcUrl: 'http://192.168.66.106:8000',
+    } as any,
+    aelfReact: {
+      appName: APPNAME,
+      nodes: {
+        AELF: {
+          chainId: 'AELF',
+          rpcUrl: RPC_SERVER,
+        },
+        tDVW: {
+          chainId: 'tDVW',
+          rpcUrl: RPC_SERVER,
+        },
+        tDVV: {
+          chainId: 'tDVV',
+          rpcUrl: 'http://192.168.66.106:8000',
+        },
       },
     },
-  },
-});
+    ...config,
+  });
+};
+changeGlobalConfig({ version: '2' });

@@ -137,6 +137,7 @@ export type WalletHookInterface = {
   // TODO: move this to new hook
   callContract<T, R>(params: CallContractParams<T>): Promise<R>;
   getSignature(params: SignatureParams): Promise<SignatureData>;
+  changePortkeyVersion?: () => void;
 };
 
 /**

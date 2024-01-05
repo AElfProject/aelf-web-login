@@ -9,8 +9,8 @@ import NightElfPlugin from './wallets/elf/NightElfPlugin';
 import Portkey from './wallets/portkey/Portkey';
 import PortkeyV2 from './wallets/portkey/PortkeyV2';
 import { useElf } from './wallets/elf/useElf';
-import { getConfig } from './config';
-import { CloseIcon, WalletType, WebLoginState } from './constants';
+import { WebLoginConfig, event$, getConfig } from './config';
+import { CloseIcon, WalletType, WebLoginEvents, WebLoginState } from './constants';
 import { PortkeyLoading as PortkeyLoadingV2 } from '@portkey/did-ui-react';
 import { PortkeyLoading } from '@portkey-v1/did-ui-react';
 import { check } from './wallets/elf/utils';
@@ -85,8 +85,12 @@ function WebLoginProvider({
   const [modalOpen, setModalOpen] = useState(false);
   const [bridgeType, setBridgeType] = useState('unknown');
   const [loginId, setLoginId] = useState(0);
+  const [version, setVersion] = useState(getConfig().version);
 
-  const version = getConfig().version;
+  event$.useSubscription((value: any) => {
+    console.log(value.version, 'value.version');
+    setVersion(value.version);
+  });
 
   useEffect(() => {
     // SSR support
@@ -279,6 +283,22 @@ function WebLoginProvider({
     },
   );
 
+  const { run: changePortkeyVersion } = useDebounceFn(
+    useCallback(async () => {
+      console.log(walletType, 'walletType');
+      if (walletType === WalletType.portkey) {
+        await logoutInternal({ noModal: true });
+        setLoginState(WebLoginState.initial);
+        eventEmitter.emit(WebLoginEvents.CHANGE_PORTKEY_VERSION);
+      }
+    }, [eventEmitter, logoutInternal, walletType]),
+    {
+      wait: 500,
+      maxWait: 500,
+      leading: true,
+    },
+  );
+
   useEffect(() => {
     if (logoutConfirmResult === LogoutConfirmResult.ok) {
       setLogoutConfirmOpen(false);
@@ -312,6 +332,7 @@ function WebLoginProvider({
       ...walletApi,
       login: loginInternal,
       logout: logoutInternal,
+      changePortkeyVersion,
     }),
     [
       loginId,
@@ -326,6 +347,7 @@ function WebLoginProvider({
       walletApi,
       loginInternal,
       logoutInternal,
+      changePortkeyVersion,
     ],
   );
 
@@ -406,6 +428,7 @@ function WebLoginProvider({
 
   return (
     <WebLoginContext.Provider value={state}>
+      <h1>====={version}=====</h1>
       {children}
       {version === '2' ? (
         <PortkeyV2

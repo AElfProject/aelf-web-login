@@ -27,6 +27,7 @@ export enum WebLoginEvents {
   NETWORK_MISMATCH = 'networkMismatch',
   ACCOUNTS_MISMATCH = 'accountsMismatch',
   CHAINID_MISMATCH = 'chainIdMismatch',
+  CHANGE_PORTKEY_VERSION = 'changePortkeyVersion',
 }
 
 export const CloseIcon =

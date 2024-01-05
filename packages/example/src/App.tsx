@@ -2,12 +2,13 @@ import { WalletType, WebLoginEvents, WebLoginState, getConfig, useWebLogin, useW
 import VConsole from 'vconsole';
 import MultiWallets from './components/MultiWallets';
 import CallContract from './components/CallContract';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { usePortkeyLock, usePortkeyLockV2 } from 'aelf-web-login';
 import { Tabs } from 'antd';
 import isMobile from './utils/isMobile';
 import Signature from './components/Signature';
 import Events from './components/Events';
+import { changeGlobalConfig } from './config';
 
 const win = window as any;
 let showVConsole = () => {};
@@ -21,8 +22,30 @@ if (isMobile() || win.ReactNativeWebView) {
 export default function App() {
   const config = getConfig();
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const { wallet, walletType, login, loginEagerly, logout, loginState } = useWebLogin();
+  const { wallet, walletType, login, loginEagerly, logout, loginState, changePortkeyVersion } = useWebLogin();
   const { isUnlocking, lock } = config.version === '2' ? usePortkeyLockV2() : usePortkeyLock();
+  const [version, setVersion] = useState(config.version);
+
+  useWebLoginEvent(WebLoginEvents.CHANGE_PORTKEY_VERSION, () => {
+    console.log(version, 'changeGlobalConfig');
+    changeGlobalConfig({ version });
+  });
+
+  const changeConfig = useCallback(() => {
+    if (version === '2') {
+      setVersion('1');
+      changePortkeyVersion();
+      // setTimeout(() => {
+      //   changeGlobalConfig({ version: '1' });
+      // }, 0);
+    } else {
+      setVersion('2');
+      changePortkeyVersion();
+      // setTimeout(() => {
+      //   changeGlobalConfig({ version: '2' });
+      // }, 0);
+    }
+  }, [version]);
 
   return (
     <div>
@@ -51,6 +74,7 @@ export default function App() {
         <button disabled={loginState !== WebLoginState.logined} onClick={() => logout({ noModal: true })}>
           {loginState === WebLoginState.logouting ? 'logouting' : 'logoutNoModal'}
         </button>
+        <button onClick={() => changeConfig()}>changeGlobalConfig</button>
       </div>
       <Tabs
         type="card"
