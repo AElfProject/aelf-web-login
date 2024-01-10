@@ -40,7 +40,7 @@ export type DiscoverOptions = {
   onClick?: OnClickCryptoWallet;
   onPluginNotFound?: PluginNotFoundCallback;
 };
-interface ICommonConfig {
+export interface ICommonConfig {
   showClose?: boolean;
   iconSrc?: string;
 }

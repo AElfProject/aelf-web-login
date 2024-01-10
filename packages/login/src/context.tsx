@@ -17,6 +17,7 @@ import DiscoverPlugin from './wallets/discover/DiscoverPlugin';
 import { LOGIN_EARGLY_KEY as DISCOVER_LOGIN_EARGERLY_KEY, useDiscover } from './wallets/discover/useDiscover';
 import ConfirmLogoutDialog from './components/CofirmLogoutDialog/ConfirmLogoutDialog';
 import { useDebounceFn } from 'ahooks';
+import ExtraWallets from './wallets/extraWallets';
 
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,
@@ -61,8 +62,11 @@ export const useWebLogin: () => WebLoginInterface = () => {
   return useWebLoginContext() as WebLoginInterface;
 };
 
+export type ExtraWalletProviderProps = Omit<WebLoginProviderProps, 'children'>;
+export const ExtraWalletContext = createContext<ExtraWalletProviderProps>({} as ExtraWalletProviderProps);
+
 function WebLoginProvider({
-  nightElf: nightEflOpts,
+  nightElf: nightElfOpts,
   portkey: portkeyOpts,
   discover: discoverOpts,
   extraWallets,
@@ -111,7 +115,7 @@ function WebLoginProvider({
   );
 
   const elfApi = useElf({
-    options: nightEflOpts,
+    options: nightElfOpts,
     loginState,
     walletType,
     eventEmitter,
@@ -336,11 +340,14 @@ function WebLoginProvider({
     let contentClassName = 'default-content';
 
     if (portkeyOpts.design === 'Web2Design') {
-      headerClassName = 'social-header web2-header';
-      contentClassName = 'social-content web2-content';
+      headerClassName = 'web2-header';
+      contentClassName = 'web2-content';
     } else if (portkeyOpts.design === 'SocialDesign') {
       headerClassName = 'social-header';
       contentClassName = 'social-content';
+    } else if (portkeyOpts.design === 'CryptoDesign') {
+      headerClassName = 'crypto-header';
+      contentClassName = 'crypto-content';
     }
 
     // hide extra wallets when bridge and discover mobile not exist
@@ -348,54 +355,70 @@ function WebLoginProvider({
       return;
     }
     return (
-      <div className="aelf-web-login aelf-extra-wallets">
-        <div className={headerClassName}>
-          {portkeyOpts.design === 'SocialDesign' && (
-            <div>
-              {commonConfig?.showClose && (
-                <div className="header">
-                  <button className="header-btn" onClick={portkeyApi.onCancel}>
-                    <img src={CloseIcon}></img>
-                  </button>
-                </div>
-              )}
-              {commonConfig?.iconSrc && (
-                <div className="title-icon">
-                  <img src={commonConfig?.iconSrc}></img>
-                </div>
-              )}
-            </div>
-          )}
+      <ExtraWalletContext.Provider
+        value={{
+          nightElf: nightElfOpts,
+          portkey: portkeyOpts,
+          discover: discoverOpts,
+          extraWallets,
+          commonConfig,
+        }}>
+        <ExtraWallets
+          headerClassName={headerClassName}
+          contentClassName={contentClassName}
+          portkeyApi={portkeyApi}
+          elfApi={elfApi}
+          discoverApi={discoverApi}
+          isBridgeNotExist={isBridgeNotExist}></ExtraWallets>
+      </ExtraWalletContext.Provider>
+      // <div className="aelf-web-login aelf-extra-wallets">
+      //   <div className={headerClassName}>
+      //     {portkeyOpts.design === 'SocialDesign' && (
+      //       <div>
+      //         {commonConfig?.showClose && (
+      //           <div className="header">
+      //             <button className="header-btn" onClick={portkeyApi.onCancel}>
+      //               <img src={CloseIcon}></img>
+      //             </button>
+      //           </div>
+      //         )}
+      //         {commonConfig?.iconSrc && (
+      //           <div className="title-icon">
+      //             <img src={commonConfig?.iconSrc}></img>
+      //           </div>
+      //         )}
+      //       </div>
+      //     )}
 
-          <div className="title">Crypto wallet</div>
-        </div>
-        <div className={`wallet-entries ${contentClassName}`}>
-          {extraWallets
-            // hide specific wallet when bridge or discover mobile not exist
-            ?.filter((wallet) => {
-              if (wallet === WalletType.elf) {
-                return !isBridgeNotExist;
-              } else if (wallet === WalletType.discover) {
-                return !isDiscoverMobileNotExist || isShowDiscoverButton;
-              }
-              return true;
-            })
-            .map((wallet) => {
-              if (wallet === WalletType.elf) {
-                return <NightElfPlugin key={wallet} nightEflOpts={nightEflOpts} onClick={elfApi.login} />;
-              } else if (wallet === WalletType.discover) {
-                return (
-                  <DiscoverPlugin
-                    key={wallet}
-                    discoverOpts={discoverOpts}
-                    detectState={discoverApi.discoverDetected}
-                    onClick={discoverApi.login}
-                  />
-                );
-              }
-            })}
-        </div>
-      </div>
+      //     <div className="title">Crypto wallet</div>
+      //   </div>
+      //   <div className={`wallet-entries ${contentClassName}`}>
+      //     {extraWallets
+      //       // hide specific wallet when bridge or discover mobile not exist
+      //       ?.filter((wallet) => {
+      //         if (wallet === WalletType.elf) {
+      //           return !isBridgeNotExist;
+      //         } else if (wallet === WalletType.discover) {
+      //           return !isDiscoverMobileNotExist || isShowDiscoverButton;
+      //         }
+      //         return true;
+      //       })
+      //       .map((wallet) => {
+      //         if (wallet === WalletType.elf) {
+      //           return <NightElfPlugin key={wallet} nightElfOpts={nightElfOpts} onClick={elfApi.login} />;
+      //         } else if (wallet === WalletType.discover) {
+      //           return (
+      //             <DiscoverPlugin
+      //               key={wallet}
+      //               discoverOpts={discoverOpts}
+      //               detectState={discoverApi.discoverDetected}
+      //               onClick={discoverApi.login}
+      //             />
+      //           );
+      //         }
+      //       })}
+      //   </div>
+      // </div>
     );
   };
 

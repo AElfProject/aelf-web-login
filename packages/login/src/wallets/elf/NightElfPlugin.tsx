@@ -2,22 +2,18 @@ import { useDebounceFn } from 'ahooks';
 import PluginEntry from '../../components/PluginEntry';
 import isMobile from '../../utils/isMobile';
 import { check } from './utils';
-import { NightElfOptions } from '../../types';
 import { openNightElfPluginPage } from '../../utils/pluginPages';
+import { ExtraWalletContext } from '../../context';
+import { useContext } from 'react';
 
-export default function NightElfPlugin({
-  nightEflOpts,
-  onClick,
-}: {
-  nightEflOpts: NightElfOptions;
-  onClick: () => void;
-}) {
+export default function NightElfPlugin({ onClick }: { onClick: () => void }) {
+  const { nightElf: nightElfOpts } = useContext(ExtraWalletContext);
   const { run: onClickInternal } = useDebounceFn(
     async () => {
       const type = await check();
       if (type === 'none' && !isMobile()) {
-        if (nightEflOpts?.onPluginNotFound) {
-          nightEflOpts?.onPluginNotFound(openNightElfPluginPage);
+        if (nightElfOpts?.onPluginNotFound) {
+          nightElfOpts?.onPluginNotFound(openNightElfPluginPage);
         } else {
           openNightElfPluginPage();
         }
@@ -35,12 +31,11 @@ export default function NightElfPlugin({
   );
 
   const onClickButton = () => {
-    if (nightEflOpts.onClick) {
-      nightEflOpts.onClick(onClickInternal);
+    if (nightElfOpts.onClick) {
+      nightElfOpts.onClick(onClickInternal);
     } else {
       onClickInternal();
     }
   };
-
-  return <PluginEntry icon="elf" name="Night Elf" onClick={onClickButton} />;
+  return <PluginEntry icon="elf" name="aelf Wallet" onClick={onClickButton} />;
 }
