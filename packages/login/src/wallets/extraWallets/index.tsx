@@ -5,10 +5,10 @@ import {
   DiscoverSquareIcon,
   ElfIcon,
   ElfSquareIcon,
-  LeftIcon,
+  RightIcon,
   WalletType,
 } from '../../constants';
-import { DiscoverOptions, ICommonConfig, NightElfOptions, PortkeyOptions, WalletHookInterface } from '../../types';
+import { WalletHookInterface } from '../../types';
 import isMobile from '../../utils/isMobile';
 import isPortkeyApp from '../../utils/isPortkeyApp';
 import DiscoverPlugin from '../discover/DiscoverPlugin';
@@ -107,7 +107,7 @@ export default function ExtraWallets({
                 return <img src={DiscoverIcon} key="discover" className="discover"></img>;
               }
             })}
-            <img src={LeftIcon} className="left"></img>
+            <img src={RightIcon} className="left"></img>
           </span>
         </Button>
       </div>
@@ -129,7 +129,7 @@ export default function ExtraWallets({
                 return <img src={DiscoverSquareIcon} key="discover" className="discover"></img>;
               }
             })}
-            <img src={LeftIcon} className="left"></img>
+            <img src={RightIcon} className="left"></img>
           </span>
         </Button>
       </div>

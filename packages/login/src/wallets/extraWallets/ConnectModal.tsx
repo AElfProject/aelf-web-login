@@ -1,6 +1,6 @@
 import { Drawer, Modal } from 'antd';
 import isMobile from '../../utils/isMobile';
-import { CloseIcon, WalletType } from '../../constants';
+import { CloseIcon, LeftIcon, WalletType } from '../../constants';
 import PluginEntry from 'src/components/PluginEntry';
 import { TDesign } from '@portkey/did-ui-react';
 import NightElfPlugin from '../elf/NightElfPlugin';
@@ -21,7 +21,7 @@ export default function ConnectModal({ open, onClose, validWallets }: IProps) {
   if (mobileFlag) {
     return (
       <Drawer
-        className="crypto-conntect-modal"
+        className="aelf-web-conntect-drawer"
         title={
           <>
             <span className="title">Connect Wallet</span>
@@ -47,10 +47,30 @@ export default function ConnectModal({ open, onClose, validWallets }: IProps) {
     );
   } else {
     return (
-      <Modal title="Basic Modal" open={open} closable={true} footer={null}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+      <Modal
+        title={
+          <>
+            <span className="title">Connect Wallet</span>
+            <img src={LeftIcon} onClick={onClose}></img>
+          </>
+        }
+        open={open}
+        closable={false}
+        footer={null}
+        centered={true}
+        className="aelf-web-connect-modal"
+        width={430}>
+        <div className="plugin-entry-wrapper">
+          {validWallets.map((wallet) => {
+            if (wallet === WalletType.elf) {
+              return <NightElfPlugin key={wallet} onClick={elfApi.login} />;
+            } else if (wallet === WalletType.discover) {
+              return (
+                <DiscoverPlugin key={wallet} detectState={discoverApi.discoverDetected} onClick={discoverApi.login} />
+              );
+            }
+          })}
+        </div>
       </Modal>
     );
   }
