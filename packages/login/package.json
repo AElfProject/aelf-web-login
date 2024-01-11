@@ -49,13 +49,13 @@
   },
   "dependencies": {
     "@aelf-react/core": "^0.1.19",
-    "@portkey/contracts": "1.5.1",
+    "@portkey/contracts": "1.5.5-alpha.0",
     "@portkey/detect-provider": "1.0.1-alpha.0",
-    "@portkey/did-ui-react": "1.5.1",
+    "@portkey/did-ui-react": "1.5.5-alpha.0",
     "@portkey/provider-types": "1.0.1-alpha.0",
-    "@portkey/services": "1.5.1",
-    "@portkey/types": "1.5.1",
-    "@portkey/utils": "1.5.1",
+    "@portkey/services": "1.5.5-alpha.0",
+    "@portkey/types": "1.5.5-alpha.0",
+    "@portkey/utils": "1.5.5-alpha.0",
     "@types/bn.js": "^5.1.3",
     "aelf-bridge": "^0.0.10",
     "aelf-sdk": "^3.3.0",
@@ -72,10 +72,10 @@
     "less": "^4.1.3"
   },
   "peerDependencies": {
-    "@portkey/contracts": "1.5.1",
-    "@portkey/did-ui-react": "1.5.1",
-    "@portkey/services": "1.5.1",
-    "@portkey/types": "1.5.1",
-    "@portkey/utils": "1.5.1"
+    "@portkey/contracts": "1.5.5-alpha.0",
+    "@portkey/did-ui-react": "1.5.5-alpha.0",
+    "@portkey/services": "1.5.5-alpha.0",
+    "@portkey/types": "1.5.5-alpha.0",
+    "@portkey/utils": "1.5.5-alpha.0"
   }
 }
