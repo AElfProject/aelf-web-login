@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { WebLoginState } from '../../constants';
+import { WebLoginState } from '../../../constants';
 import { useInterval } from 'ahooks';
 import { ChainId } from '@portkey/types';
 import type { IHolderInfo } from '@portkey/services';

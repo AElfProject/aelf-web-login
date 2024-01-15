@@ -1,8 +1,8 @@
 import React, { ReactNode, useCallback, useRef, useEffect, useState, useMemo } from 'react';
 import { DIDWalletInfo, SignIn, Unlock, SignInInterface } from '@portkey/did-ui-react';
-import { getConfig } from '../../config';
-import { WebLoginState } from '../../constants';
-import { PortkeyOptions } from '../../types';
+import { getConfig } from '../../../config';
+import { WebLoginState } from '../../../constants';
+import { PortkeyOptions } from '../../../types';
 
 export default function Portkey({
   open,

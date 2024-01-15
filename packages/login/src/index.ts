@@ -6,8 +6,12 @@ import useCallContract from './hooks/useCallContract';
 import usePortkeyLock from './hooks/usePortkeyLock';
 import usePortkeyPreparing from './hooks/usePortkeyPreparing';
 import useGetAccount from './hooks/useGetAccount';
+import useCallContractV1 from './hooks/useCallContract/indexV1';
+import usePortkeyLockV1 from './hooks/usePortkeyLock/indexV1';
+import useGetAccountV1 from './hooks/useGetAccount/indexV1';
 
-export * from '@portkey/did-ui-react';
+export * as PortkeyDid from '@portkey/did-ui-react';
+export * as PortkeyDidV1 from '@portkey-v1/did-ui-react';
 
 import getContractBasicAsync from './utils/getContractBasicAsync';
 import detectDiscoverProvider from './wallets/discover/detectProvider';
@@ -38,4 +42,7 @@ export {
   getContractBasicAsync,
   detectDiscoverProvider,
   detectNightElf,
+  useCallContractV1,
+  usePortkeyLockV1,
+  useGetAccountV1,
 };

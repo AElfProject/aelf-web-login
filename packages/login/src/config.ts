@@ -1,9 +1,12 @@
 import { ReactNode } from 'react';
-import { ConfigProvider } from '@portkey/did-ui-react';
 import { IStorageSuite } from '@portkey/types';
 import { NetworkType } from '@portkey/provider-types';
-// import type { AElfReactProviderProps } from '@aelf-react/types';
+import { ConfigProvider as ConfigProviderV1 } from '@portkey/did-ui-react';
+import { ConfigProvider } from '@portkey-v1/did-ui-react';
+import { GlobalConfigProps as GlobalConfigPropsV1 } from '@portkey-v1/did-ui-react/dist/_types/src/components/config-provider/types';
 import { GlobalConfigProps } from '@portkey/did-ui-react/dist/_types/src/components/config-provider/types';
+import { EventEmitter } from 'ahooks/lib/useEventEmitter';
+import { PortkeyDidV1, PortkeyDid } from './index';
 
 // copy from @aelf-react/core, cause it's not exported
 export type AelfNode = {
@@ -17,13 +20,17 @@ export type AElfReactProviderProps = {
     [key: string]: AelfNode;
   };
 };
-
+interface IVersion {
+  portkey?: number;
+  discover?: number;
+}
 export type WebLoginConfig = {
+  version?: IVersion;
   appName: string;
   chainId: string;
   defaultRpcUrl: string;
   networkType: NetworkType;
-  portkey: GlobalConfigProps & { useLocalStorage?: boolean };
+  portkey: (GlobalConfigProps | GlobalConfigPropsV1) & { useLocalStorage?: boolean };
   aelfReact: Omit<AElfReactProviderProps, 'children'>;
 };
 
@@ -40,13 +47,18 @@ export class Store implements IStorageSuite {
 }
 
 let globalConfig: WebLoginConfig;
+export const event$ = new EventEmitter();
 
 export function setGlobalConfig(config: WebLoginConfig) {
   globalConfig = config;
   if (config.portkey.useLocalStorage) {
     config.portkey.storageMethod = new Store();
   }
-  ConfigProvider.setGlobalConfig(config.portkey);
+  // default version 2
+  (config.version?.portkey === 1 ? PortkeyDidV1.ConfigProvider : PortkeyDid.ConfigProvider).setGlobalConfig(
+    config.portkey,
+  );
+  event$.emit(globalConfig);
 }
 
 export function getConfig() {

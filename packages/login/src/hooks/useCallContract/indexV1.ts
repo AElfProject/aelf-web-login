@@ -1,21 +1,19 @@
 import { useCallback } from 'react';
 import AElf from 'aelf-sdk';
-import { ChainId } from '@portkey/provider-types';
-import { did, managerApprove, AuthServe, getChain } from '@portkey/did-ui-react';
-import { useWebLogin } from '../context';
+import { did, managerApprove, getChain } from '@portkey-v1/did-ui-react';
+import { useWebLogin } from '../../context';
 import {
   CallContractHookInterface,
   CallContractHookOptions,
   CallContractParams,
   IPortkeySendAdapterProps,
-} from '../types';
-import { getConfig } from '../config';
-import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WalletType, WebLoginEvents } from '../constants';
-import { getContractBasic } from '@portkey/contracts';
-import { SendOptions } from '@portkey/types';
-import useWebLoginEvent from './useWebLoginEvent';
-import { getFaviconUrl, getUrl } from '../utils/getUrl';
-import { AccountTypeEnum } from '@portkey/services';
+} from '../../types';
+import { getConfig } from '../../config';
+import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WalletType, WebLoginEvents } from '../../constants';
+import { getContractBasic } from '@portkey-v1/contracts';
+import { SendOptions, ChainId } from '@portkey-v1/types';
+import useWebLoginEvent from '../useWebLoginEvent';
+import { getFaviconUrl, getUrl } from '../../utils/getUrl';
 
 const getAElfInstance = (() => {
   const instances = new Map<string, any>();
