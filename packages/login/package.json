@@ -49,13 +49,8 @@
   },
   "dependencies": {
     "@aelf-react/core": "^0.1.19",
-    "@portkey/contracts": "1.5.5-alpha.0",
     "@portkey/detect-provider": "1.0.1-alpha.0",
-    "@portkey/did-ui-react": "1.5.5-alpha.0",
     "@portkey/provider-types": "1.0.1-alpha.0",
-    "@portkey/services": "1.5.5-alpha.0",
-    "@portkey/types": "1.5.5-alpha.0",
-    "@portkey/utils": "1.5.5-alpha.0",
     "@types/bn.js": "^5.1.3",
     "aelf-bridge": "^0.0.10",
     "aelf-sdk": "^3.3.0",
@@ -69,13 +64,18 @@
     "@types/uuid": "^8.3.4",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "less": "^4.1.3"
+    "less": "^4.1.3",
+    "@portkey/contracts": "1.5.5-alpha.2",
+    "@portkey/did-ui-react": "1.5.5-alpha.2",
+    "@portkey/services": "1.5.5-alpha.2",
+    "@portkey/types": "1.5.5-alpha.2",
+    "@portkey/utils": "1.5.5-alpha.2"
   },
   "peerDependencies": {
-    "@portkey/contracts": "1.5.5-alpha.0",
-    "@portkey/did-ui-react": "1.5.5-alpha.0",
-    "@portkey/services": "1.5.5-alpha.0",
-    "@portkey/types": "1.5.5-alpha.0",
-    "@portkey/utils": "1.5.5-alpha.0"
+    "@portkey/contracts": "1.5.5-alpha.2",
+    "@portkey/did-ui-react": "1.5.5-alpha.2",
+    "@portkey/services": "1.5.5-alpha.2",
+    "@portkey/types": "1.5.5-alpha.2",
+    "@portkey/utils": "1.5.5-alpha.2"
   }
 }

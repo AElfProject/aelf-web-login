@@ -43,6 +43,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 18px;
+    margin-bottom: 16px;
   }
 
   .wallet-entries {
@@ -303,21 +304,24 @@
   }
 }
 
-.aelf-web--conntect-drawer {
-  .ant-drawer-content-wrapper {
-    .ant-drawer-content {
+.aelf-web-conntect-drawer {
+  .portkey-ant-drawer-content-wrapper {
+    .portkey-ant-drawer-content {
       border-radius: 12px 12px 0px 0px;
     }
   }
-  .ant-drawer-header {
+  .portkey-ant-drawer-header {
     padding-bottom: 0;
     border-bottom: 0;
-    .ant-drawer-close {
+    margin-bottom: 24px;
+    .portkey-ant-drawer-close {
       display: none;
     }
-    .ant-drawer-title {
+    .portkey-ant-drawer-title {
       text-align: center;
       margin: 8px auto 8px;
+      line-height: 24px;
+      font-size: 20px;
       img {
         position: absolute;
         right: 18px;
@@ -330,14 +334,15 @@
 .aelf-web-connect-modal {
   height: 566px;
   min-height: 566px;
-  .ant-modal-content {
+  .portkey-ant-modal-content {
     border-radius: 6px;
     height: 100%;
-    .ant-modal-header {
+    .portkey-ant-modal-header {
       border-radius: 6px;
       text-align: center;
       border-bottom: 0;
-      .ant-modal-title {
+      margin-bottom: 24px;
+      .portkey-ant-modal-title {
         margin-top: 24px;
         .title {
           color: #25272a;
@@ -358,7 +363,7 @@
   }
 }
 .aelf-web-connect-modal,
-.aelf-web--conntect-drawer {
+.aelf-web-conntect-drawer {
   .plugin-entry-wrapper {
     display: flex;
     align-items: center;

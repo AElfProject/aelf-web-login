@@ -28,6 +28,7 @@ export default function ConnectModal({ open, onClose, validWallets }: IProps) {
             <img src={CloseIcon} onClick={onClose}></img>
           </>
         }
+        getContainer={false}
         closeIcon={null}
         onClose={onClose}
         open={open}
@@ -54,6 +55,7 @@ export default function ConnectModal({ open, onClose, validWallets }: IProps) {
             <img src={LeftIcon} onClick={onClose}></img>
           </>
         }
+        getContainer={false}
         open={open}
         closable={false}
         footer={null}
