@@ -1,4 +1,4 @@
-import { setGlobalConfig } from 'aelf-web-login';
+import { event$, setGlobalConfig } from 'aelf-web-login';
 
 const APPNAME = 'explorer.aelf.io';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
@@ -24,45 +24,54 @@ export const connectUrl = !IS_MAINNET
 let portkeyScanUrl = `${graphQLServer}/Portkey_DID/PortKeyIndexerCASchema/graphql`;
 // portkeyScanUrl = '/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql';
 
-setGlobalConfig({
-  appName: APPNAME,
-  chainId: CHAIN_ID,
-  networkType: NETWORK as any,
-  defaultRpcUrl: RPC_SERVER,
-  portkey: {
-    loginConfig: {
-      recommendIndexes: [0, 1],
-      loginMethodsOrder: ['Google', 'Telegram', 'Apple', 'Phone', 'Email'],
-    },
-    useLocalStorage: true,
-    graphQLUrl: portkeyScanUrl,
-    connectUrl: connectUrl,
-    requestDefaults: {
-      baseURL: portkeyApiServer,
-      timeout: 30000,
-    },
-    socialLogin: {
-      Portkey: {
-        websiteName: APPNAME,
-        websiteIcon: WEBSITE_ICON,
-      },
-    },
-  } as any,
-  aelfReact: {
+export const changeGlobalConfig = config => {
+  setGlobalConfig({
     appName: APPNAME,
-    nodes: {
-      AELF: {
-        chainId: 'AELF',
-        rpcUrl: RPC_SERVER,
+    chainId: CHAIN_ID,
+    networkType: NETWORK as any,
+    defaultRpcUrl: RPC_SERVER,
+    portkey: {
+      loginConfig: {
+        recommendIndexes: [0, 1],
+        loginMethodsOrder: ['Google', 'Telegram', 'Apple', 'Phone', 'Email'],
       },
-      tDVW: {
-        chainId: 'tDVW',
-        rpcUrl: RPC_SERVER,
+      useLocalStorage: true,
+      graphQLUrl: portkeyScanUrl,
+      connectUrl: connectUrl,
+      requestDefaults: {
+        baseURL: portkeyApiServer,
+        timeout: 30000,
       },
-      tDVV: {
-        chainId: 'tDVV',
-        rpcUrl: 'http://192.168.66.106:8000',
+      socialLogin: {
+        Portkey: {
+          websiteName: APPNAME,
+          websiteIcon: WEBSITE_ICON,
+        },
+      },
+    } as any,
+    aelfReact: {
+      appName: APPNAME,
+      nodes: {
+        AELF: {
+          chainId: 'AELF',
+          rpcUrl: RPC_SERVER,
+        },
+        tDVW: {
+          chainId: 'tDVW',
+          rpcUrl: RPC_SERVER,
+        },
+        tDVV: {
+          chainId: 'tDVV',
+          rpcUrl: 'http://192.168.66.106:8000',
+        },
       },
     },
+    ...config,
+  });
+};
+changeGlobalConfig({
+  version: {
+    portkey: 2,
+    discover: 2,
   },
 });

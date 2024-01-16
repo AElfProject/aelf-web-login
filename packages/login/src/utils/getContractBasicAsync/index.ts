@@ -1,9 +1,9 @@
-import { WalletInfo } from '../types';
+import { WalletInfo } from '../../types';
 
 import { getContractBasic as getContractBasicInternal } from '@portkey/contracts';
 import { did } from '@portkey/did-ui-react';
-import { getConfig } from '../config';
-import { WalletType } from '../constants';
+import { getConfig } from '../../config';
+import { WalletType } from '../../constants';
 import { ChainId } from '@portkey/provider-types';
 import { IContract } from '@portkey/types';
 

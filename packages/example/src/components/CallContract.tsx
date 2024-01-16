@@ -1,12 +1,15 @@
-import { CallContractParams, WebLoginState, useCallContract, useWebLogin, PortkeyAssetProvider } from 'aelf-web-login';
-import { useState } from 'react';
+import { CallContractParams, WebLoginState, useCallContract, useWebLogin, getConfig } from 'aelf-web-login';
+import { useMemo, useState } from 'react';
 import configJson from '../assets/config.json';
 import configTdvwJson from '../assets/config.tdvw.json';
-import { useGetAccount } from 'aelf-web-login';
+import { useGetAccount, useGetAccountV1 } from 'aelf-web-login';
 import { SendOptions } from '@portkey/types';
+import { SendOptions as SendOptionsV1 } from '@portkey-v1/types';
+import { useWebLoginEvent } from 'aelf-web-login';
+import { WebLoginEvents } from 'aelf-web-login';
 
 async function callContractWithLog<T, R>(
-  callContract: (params: CallContractParams<T>, sendOptions?: SendOptions | undefined) => Promise<R>,
+  callContract: (params: CallContractParams<T>, sendOptions?: SendOptions | SendOptionsV1 | undefined) => Promise<R>,
   params: CallContractParams<T>,
 ): Promise<R> {
   console.log('call', params);
@@ -66,8 +69,12 @@ function useExampleCall(name: string, func: () => any) {
 
 export default function CallContract() {
   const { wallet, callContract } = useWebLogin();
-  console.log(wallet);
-  const getAccountTDVW = useGetAccount('tDVW');
+  const config = getConfig();
+  const [version, setVersion] = useState(config.version);
+  const getAccountTDVW = useMemo(
+    () => (version?.portkey === 1 ? useGetAccountV1('tDVW') : useGetAccount('tDVW')),
+    [version],
+  );
   const { callViewMethod, callSendMethod } = useCallContract();
   const { callViewMethod: callViewMethodAELF, callSendMethod: callSendMethodAELF } = useCallContract({
     chainId: 'AELF',
@@ -84,6 +91,12 @@ export default function CallContract() {
   const { callViewMethod: callViewMethodTDVV, callSendMethod: callSendMethodTDVV } = useCallContract({
     chainId: 'tDVV',
     rpcUrl: 'http://192.168.66.106:8000',
+  });
+
+  useWebLoginEvent(WebLoginEvents.CHANGE_PORTKEY_VERSION, () => {
+    setVersion({
+      portkey: getConfig().version.portkey,
+    });
   });
 
   const examples = [

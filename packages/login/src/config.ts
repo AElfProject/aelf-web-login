@@ -1,8 +1,7 @@
 import { ReactNode } from 'react';
 import { IStorageSuite } from '@portkey/types';
+import { IStorageSuite as IStorageSuiteV1 } from '@portkey-v1/types';
 import { NetworkType } from '@portkey/provider-types';
-import { ConfigProvider as ConfigProviderV1 } from '@portkey/did-ui-react';
-import { ConfigProvider } from '@portkey-v1/did-ui-react';
 import { GlobalConfigProps as GlobalConfigPropsV1 } from '@portkey-v1/did-ui-react/dist/_types/src/components/config-provider/types';
 import { GlobalConfigProps } from '@portkey/did-ui-react/dist/_types/src/components/config-provider/types';
 import { EventEmitter } from 'ahooks/lib/useEventEmitter';
@@ -34,7 +33,7 @@ export type WebLoginConfig = {
   aelfReact: Omit<AElfReactProviderProps, 'children'>;
 };
 
-export class Store implements IStorageSuite {
+export class Store implements IStorageSuite, IStorageSuiteV1 {
   async getItem(key: string) {
     return localStorage.getItem(key);
   }

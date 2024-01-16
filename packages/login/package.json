@@ -49,8 +49,8 @@
   },
   "dependencies": {
     "@aelf-react/core": "^0.1.19",
-    "@portkey/detect-provider": "1.0.1-alpha.0",
-    "@portkey/provider-types": "1.0.1-alpha.0",
+    "@portkey/detect-provider": "2.0.0-alpha.1",
+    "@portkey/provider-types": "2.0.0-alpha.1",
     "@types/bn.js": "^5.1.3",
     "aelf-bridge": "^0.0.10",
     "aelf-sdk": "^3.3.0",

@@ -290,14 +290,18 @@ function WebLoginProvider({
     useCallback(async () => {
       // portkey sdk
       if (walletType === WalletType.portkey) {
-        await logoutInternal({ noModal: true });
-        setLoginState(WebLoginState.initial);
-        eventEmitter.emit(WebLoginEvents.CHANGE_PORTKEY_VERSION);
+        if (version?.portkey) {
+          await logoutInternal({ noModal: true });
+          setLoginState(WebLoginState.initial);
+          eventEmitter.emit(WebLoginEvents.CHANGE_PORTKEY_VERSION);
+        }
       } else if (walletType === WalletType.discover) {
-        // discover plugin
-        await logoutInternal();
-        setLoginState(WebLoginState.initial);
-        eventEmitter.emit(WebLoginEvents.CHANGE_DISCOVER_VERSION);
+        if (version?.discover) {
+          // discover plugin
+          await logoutInternal();
+          setLoginState(WebLoginState.initial);
+          eventEmitter.emit(WebLoginEvents.CHANGE_DISCOVER_VERSION);
+        }
       }
     }, [eventEmitter, logoutInternal, walletType]),
     {
@@ -336,11 +340,11 @@ function WebLoginProvider({
         switchingWallet: switchingWalletType,
         switching: switchingWalletType !== WalletType.unknown,
         setSwitingWallet: setSwitchingWalletType,
-        changeVersion,
       },
       ...walletApi,
       login: loginInternal,
       logout: logoutInternal,
+      changeVersion,
     }),
     [
       loginId,

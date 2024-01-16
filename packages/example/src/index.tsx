@@ -1,32 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import 'antd/dist/antd.css';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import 'aelf-web-login/dist/assets/index.css';
 import './index.css';
 import './config';
-import { WebLoginProvider } from 'aelf-web-login';
-import { ISignIn, PortkeyProvider, PortkeyAssetProvider, SignIn, SignInInterface, SignInProps } from 'aelf-web-login';
+import { WebLoginProvider, event$, getConfig, WebLoginConfig } from 'aelf-web-login';
+import { PortkeyDid, PortkeyDidV1 } from 'aelf-web-login';
 import App from './App';
 import { createPortal } from 'react-dom';
 
-const SignInProxy = React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<any>) {
-  const [renderRoot, setRenderRoot] = React.useState<HTMLElement>();
-  useEffect(() => {
-    const container = (document.querySelector('#sign-in-container') || document.createElement('div')) as HTMLElement;
-    container.id = 'sign-in-container';
-    document.body.appendChild(container);
-    setRenderRoot(container);
-  }, []);
-  if (!renderRoot) {
-    return <></>;
-  }
-  return createPortal(<SignIn ref={ref} {...props} isShowScan={false} />, renderRoot!);
-});
-
 function Index() {
+  const [version, setVersion] = useState(getConfig().version);
+  event$.useSubscription((config: WebLoginConfig) => {
+    setVersion(config.version);
+  });
+  const PortkeyProviderVersion = useCallback(
+    ({ children, ...props }: any) => {
+      if (version?.portkey === 1) {
+        return <PortkeyDidV1.PortkeyProvider {...props}>{children}</PortkeyDidV1.PortkeyProvider>;
+      } else {
+        return <PortkeyDid.PortkeyProvider {...props}>{children}</PortkeyDid.PortkeyProvider>;
+      }
+    },
+    [version],
+  );
   return (
-    <PortkeyProvider networkType="TESTNET" theme="dark">
+    <PortkeyProviderVersion networkType="TESTNET" theme="dark">
       <WebLoginProvider
         commonConfig={{
           showClose: true,
@@ -69,7 +69,7 @@ function Index() {
         }}>
         <App />
       </WebLoginProvider>
-    </PortkeyProvider>
+    </PortkeyProviderVersion>
   );
 }
 const container = document.getElementById('root');

@@ -2,12 +2,13 @@ import { WalletType, WebLoginEvents, WebLoginState, getConfig, useWebLogin, useW
 import VConsole from 'vconsole';
 import MultiWallets from './components/MultiWallets';
 import CallContract from './components/CallContract';
-import { useState } from 'react';
-import { usePortkeyLock } from 'aelf-web-login';
+import { useCallback, useMemo, useState } from 'react';
+import { usePortkeyLock, usePortkeyLockV1 } from 'aelf-web-login';
 import { Tabs } from 'antd';
 import isMobile from './utils/isMobile';
 import Signature from './components/Signature';
 import Events from './components/Events';
+import { changeGlobalConfig } from './config';
 
 const win = window as any;
 let showVConsole = () => {};
@@ -20,9 +21,24 @@ if (isMobile() || win.ReactNativeWebView) {
 
 export default function App() {
   const config = getConfig();
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const { wallet, walletType, login, loginEagerly, logout, loginState } = useWebLogin();
-  const { isUnlocking, lock } = usePortkeyLock();
+  const { wallet, walletType, login, loginEagerly, logout, loginState, changeVersion } = useWebLogin();
+
+  const [version, setVersion] = useState(config.version);
+
+  const { isUnlocking, lock } = version?.portkey === 1 ? usePortkeyLockV1() : usePortkeyLock();
+
+  useWebLoginEvent(WebLoginEvents.CHANGE_PORTKEY_VERSION, () => {
+    changeGlobalConfig({ version });
+  });
+  console.log(version, '===version===');
+
+  const changeConfig = useCallback(async () => {
+    console.log(version, 'version');
+    setVersion({
+      portkey: 2 - ((version?.portkey + 1) % 2),
+    });
+    changeVersion();
+  }, [version]);
 
   return (
     <div>
@@ -51,6 +67,7 @@ export default function App() {
         <button disabled={loginState !== WebLoginState.logined} onClick={() => logout({ noModal: true })}>
           {loginState === WebLoginState.logouting ? 'logouting' : 'logoutNoModal'}
         </button>
+        <button onClick={() => changeConfig()}>changeGlobalConfig</button>
       </div>
       <Tabs
         type="card"
