@@ -1,7 +1,6 @@
-import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
+import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { ChainId } from '@portkey/types';
 import { IPortkeyProvider, Accounts, ChainIds, NetworkType, ProviderError } from '@portkey/provider-types';
-import detectProvider from '@portkey/detect-provider';
 import { getConfig } from '../../config';
 import {
   CallContractParams,
@@ -19,6 +18,8 @@ import useChainIdsSync from './useChainIdsSync';
 import { ERR_CODE, makeError } from '../../errors';
 import wait from '../../utils/waitForSeconds';
 import { zeroFill } from '../../utils/zeroFill';
+import detectDiscoverProvider from './detectProvider';
+import detectProvider from '@portkey/detect-provider';
 
 export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
 export type DiscoverInterface = WalletHookInterface & {
@@ -51,19 +52,8 @@ export function useDiscover({
     if (discoverProvider?.isConnected()) {
       return discoverProvider!;
     }
-    // TODO: detects in once issue
-    let detectProviderFunc = detectProvider;
-    if (typeof detectProvider !== 'function') {
-      const detectProviderModule = detectProvider as any;
-      detectProviderFunc = detectProviderModule.default;
-    }
-    let provider: IPortkeyProvider | null;
-    try {
-      provider = await detectProviderFunc();
-    } catch (error) {
-      setDiscoverDetected('not-detected');
-      throw error;
-    }
+    const provider = await detectDiscoverProvider();
+    console.log(provider, 'provider');
     if (provider) {
       if (!provider.isPortkey) {
         setDiscoverDetected('not-detected');

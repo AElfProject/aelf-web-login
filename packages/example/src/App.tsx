@@ -36,6 +36,7 @@ export default function App() {
     console.log(version, 'version');
     setVersion({
       portkey: 2 - ((version?.portkey + 1) % 2),
+      discover: 2 - ((version?.portkey + 1) % 2),
     });
     changeVersion();
   }, [version]);

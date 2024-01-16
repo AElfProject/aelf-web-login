@@ -148,9 +148,9 @@ importers:
       '@portkey-v1/types': 1.5.4-alpha.6
       '@portkey-v1/utils': 1.5.4-alpha.6
       '@portkey/contracts': 1.5.5-alpha.2
-      '@portkey/detect-provider': 1.0.1-alpha.0
+      '@portkey/detect-provider': 2.0.0-alpha.1
       '@portkey/did-ui-react': 1.5.5-alpha.2
-      '@portkey/provider-types': 1.0.1-alpha.0
+      '@portkey/provider-types': 2.0.0-alpha.1
       '@portkey/services': 1.5.5-alpha.2
       '@portkey/types': 1.5.5-alpha.2
       '@portkey/utils': 1.5.5-alpha.2
@@ -168,8 +168,8 @@ importers:
       typescript: ^4.9.5
     dependencies:
       '@aelf-react/core': 0.1.19
-      '@portkey/detect-provider': 1.0.1-alpha.0
-      '@portkey/provider-types': 1.0.1-alpha.0
+      '@portkey/detect-provider': 2.0.0-alpha.1
+      '@portkey/provider-types': 2.0.0-alpha.1
       '@types/bn.js': 5.1.3
       aelf-bridge: 0.0.10
       aelf-sdk: 3.3.0
@@ -179,13 +179,13 @@ importers:
       lessc-watcher: 1.2.2
       typescript: 4.9.5
     devDependencies:
-      '@portkey-v1/contracts': 1.5.4-alpha.6_ofeb7kcav5x652a2dvvx7c5uwm
-      '@portkey-v1/did-ui-react': 1.5.4-alpha.6_xgeoflwzrze5ozrh35zn345ekm
+      '@portkey-v1/contracts': 1.5.4-alpha.6_erlq4qca2u6xw6xcbh3rqzurwa
+      '@portkey-v1/did-ui-react': 1.5.4-alpha.6_p44l5ukods5eufq4titvzat76e
       '@portkey-v1/services': 1.5.4-alpha.6_j6bb7mdcrky6jae5j6jwspn37y
       '@portkey-v1/types': 1.5.4-alpha.6
       '@portkey-v1/utils': 1.5.4-alpha.6_aelf-sdk@3.3.0
-      '@portkey/contracts': 1.5.5-alpha.2_nhiovcbgxh6lp2dnbf3662c3lm
-      '@portkey/did-ui-react': 1.5.5-alpha.2_xgeoflwzrze5ozrh35zn345ekm
+      '@portkey/contracts': 1.5.5-alpha.2_fufet4wqkb7u3bwrebbcogunuy
+      '@portkey/did-ui-react': 1.5.5-alpha.2_p44l5ukods5eufq4titvzat76e
       '@portkey/services': 1.5.5-alpha.2_rqxhtbwrfzzazpqfta5bd3dily
       '@portkey/types': 1.5.5-alpha.2
       '@portkey/utils': 1.5.5-alpha.2_aelf-sdk@3.3.0
@@ -3032,7 +3032,7 @@ packages:
       '@portkey-v1/utils': 1.5.4-alpha.6
     dev: false
 
-  /@portkey-v1/contracts/1.5.4-alpha.6_ofeb7kcav5x652a2dvvx7c5uwm:
+  /@portkey-v1/contracts/1.5.4-alpha.6_erlq4qca2u6xw6xcbh3rqzurwa:
     resolution: {integrity: sha512-zd1R1qytAOerkAygrvmQwuw6JbCLhF9tfl9TrNC09s5+fjaaDDSw9iDg/CZJbFekhxdvTfuMNMhIqnsm2N6HLg==}
     peerDependencies:
       '@portkey-v1/types': ^1.5.2-alpha.0
@@ -3042,7 +3042,7 @@ packages:
     dependencies:
       '@portkey-v1/types': 1.5.4-alpha.6
       '@portkey-v1/utils': 1.5.4-alpha.6_aelf-sdk@3.3.0
-      '@portkey/provider-types': 1.0.1-alpha.0
+      '@portkey/provider-types': 2.0.0-alpha.1
       aelf-sdk: 3.3.0
     dev: true
 
@@ -3090,7 +3090,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@portkey-v1/did-ui-react/1.5.4-alpha.6_xgeoflwzrze5ozrh35zn345ekm:
+  /@portkey-v1/did-ui-react/1.5.4-alpha.6_p44l5ukods5eufq4titvzat76e:
     resolution: {integrity: sha512-fuE3obOc4ZFP5gIAAB1u1qnGYGT1P/AhhN7YzriNL1UNUoHQW8wYfxyGrIuUoUHeLvySr2Uml7QkBTal993IzA==}
     peerDependencies:
       aelf-sdk: ^3.2.45-beta.0
@@ -3099,7 +3099,7 @@ packages:
     dependencies:
       '@matt-block/react-recaptcha-v2': 2.0.1
       '@portkey-v1/accounts': 1.5.4-alpha.6_hr3ujrc7za2yir6lwtdhxgpqtu
-      '@portkey-v1/contracts': 1.5.4-alpha.6_ofeb7kcav5x652a2dvvx7c5uwm
+      '@portkey-v1/contracts': 1.5.4-alpha.6_erlq4qca2u6xw6xcbh3rqzurwa
       '@portkey-v1/did': 1.5.4-alpha.6_grdsnl72nudijyphapopvjtt7a
       '@portkey-v1/graphql': 1.5.4-alpha.6_axdb7ry4twlok274336wv6k2oa
       '@portkey-v1/onboarding': 1.5.4-alpha.6_aelf-sdk@3.3.0
@@ -3146,7 +3146,7 @@ packages:
       react: ^18.2.0
     dependencies:
       '@portkey-v1/accounts': 1.5.4-alpha.6_hr3ujrc7za2yir6lwtdhxgpqtu
-      '@portkey-v1/contracts': 1.5.4-alpha.6_ofeb7kcav5x652a2dvvx7c5uwm
+      '@portkey-v1/contracts': 1.5.4-alpha.6_erlq4qca2u6xw6xcbh3rqzurwa
       '@portkey-v1/graphql': 1.5.4-alpha.6_axdb7ry4twlok274336wv6k2oa
       '@portkey-v1/request': 1.5.4-alpha.6
       '@portkey-v1/services': 1.5.4-alpha.6_22t3aepfsqghr45czepytdsocy
@@ -3380,7 +3380,7 @@ packages:
       aelf-sdk: 3.3.0
     dev: true
 
-  /@portkey/contracts/1.5.5-alpha.2_nhiovcbgxh6lp2dnbf3662c3lm:
+  /@portkey/contracts/1.5.5-alpha.2_fufet4wqkb7u3bwrebbcogunuy:
     resolution: {integrity: sha512-KJuaBRmRZ42rwc7w62jqAhJjBAUmgGtXMMWobdx7E4mR0ItRGYVfIyhEH0AgFPK2MBWCPMRVRUjFdUrP9dJztA==}
     peerDependencies:
       '@portkey/provider-types': 1.1.0
@@ -3388,7 +3388,7 @@ packages:
       '@portkey/utils': ^1.5.2-alpha.0
       aelf-sdk: ^3.2.45-beta.0
     dependencies:
-      '@portkey/provider-types': 1.0.1-alpha.0
+      '@portkey/provider-types': 2.0.0-alpha.1
       '@portkey/types': 1.5.5-alpha.2
       '@portkey/utils': 1.5.5-alpha.2_aelf-sdk@3.3.0
       aelf-sdk: 3.3.0
@@ -3411,10 +3411,10 @@ packages:
     dependencies:
       '@portkey/provider-types': 1.1.0
 
-  /@portkey/detect-provider/1.0.1-alpha.0:
-    resolution: {integrity: sha512-B66UkXpy2oU4SaewDfht7f4teiNbhn6cgbXDqiRyDx62cKkMUzp1apcgxJJbdw80GO9F6cDUo21umzDcjYzvAg==}
+  /@portkey/detect-provider/2.0.0-alpha.1:
+    resolution: {integrity: sha512-ZJ26KfuGcmHQn/6scYMQ5t0ffu6RVJPnH691AJdwvubFRXIOF4Uy6ObahnOLpcx9a8CwCmHKlYzVb8jrHP/Gng==}
     dependencies:
-      '@portkey/provider-types': 1.0.1-alpha.0
+      '@portkey/provider-types': 2.0.0-alpha.1
     dev: false
 
   /@portkey/did-ui-react/1.5.5-alpha.2_biqbaboplfbrettd7655fr4n2y:
@@ -3461,7 +3461,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@portkey/did-ui-react/1.5.5-alpha.2_xgeoflwzrze5ozrh35zn345ekm:
+  /@portkey/did-ui-react/1.5.5-alpha.2_p44l5ukods5eufq4titvzat76e:
     resolution: {integrity: sha512-QrbExkCDeAjwgGsu6CKj7in5D1WMYmaMMBdOzxArMBvF1060Bu6zQa9FGR8MydGqd+pd6Wu3cH2ZULrtCX7icw==}
     peerDependencies:
       aelf-sdk: ^3.2.45-beta.0
@@ -3470,7 +3470,7 @@ packages:
     dependencies:
       '@matt-block/react-recaptcha-v2': 2.0.1
       '@portkey/accounts': 1.5.5-alpha.2_giujzgvgq7kqytwqkhnl4bf4lu
-      '@portkey/contracts': 1.5.5-alpha.2_nhiovcbgxh6lp2dnbf3662c3lm
+      '@portkey/contracts': 1.5.5-alpha.2_fufet4wqkb7u3bwrebbcogunuy
       '@portkey/did': 1.5.5-alpha.2_x7fhjgdfr4ayvqilrd5l3dzbge
       '@portkey/graphql': 1.5.5-alpha.2_6kynucwpj5daaecshh2znyzrti
       '@portkey/onboarding': 1.5.5-alpha.2_aelf-sdk@3.3.0
@@ -3541,7 +3541,7 @@ packages:
       react: ^18.2.0
     dependencies:
       '@portkey/accounts': 1.5.5-alpha.2_giujzgvgq7kqytwqkhnl4bf4lu
-      '@portkey/contracts': 1.5.5-alpha.2_nhiovcbgxh6lp2dnbf3662c3lm
+      '@portkey/contracts': 1.5.5-alpha.2_fufet4wqkb7u3bwrebbcogunuy
       '@portkey/graphql': 1.5.5-alpha.2_6kynucwpj5daaecshh2znyzrti
       '@portkey/request': 1.5.5-alpha.2
       '@portkey/services': 1.5.5-alpha.2_x74ob5yiv5kkvr5arejnejx64i
@@ -3610,16 +3610,16 @@ packages:
       - aelf-sdk
     dev: true
 
-  /@portkey/provider-types/1.0.1-alpha.0:
-    resolution: {integrity: sha512-4tgoL7wJwW3ksS579KvdFFfoQhItKuURf5oKla80dGN9pdxaJ5MfW5vj/SORUZEYObe7WLwwP07zuPPWbBMO+g==}
-    dependencies:
-      '@portkey/types': 1.0.0-alpha.4
-      '@types/readable-stream': 2.3.15
-
   /@portkey/provider-types/1.1.0:
     resolution: {integrity: sha512-DLfAFVVJbZVH165PiKZYrhLktZi9QHXbSuBk8Dle/BmEVEfic/6yzzZPt1fGih2DtwKeX9MmzYuhvi9AG7HVvA==}
     dependencies:
       '@portkey/types': 1.0.0-alpha.4
+      '@types/readable-stream': 2.3.15
+
+  /@portkey/provider-types/2.0.0-alpha.1:
+    resolution: {integrity: sha512-gkfy57E/C1eN8QmSx3JRIyNSAwm9sMvfZN/upIVAj/oi25+NV/dHNzBd/CVpafu2tRgWRRnmNTmJHcmkkh3DOA==}
+    dependencies:
+      '@portkey/types': 2.0.0-alpha.1
       '@types/readable-stream': 2.3.15
 
   /@portkey/request/1.5.5-alpha.2:
@@ -3703,6 +3703,9 @@ packages:
 
   /@portkey/types/1.5.5-alpha.2:
     resolution: {integrity: sha512-8Dz11Lzer4XG2AyNPXBatTx/Zpp1ukeQn6+K6/yRVA0G58wZBQK7TLhSdpkF8YdOzkHh3E5QbvSWv4YrTYk9Zw==}
+
+  /@portkey/types/2.0.0-alpha.1:
+    resolution: {integrity: sha512-oGCUyeRUpp2ZkaoVd5t2sGHL+F9kAS2PPtg+WhSWHv9Lzy3HcEQlZW4a0gmjVccL7YE3PB5W8D9CXc9AOiwPzA==}
 
   /@portkey/utils/1.5.5-alpha.2:
     resolution: {integrity: sha512-J6AQTmwwnKCqhq+buMJQdOMgZjd+lOmycX/AgIqc92Q/MS0OmhSl2Clt9NtBDMYSjHW9cpooehFl2B26RK3tzQ==}
