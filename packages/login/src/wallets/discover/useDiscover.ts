@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { ChainId } from '@portkey/types';
-import { IPortkeyProvider, Accounts, ChainIds, NetworkType, ProviderError } from '@portkey/provider-types';
+import { IPortkeyProvider, Accounts, ChainIds, NetworkType, ProviderError, DappEvents } from '@portkey/provider-types';
 import { IVersion, getConfig } from '../../config';
 import {
   CallContractParams,
@@ -19,7 +19,6 @@ import { ERR_CODE, makeError } from '../../errors';
 import wait from '../../utils/waitForSeconds';
 import { zeroFill } from '../../utils/zeroFill';
 import detectDiscoverProvider from './detectProvider';
-import detectProvider from '@portkey/detect-provider';
 
 export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
 export type DiscoverInterface = WalletHookInterface & {
@@ -27,6 +26,7 @@ export type DiscoverInterface = WalletHookInterface & {
 };
 
 export const LOGIN_EARGLY_KEY = 'discover.loginEargly';
+type TDiscoverEventsKeys = Array<Exclude<DappEvents, 'connected' | 'message' | 'error'>>;
 
 export function useDiscover({
   options,
@@ -51,10 +51,9 @@ export function useDiscover({
 
   const handleMultiVersionProvider = useCallback(
     async (
-      provider: IPortkeyProvider | undefined,
+      provider: IPortkeyProvider,
       setProvider: React.Dispatch<React.SetStateAction<IPortkeyProvider | undefined>>,
     ) => {
-      console.log(provider?.isConnected, 'provider');
       if (provider?.isConnected()) {
         return provider!;
       }
@@ -75,20 +74,21 @@ export function useDiscover({
     [],
   );
 
-  const detect = useCallback(async (): Promise<IPortkeyProvider | undefined> => {
+  const detect = useCallback(async (): Promise<IPortkeyProvider> => {
     const { version } = getConfig();
-    console.log(version, 'detect version');
     if (version?.discover === 1) {
-      return handleMultiVersionProvider(discoverProviderV1, setDiscoverProviderV1);
+      console.log(version, 'detect version111');
+      return handleMultiVersionProvider(discoverProviderV1!, setDiscoverProviderV1);
     }
-    return handleMultiVersionProvider(discoverProvider, setDiscoverProvider);
+    console.log(version, 'detect version222');
+    return handleMultiVersionProvider(discoverProvider!, setDiscoverProvider);
   }, [discoverProvider, discoverProviderV1, handleMultiVersionProvider]);
 
   useEffect(() => {
     detect().catch((error: any) => {
       console.log(error.message);
     });
-  }, []);
+  }, [detect]);
 
   const onAccountsSuccess = useCallback(
     async (provider: IPortkeyProvider, accounts: Accounts) => {
@@ -132,6 +132,7 @@ export function useDiscover({
     setLoginState(WebLoginState.logining);
     try {
       const provider = await detect();
+      console.log(provider, 'loginEagerly provider');
       const { isUnlocked } = await provider.request({ method: 'wallet_getWalletState' });
       if (!isUnlocked) {
         setLoginState(WebLoginState.initial);
@@ -162,12 +163,14 @@ export function useDiscover({
     setLoginState(WebLoginState.logining);
     try {
       const provider = await detect();
+      console.log(provider, 'login provider');
       const network = await provider.request({ method: 'network' });
       if (network !== getConfig().networkType) {
         onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
         return;
       }
       let accounts = await provider.request({ method: 'accounts' });
+      console.log(accounts, 'login accounts');
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
         onAccountsSuccess(provider, accounts);
         return;
@@ -250,15 +253,17 @@ export function useDiscover({
 
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
-      if (!discoverInfo || !discoverProvider) {
+      const { version } = getConfig();
+      const provider = version?.discover === 1 ? discoverProviderV1! : discoverProvider!;
+      if (!discoverInfo || !provider) {
         throw new Error('Discover not connected');
       }
-      const chain = await discoverProvider.getChain(chainId);
+      const chain = await provider.getChain(chainId);
       const contract = chain.getContract(params.contractAddress);
       const result = contract.callSendMethod(params.methodName, discoverInfo.address, params.args);
       return result as R;
     },
-    [chainId, discoverInfo, discoverProvider],
+    [chainId, discoverInfo, discoverProvider, discoverProviderV1],
   );
 
   const getSignature = useCallback(
@@ -267,7 +272,8 @@ export function useDiscover({
       if (!discoverInfo) {
         throw new Error('Discover not connected');
       }
-      const provider = discoverProvider! as IPortkeyProvider;
+      const { version } = getConfig();
+      const provider = version?.discover === 1 ? discoverProviderV1! : discoverProvider!;
       const signInfo = params.signInfo;
       const signedMsgObject = await provider.request({
         method: 'wallet_getSignature',
@@ -287,7 +293,7 @@ export function useDiscover({
         from: 'discover',
       };
     },
-    [discoverInfo, discoverProvider],
+    [discoverInfo, discoverProvider, discoverProviderV1],
   );
 
   useEffect(() => {
@@ -308,7 +314,9 @@ export function useDiscover({
   }, [loginEagerly, setLoginState, loginState, options.autoRequestAccount]);
 
   useEffect(() => {
-    if (discoverProvider) {
+    const { version } = getConfig();
+    const provider = version?.discover === 1 ? discoverProviderV1 : discoverProvider;
+    if (provider) {
       const onDisconnected = (error: ProviderError) => {
         if (!discoverInfo) return;
         eventEmitter.emit(WebLoginEvents.DISCOVER_DISCONNECTED, error);
@@ -345,21 +353,28 @@ export function useDiscover({
           }
         }
       };
-      discoverProvider.on('disconnected', onDisconnected);
-      discoverProvider.on('networkChanged', onNetworkChanged);
-      discoverProvider.on('accountsChanged', onAccountsChanged);
-      discoverProvider.on('chainChanged', onChainChanged);
+
+      const discoverEventsMap = {
+        disconnected: onDisconnected,
+        networkChanged: onNetworkChanged,
+        accountsChanged: onAccountsChanged,
+        chainChanged: onChainChanged,
+      };
+      (Object.keys(discoverEventsMap) as TDiscoverEventsKeys).forEach((ele) => {
+        provider.on(ele, discoverEventsMap[ele]);
+      });
+
       return () => {
-        discoverProvider.removeListener('disconnected', onDisconnected);
-        discoverProvider.removeListener('networkChanged', onNetworkChanged);
-        discoverProvider.removeListener('accountsChanged', onAccountsChanged);
-        discoverProvider.removeListener('chainChanged', onChainChanged);
+        (Object.keys(discoverEventsMap) as TDiscoverEventsKeys).forEach((ele) => {
+          provider.removeListener(ele, discoverEventsMap[ele]);
+        });
       };
     }
   }, [
     chainId,
     discoverInfo,
     discoverProvider,
+    discoverProviderV1,
     eventEmitter,
     logout,
     options.autoLogoutOnAccountMismatch,

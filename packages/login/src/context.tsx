@@ -227,7 +227,7 @@ function WebLoginProvider({
       return invalidApi;
     }
     return invalidApi;
-  }, [loginState, invalidApi, login, elfApi, portkeyApi, walletType, discoverApi]);
+  }, [loginState, invalidApi, login, discoverApi, elfApi, portkeyApi, switchingWalletType, walletType]);
 
   const { run: loginInternal } = useDebounceFn(
     useCallback(async () => {

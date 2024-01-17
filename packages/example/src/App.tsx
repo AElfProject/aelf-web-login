@@ -28,12 +28,10 @@ export default function App() {
   const { isUnlocking, lock } = version?.portkey === 1 ? usePortkeyLockV1() : usePortkeyLock();
 
   useWebLoginEvent(WebLoginEvents.CHANGE_PORTKEY_VERSION, () => {
-    console.log(version, '===version===');
     changeGlobalConfig({ version });
   });
 
   useWebLoginEvent(WebLoginEvents.CHANGE_DISCOVER_VERSION, () => {
-    console.log(version, '===version===');
     changeGlobalConfig({ version });
   });
 

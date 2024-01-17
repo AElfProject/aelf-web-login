@@ -50,7 +50,6 @@ export const event$ = new EventEmitter();
 
 export function setGlobalConfig(config: WebLoginConfig) {
   globalConfig = config;
-  console.log('setGlobalConfig', globalConfig);
   if (config.portkey.useLocalStorage) {
     config.portkey.storageMethod = new Store();
   }
