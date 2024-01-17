@@ -24,6 +24,8 @@ export default function useWebLoginEvent(
 
 export default function useWebLoginEvent(eventType: WebLoginEvents.CHANGE_PORTKEY_VERSION, callback: () => void): void;
 
+export default function useWebLoginEvent(eventType: WebLoginEvents.CHANGE_DISCOVER_VERSION, callback: () => void): void;
+
 export default function useWebLoginEvent<T>(eventType: WebLoginEvents, callback: (data: T) => void) {
   const { eventEmitter } = useWebLogin();
   useEffect(() => {

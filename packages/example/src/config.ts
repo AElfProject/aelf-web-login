@@ -71,7 +71,7 @@ export const changeGlobalConfig = config => {
 };
 changeGlobalConfig({
   version: {
-    portkey: 2,
-    discover: 2,
+    portkey: 1,
+    discover: 1,
   },
 });

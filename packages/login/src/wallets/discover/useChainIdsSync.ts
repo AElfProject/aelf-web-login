@@ -1,8 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { WebLoginState } from '../../constants';
 import { useInterval } from 'ahooks';
-import type { ChainId } from '@portkey/types';
-import type { IPortkeyProvider, ChainIds } from '@portkey/provider-types';
+import type { IPortkeyProvider, ChainIds, ChainId } from '@portkey/provider-types';
 
 export default function useChainIdsSync(
   chainId: string,

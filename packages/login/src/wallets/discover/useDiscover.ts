@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { ChainId } from '@portkey/types';
 import { IPortkeyProvider, Accounts, ChainIds, NetworkType, ProviderError } from '@portkey/provider-types';
-import { getConfig } from '../../config';
+import { IVersion, getConfig } from '../../config';
 import {
   CallContractParams,
   DiscoverInfo,
@@ -42,31 +42,47 @@ export function useDiscover({
 
   const autoRequestAccountCheck = useRef(false);
   const [discoverProvider, setDiscoverProvider] = useState<IPortkeyProvider>();
+  const [discoverProviderV1, setDiscoverProviderV1] = useState<IPortkeyProvider>();
   const [discoverInfo, setDiscoverInfo] = useState<DiscoverInfo>();
   const [discoverDetected, setDiscoverDetected] = useState<DiscoverDetectState>('unknown');
   const [switching, setSwitching] = useState(false);
 
   const chainIdsSync = useChainIdsSync(chainId, loginState, true, discoverProvider);
 
-  const detect = useCallback(async (): Promise<IPortkeyProvider> => {
-    if (discoverProvider?.isConnected()) {
-      return discoverProvider!;
-    }
-    const provider = await detectDiscoverProvider();
-    console.log(provider, 'provider');
-    if (provider) {
-      if (!provider.isPortkey) {
-        setDiscoverDetected('not-detected');
-        throw new Error('Discover provider found, but check isPortkey failed');
+  const handleMultiVersionProvider = useCallback(
+    async (
+      provider: IPortkeyProvider | undefined,
+      setProvider: React.Dispatch<React.SetStateAction<IPortkeyProvider | undefined>>,
+    ) => {
+      console.log(provider?.isConnected, 'provider');
+      if (provider?.isConnected()) {
+        return provider!;
       }
-      setDiscoverProvider(provider);
-      setDiscoverDetected('detected');
-      return provider;
-    } else {
-      setDiscoverDetected('not-detected');
-      throw new Error('Discover provider not found');
+      const detectedProvider = await detectDiscoverProvider();
+      if (detectedProvider) {
+        if (!detectedProvider.isPortkey) {
+          setDiscoverDetected('not-detected');
+          throw new Error('Discover provider found, but check isPortkey failed');
+        }
+        setProvider(detectedProvider);
+        setDiscoverDetected('detected');
+        return provider;
+      } else {
+        setDiscoverDetected('not-detected');
+        throw new Error('Discover provider not found');
+      }
+    },
+    [],
+  );
+
+  const detect = useCallback(async (): Promise<IPortkeyProvider | undefined> => {
+    const { version } = getConfig();
+    console.log(version, 'detect version');
+    if (version?.discover === 1) {
+      return handleMultiVersionProvider(discoverProviderV1, setDiscoverProviderV1);
     }
-  }, [discoverProvider]);
+    return handleMultiVersionProvider(discoverProvider, setDiscoverProvider);
+  }, [discoverProvider, discoverProviderV1, handleMultiVersionProvider]);
 
   useEffect(() => {
     detect().catch((error: any) => {
