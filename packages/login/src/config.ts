@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { IStorageSuite } from '@portkey/types';
+import { IRequestDefaults, IStorageSuite } from '@portkey/types';
 import { IStorageSuite as IStorageSuiteV1 } from '@portkey-v1/types';
 import { NetworkType } from '@portkey/provider-types';
 import { GlobalConfigProps as GlobalConfigPropsV1 } from '@portkey-v1/did-ui-react/dist/_types/src/components/config-provider/types';
@@ -29,7 +29,12 @@ export type WebLoginConfig = {
   chainId: string;
   defaultRpcUrl: string;
   networkType: NetworkType;
-  portkey: (GlobalConfigProps | GlobalConfigPropsV1) & { useLocalStorage?: boolean };
+  portkey: (GlobalConfigProps | GlobalConfigPropsV1) & {
+    useLocalStorage?: boolean;
+    portkeyV2?: {
+      requestDefaults: IRequestDefaults;
+    };
+  };
   aelfReact: Omit<AElfReactProviderProps, 'children'>;
 };
 
@@ -50,18 +55,25 @@ export const event$ = new EventEmitter();
 
 export function setGlobalConfig(config: WebLoginConfig) {
   const version = localStorage.getItem(WEB_LOGIN_VERSION) || (config.ifShowV2 ? '2' : '1');
-  console.log(version, 'setGlobalConfig');
   globalConfig = config;
   if (config.portkey.useLocalStorage) {
     config.portkey.storageMethod = new Store();
   }
   // init version according to config ifShowV2
   if (version === '1') {
+    console.log(config.portkey, 'setGlobalConfig1111');
     PortkeyDid.ConfigProvider.setGlobalConfig(config.portkey);
   } else {
+    console.log(
+      {
+        ...config.portkey,
+        ...config.portkey.portkeyV2,
+      },
+      'setGlobalConfig2222',
+    );
     PortkeyDidV1.ConfigProvider.setGlobalConfig({
       ...config.portkey,
-      graphQLUrl: 'https://aa-portkey-test.portkey.finance/Portkey_DID/PortKeyIndexerCASchema/graphql',
+      ...config.portkey.portkeyV2,
     });
   }
 }

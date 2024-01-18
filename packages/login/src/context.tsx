@@ -331,7 +331,6 @@ function WebLoginProvider({
       eventEmitter.emit(WebLoginEvents.CHANGE_PORTKEY_VERSION, changeVerBtnClicked?.version);
       // need delay login
       setTimeout(() => {
-        setGlobalConfig(getConfig());
         loginInternal();
       }, 500);
     }

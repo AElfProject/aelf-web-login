@@ -35,16 +35,22 @@ setGlobalConfig({
       loginMethodsOrder: ['Google', 'Telegram', 'Apple', 'Phone', 'Email'],
     },
     useLocalStorage: true,
-    graphQLUrl: 'https://aa-portkey-test.portkey.finance/Portkey_DID/PortKeyIndexerCASchema/graphql', //portkeyScanUrl,
+    graphQLUrl: portkeyScanUrl, //portkeyScanUrl,
     connectUrl: connectUrl,
     requestDefaults: {
-      baseURL: portkeyApiServer,
+      baseURL: '/v1',
       timeout: 30000,
     },
     socialLogin: {
       Portkey: {
         websiteName: APPNAME,
         websiteIcon: WEBSITE_ICON,
+      },
+    },
+    portkeyV2: {
+      requestDefaults: {
+        baseURL: '/v2',
+        timeout: 30000,
       },
     },
   } as any,
