@@ -60,9 +60,14 @@ export function setGlobalConfig(config: WebLoginConfig) {
     config.portkey.storageMethod = new Store();
   }
   // init version according to config ifShowV2
+  changeVersionConfig(version);
+}
+
+export const changeVersionConfig = (version: string) => {
+  const config = globalConfig;
   if (version === '1') {
     console.log(config.portkey, 'setGlobalConfig1111');
-    PortkeyDid.ConfigProvider.setGlobalConfig(config.portkey);
+    PortkeyDidV1.ConfigProvider.setGlobalConfig(config.portkey);
   } else {
     console.log(
       {
@@ -71,12 +76,12 @@ export function setGlobalConfig(config: WebLoginConfig) {
       },
       'setGlobalConfig2222',
     );
-    PortkeyDidV1.ConfigProvider.setGlobalConfig({
+    PortkeyDid.ConfigProvider.setGlobalConfig({
       ...config.portkey,
       ...config.portkey.portkeyV2,
     });
   }
-}
+};
 
 export function getConfig() {
   return globalConfig;
