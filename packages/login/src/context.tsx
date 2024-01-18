@@ -8,7 +8,7 @@ import { usePortkey as usePortkeyV1 } from './wallets/portkey/usePortkey/indexV1
 import Portkey from './wallets/portkey/Portkey';
 import PortkeyV1 from './wallets/portkey/Portkey/indexV1';
 import { useElf } from './wallets/elf/useElf';
-import { getConfig, event$, setGlobalConfig } from './config';
+import { getConfig, event$, setGlobalConfig, changeVersionConfig } from './config';
 import { WalletType, WebLoginState, WebLoginEvents, WEB_LOGIN_VERSION } from './constants';
 import { PortkeyLoading } from '@portkey/did-ui-react';
 import { PortkeyLoading as PortkeyLoadingV1 } from '@portkey-v1/did-ui-react';
@@ -95,10 +95,11 @@ function WebLoginProvider({
   );
   const [changeVerBtnClicked, setChangeVerBtnClicked] = useState<{ version: string }>();
 
-  event$.useSubscription(async (value) => {
+  event$.useSubscription(async (value: any) => {
     setModalOpen(false);
     setChangeVerBtnClicked(value as { version: string });
     setLoginState(WebLoginState.initial);
+    value.version && changeVersionConfig(value.version);
   });
 
   useEffect(() => {
