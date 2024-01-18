@@ -69,8 +69,8 @@ function useExampleCall(name: string, func: () => any) {
 
 export default function CallContract() {
   const { wallet, callContract, version } = useWebLogin();
-  const config = getConfig();
-  const getAccountTDVW = useMemo(() => (version === '1' ? useGetAccountV1('tDVW') : useGetAccount('tDVW')), [version]);
+  const getAccountTDVW = useGetAccount('tDVW');
+  const getAccountTDVWV1 = useGetAccountV1('tDVW');
   const { callViewMethod, callSendMethod } = useCallContract();
   const { callViewMethod: callViewMethodAELF, callSendMethod: callSendMethodAELF } = useCallContract({
     chainId: 'AELF',
@@ -142,7 +142,7 @@ export default function CallContract() {
         methodName: 'GetBalance',
         args: {
           symbol: 'ELF',
-          owner: await getAccountTDVW(),
+          owner: version === '1' ? await getAccountTDVWV1() : await getAccountTDVW(),
         },
       });
     }),
