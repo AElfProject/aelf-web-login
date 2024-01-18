@@ -70,11 +70,13 @@
     "@portkey/services": "2.0.0-alpha.3",
     "@portkey/types": "2.0.0-alpha.3",
     "@portkey/utils": "2.0.0-alpha.3",
+    "@portkey/request": "2.0.0-alpha.3",
     "@portkey-v1/contracts": "1.5.4-alpha.7",
     "@portkey-v1/did-ui-react": "1.5.4-alpha.7",
     "@portkey-v1/services": "1.5.4-alpha.7",
     "@portkey-v1/types": "1.5.4-alpha.7",
-    "@portkey-v1/utils": "1.5.4-alpha.7"
+    "@portkey-v1/utils": "1.5.4-alpha.7",
+    "@portkey-v1/request": "1.5.4-alpha.7"
   },
   "peerDependencies": {
     "@portkey/contracts": "2.0.0-alpha.3",
@@ -82,10 +84,12 @@
     "@portkey/services": "2.0.0-alpha.3",
     "@portkey/types": "2.0.0-alpha.3",
     "@portkey/utils": "2.0.0-alpha.3",
+    "@portkey/request": "2.0.0-alpha.3",
     "@portkey-v1/contracts": "1.5.4-alpha.7",
     "@portkey-v1/did-ui-react": "1.5.4-alpha.7",
     "@portkey-v1/services": "1.5.4-alpha.7",
     "@portkey-v1/types": "1.5.4-alpha.7",
-    "@portkey-v1/utils": "1.5.4-alpha.7"
+    "@portkey-v1/utils": "1.5.4-alpha.7",
+    "@portkey-v1/request": "1.5.4-alpha.7"
   }
 }

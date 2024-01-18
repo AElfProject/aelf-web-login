@@ -9,10 +9,11 @@ import {
   setLoading,
 } from '@portkey-v1/did-ui-react';
 import { getConfig } from '../../../config';
-import { WebLoginState } from '../../../constants';
+import { WEB_LOGIN_VERSION, WebLoginState } from '../../../constants';
 import { PortkeyOptions } from '../../../types';
 import { PortkeyDidV1, event$ } from '../../../index';
 import { FetchRequest } from '@portkey-v1/request';
+import { changePortkeyVersion } from '../../../utils/isPortkeyApp';
 
 export default function Portkey({
   open,
@@ -93,7 +94,6 @@ export default function Portkey({
         },
       });
       isLoginGuardian = true;
-      console.log(result, 'result==');
     } catch (error) {
       isLoginGuardian = false;
     } finally {
@@ -115,9 +115,8 @@ export default function Portkey({
         ),
       });
       if (isOk) {
-        event$.emit({
-          version: '2',
-        });
+        const version = localStorage.getItem(WEB_LOGIN_VERSION)!;
+        changePortkeyVersion(version);
         return false;
       }
       return true;

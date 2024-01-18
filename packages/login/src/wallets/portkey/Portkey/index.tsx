@@ -8,10 +8,11 @@ import {
   TSignUpContinueHandler,
   setLoading,
 } from '@portkey/did-ui-react';
-import { event$, getConfig } from '../../../config';
-import { WebLoginState } from '../../../constants';
+import { getConfig } from '../../../config';
+import { WEB_LOGIN_VERSION, WebLoginState } from '../../../constants';
 import { PortkeyOptions } from '../../../types';
 import { FetchRequest } from '@portkey/request';
+import { changePortkeyVersion } from '../../../utils/isPortkeyApp';
 
 export default function Portkey({
   open,
@@ -110,10 +111,8 @@ export default function Portkey({
       if (isOk) return true;
 
       // TODO switch to V1
-      // signInRef.current?.setOpen(false);
-      event$.emit({
-        version: '1',
-      });
+      const version = localStorage.getItem(WEB_LOGIN_VERSION)!;
+      changePortkeyVersion(version);
       return false;
     }
     return true;

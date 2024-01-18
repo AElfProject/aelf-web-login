@@ -19,10 +19,6 @@ export type AElfReactProviderProps = {
     [key: string]: AelfNode;
   };
 };
-// export interface IVersion {
-//   portkey?: number;
-//   discover?: number;
-// }
 export type WebLoginConfig = {
   ifShowV2: boolean;
   appName: string;
@@ -66,16 +62,8 @@ export function setGlobalConfig(config: WebLoginConfig) {
 export const changeVersionConfig = (version: string) => {
   const config = globalConfig;
   if (version === '1') {
-    console.log(config.portkey, 'setGlobalConfig1111');
     PortkeyDidV1.ConfigProvider.setGlobalConfig(config.portkey);
   } else {
-    console.log(
-      {
-        ...config.portkey,
-        ...config.portkey.portkeyV2,
-      },
-      'setGlobalConfig2222',
-    );
     PortkeyDid.ConfigProvider.setGlobalConfig({
       ...config.portkey,
       ...config.portkey.portkeyV2,

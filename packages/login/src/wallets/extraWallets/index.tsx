@@ -11,15 +11,14 @@ import {
 } from '../../constants';
 import { WalletHookInterface } from '../../types';
 import isMobile from '../../utils/isMobile';
-import isPortkeyApp from '../../utils/isPortkeyApp';
+import isPortkeyApp, { changePortkeyVersion } from '../../utils/isPortkeyApp';
 import DiscoverPlugin from '../discover/DiscoverPlugin';
 import { DiscoverInterface } from '../discover/useDiscover';
 import NightElfPlugin from '../elf/NightElfPlugin';
 import { PortkeyInterface } from '../portkey/usePortkey';
 import { Button } from 'antd';
 import ConnectModal from './ConnectModal';
-import { ExtraWalletContext, useWebLogin, useWebLoginContext } from '../../context';
-import { event$, getConfig } from '../../config';
+import { ExtraWalletContext, useWebLogin } from '../../context';
 
 interface IProps {
   headerClassName: string;
@@ -52,11 +51,7 @@ export default function ExtraWallets({
   }, [setcCnnectModal]);
 
   const onChangeVersion = () => {
-    const changedVer = ('' + (2 - ((+version + 1) % 2))) as '2' | '1';
-    console.log(changedVer, 'changedVer');
-    event$.emit({
-      version: changedVer,
-    });
+    changePortkeyVersion(version);
   };
 
   const validWallets = useMemo(() => {
