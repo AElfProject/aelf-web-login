@@ -50,26 +50,17 @@ let globalConfig: WebLoginConfig;
 export const event$ = new EventEmitter();
 
 export function setGlobalConfig(config: WebLoginConfig) {
-  const version = localStorage.getItem(WEB_LOGIN_VERSION) || (config.ifShowV2 ? '2' : '1');
   globalConfig = config;
   if (config.portkey.useLocalStorage) {
     config.portkey.storageMethod = new Store();
   }
-  // init version according to config ifShowV2
-  changeVersionConfig(version);
+  // v1 v2 set config at the same time
+  PortkeyDidV1.ConfigProvider.setGlobalConfig(config.portkey);
+  PortkeyDid.ConfigProvider.setGlobalConfig({
+    ...config.portkey,
+    ...config.portkey.portkeyV2,
+  });
 }
-
-export const changeVersionConfig = (version: string) => {
-  const config = globalConfig;
-  if (version === '1') {
-    PortkeyDidV1.ConfigProvider.setGlobalConfig(config.portkey);
-  } else {
-    PortkeyDid.ConfigProvider.setGlobalConfig({
-      ...config.portkey,
-      ...config.portkey.portkeyV2,
-    });
-  }
-};
 
 export function getConfig() {
   return globalConfig;
