@@ -1,8 +1,18 @@
 import { ReactNode, useCallback, useRef, useEffect, useState } from 'react';
-import { DIDWalletInfo, SignIn, Unlock, SignInInterface } from '@portkey-v1/did-ui-react';
+import {
+  DIDWalletInfo,
+  SignIn,
+  Unlock,
+  SignInInterface,
+  modalMethod,
+  TSignUpContinueHandler,
+  setLoading,
+} from '@portkey-v1/did-ui-react';
 import { getConfig } from '../../../config';
 import { WebLoginState } from '../../../constants';
 import { PortkeyOptions } from '../../../types';
+import { PortkeyDidV1, event$ } from '../../../index';
+import { FetchRequest } from '@portkey-v1/request';
 
 export default function Portkey({
   open,
@@ -65,6 +75,56 @@ export default function Portkey({
     }
   }, [onUnlock, password]);
 
+  const onSignUpHandler: TSignUpContinueHandler = useCallback(async (identifierInfo) => {
+    //
+    let isLoginGuardian = false;
+    try {
+      const customFetch = new FetchRequest({});
+      setLoading(true);
+      const config = getConfig();
+      const v2ServiceUrl = config.portkey.portkeyV2?.requestDefaults?.baseURL;
+      if (!v2ServiceUrl) return true;
+      const result: any = await customFetch.send({
+        // TODO get V2 service url
+        url: `${v2ServiceUrl}/api/app/account/registerInfo`,
+        method: 'GET',
+        params: {
+          loginGuardianIdentifier: identifierInfo.identifier,
+        },
+      });
+      isLoginGuardian = true;
+      console.log(result, 'result==');
+    } catch (error) {
+      isLoginGuardian = false;
+    } finally {
+      setLoading(false);
+    }
+    if (isLoginGuardian) {
+      const isOk = await modalMethod({
+        wrapClassName: 'aelf-switch-version-modal-wrapper',
+        type: 'confirm',
+        okText: 'Switch',
+        content: (
+          <div className="modal-content">
+            <h2 className="switch-version-title">Continue with this account?</h2>
+            <div className="switch-version-inner">
+              This account is not registered yet. If you wish to create a Portkey account, we recommend using the fully
+              upgraded Portkey for an enhanced experience.
+            </div>
+          </div>
+        ),
+      });
+      if (isOk) {
+        event$.emit({
+          version: '2',
+        });
+        return false;
+      }
+      return true;
+    }
+    return true;
+  }, []);
+
   if (isManagerExists && (loginState === WebLoginState.logining || loginState === WebLoginState.lock)) {
     return (
       <Unlock
@@ -88,6 +148,7 @@ export default function Portkey({
       isShowScan
       extraElement={extraWallets}
       onCancel={onCancel}
+      onSignUp={onSignUpHandler}
       onError={onErrorInternal}
       onFinish={onFinishInternal}
     />
