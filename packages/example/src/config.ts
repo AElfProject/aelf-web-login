@@ -24,54 +24,46 @@ export const connectUrl = !IS_MAINNET
 let portkeyScanUrl = `${graphQLServer}/Portkey_DID/PortKeyIndexerCASchema/graphql`;
 // portkeyScanUrl = '/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql';
 
-export const changeGlobalConfig = config => {
-  setGlobalConfig({
-    appName: APPNAME,
-    chainId: CHAIN_ID,
-    networkType: NETWORK as any,
-    defaultRpcUrl: RPC_SERVER,
-    portkey: {
-      loginConfig: {
-        recommendIndexes: [0, 1],
-        loginMethodsOrder: ['Google', 'Telegram', 'Apple', 'Phone', 'Email'],
-      },
-      useLocalStorage: true,
-      graphQLUrl: portkeyScanUrl,
-      connectUrl: connectUrl,
-      requestDefaults: {
-        baseURL: portkeyApiServer,
-        timeout: 30000,
-      },
-      socialLogin: {
-        Portkey: {
-          websiteName: APPNAME,
-          websiteIcon: WEBSITE_ICON,
-        },
-      },
-    } as any,
-    aelfReact: {
-      appName: APPNAME,
-      nodes: {
-        AELF: {
-          chainId: 'AELF',
-          rpcUrl: RPC_SERVER,
-        },
-        tDVW: {
-          chainId: 'tDVW',
-          rpcUrl: RPC_SERVER,
-        },
-        tDVV: {
-          chainId: 'tDVV',
-          rpcUrl: 'http://192.168.66.106:8000',
-        },
+setGlobalConfig({
+  appName: APPNAME,
+  chainId: CHAIN_ID,
+  networkType: NETWORK as any,
+  defaultRpcUrl: RPC_SERVER,
+  portkey: {
+    loginConfig: {
+      recommendIndexes: [0, 1],
+      loginMethodsOrder: ['Google', 'Telegram', 'Apple', 'Phone', 'Email'],
+    },
+    useLocalStorage: true,
+    graphQLUrl: 'https://aa-portkey-test.portkey.finance/Portkey_DID/PortKeyIndexerCASchema/graphql', //portkeyScanUrl,
+    connectUrl: connectUrl,
+    requestDefaults: {
+      baseURL: portkeyApiServer,
+      timeout: 30000,
+    },
+    socialLogin: {
+      Portkey: {
+        websiteName: APPNAME,
+        websiteIcon: WEBSITE_ICON,
       },
     },
-    ...config,
-  });
-};
-changeGlobalConfig({
-  version: {
-    portkey: 1,
-    discover: 1,
+  } as any,
+  aelfReact: {
+    appName: APPNAME,
+    nodes: {
+      AELF: {
+        chainId: 'AELF',
+        rpcUrl: RPC_SERVER,
+      },
+      tDVW: {
+        chainId: 'tDVW',
+        rpcUrl: RPC_SERVER,
+      },
+      tDVV: {
+        chainId: 'tDVV',
+        rpcUrl: 'http://192.168.66.106:8000',
+      },
+    },
   },
+  ifShowV2: true,
 });

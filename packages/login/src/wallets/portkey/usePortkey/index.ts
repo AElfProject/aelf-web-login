@@ -41,7 +41,8 @@ export function usePortkey({
 }: WalletHookParams<PortkeyOptions> & {
   setModalOpen: (open: boolean) => void;
 }) {
-  const appName = getConfig().appName;
+  // diff from V1
+  const appName = `V2-${getConfig().appName}`;
   const chainId = getConfig().chainId as ChainId;
 
   const autoUnlockCheckRef = useRef(false);

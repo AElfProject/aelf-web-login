@@ -13,6 +13,7 @@ export default function Portkey({
   onFinish,
   onError,
   onUnlock,
+  onCloseModal,
   extraWallets,
 }: {
   open: boolean;
@@ -23,6 +24,7 @@ export default function Portkey({
   onError: (error: any) => void;
   onFinish: (didWalletInfo: DIDWalletInfo) => void;
   onUnlock: (password: string) => Promise<boolean>;
+  onCloseModal: () => void;
   extraWallets: ReactNode;
 }) {
   const signInRef = useRef<SignInInterface>(null);
@@ -33,8 +35,11 @@ export default function Portkey({
   useEffect(() => {
     if (signInRef.current) {
       signInRef.current.setOpen(open);
+      if (!open) {
+        onCloseModal();
+      }
     }
-  }, [open]);
+  }, [onCloseModal, open]);
 
   const onFinishInternal = useCallback(
     (didWallet: DIDWalletInfo) => {
@@ -79,7 +84,7 @@ export default function Portkey({
       defaultChainId={chainId as any}
       ref={signInRef}
       uiType="Modal"
-      design={portkeyOpts.design}
+      design={'SocialDesign'}
       isShowScan
       extraElement={extraWallets}
       onCancel={onCancel}

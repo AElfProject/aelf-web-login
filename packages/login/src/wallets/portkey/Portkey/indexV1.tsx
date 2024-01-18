@@ -3,7 +3,6 @@ import { DIDWalletInfo, SignIn, Unlock, SignInInterface } from '@portkey-v1/did-
 import { getConfig } from '../../../config';
 import { WebLoginState } from '../../../constants';
 import { PortkeyOptions } from '../../../types';
-import { PortkeyDidV1 } from '../../../index';
 
 export default function Portkey({
   open,
@@ -14,6 +13,7 @@ export default function Portkey({
   onFinish,
   onError,
   onUnlock,
+  onCloseModal,
   extraWallets,
 }: {
   open: boolean;
@@ -24,6 +24,7 @@ export default function Portkey({
   onError: (error: any) => void;
   onFinish: (didWalletInfo: DIDWalletInfo) => void;
   onUnlock: (password: string) => Promise<boolean>;
+  onCloseModal: () => void;
   extraWallets: ReactNode;
 }) {
   const signInRef = useRef<SignInInterface>(null);
@@ -34,8 +35,11 @@ export default function Portkey({
   useEffect(() => {
     if (signInRef.current) {
       signInRef.current.setOpen(open);
+      if (!open) {
+        onCloseModal();
+      }
     }
-  }, [open]);
+  }, [onCloseModal, open]);
 
   const onFinishInternal = useCallback(
     (didWallet: DIDWalletInfo) => {
@@ -63,7 +67,7 @@ export default function Portkey({
 
   if (isManagerExists && (loginState === WebLoginState.logining || loginState === WebLoginState.lock)) {
     return (
-      <PortkeyDidV1.Unlock
+      <Unlock
         open={open}
         value={password}
         isWrongPassword={isWrongPassword}
@@ -74,7 +78,7 @@ export default function Portkey({
     );
   }
 
-  const SignInComponent = portkeyOpts.SignInComponent || PortkeyDidV1.SignIn;
+  const SignInComponent = portkeyOpts.SignInComponent || SignIn;
   return (
     <SignInComponent
       defaultChainId={chainId as any}

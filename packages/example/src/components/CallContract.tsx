@@ -68,13 +68,9 @@ function useExampleCall(name: string, func: () => any) {
 }
 
 export default function CallContract() {
-  const { wallet, callContract } = useWebLogin();
+  const { wallet, callContract, version } = useWebLogin();
   const config = getConfig();
-  const [version, setVersion] = useState(config.version);
-  const getAccountTDVW = useMemo(
-    () => (version?.portkey === 1 ? useGetAccountV1('tDVW') : useGetAccount('tDVW')),
-    [version],
-  );
+  const getAccountTDVW = useMemo(() => (version === '1' ? useGetAccountV1('tDVW') : useGetAccount('tDVW')), [version]);
   const { callViewMethod, callSendMethod } = useCallContract();
   const { callViewMethod: callViewMethodAELF, callSendMethod: callSendMethodAELF } = useCallContract({
     chainId: 'AELF',
@@ -91,12 +87,6 @@ export default function CallContract() {
   const { callViewMethod: callViewMethodTDVV, callSendMethod: callSendMethodTDVV } = useCallContract({
     chainId: 'tDVV',
     rpcUrl: 'http://192.168.66.106:8000',
-  });
-
-  useWebLoginEvent(WebLoginEvents.CHANGE_PORTKEY_VERSION, () => {
-    setVersion({
-      portkey: getConfig().version.portkey,
-    });
   });
 
   const examples = [

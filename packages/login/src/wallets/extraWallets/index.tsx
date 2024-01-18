@@ -6,6 +6,7 @@ import {
   ElfIcon,
   ElfSquareIcon,
   RightIcon,
+  WEB_LOGIN_VERSION,
   WalletType,
 } from '../../constants';
 import { WalletHookInterface } from '../../types';
@@ -17,7 +18,8 @@ import NightElfPlugin from '../elf/NightElfPlugin';
 import { PortkeyInterface } from '../portkey/usePortkey';
 import { Button } from 'antd';
 import ConnectModal from './ConnectModal';
-import { ExtraWalletContext, useWebLoginContext } from '../../context';
+import { ExtraWalletContext, useWebLogin, useWebLoginContext } from '../../context';
+import { event$, getConfig } from '../../config';
 
 interface IProps {
   headerClassName: string;
@@ -37,6 +39,7 @@ export default function ExtraWallets({
 }: IProps) {
   const isMobileDevice = isMobile();
   const { commonConfig, portkey: portkeyOpts, extraWallets } = useContext(ExtraWalletContext);
+  const { version } = useWebLogin();
   const isDiscoverMobileNotExist =
     discoverApi.discoverDetected === 'unknown' || (discoverApi.discoverDetected === 'not-detected' && isMobileDevice);
   const isShowDiscoverButton = isMobile() && !isPortkeyApp();
@@ -47,6 +50,14 @@ export default function ExtraWallets({
   const closeConnectModal = useCallback(() => {
     setcCnnectModal(false);
   }, [setcCnnectModal]);
+
+  const onChangeVersion = () => {
+    const changedVer = ('' + (2 - ((+version + 1) % 2))) as '2' | '1';
+    console.log(changedVer, 'changedVer');
+    event$.emit({
+      version: changedVer,
+    });
+  };
 
   const validWallets = useMemo(() => {
     return extraWallets?.filter((wallet) => {
@@ -144,6 +155,7 @@ export default function ExtraWallets({
   return (
     <>
       <div className="aelf-web-login aelf-extra-wallets">{extraWalletMap[portkeyOpts.design || 'SocialDesign']}</div>
+      <Button onClick={onChangeVersion}>change to V{2 - ((+version + 1) % 2)}</Button>
       <ConnectModal
         open={connectModal}
         onClose={closeConnectModal}

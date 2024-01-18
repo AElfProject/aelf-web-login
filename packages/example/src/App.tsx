@@ -2,13 +2,12 @@ import { WalletType, WebLoginEvents, WebLoginState, getConfig, useWebLogin, useW
 import VConsole from 'vconsole';
 import MultiWallets from './components/MultiWallets';
 import CallContract from './components/CallContract';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { usePortkeyLock, usePortkeyLockV1 } from 'aelf-web-login';
 import { Tabs } from 'antd';
 import isMobile from './utils/isMobile';
 import Signature from './components/Signature';
 import Events from './components/Events';
-import { changeGlobalConfig } from './config';
 
 const win = window as any;
 let showVConsole = () => {};
@@ -21,31 +20,20 @@ if (isMobile() || win.ReactNativeWebView) {
 
 export default function App() {
   const config = getConfig();
-  const { wallet, walletType, login, loginEagerly, logout, loginState, changeVersion } = useWebLogin();
+  const { wallet, walletType, login, loginEagerly, logout, loginState, version: originVersion } = useWebLogin();
 
-  const [version, setVersion] = useState(config.version);
+  const [version, setVersion] = useState(originVersion);
 
-  const { isUnlocking, lock } = version?.portkey === 1 ? usePortkeyLockV1() : usePortkeyLock();
+  const { isUnlocking, lock } = version === '1' ? usePortkeyLockV1() : usePortkeyLock();
 
-  useWebLoginEvent(WebLoginEvents.CHANGE_PORTKEY_VERSION, () => {
-    changeGlobalConfig({ version });
+  useWebLoginEvent(WebLoginEvents.CHANGE_PORTKEY_VERSION, v => {
+    setVersion(v);
   });
-
-  useWebLoginEvent(WebLoginEvents.CHANGE_DISCOVER_VERSION, () => {
-    changeGlobalConfig({ version });
-  });
-
-  const changeConfig = useCallback(async () => {
-    setVersion({
-      portkey: 2 - ((version?.portkey + 1) % 2),
-      discover: 2 - ((version?.portkey + 1) % 2),
-    });
-    changeVersion();
-  }, [version]);
 
   return (
     <div>
       <h2 onClick={showVConsole}>Login</h2>
+      <h3>version: {version}</h3>
       <div className="buttons">
         <div>
           {getConfig().chainId} wallet: {wallet.name} {wallet.address}
@@ -70,7 +58,6 @@ export default function App() {
         <button disabled={loginState !== WebLoginState.logined} onClick={() => logout({ noModal: true })}>
           {loginState === WebLoginState.logouting ? 'logouting' : 'logoutNoModal'}
         </button>
-        <button onClick={() => changeConfig()}>changeGlobalConfig</button>
       </div>
       <Tabs
         type="card"

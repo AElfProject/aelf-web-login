@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { ChainId } from '@portkey/types';
 import { IPortkeyProvider, Accounts, ChainIds, NetworkType, ProviderError, DappEvents } from '@portkey/provider-types';
-import { IVersion, getConfig } from '../../config';
+import { getConfig } from '../../config';
 import {
   CallContractParams,
   DiscoverInfo,
@@ -11,7 +11,7 @@ import {
   WalletHookInterface,
 } from '../../types';
 import { WalletHookParams } from '../types';
-import { WalletType, WebLoginEvents, WebLoginState } from '../../constants';
+import { WEB_LOGIN_VERSION, WalletType, WebLoginEvents, WebLoginState } from '../../constants';
 import checkSignatureParams from '../../utils/signatureParams';
 import { DiscoverOptions } from 'src/types';
 import useChainIdsSync from './useChainIdsSync';
@@ -19,6 +19,8 @@ import { ERR_CODE, makeError } from '../../errors';
 import wait from '../../utils/waitForSeconds';
 import { zeroFill } from '../../utils/zeroFill';
 import detectDiscoverProvider from './detectProvider';
+import useWebLoginEvent from '../../hooks/useWebLoginEvent';
+import { useWebLogin } from '../../context';
 
 export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
 export type DiscoverInterface = WalletHookInterface & {
@@ -39,7 +41,6 @@ export function useDiscover({
   setLoading,
 }: WalletHookParams<DiscoverOptions>) {
   const chainId = getConfig().chainId as ChainId;
-
   const autoRequestAccountCheck = useRef(false);
   const [discoverProvider, setDiscoverProvider] = useState<IPortkeyProvider>();
   const [discoverProviderV1, setDiscoverProviderV1] = useState<IPortkeyProvider>();
@@ -75,8 +76,8 @@ export function useDiscover({
   );
 
   const detect = useCallback(async (): Promise<IPortkeyProvider> => {
-    const { version } = getConfig();
-    if (version?.discover === 1) {
+    const version = localStorage.getItem(WEB_LOGIN_VERSION);
+    if (version === '1') {
       console.log(version, 'detect version111');
       return handleMultiVersionProvider(discoverProviderV1!, setDiscoverProviderV1);
     }
@@ -253,8 +254,8 @@ export function useDiscover({
 
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
-      const { version } = getConfig();
-      const provider = version?.discover === 1 ? discoverProviderV1! : discoverProvider!;
+      const version = localStorage.getItem(WEB_LOGIN_VERSION);
+      const provider = version === '1' ? discoverProviderV1! : discoverProvider!;
       if (!discoverInfo || !provider) {
         throw new Error('Discover not connected');
       }
@@ -272,8 +273,8 @@ export function useDiscover({
       if (!discoverInfo) {
         throw new Error('Discover not connected');
       }
-      const { version } = getConfig();
-      const provider = version?.discover === 1 ? discoverProviderV1! : discoverProvider!;
+      const version = localStorage.getItem(WEB_LOGIN_VERSION);
+      const provider = version === '1' ? discoverProviderV1! : discoverProvider!;
       const signInfo = params.signInfo;
       const signedMsgObject = await provider.request({
         method: 'wallet_getSignature',
@@ -314,8 +315,8 @@ export function useDiscover({
   }, [loginEagerly, setLoginState, loginState, options.autoRequestAccount]);
 
   useEffect(() => {
-    const { version } = getConfig();
-    const provider = version?.discover === 1 ? discoverProviderV1 : discoverProvider;
+    const version = localStorage.getItem(WEB_LOGIN_VERSION);
+    const provider = version === '1' ? discoverProviderV1 : discoverProvider;
     if (provider) {
       const onDisconnected = (error: ProviderError) => {
         if (!discoverInfo) return;

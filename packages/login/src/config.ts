@@ -5,7 +5,7 @@ import { NetworkType } from '@portkey/provider-types';
 import { GlobalConfigProps as GlobalConfigPropsV1 } from '@portkey-v1/did-ui-react/dist/_types/src/components/config-provider/types';
 import { GlobalConfigProps } from '@portkey/did-ui-react/dist/_types/src/components/config-provider/types';
 import { EventEmitter } from 'ahooks/lib/useEventEmitter';
-import { PortkeyDidV1, PortkeyDid } from './index';
+import { PortkeyDidV1, PortkeyDid, WEB_LOGIN_VERSION } from './index';
 
 // copy from @aelf-react/core, cause it's not exported
 export type AelfNode = {
@@ -19,12 +19,12 @@ export type AElfReactProviderProps = {
     [key: string]: AelfNode;
   };
 };
-export interface IVersion {
-  portkey?: number;
-  discover?: number;
-}
+// export interface IVersion {
+//   portkey?: number;
+//   discover?: number;
+// }
 export type WebLoginConfig = {
-  version?: IVersion;
+  ifShowV2: boolean;
   appName: string;
   chainId: string;
   defaultRpcUrl: string;
@@ -49,15 +49,21 @@ let globalConfig: WebLoginConfig;
 export const event$ = new EventEmitter();
 
 export function setGlobalConfig(config: WebLoginConfig) {
+  const version = localStorage.getItem(WEB_LOGIN_VERSION) || (config.ifShowV2 ? '2' : '1');
+  console.log(version, 'setGlobalConfig');
   globalConfig = config;
   if (config.portkey.useLocalStorage) {
     config.portkey.storageMethod = new Store();
   }
-  // default version 2
-  (config.version?.portkey === 1 ? PortkeyDidV1.ConfigProvider : PortkeyDid.ConfigProvider).setGlobalConfig(
-    config.portkey,
-  );
-  event$.emit(globalConfig);
+  // init version according to config ifShowV2
+  if (version === '1') {
+    PortkeyDid.ConfigProvider.setGlobalConfig(config.portkey);
+  } else {
+    PortkeyDidV1.ConfigProvider.setGlobalConfig({
+      ...config.portkey,
+      graphQLUrl: 'https://aa-portkey-test.portkey.finance/Portkey_DID/PortKeyIndexerCASchema/graphql',
+    });
+  }
 }
 
 export function getConfig() {

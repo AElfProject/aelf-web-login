@@ -5,26 +5,27 @@ import '@portkey/did-ui-react/dist/assets/index.css';
 import 'aelf-web-login/dist/assets/index.css';
 import './index.css';
 import './config';
-import { WebLoginProvider, event$, getConfig, WebLoginConfig } from 'aelf-web-login';
+import {
+  WebLoginProvider,
+  event$,
+  getConfig,
+  WebLoginConfig,
+  useWebLogin,
+  useWebLoginEvent,
+  WebLoginEvents,
+} from 'aelf-web-login';
 import { PortkeyDid, PortkeyDidV1 } from 'aelf-web-login';
 import App from './App';
 import { createPortal } from 'react-dom';
 
 function Index() {
-  const [version, setVersion] = useState(getConfig().version);
-  event$.useSubscription((config: WebLoginConfig) => {
-    setVersion(config.version);
-  });
-  const PortkeyProviderVersion = useCallback(
-    ({ children, ...props }: any) => {
-      if (version?.portkey === 1) {
-        return <PortkeyDidV1.PortkeyProvider {...props}>{children}</PortkeyDidV1.PortkeyProvider>;
-      } else {
-        return <PortkeyDid.PortkeyProvider {...props}>{children}</PortkeyDid.PortkeyProvider>;
-      }
-    },
-    [version],
-  );
+  const PortkeyProviderVersion = useCallback(({ children, ...props }: any) => {
+    return (
+      <PortkeyDid.PortkeyProvider {...props}>
+        <PortkeyDidV1.PortkeyProvider {...props}>{children}</PortkeyDidV1.PortkeyProvider>
+      </PortkeyDid.PortkeyProvider>
+    );
+  }, []);
   return (
     <PortkeyProviderVersion networkType="TESTNET" theme="dark">
       <WebLoginProvider
