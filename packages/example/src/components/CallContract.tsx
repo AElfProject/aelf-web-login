@@ -14,7 +14,6 @@ async function callContractWithLog<T, R>(
 ): Promise<R> {
   console.log('call', params);
   const res = await callContract(params);
-  console.log('res', res);
   return res;
 }
 
@@ -29,7 +28,6 @@ function useExampleCall(name: string, func: () => any) {
         console.error(res.error);
         return;
       }
-      console.log(name, 'res', res);
       setResult(res);
     } catch (error) {
       console.log(error);

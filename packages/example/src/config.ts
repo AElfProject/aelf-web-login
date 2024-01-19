@@ -71,5 +71,5 @@ setGlobalConfig({
       },
     },
   },
-  ifShowV2: true,
+  onlyShowV2: true,
 });

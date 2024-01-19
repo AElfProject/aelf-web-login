@@ -83,11 +83,11 @@ export default function Portkey({
       const customFetch = new FetchRequest({});
       setLoading(true);
       const config = getConfig();
-      const v2ServiceUrl = config.portkey.portkeyV2?.requestDefaults?.baseURL;
-      if (!v2ServiceUrl) return true;
+      const serviceUrl = config.portkey.requestDefaults?.baseURL;
+      if (!serviceUrl) return true;
       const result: any = await customFetch.send({
         // TODO get V2 service url
-        url: `${v2ServiceUrl}/api/app/account/registerInfo`,
+        url: `${serviceUrl}/api/app/account/registerInfo`,
         method: 'GET',
         params: {
           loginGuardianIdentifier: identifierInfo.identifier,

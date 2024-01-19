@@ -66,19 +66,20 @@ export default function Portkey({
   );
 
   const onSignUpHandler: TSignUpContinueHandler = useCallback(async (identifierInfo) => {
-    //
+    const config = getConfig();
+    // if (config.onlyShowV2) {
+    //   return false;
+    // }
     let isLoginGuardian = false;
     try {
       const customFetch = new FetchRequest({});
-      const config = getConfig();
-
-      const v1ServiceUrl = config.portkey.requestDefaults?.baseURL;
-      if (!v1ServiceUrl) return true;
+      const serviceUrl = config.portkey.requestDefaults?.baseURL;
+      if (!serviceUrl) return true;
       setLoading(true);
 
       const result: any = await customFetch.send({
         // TODO get V1 service url from config
-        url: `${v1ServiceUrl}/api/app/account/registerInfo`,
+        url: `${serviceUrl}/api/app/account/registerInfo`,
         method: 'GET',
         params: {
           loginGuardianIdentifier: identifierInfo.identifier,
@@ -147,7 +148,7 @@ export default function Portkey({
       defaultChainId={chainId as any}
       ref={signInRef}
       uiType="Modal"
-      design={'SocialDesign'}
+      design={portkeyOpts.design}
       isShowScan
       extraElement={extraWallets}
       onCancel={onCancel}

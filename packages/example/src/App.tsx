@@ -20,15 +20,10 @@ if (isMobile() || win.ReactNativeWebView) {
 
 export default function App() {
   const config = getConfig();
-  const { wallet, walletType, login, loginEagerly, logout, loginState, version: originVersion } = useWebLogin();
+  const { wallet, walletType, login, loginEagerly, logout, loginState, version } = useWebLogin();
 
-  const [version, setVersion] = useState(originVersion);
-
-  const { isUnlocking, lock } = version === '1' ? usePortkeyLockV1() : usePortkeyLock();
-
-  useWebLoginEvent(WebLoginEvents.CHANGE_PORTKEY_VERSION, v => {
-    setVersion(v);
-  });
+  const { isUnlocking, lock } = usePortkeyLock();
+  const { isUnlocking: isUnlockingV1, lock: lockV1 } = usePortkeyLockV1();
 
   return (
     <div>
@@ -46,11 +41,13 @@ export default function App() {
         <button disabled={loginState !== WebLoginState.eagerly} onClick={loginEagerly}>
           loginEagerly
         </button>
-        <button disabled={loginState !== WebLoginState.logined || walletType !== WalletType.portkey} onClick={lock}>
+        <button
+          disabled={loginState !== WebLoginState.logined || walletType !== WalletType.portkey}
+          onClick={version === '1' ? lockV1 : lock}>
           lock
         </button>
         <button disabled={loginState !== WebLoginState.lock} onClick={login}>
-          {isUnlocking ? 'unlocking' : 'unlock'}
+          {(version === '1' ? isUnlockingV1 : isUnlocking) ? 'unlocking' : 'unlock'}
         </button>
         <button disabled={loginState !== WebLoginState.logined} onClick={() => logout()}>
           {loginState === WebLoginState.logouting ? 'logouting' : 'logout'}

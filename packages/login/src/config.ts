@@ -20,7 +20,7 @@ export type AElfReactProviderProps = {
   };
 };
 export type WebLoginConfig = {
-  ifShowV2: boolean;
+  onlyShowV2?: boolean;
   appName: string;
   chainId: string;
   defaultRpcUrl: string;

@@ -89,10 +89,8 @@ function WebLoginProvider({
   const [modalOpen, setModalOpen] = useState(false);
   const [bridgeType, setBridgeType] = useState('unknown');
   const [loginId, setLoginId] = useState(0);
-  // init version according to config ifShowV2
-  const [version, setVersion] = useState<string>(
-    localStorage.getItem(WEB_LOGIN_VERSION) || (getConfig().ifShowV2 ? '2' : '1'),
-  );
+  // init version according to config onlyShowV2
+  const [version, setVersion] = useState<string>(localStorage.getItem(WEB_LOGIN_VERSION) || '2');
   const [changeVerBtnClicked, setChangeVerBtnClicked] = useState<{ version: string }>();
 
   event$.useSubscription(async (value: any) => {
