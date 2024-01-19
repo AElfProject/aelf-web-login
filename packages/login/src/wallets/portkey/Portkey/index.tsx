@@ -40,7 +40,7 @@ export default function Portkey({
   const signInRef = useRef<SignInInterface>(null);
   const [password, setPassword] = useState('');
   const [isWrongPassword, setIsWrongPassword] = useState(false);
-  const chainId = getConfig().chainId;
+  const { chainId, onlyShowV2 } = getConfig();
 
   useEffect(() => {
     if (signInRef.current) {
@@ -67,9 +67,6 @@ export default function Portkey({
 
   const onSignUpHandler: TSignUpContinueHandler = useCallback(async (identifierInfo) => {
     const config = getConfig();
-    // if (config.onlyShowV2) {
-    //   return false;
-    // }
     let isLoginGuardian = false;
     try {
       const customFetch = new FetchRequest({});
@@ -154,7 +151,7 @@ export default function Portkey({
       onCancel={onCancel}
       onError={onErrorInternal}
       onFinish={onFinishInternal}
-      onSignUp={onSignUpHandler}
+      onSignUp={onlyShowV2 ? undefined : onSignUpHandler}
     />
   );
 }
