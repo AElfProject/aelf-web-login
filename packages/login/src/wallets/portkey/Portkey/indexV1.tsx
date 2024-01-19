@@ -105,27 +105,26 @@ export default function Portkey({
       } finally {
         setLoading(false);
       }
-      if (isLoginGuardian) {
-        const isOk = await modalMethod({
-          wrapClassName: 'aelf-switch-version-modal-wrapper',
-          type: 'confirm',
-          okText: 'Continue',
-          content: (
-            <div className="modal-content">
-              <h2 className="switch-version-title">Continue with this account?</h2>
-              <div className="switch-version-inner">
-                This account is not registered yet. If you wish to create a Portkey account, we recommend using the
-                fully upgraded Portkey for an enhanced experience. Click &quot;Continue&quot; below if you want to
-                proceed.
-              </div>
+
+      const isOk = await modalMethod({
+        wrapClassName: 'aelf-switch-version-modal-wrapper',
+        type: 'confirm',
+        okText: 'Continue',
+        content: (
+          <div className="modal-content">
+            <h2 className="switch-version-title">Continue with this account?</h2>
+            <div className="switch-version-inner">
+              {isLoginGuardian
+                ? 'The account is not registered in the current Portkey. You can click "Continue" below to use the fully upgraded Portkey and log in.'
+                : 'This account is not registered yet. If you wish to create a Portkey account, we recommend using the fully upgraded Portkey for an enhanced experience. Click "Continue" below if you want to proceed.'}
             </div>
-          ),
-        });
-        if (isOk) {
-          changeVersion();
-          return false;
-        }
-        return true;
+          </div>
+        ),
+      });
+
+      if (isOk) {
+        changeVersion();
+        return false;
       }
       return true;
     },
