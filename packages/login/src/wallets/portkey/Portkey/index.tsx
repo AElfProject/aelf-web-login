@@ -140,7 +140,7 @@ export default function Portkey({
 
   const extraElement = useMemo(() => {
     const onlyShowV2 = getConfig().onlyShowV2;
-    if (!onlyShowV2) {
+    if (onlyShowV2) {
       return [extraWallets];
     } else {
       return [
