@@ -55,10 +55,12 @@ export function useDiscover({
       provider: IPortkeyProvider,
       setProvider: React.Dispatch<React.SetStateAction<IPortkeyProvider | undefined>>,
     ) => {
+      console.log(provider, provider?.isConnected(), 'provider?.isConnected');
       if (provider?.isConnected()) {
         return provider!;
       }
       const detectedProvider = await detectDiscoverProvider();
+      console.log(detectedProvider, 'detectedProvider');
       if (detectedProvider) {
         if (!detectedProvider.isPortkey) {
           setDiscoverDetected('not-detected');
@@ -66,7 +68,7 @@ export function useDiscover({
         }
         setProvider(detectedProvider);
         setDiscoverDetected('detected');
-        return provider;
+        return detectedProvider;
       } else {
         setDiscoverDetected('not-detected');
         throw new Error('Discover provider not found');

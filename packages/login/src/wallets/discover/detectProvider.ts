@@ -9,8 +9,16 @@ export default async function detectDiscoverProvider(): Promise<IPortkeyProvider
     const detectProviderModule = detectProvider as any;
     detectProviderFunc = detectProviderModule.default;
   }
-  console.log(detectProviderFunc, 'detectDiscoverProvider');
-  return await detectProviderFunc({
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, 1000);
+  });
+  // console.log(resV1, 'resV1');
+  const res = await detectProviderFunc({
+    // timeout: 6000,
     providerName: (version === '1' ? 'portkey' : 'Portkey') as keyof Window,
   });
+  // console.log(res, 'res');
+  return res;
 }
