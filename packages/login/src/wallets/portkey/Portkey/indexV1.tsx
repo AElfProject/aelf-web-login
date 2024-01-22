@@ -7,6 +7,7 @@ import {
   modalMethod,
   TSignUpContinueHandler,
   setLoading,
+  SignUpValue,
 } from '@portkey-v1/did-ui-react';
 import { getConfig } from '../../../config';
 import { WEB_LOGIN_VERSION, WebLoginState } from '../../../constants';
@@ -84,26 +85,27 @@ export default function Portkey({
   const onSignUpHandler: TSignUpContinueHandler = useCallback(
     async (identifierInfo) => {
       let isLoginGuardian = false;
-      try {
-        const customFetch = new FetchRequest({});
-        setLoading(true);
-        const config = getConfig();
-        const v2ServiceUrl = config.portkey.portkeyV2?.requestDefaults?.baseURL;
-        if (!v2ServiceUrl) return true;
-        const result: any = await customFetch.send({
-          url: `${v2ServiceUrl}/api/app/account/registerInfo`,
-          method: 'GET',
-          params: {
-            loginGuardianIdentifier: identifierInfo.identifier,
-          },
-        });
-        if (result?.guardianList?.guardians?.length > 0) {
-          isLoginGuardian = true;
+      const config = getConfig();
+      const v2ServiceUrl = config.portkey.portkeyV2?.requestDefaults?.baseURL;
+      if (v2ServiceUrl) {
+        try {
+          const customFetch = new FetchRequest({});
+          setLoading(true);
+          const result: any = await customFetch.send({
+            url: `${v2ServiceUrl}/api/app/account/registerInfo`,
+            method: 'GET',
+            params: {
+              loginGuardianIdentifier: identifierInfo.identifier,
+            },
+          });
+          if (result?.originChainId) {
+            isLoginGuardian = true;
+          }
+        } catch (error) {
+          isLoginGuardian = false;
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        isLoginGuardian = false;
-      } finally {
-        setLoading(false);
       }
 
       const isOk = await modalMethod({
@@ -124,9 +126,8 @@ export default function Portkey({
 
       if (isOk) {
         changeVersion();
-        return false;
       }
-      return true;
+      return SignUpValue.cancelRegister;
     },
     [changeVersion],
   );
