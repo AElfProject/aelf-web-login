@@ -10,7 +10,7 @@ import PortkeyV1 from './wallets/portkey/Portkey/indexV1';
 import { useElf } from './wallets/elf/useElf';
 import { getConfig, event$ } from './config';
 import { WalletType, WebLoginState, WebLoginEvents, WEB_LOGIN_VERSION } from './constants';
-import { PortkeyLoading } from '@portkey/did-ui-react';
+import { CommonBaseModal, PortkeyLoading } from '@portkey/did-ui-react';
 import { PortkeyLoading as PortkeyLoadingV1 } from '@portkey-v1/did-ui-react';
 import { check } from './wallets/elf/utils';
 import isMobile from './utils/isMobile';
@@ -19,6 +19,7 @@ import { LOGIN_EARGLY_KEY as DISCOVER_LOGIN_EARGERLY_KEY, useDiscover } from './
 import ConfirmLogoutDialog from './components/CofirmLogoutDialog/ConfirmLogoutDialog';
 import { useDebounceFn } from 'ahooks';
 import ExtraWallets from './wallets/extraWallets';
+import clsx from 'clsx';
 
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,
@@ -94,9 +95,10 @@ function WebLoginProvider({
   const [changeVerBtnClicked, setChangeVerBtnClicked] = useState<{ version: string }>();
 
   event$.useSubscription(async (value: any) => {
-    setModalOpen(false);
+    // setModalOpen(false);
     setChangeVerBtnClicked(value as { version: string });
     setLoginState(WebLoginState.initial);
+    value.version && setVersion(value.version);
   });
 
   useEffect(() => {
@@ -433,10 +435,19 @@ function WebLoginProvider({
     );
   };
 
-  return (
-    <WebLoginContext.Provider value={state}>
-      {children}
-      {version === '1' ? (
+  const isManagerExists = useMemo(
+    () => (version === '1' ? portkeyApiV1.isManagerExists : portkeyApi.isManagerExists),
+    [portkeyApi.isManagerExists, portkeyApiV1.isManagerExists, version],
+  );
+
+  const isShowUnlockPage = useMemo(
+    () => isManagerExists && (loginState === WebLoginState.logining || loginState === WebLoginState.lock),
+    [isManagerExists, loginState],
+  );
+
+  const PortkeySDKEle = useMemo(
+    () =>
+      version === '1' ? (
         <PortkeyV1
           portkeyOpts={portkeyOpts}
           isManagerExists={portkeyApiV1.isManagerExists}
@@ -462,7 +473,47 @@ function WebLoginProvider({
           extraWallets={renderExtraWallets()}
           onCloseModal={onCloseModal}
         />
-      )}
+      ),
+    [
+      loginState,
+      modalOpen,
+      onCloseModal,
+      portkeyApi.isManagerExists,
+      portkeyApi.onCancel,
+      portkeyApi.onError,
+      portkeyApi.onFinished,
+      portkeyApi.onUnlock,
+      portkeyApiV1.isManagerExists,
+      portkeyApiV1.onCancel,
+      portkeyApiV1.onError,
+      portkeyApiV1.onFinished,
+      portkeyApiV1.onUnlock,
+      portkeyOpts,
+      renderExtraWallets,
+      version,
+    ],
+  );
+
+  const PortkeyPage = useMemo(() => {
+    return isShowUnlockPage ? (
+      PortkeySDKEle
+    ) : (
+      <CommonBaseModal
+        destroyOnClose
+        className={clsx('portkey-ui-sign-modal', `portkey-ui-sign-modal-${portkeyOpts.design}`)}
+        maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
+        open={modalOpen}
+        // getContainer={getContainer ? getContainer : `#${PORTKEY_ROOT_ID}`}
+        onClose={() => setModalOpen(false)}>
+        {PortkeySDKEle}
+      </CommonBaseModal>
+    );
+  }, [PortkeySDKEle, isShowUnlockPage, modalOpen, portkeyOpts.design]);
+
+  return (
+    <WebLoginContext.Provider value={state}>
+      {children}
+      {PortkeyPage}
       <ConfirmLogoutDialogComponent
         visible={logoutConfirmOpen}
         onCancel={() => setLogoutConfirmResult(LogoutConfirmResult.cancel)}

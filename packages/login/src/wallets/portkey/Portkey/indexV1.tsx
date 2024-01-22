@@ -149,7 +149,7 @@ export default function Portkey({
     <SignInComponent
       defaultChainId={chainId as any}
       ref={signInRef}
-      uiType="Modal"
+      uiType="Full"
       design={portkeyOpts.design}
       isShowScan
       extraElement={extraWallets}
