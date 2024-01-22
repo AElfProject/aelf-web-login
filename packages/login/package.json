@@ -57,6 +57,7 @@
     "ahooks": "^3.7.7",
     "antd": "^4.24.4",
     "bn.js": "^5.2.1",
+    "clsx": "^2.1.0",
     "lessc-watcher": "^1.2.2",
     "typescript": "^4.9.5"
   },
