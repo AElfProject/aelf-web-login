@@ -6,8 +6,10 @@ import type { Accounts, ChainIds, IPortkeyProvider } from '@portkey/provider-typ
 import type { RefAttributes } from 'react';
 import { ConfirmLogoutDialogProps } from './components/CofirmLogoutDialog';
 import { ChainId, SendOptions } from '@portkey/types';
+import { ChainId as ChainIdV1, SendOptions as SendOptionsV1 } from '@portkey-v1/types';
 import { SignInProps, TDesign } from '@portkey/did-ui-react';
 import { IPortkeyContract } from '@portkey/contracts';
+import { IPortkeyContract as IPortkeyContractV1 } from '@portkey-v1/contracts';
 
 /**
  * WebLoginProvider types
@@ -88,7 +90,14 @@ export type GetSignatureFunc = (params: SignatureParams) => Promise<SignatureDat
  * wallet
  */
 
-export type PortkeyInfo = (DIDWalletInfo | DIDWalletInfoV1) & {
+export type PortkeyInfo = DIDWalletInfo & {
+  nickName: string;
+  accounts: {
+    [key: string]: string;
+  };
+};
+
+export type PortkeyInfoV1 = DIDWalletInfoV1 & {
   nickName: string;
   accounts: {
     [key: string]: string;
@@ -154,7 +163,7 @@ export type CallContractHookOptions = {
 export type CallContractHookInterface = {
   contractHookId: string;
   callViewMethod<T, R>(params: CallContractParams<T>): Promise<R>;
-  callSendMethod<T, R>(params: CallContractParams<T>, sendOptions: SendOptions | undefined): Promise<R>;
+  callSendMethod<T, R>(params: CallContractParams<T>, sendOptions: SendOptions | SendOptionsV1 | undefined): Promise<R>;
 };
 
 /**
@@ -168,8 +177,16 @@ export type ContractHookOptions = {
 
 export interface IPortkeySendAdapterProps<T> {
   caContract: IPortkeyContract;
-  didWalletInfo: DIDWalletInfo | DIDWalletInfoV1;
+  didWalletInfo: DIDWalletInfo;
   params: CallContractParams<T>;
   chainId: ChainId;
   sendOptions?: SendOptions;
+}
+
+export interface IPortkeySendAdapterV1Props<T> {
+  caContract: IPortkeyContractV1;
+  didWalletInfo: DIDWalletInfoV1;
+  params: CallContractParams<T>;
+  chainId: ChainIdV1;
+  sendOptions?: SendOptionsV1;
 }

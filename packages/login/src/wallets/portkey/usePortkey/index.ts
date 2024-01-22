@@ -75,9 +75,12 @@ export function usePortkey({
       const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
       localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
       if (originChainId) {
-        await did.logout({
-          chainId: originChainId as ChainId,
-        });
+        await did.logout(
+          {
+            chainId: originChainId as ChainId,
+          },
+          { onMethod: 'transactionHash' },
+        );
       }
     } catch (e) {
       console.warn(e);
@@ -95,9 +98,12 @@ export function usePortkey({
     localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
     try {
       if (originChainId) {
-        await did.logout({
-          chainId: originChainId as ChainId,
-        });
+        await did.logout(
+          {
+            chainId: originChainId as ChainId,
+          },
+          { onMethod: 'transactionHash' },
+        );
       }
     } catch (e) {
       console.warn(e);

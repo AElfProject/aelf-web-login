@@ -55,12 +55,10 @@ export function useDiscover({
       provider: IPortkeyProvider,
       setProvider: React.Dispatch<React.SetStateAction<IPortkeyProvider | undefined>>,
     ) => {
-      console.log(provider, provider?.isConnected(), 'provider?.isConnected');
       if (provider?.isConnected()) {
         return provider!;
       }
       const detectedProvider = await detectDiscoverProvider();
-      console.log(detectedProvider, 'detectedProvider');
       if (detectedProvider) {
         if (!detectedProvider.isPortkey) {
           setDiscoverDetected('not-detected');
@@ -80,10 +78,8 @@ export function useDiscover({
   const detect = useCallback(async (): Promise<IPortkeyProvider> => {
     const version = localStorage.getItem(WEB_LOGIN_VERSION);
     if (version === '1') {
-      console.log(version, 'detect version111');
       return handleMultiVersionProvider(discoverProviderV1!, setDiscoverProviderV1);
     }
-    console.log(version, 'detect version222');
     return handleMultiVersionProvider(discoverProvider!, setDiscoverProvider);
   }, [discoverProvider, discoverProviderV1, handleMultiVersionProvider]);
 
@@ -135,7 +131,6 @@ export function useDiscover({
     setLoginState(WebLoginState.logining);
     try {
       const provider = await detect();
-      console.log(provider, 'loginEagerly provider');
       const { isUnlocked } = await provider.request({ method: 'wallet_getWalletState' });
       if (!isUnlocked) {
         setLoginState(WebLoginState.initial);
@@ -166,14 +161,12 @@ export function useDiscover({
     setLoginState(WebLoginState.logining);
     try {
       const provider = await detect();
-      console.log(provider, 'login provider');
       const network = await provider.request({ method: 'network' });
       if (network !== getConfig().networkType) {
         onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
         return;
       }
       let accounts = await provider.request({ method: 'accounts' });
-      console.log(accounts, 'login accounts');
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
         onAccountsSuccess(provider, accounts);
         return;

@@ -6,7 +6,7 @@ import {
   CallContractHookInterface,
   CallContractHookOptions,
   CallContractParams,
-  IPortkeySendAdapterProps,
+  IPortkeySendAdapterV1Props,
 } from '../../types';
 import { getConfig } from '../../config';
 import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WalletType, WebLoginEvents } from '../../constants';
@@ -64,7 +64,7 @@ export const sendAdapter = async <T>({
   params,
   chainId,
   sendOptions,
-}: IPortkeySendAdapterProps<T>) => {
+}: IPortkeySendAdapterV1Props<T>) => {
   const chainInfo = await getChain(chainId);
   // particular case for token contract(contractMethod: managerApprove)
   // don't deal with caContract(contractMethod: ApproveMethod)

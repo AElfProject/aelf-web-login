@@ -6,7 +6,7 @@ import { getConfig } from '../../../config';
 import {
   CallContractParams,
   DoSwitchFunc,
-  PortkeyInfo,
+  PortkeyInfoV1,
   SignatureParams,
   SwitchWalletFunc,
   WalletHookInterface,
@@ -45,7 +45,7 @@ export function usePortkey({
   const chainId = getConfig().chainId as ChainId;
 
   const autoUnlockCheckRef = useRef(false);
-  const [didWalletInfo, setDidWalletInfo] = useState<PortkeyInfo>();
+  const [didWalletInfo, setDidWalletInfo] = useState<PortkeyInfoV1>();
 
   const [switching, setSwitching] = useState(false);
   const [isUnlocking, setUnlocking] = useState(false);
