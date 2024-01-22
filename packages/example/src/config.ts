@@ -35,7 +35,7 @@ setGlobalConfig({
       loginMethodsOrder: ['Google', 'Telegram', 'Apple', 'Phone', 'Email'],
     },
     useLocalStorage: true,
-    graphQLUrl: portkeyScanUrl, //portkeyScanUrl,
+    graphQLUrl: portkeyScanUrl,
     connectUrl: connectUrl,
     requestDefaults: {
       baseURL: '/v1',
