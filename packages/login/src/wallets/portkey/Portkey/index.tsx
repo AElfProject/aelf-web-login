@@ -7,6 +7,9 @@ import {
   modalMethod,
   TSignUpContinueHandler,
   setLoading,
+  CustomSvg,
+  TModalMethodRef,
+  SignUpValue,
 } from '@portkey/did-ui-react';
 import { getConfig } from '../../../config';
 import { WEB_LOGIN_VERSION, WebLoginState } from '../../../constants';
@@ -74,41 +77,50 @@ export default function Portkey({
     async (identifierInfo) => {
       //
       let isLoginGuardian = false;
-      try {
-        const customFetch = new FetchRequest({});
-        const config = getConfig();
+      const config = getConfig();
+      const v1ServiceUrl = config.portkey.requestDefaults?.baseURL;
+      if (v1ServiceUrl) {
+        try {
+          const customFetch = new FetchRequest({});
 
-        const v1ServiceUrl = config.portkey.requestDefaults?.baseURL;
-        if (!v1ServiceUrl) return true;
-        setLoading(true);
+          setLoading(true);
 
-        const result: any = await customFetch.send({
-          // TODO get V1 service url from config
-          url: `${v1ServiceUrl}/api/app/account/registerInfo`,
-          method: 'GET',
-          params: {
-            loginGuardianIdentifier: identifierInfo.identifier,
-          },
-        });
-        if (result?.guardianList?.guardians?.length > 0) {
-          isLoginGuardian = true;
+          const result: any = await customFetch.send({
+            // TODO get V1 service url from config
+            url: `${v1ServiceUrl}/api/app/account/registerInfo`,
+            method: 'GET',
+            params: {
+              loginGuardianIdentifier: identifierInfo.identifier,
+            },
+          });
+          if (result?.originChainId) {
+            isLoginGuardian = true;
+          }
+
+          console.log(result, 'result==');
+        } catch (error) {
+          isLoginGuardian = false;
+        } finally {
+          setLoading(false);
         }
-        console.log(result, 'result==');
-      } catch (error) {
-        isLoginGuardian = false;
-      } finally {
-        setLoading(false);
       }
       if (isLoginGuardian) {
+        const modalRef: TModalMethodRef = { current: undefined };
+
         const isOk = await modalMethod({
           wrapClassName: 'aelf-switch-version-modal-wrapper',
           type: 'confirm',
+          ref: modalRef,
           okText: 'Continue',
           cancelText: 'Switch',
           content: (
             <div className="modal-content">
+              <CustomSvg
+                type="Close2"
+                className="aelf-switch-verison-close-icon"
+                onClick={() => modalRef.current?.close()}
+              />
               <h2 className="switch-version-title">Continue with this account?</h2>
-
               <div className="switch-version-inner">
                 The account is not registered in the upgraded Portkey yet. Click &quot;Continue&quot; below to create a
                 new account, separate from your existing one (Recommended). Alternatively, you can click
@@ -117,13 +129,13 @@ export default function Portkey({
             </div>
           ),
         });
-        if (isOk) return true;
 
-        // TODO switch to V1
+        if (isOk) return SignUpValue.otherSeverRegisterButContinue;
+        if (isOk === 0) return SignUpValue.cancelRegister;
         switchVersion();
-        return false;
+        return SignUpValue.cancelRegister;
       }
-      return true;
+      return SignUpValue.continue;
     },
     [switchVersion],
   );
