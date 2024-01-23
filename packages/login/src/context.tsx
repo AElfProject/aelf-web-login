@@ -20,6 +20,7 @@ import ConfirmLogoutDialog from './components/CofirmLogoutDialog/ConfirmLogoutDi
 import { useDebounceFn } from 'ahooks';
 import ExtraWallets from './wallets/extraWallets';
 import clsx from 'clsx';
+import { PortkeyDid, PortkeyDidV1 } from './index';
 
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,
@@ -69,6 +70,13 @@ export const useWebLogin: () => WebLoginInterface = () => {
 export type ExtraWalletProviderProps = Omit<WebLoginProviderProps, 'children'>;
 export const ExtraWalletContext = createContext<ExtraWalletProviderProps>({} as ExtraWalletProviderProps);
 
+export const PortkeyProvider = ({ children, ...props }: any) => {
+  return (
+    <PortkeyDid.PortkeyProvider {...props}>
+      <PortkeyDidV1.PortkeyProvider {...props}>{children}</PortkeyDidV1.PortkeyProvider>
+    </PortkeyDid.PortkeyProvider>
+  );
+};
 function WebLoginProvider({
   nightElf: nightElfOpts,
   portkey: portkeyOpts,

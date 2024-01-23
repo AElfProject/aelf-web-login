@@ -8,6 +8,7 @@ import './index.css';
 import './config';
 import {
   WebLoginProvider,
+  PortkeyProvider,
   event$,
   getConfig,
   WebLoginConfig,
@@ -20,15 +21,15 @@ import App from './App';
 import { createPortal } from 'react-dom';
 
 function Index() {
-  const PortkeyProviderVersion = useCallback(({ children, ...props }: any) => {
-    return (
-      <PortkeyDid.PortkeyProvider {...props}>
-        <PortkeyDidV1.PortkeyProvider {...props}>{children}</PortkeyDidV1.PortkeyProvider>
-      </PortkeyDid.PortkeyProvider>
-    );
-  }, []);
+  // const PortkeyProviderVersion = useCallback(({ children, ...props }: any) => {
+  //   return (
+  //     <PortkeyDid.PortkeyProvider {...props}>
+  //       <PortkeyDidV1.PortkeyProvider {...props}>{children}</PortkeyDidV1.PortkeyProvider>
+  //     </PortkeyDid.PortkeyProvider>
+  //   );
+  // }, []);
   return (
-    <PortkeyProviderVersion networkType="TESTNET" theme="dark">
+    <PortkeyProvider networkType="TESTNET" theme="dark">
       <WebLoginProvider
         commonConfig={{
           showClose: true,
@@ -71,7 +72,7 @@ function Index() {
         }}>
         <App />
       </WebLoginProvider>
-    </PortkeyProviderVersion>
+    </PortkeyProvider>
   );
 }
 const container = document.getElementById('root');
