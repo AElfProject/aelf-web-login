@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { ChainId } from '@portkey/types';
 import { IPortkeyProvider, Accounts, ChainIds, NetworkType, ProviderError, DappEvents } from '@portkey/provider-types';
-import { getConfig } from '../../config';
+import { event$, getConfig } from '../../config';
 import {
   CallContractParams,
   DiscoverInfo,
@@ -50,6 +50,14 @@ export function useDiscover({
 
   const chainIdsSync = useChainIdsSync(chainId, loginState, true, discoverProvider);
 
+  event$.useSubscription((value: any) => {
+    // init
+    setDiscoverDetected('unknown');
+    setTimeout(() => {
+      detect();
+    }, 0);
+  });
+
   const handleMultiVersionProvider = useCallback(
     async (
       provider: IPortkeyProvider,
@@ -64,10 +72,12 @@ export function useDiscover({
           setDiscoverDetected('not-detected');
           throw new Error('Discover provider found, but check isPortkey failed');
         }
+        // console.log(1111111);
         setProvider(detectedProvider);
         setDiscoverDetected('detected');
         return detectedProvider;
       } else {
+        // console.log(222222);
         setDiscoverDetected('not-detected');
         throw new Error('Discover provider not found');
       }
@@ -75,13 +85,18 @@ export function useDiscover({
     [],
   );
 
-  const detect = useCallback(async (): Promise<IPortkeyProvider> => {
-    const version = localStorage.getItem(WEB_LOGIN_VERSION);
-    if (version === 'v1') {
-      return handleMultiVersionProvider(discoverProviderV1!, setDiscoverProviderV1);
-    }
-    return handleMultiVersionProvider(discoverProvider!, setDiscoverProvider);
-  }, [discoverProvider, discoverProviderV1, handleMultiVersionProvider]);
+  const detect = useCallback(
+    async (changedVerison?: string): Promise<IPortkeyProvider> => {
+      const version = changedVerison || localStorage.getItem(WEB_LOGIN_VERSION);
+      if (version === 'v1') {
+        console.log(version, 'version111');
+        return handleMultiVersionProvider(discoverProviderV1!, setDiscoverProviderV1);
+      }
+      console.log(version, 'version222');
+      return handleMultiVersionProvider(discoverProvider!, setDiscoverProvider);
+    },
+    [discoverProvider, discoverProviderV1, handleMultiVersionProvider],
+  );
 
   useEffect(() => {
     detect().catch((error: any) => {

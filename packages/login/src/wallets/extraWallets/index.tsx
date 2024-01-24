@@ -39,8 +39,13 @@ export default function ExtraWallets({
   const isMobileDevice = isMobile();
   const { commonConfig, portkey: portkeyOpts, extraWallets } = useContext(ExtraWalletContext);
   const { version } = useWebLogin();
-  const isDiscoverMobileNotExist =
-    discoverApi.discoverDetected === 'unknown' || (discoverApi.discoverDetected === 'not-detected' && isMobileDevice);
+  const isDiscoverMobileNotExist = useMemo(() => {
+    // console.log(discoverApi.discoverDetected, 'discoverApi.discoverDetected');
+    return (
+      discoverApi.discoverDetected === 'unknown' || (discoverApi.discoverDetected === 'not-detected' && isMobileDevice)
+    );
+  }, [discoverApi.discoverDetected]);
+
   const isShowDiscoverButton = isMobile() && !isPortkeyApp();
   const [connectModal, setcCnnectModal] = useState(false);
   const openConnectModal = useCallback(() => {
