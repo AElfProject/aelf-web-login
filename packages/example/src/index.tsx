@@ -16,20 +16,11 @@ import {
   useWebLoginEvent,
   WebLoginEvents,
 } from 'aelf-web-login';
-import { PortkeyDid, PortkeyDidV1 } from 'aelf-web-login';
 import App from './App';
-import { createPortal } from 'react-dom';
 
 function Index() {
-  // const PortkeyProviderVersion = useCallback(({ children, ...props }: any) => {
-  //   return (
-  //     <PortkeyDid.PortkeyProvider {...props}>
-  //       <PortkeyDidV1.PortkeyProvider {...props}>{children}</PortkeyDidV1.PortkeyProvider>
-  //     </PortkeyDid.PortkeyProvider>
-  //   );
-  // }, []);
   return (
-    <PortkeyProvider networkType="TESTNET" theme="dark">
+    <PortkeyProvider networkType="TESTNET" networkTypeV2="TESTNET" theme="dark">
       <WebLoginProvider
         commonConfig={{
           showClose: true,

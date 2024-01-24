@@ -77,7 +77,7 @@ export function useDiscover({
 
   const detect = useCallback(async (): Promise<IPortkeyProvider> => {
     const version = localStorage.getItem(WEB_LOGIN_VERSION);
-    if (version === '1') {
+    if (version === 'v1') {
       return handleMultiVersionProvider(discoverProviderV1!, setDiscoverProviderV1);
     }
     return handleMultiVersionProvider(discoverProvider!, setDiscoverProvider);
@@ -129,6 +129,7 @@ export function useDiscover({
 
   const loginEagerly = useCallback(async () => {
     setLoginState(WebLoginState.logining);
+    const version = localStorage.getItem(WEB_LOGIN_VERSION);
     try {
       const provider = await detect();
       const { isUnlocked } = await provider.request({ method: 'wallet_getWalletState' });
@@ -137,7 +138,7 @@ export function useDiscover({
         return;
       }
       const network = await provider.request({ method: 'network' });
-      if (network !== getConfig().networkType) {
+      if (network !== (version === 'v1' ? getConfig().networkType : getConfig().portkeyV2?.networkType)) {
         onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
         return;
       }
@@ -159,10 +160,11 @@ export function useDiscover({
   const login = useCallback(async () => {
     setLoading(true);
     setLoginState(WebLoginState.logining);
+    const version = localStorage.getItem(WEB_LOGIN_VERSION);
     try {
       const provider = await detect();
       const network = await provider.request({ method: 'network' });
-      if (network !== getConfig().networkType) {
+      if (network !== (version === 'v1' ? getConfig().networkType : getConfig().portkeyV2?.networkType)) {
         onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
         return;
       }
@@ -250,7 +252,7 @@ export function useDiscover({
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
       const version = localStorage.getItem(WEB_LOGIN_VERSION);
-      const provider = version === '1' ? discoverProviderV1! : discoverProvider!;
+      const provider = version === 'v1' ? discoverProviderV1! : discoverProvider!;
       if (!discoverInfo || !provider) {
         throw new Error('Discover not connected');
       }
@@ -269,7 +271,7 @@ export function useDiscover({
         throw new Error('Discover not connected');
       }
       const version = localStorage.getItem(WEB_LOGIN_VERSION);
-      const provider = version === '1' ? discoverProviderV1! : discoverProvider!;
+      const provider = version === 'v1' ? discoverProviderV1! : discoverProvider!;
       const signInfo = params.signInfo;
       const signedMsgObject = await provider.request({
         method: 'wallet_getSignature',
@@ -311,7 +313,7 @@ export function useDiscover({
 
   useEffect(() => {
     const version = localStorage.getItem(WEB_LOGIN_VERSION);
-    const provider = version === '1' ? discoverProviderV1 : discoverProvider;
+    const provider = version === 'v1' ? discoverProviderV1 : discoverProvider;
     if (provider) {
       const onDisconnected = (error: ProviderError) => {
         if (!discoverInfo) return;
@@ -321,7 +323,7 @@ export function useDiscover({
         }
       };
       const onNetworkChanged = (networkType: NetworkType) => {
-        if (networkType !== getConfig().networkType) {
+        if (networkType !== (version === 'v1' ? getConfig().networkType : getConfig().portkeyV2?.networkType)) {
           eventEmitter.emit(WebLoginEvents.NETWORK_MISMATCH, networkType);
           if (options.autoLogoutOnNetworkMismatch) {
             logout();

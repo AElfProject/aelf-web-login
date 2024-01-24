@@ -150,7 +150,6 @@ export default function ExtraWallets({
   return (
     <>
       <div className="aelf-web-login aelf-extra-wallets">{extraWalletMap[portkeyOpts.design || 'SocialDesign']}</div>
-      {/* <Button onClick={onChangeVersion}>change to V{2 - ((+version + 1) % 2)}</Button> */}
       <ConnectModal
         open={connectModal}
         onClose={closeConnectModal}

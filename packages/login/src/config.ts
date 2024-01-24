@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
-import { IRequestDefaults, IStorageSuite } from '@portkey/types';
+import { IStorageSuite } from '@portkey/types';
 import { IStorageSuite as IStorageSuiteV1 } from '@portkey-v1/types';
 import { NetworkType } from '@portkey/provider-types';
 import { GlobalConfigProps as GlobalConfigPropsV1 } from '@portkey-v1/did-ui-react/dist/_types/src/components/config-provider/types';
 import { GlobalConfigProps } from '@portkey/did-ui-react/dist/_types/src/components/config-provider/types';
 import { EventEmitter } from 'ahooks/lib/useEventEmitter';
-import { PortkeyDidV1, PortkeyDid, WEB_LOGIN_VERSION } from './index';
+import { PortkeyDidV1, PortkeyDid } from './index';
 
 // copy from @aelf-react/core, cause it's not exported
 export type AelfNode = {
@@ -24,12 +24,13 @@ export type WebLoginConfig = {
   appName: string;
   chainId: string;
   defaultRpcUrl: string;
-  networkType: NetworkType;
-  portkey: (GlobalConfigProps | GlobalConfigPropsV1) & {
+  networkType: 'MAIN' | 'TESTNET';
+  portkey: GlobalConfigPropsV1 & {
     useLocalStorage?: boolean;
-    portkeyV2?: {
-      requestDefaults: IRequestDefaults;
-    };
+  };
+  portkeyV2?: GlobalConfigProps & {
+    useLocalStorage?: boolean;
+    networkType: NetworkType;
   };
   aelfReact: Omit<AElfReactProviderProps, 'children'>;
 };
@@ -58,7 +59,7 @@ export function setGlobalConfig(config: WebLoginConfig) {
   PortkeyDidV1.ConfigProvider.setGlobalConfig(config.portkey);
   PortkeyDid.ConfigProvider.setGlobalConfig({
     ...config.portkey,
-    ...config.portkey.portkeyV2,
+    ...config.portkeyV2,
   });
 }
 

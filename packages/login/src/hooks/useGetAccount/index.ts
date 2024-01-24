@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
-import { WalletType, WebLoginState } from '../../constants';
+import { WEB_LOGIN_VERSION, WalletType, WebLoginState } from '../../constants';
 import { useWebLogin } from '../../context';
 import { ChainId } from '@portkey/provider-types';
 import { did } from '@portkey/did-ui-react';
-
+import { did as didV1 } from '@portkey-v1/did-ui-react';
 export default function useGetAccount(chainId: string) {
   const { loginState, walletType, wallet } = useWebLogin();
   return useCallback(async () => {
@@ -33,8 +33,9 @@ export default function useGetAccount(chainId: string) {
       }
       case WalletType.portkey: {
         let accounts = wallet.portkeyInfo!.accounts;
+        const version = localStorage.getItem(WEB_LOGIN_VERSION);
         if (!accounts || !accounts[chainId]) {
-          const caInfo = await did.didWallet.getHolderInfoByContract({
+          const caInfo = await (version === 'v1' ? didV1 : did).didWallet.getHolderInfoByContract({
             caHash: wallet.portkeyInfo!.caInfo.caHash,
             chainId: chainId as ChainId,
           });

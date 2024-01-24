@@ -2,8 +2,7 @@ import { WalletType, WebLoginEvents, WebLoginState, getConfig, useWebLogin, useW
 import VConsole from 'vconsole';
 import MultiWallets from './components/MultiWallets';
 import CallContract from './components/CallContract';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { usePortkeyLock, usePortkeyLockV1 } from 'aelf-web-login';
+import { usePortkeyLock } from 'aelf-web-login';
 import { Tabs } from 'antd';
 import isMobile from './utils/isMobile';
 import Signature from './components/Signature';
@@ -23,7 +22,6 @@ export default function App() {
   const { wallet, walletType, login, loginEagerly, logout, loginState, version } = useWebLogin();
 
   const { isUnlocking, lock } = usePortkeyLock();
-  const { isUnlocking: isUnlockingV1, lock: lockV1 } = usePortkeyLockV1();
 
   return (
     <div>
@@ -41,13 +39,11 @@ export default function App() {
         <button disabled={loginState !== WebLoginState.eagerly} onClick={loginEagerly}>
           loginEagerly
         </button>
-        <button
-          disabled={loginState !== WebLoginState.logined || walletType !== WalletType.portkey}
-          onClick={version === '1' ? lockV1 : lock}>
+        <button disabled={loginState !== WebLoginState.logined || walletType !== WalletType.portkey} onClick={lock}>
           lock
         </button>
         <button disabled={loginState !== WebLoginState.lock} onClick={login}>
-          {(version === '1' ? isUnlockingV1 : isUnlocking) ? 'unlocking' : 'unlock'}
+          {isUnlocking ? 'unlocking' : 'unlock'}
         </button>
         <button disabled={loginState !== WebLoginState.logined} onClick={() => logout()}>
           {loginState === WebLoginState.logouting ? 'logouting' : 'logout'}

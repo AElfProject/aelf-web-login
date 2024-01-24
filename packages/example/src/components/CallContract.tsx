@@ -1,12 +1,10 @@
-import { CallContractParams, WebLoginState, useCallContract, useWebLogin, getConfig } from 'aelf-web-login';
-import { useMemo, useState } from 'react';
+import { CallContractParams, WebLoginState, useCallContract, useWebLogin } from 'aelf-web-login';
+import { useState } from 'react';
 import configJson from '../assets/config.json';
 import configTdvwJson from '../assets/config.tdvw.json';
-import { useGetAccount, useGetAccountV1 } from 'aelf-web-login';
+import { useGetAccount } from 'aelf-web-login';
 import { SendOptions } from '@portkey/types';
 import { SendOptions as SendOptionsV1 } from '@portkey-v1/types';
-import { useWebLoginEvent } from 'aelf-web-login';
-import { WebLoginEvents } from 'aelf-web-login';
 
 async function callContractWithLog<T, R>(
   callContract: (params: CallContractParams<T>, sendOptions?: SendOptions | SendOptionsV1 | undefined) => Promise<R>,
@@ -68,7 +66,6 @@ function useExampleCall(name: string, func: () => any) {
 export default function CallContract() {
   const { wallet, callContract, version } = useWebLogin();
   const getAccountTDVW = useGetAccount('tDVW');
-  const getAccountTDVWV1 = useGetAccountV1('tDVW');
   const { callViewMethod, callSendMethod } = useCallContract();
   const { callViewMethod: callViewMethodAELF, callSendMethod: callSendMethodAELF } = useCallContract({
     chainId: 'AELF',
@@ -140,7 +137,7 @@ export default function CallContract() {
         methodName: 'GetBalance',
         args: {
           symbol: 'ELF',
-          owner: version === '1' ? await getAccountTDVWV1() : await getAccountTDVW(),
+          owner: await getAccountTDVW(),
         },
       });
     }),

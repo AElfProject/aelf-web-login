@@ -86,7 +86,7 @@ export default function Portkey({
     async (identifierInfo) => {
       let isLoginGuardian = false;
       const config = getConfig();
-      const v2ServiceUrl = config.portkey.portkeyV2?.requestDefaults?.baseURL;
+      const v2ServiceUrl = config.portkeyV2?.requestDefaults?.baseURL;
       if (v2ServiceUrl) {
         try {
           const customFetch = new FetchRequest({});

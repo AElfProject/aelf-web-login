@@ -47,13 +47,14 @@ setGlobalConfig({
         websiteIcon: WEBSITE_ICON,
       },
     },
-    portkeyV2: {
-      requestDefaults: {
-        baseURL: '/v2',
-        timeout: 30000,
-      },
+  },
+  portkeyV2: {
+    networkType: NETWORK as any,
+    requestDefaults: {
+      baseURL: '/v2',
+      timeout: 30000,
     },
-  } as any,
+  },
   aelfReact: {
     appName: APPNAME,
     nodes: {

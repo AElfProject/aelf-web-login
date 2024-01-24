@@ -26,7 +26,7 @@ const INITIAL_STATE = {
   loginState: WebLoginState.initial,
   loginError: undefined,
   eventEmitter: new EventEmitter(),
-  version: localStorage.getItem(WEB_LOGIN_VERSION) || '1',
+  version: localStorage.getItem(WEB_LOGIN_VERSION) === 'v1' ? 'v1' : 'v2',
 };
 
 export enum LogoutConfirmResult {
@@ -72,7 +72,7 @@ export const ExtraWalletContext = createContext<ExtraWalletProviderProps>({} as 
 
 export const PortkeyProvider = ({ children, ...props }: any) => {
   return (
-    <PortkeyDid.PortkeyProvider {...props}>
+    <PortkeyDid.PortkeyProvider {...props} networkType={props.networkTypeV2}>
       <PortkeyDidV1.PortkeyProvider {...props}>{children}</PortkeyDidV1.PortkeyProvider>
     </PortkeyDid.PortkeyProvider>
   );
@@ -98,7 +98,7 @@ function WebLoginProvider({
   const [modalOpen, setModalOpen] = useState(false);
   const [bridgeType, setBridgeType] = useState('unknown');
   const [loginId, setLoginId] = useState(0);
-  const [version, setVersion] = useState<string>(localStorage.getItem(WEB_LOGIN_VERSION) || '2');
+  const [version, setVersion] = useState<string>(localStorage.getItem(WEB_LOGIN_VERSION) === 'v1' ? 'v1' : 'v2');
   const [changeVerBtnClicked, setChangeVerBtnClicked] = useState<{ version: string }>();
 
   event$.useSubscription(async (value: any) => {
@@ -122,7 +122,7 @@ function WebLoginProvider({
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(WEB_LOGIN_VERSION, version);
+    localStorage.setItem(WEB_LOGIN_VERSION, version === 'v1' ? 'v1' : 'v2');
   }, [version]);
 
   const setLoginStateInternal = useCallback(
@@ -234,8 +234,8 @@ function WebLoginProvider({
     if (loginState === WebLoginState.lock) {
       return {
         ...invalidApi,
-        login: (version === '1' ? portkeyApiV1 : portkeyApi).login,
-        loginEagerly: (version === '1' ? portkeyApiV1 : portkeyApi).loginEagerly,
+        login: (version === 'v1' ? portkeyApiV1 : portkeyApi).login,
+        loginEagerly: (version === 'v1' ? portkeyApiV1 : portkeyApi).loginEagerly,
       };
     }
     if (loginState === WebLoginState.logining) {
@@ -243,7 +243,7 @@ function WebLoginProvider({
         if (walletType === WalletType.elf) {
           return elfApi;
         } else if (walletType === WalletType.portkey) {
-          return version === '1' ? portkeyApiV1 : portkeyApi;
+          return version === 'v1' ? portkeyApiV1 : portkeyApi;
         } else if (walletType === WalletType.discover) {
           return discoverApi;
         }
@@ -254,7 +254,7 @@ function WebLoginProvider({
       if (walletType === WalletType.elf) {
         return elfApi;
       } else if (walletType === WalletType.portkey) {
-        return version === '1' ? portkeyApiV1 : portkeyApi;
+        return version === 'v1' ? portkeyApiV1 : portkeyApi;
       } else if (walletType === WalletType.discover) {
         return discoverApi;
       }
@@ -302,7 +302,7 @@ function WebLoginProvider({
       console.warn(e);
     }
     try {
-      await (version === '1' ? portkeyApiV1 : portkeyApi).logoutSilently();
+      await (version === 'v1' ? portkeyApiV1 : portkeyApi).logoutSilently();
     } catch (e) {
       console.warn(e);
     }
@@ -364,7 +364,7 @@ function WebLoginProvider({
       walletType,
       _api: {
         nigthElf: elfApi,
-        portkey: version === '1' ? portkeyApiV1 : portkeyApi,
+        portkey: version === 'v1' ? portkeyApiV1 : portkeyApi,
         discover: discoverApi,
       },
       _multiWallets: {
@@ -434,7 +434,7 @@ function WebLoginProvider({
         <ExtraWallets
           headerClassName={headerClassName}
           contentClassName={contentClassName}
-          portkeyApi={version === '1' ? portkeyApiV1 : portkeyApi}
+          portkeyApi={version === 'v1' ? portkeyApiV1 : portkeyApi}
           elfApi={elfApi}
           discoverApi={discoverApi}
           isBridgeNotExist={isBridgeNotExist}></ExtraWallets>
@@ -443,7 +443,7 @@ function WebLoginProvider({
   };
 
   const isManagerExists = useMemo(
-    () => (version === '1' ? portkeyApiV1.isManagerExists : portkeyApi.isManagerExists),
+    () => (version === 'v1' ? portkeyApiV1.isManagerExists : portkeyApi.isManagerExists),
     [portkeyApi.isManagerExists, portkeyApiV1.isManagerExists, version],
   );
 
@@ -454,7 +454,7 @@ function WebLoginProvider({
 
   const PortkeySDKEle = useMemo(
     () =>
-      version === '1' ? (
+      version === 'v1' ? (
         <PortkeyV1
           portkeyOpts={portkeyOpts}
           isManagerExists={portkeyApiV1.isManagerExists}
@@ -526,7 +526,7 @@ function WebLoginProvider({
         onCancel={() => setLogoutConfirmResult(LogoutConfirmResult.cancel)}
         onOk={() => setLogoutConfirmResult(LogoutConfirmResult.ok)}
       />
-      {version === '1' ? (
+      {version === 'v1' ? (
         <PortkeyLoadingV1 loading={!noLoading && loading} />
       ) : (
         <PortkeyLoading loading={!noLoading && loading} />
