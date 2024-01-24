@@ -1,5 +1,5 @@
-import { useWebLoginContext } from '../../context';
-import { PortkeyInterface } from '../../wallets/portkey/usePortkey';
+import { useWebLoginContext } from '../context';
+import { PortkeyInterface } from '../wallets/portkey/usePortkey';
 
 export default function usePortkeyLock() {
   const webLoginContext = useWebLoginContext();

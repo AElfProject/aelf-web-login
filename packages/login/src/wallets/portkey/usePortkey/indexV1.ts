@@ -16,7 +16,7 @@ import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WalletType, WebLoginEvents, WebLoginState 
 import useAccountInfoSync from '../useAccountInfoSync/indexV1';
 import checkSignatureParams from '../../../utils/signatureParams';
 import { PortkeyOptions } from 'src/types';
-import { sendAdapter } from '../../../hooks/useCallContract/indexV1';
+import { sendAdapter } from '../../../hooks/useCallContract';
 
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;

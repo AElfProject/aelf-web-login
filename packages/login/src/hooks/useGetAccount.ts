@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { WEB_LOGIN_VERSION, WalletType, WebLoginState } from '../../constants';
-import { useWebLogin } from '../../context';
+import { WEB_LOGIN_VERSION, WalletType, WebLoginState } from '../constants';
+import { useWebLogin } from '../context';
 import { ChainId } from '@portkey/provider-types';
 import { did } from '@portkey/did-ui-react';
 import { did as didV1 } from '@portkey-v1/did-ui-react';
