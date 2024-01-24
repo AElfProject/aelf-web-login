@@ -176,17 +176,9 @@ export type ContractHookOptions = {
 };
 
 export interface IPortkeySendAdapterProps<T> {
-  caContract: IPortkeyContract;
-  didWalletInfo: DIDWalletInfo;
+  caContract: IPortkeyContract | IPortkeyContractV1;
+  didWalletInfo: DIDWalletInfo | DIDWalletInfoV1;
   params: CallContractParams<T>;
-  chainId: ChainId;
-  sendOptions?: SendOptions;
-}
-
-export interface IPortkeySendAdapterV1Props<T> {
-  caContract: IPortkeyContractV1;
-  didWalletInfo: DIDWalletInfoV1;
-  params: CallContractParams<T>;
-  chainId: ChainIdV1;
-  sendOptions?: SendOptionsV1;
+  chainId: ChainId | ChainIdV1;
+  sendOptions?: SendOptions | SendOptionsV1;
 }

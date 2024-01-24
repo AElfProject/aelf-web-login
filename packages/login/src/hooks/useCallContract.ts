@@ -12,8 +12,8 @@ import {
 } from '../types';
 import { getConfig } from '../config';
 import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WEB_LOGIN_VERSION, WalletType, WebLoginEvents } from '../constants';
-import { getContractBasic } from '@portkey/contracts';
-import { getContractBasic as getContractBasicV1 } from '@portkey-v1/contracts';
+import { IPortkeyContract, getContractBasic } from '@portkey/contracts';
+import { IPortkeyContract as IPortkeyContractV1, getContractBasic as getContractBasicV1 } from '@portkey-v1/contracts';
 import { SendOptions } from '@portkey/types';
 import { SendOptions as SendOptionsV1 } from '@portkey-v1/types';
 import useWebLoginEvent from './useWebLoginEvent';
@@ -187,7 +187,7 @@ export default function useCallContract(options?: CallContractHookOptions): Call
               account: {
                 address: wallet.nightElfInfo!.account!,
               },
-            });
+            } as any);
           });
           return contract.callSendMethod(params.methodName, wallet.address, params.args, sendOptions) as R;
         }
@@ -201,11 +201,11 @@ export default function useCallContract(options?: CallContractHookOptions): Call
           const didWalletInfo = wallet.portkeyInfo!;
           const cacheKey = `${chainInfo.caContractAddress}-${didWalletInfo.walletInfo.address}-${chainInfo.endPoint}`;
           const caContract = await getContractWithCache(WalletType.portkey, cacheKey, async () => {
-            return await (version === 'v1' ? getContractBasicV1 : getContractBasic)({
+            return (await (version === 'v1' ? getContractBasicV1 : getContractBasic)({
               contractAddress: chainInfo.caContractAddress,
               account: didWalletInfo.walletInfo,
               rpcUrl: chainInfo.endPoint,
-            });
+            } as any)) as IPortkeyContract | IPortkeyContractV1;
           });
           const result = await sendAdapter({ caContract, didWalletInfo, params, chainId, sendOptions });
           // compatible with aelf-sdk result of contract
