@@ -1,6 +1,6 @@
 {
   "name": "aelf-web-login",
-  "version": "2.0.0-beta.4",
+  "version": "2.0.0-beta.5",
   "main": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "exports": {
@@ -68,12 +68,12 @@
     "@portkey-v1/services": "1.5.4-alpha.13",
     "@portkey-v1/types": "1.5.4-alpha.13",
     "@portkey-v1/utils": "1.5.4-alpha.13",
-    "@portkey/contracts": "2.0.0-alpha.11",
-    "@portkey/did-ui-react": "2.0.0-alpha.11",
-    "@portkey/request": "2.0.0-alpha.11",
-    "@portkey/services": "2.0.0-alpha.11",
-    "@portkey/types": "2.0.0-alpha.11",
-    "@portkey/utils": "2.0.0-alpha.11",
+    "@portkey/contracts": "2.0.0-alpha.13",
+    "@portkey/did-ui-react": "2.0.0-alpha.13",
+    "@portkey/request": "2.0.0-alpha.13",
+    "@portkey/services": "2.0.0-alpha.13",
+    "@portkey/types": "2.0.0-alpha.13",
+    "@portkey/utils": "2.0.0-alpha.13",
     "@types/uuid": "^8.3.4",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
@@ -86,11 +86,11 @@
     "@portkey-v1/services": "1.5.4-alpha.13",
     "@portkey-v1/types": "1.5.4-alpha.13",
     "@portkey-v1/utils": "1.5.4-alpha.13",
-    "@portkey/contracts": "2.0.0-alpha.11",
-    "@portkey/did-ui-react": "2.0.0-alpha.11",
-    "@portkey/request": "2.0.0-alpha.11",
-    "@portkey/services": "2.0.0-alpha.11",
-    "@portkey/types": "2.0.0-alpha.11",
-    "@portkey/utils": "2.0.0-alpha.11"
+    "@portkey/contracts": "2.0.0-alpha.13",
+    "@portkey/did-ui-react": "2.0.0-alpha.13",
+    "@portkey/request": "2.0.0-alpha.13",
+    "@portkey/services": "2.0.0-alpha.13",
+    "@portkey/types": "2.0.0-alpha.13",
+    "@portkey/utils": "2.0.0-alpha.13"
   }
 }
