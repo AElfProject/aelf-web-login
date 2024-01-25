@@ -54,7 +54,9 @@ export function useDiscover({
     // init
     setDiscoverDetected('unknown');
     setTimeout(() => {
-      detect();
+      detect().catch((error: any) => {
+        console.log(error.message);
+      });
     }, 0);
   });
 
@@ -64,6 +66,7 @@ export function useDiscover({
       setProvider: React.Dispatch<React.SetStateAction<IPortkeyProvider | undefined>>,
     ) => {
       if (provider?.isConnected()) {
+        setDiscoverDetected('detected');
         return provider!;
       }
       const detectedProvider = await detectDiscoverProvider();
@@ -72,12 +75,10 @@ export function useDiscover({
           setDiscoverDetected('not-detected');
           throw new Error('Discover provider found, but check isPortkey failed');
         }
-        // console.log(1111111);
         setProvider(detectedProvider);
         setDiscoverDetected('detected');
         return detectedProvider;
       } else {
-        // console.log(222222);
         setDiscoverDetected('not-detected');
         throw new Error('Discover provider not found');
       }
@@ -89,10 +90,8 @@ export function useDiscover({
     async (changedVerison?: string): Promise<IPortkeyProvider> => {
       const version = changedVerison || localStorage.getItem(WEB_LOGIN_VERSION);
       if (version === 'v1') {
-        console.log(version, 'version111');
         return handleMultiVersionProvider(discoverProviderV1!, setDiscoverProviderV1);
       }
-      console.log(version, 'version222');
       return handleMultiVersionProvider(discoverProvider!, setDiscoverProvider);
     },
     [discoverProvider, discoverProviderV1, handleMultiVersionProvider],
