@@ -77,6 +77,14 @@ export const PortkeyProvider = ({ children, ...props }: any) => {
     </PortkeyDid.PortkeyProvider>
   );
 };
+
+export const PortkeyAssetProvider = ({ children, ...props }: any) => {
+  return (
+    <PortkeyDid.PortkeyAssetProvider {...props}>
+      <PortkeyDidV1.PortkeyAssetProvider {...props}>{children}</PortkeyDidV1.PortkeyAssetProvider>
+    </PortkeyDid.PortkeyAssetProvider>
+  );
+};
 function WebLoginProvider({
   nightElf: nightElfOpts,
   portkey: portkeyOpts,
