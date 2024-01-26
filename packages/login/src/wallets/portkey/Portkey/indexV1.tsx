@@ -95,7 +95,7 @@ export default function Portkey({
             url: `${v2ServiceUrl}/api/app/account/registerInfo`,
             method: 'GET',
             params: {
-              loginGuardianIdentifier: identifierInfo.identifier.trim(),
+              loginGuardianIdentifier: identifierInfo.identifier.replaceAll(/\s/g, ''),
             },
           });
           if (result?.originChainId) {
