@@ -13,10 +13,6 @@ module.exports = {
             fullySpecified: false,
           },
         },
-        {
-          test: /\.(svg|eot|ttf|woff|woff2)$/,
-          use: 'file-loader',
-        },
       ];
       webpackConfig.resolve.fallback = {
         ...webpackConfig.resolve.fallback,
