@@ -158,7 +158,7 @@ export default function Portkey({
       return [
         extraWallets,
         <div key="switch" className="switch-old-portkey-wrapper">
-          Account registered in old Portkey? Log in&nbsp;
+          Account registered prior to Portkey upgrade? Log in&nbsp;
           <span className="switch-btn" onClick={switchVersion}>
             here
           </span>
