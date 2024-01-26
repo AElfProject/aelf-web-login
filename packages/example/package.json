@@ -7,6 +7,18 @@
     "pin": "sh -c '{ for X in {core,empty}; do lerna add @web3-react/$X --exact --no-bootstrap --scope=example-cra; done }'"
   },
   "dependencies": {
+    "@portkey-v1/contracts": "1.5.4-alpha.13",
+    "@portkey-v1/did-ui-react": "1.5.4-alpha.13",
+    "@portkey-v1/request": "1.5.4-alpha.13",
+    "@portkey-v1/services": "1.5.4-alpha.13",
+    "@portkey-v1/types": "1.5.4-alpha.13",
+    "@portkey-v1/utils": "1.5.4-alpha.13",
+    "@portkey/contracts": "2.0.0-alpha.13",
+    "@portkey/did-ui-react": "2.0.0-alpha.13",
+    "@portkey/request": "2.0.0-alpha.13",
+    "@portkey/services": "2.0.0-alpha.13",
+    "@portkey/types": "2.0.0-alpha.13",
+    "@portkey/utils": "2.0.0-alpha.13",
     "@types/react-dom": "^18.0.0",
     "aelf-web-login": "workspace:*",
     "ahooks": "^3.7.7",
@@ -14,23 +26,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.0.0",
     "react-scripts": "^5.0.1",
-    "vconsole": "^3.15.1",
-    "@portkey/contracts": "2.0.0-alpha.13",
-    "@portkey/did-ui-react": "2.0.0-alpha.13",
-    "@portkey/services": "2.0.0-alpha.13",
-    "@portkey/types": "2.0.0-alpha.13",
-    "@portkey/utils": "2.0.0-alpha.13",
-    "@portkey/request": "2.0.0-alpha.13",
-    "@portkey-v1/contracts": "1.5.4-alpha.13",
-    "@portkey-v1/did-ui-react": "1.5.4-alpha.13",
-    "@portkey-v1/services": "1.5.4-alpha.13",
-    "@portkey-v1/types": "1.5.4-alpha.13",
-    "@portkey-v1/utils": "1.5.4-alpha.13",
-    "@portkey-v1/request": "1.5.4-alpha.13"
+    "vconsole": "^3.15.1"
   },
   "devDependencies": {
     "@craco/craco": "^6.4.2",
     "cross-env": "^7.0.3",
+    "file-loader": "^6.2.0",
     "ts-loader": "^9.4.0"
   },
   "browserslist": {
