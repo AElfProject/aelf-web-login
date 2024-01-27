@@ -30,10 +30,10 @@ setGlobalConfig({
   networkType: NETWORK as any,
   defaultRpcUrl: RPC_SERVER,
   portkey: {
-    loginConfig: {
-      recommendIndexes: [0, 1],
-      loginMethodsOrder: ['Google', 'Telegram', 'Apple', 'Phone', 'Email'],
-    },
+    // loginConfig: {
+    //   recommendIndexes: [0, 1],
+    //   loginMethodsOrder: ['Google', 'Apple', 'Phone', 'Email'],
+    // },
     useLocalStorage: true,
     graphQLUrl: portkeyScanUrl,
     connectUrl: connectUrl,

@@ -76,9 +76,9 @@ export default function ExtraWallets({
         <div>
           {commonConfig?.showClose && (
             <div className="header">
-              <button className="header-btn" onClick={portkeyApi.onCancel}>
+              <div className="header-btn" onClick={portkeyApi.onCancel}>
                 <img src={CloseIcon}></img>
-              </button>
+              </div>
             </div>
           )}
           {commonConfig?.iconSrc && (
