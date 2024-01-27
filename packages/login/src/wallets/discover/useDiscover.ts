@@ -52,7 +52,7 @@ export function useDiscover({
 
   event$.useSubscription((value: any) => {
     // init
-    setDiscoverDetected('unknown');
+    setDiscoverDetected('not-detected');
     setTimeout(() => {
       detect().catch((error: any) => {
         console.log(error.message);
@@ -99,6 +99,7 @@ export function useDiscover({
 
   useEffect(() => {
     detect().catch((error: any) => {
+      setDiscoverDetected('not-detected');
       console.log(error.message);
     });
   }, [detect]);
