@@ -519,7 +519,7 @@ function WebLoginProvider({
         maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
         open={modalOpen}
         // getContainer={getContainer ? getContainer : `#${PORTKEY_ROOT_ID}`}
-        onClose={() => setModalOpen(false)}>
+        onClose={version === 'v1' ? portkeyApiV1.onCancel : portkeyApi.onCancel}>
         {PortkeySDKEle}
       </CommonBaseModal>
     );

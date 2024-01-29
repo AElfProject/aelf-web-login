@@ -58,7 +58,7 @@
       flex-direction: column;
       gap: 12px;
       margin-top: 32px;
-      margin-bottom: 48px;
+      margin-bottom: 8px;
       .plugin-entry {
         width: 100%;
         height: 56px;
@@ -359,9 +359,17 @@
           line-height: 28px;
         }
         img {
+          cursor: pointer;
           position: absolute;
-          left: 16px;
-          top: 20px;
+
+          &.left-icon {
+            left: 16px;
+            top: 20px;
+          }
+          &.close-icon {
+            right: 20px;
+            top: 20px;
+          }
         }
       }
     }

@@ -13,7 +13,7 @@ interface IProps {
   design?: TDesign;
   validWallets: string[];
 }
-export default function ConnectModal({ open, onClose, validWallets }: IProps) {
+export default function ConnectModal({ open, onClose, validWallets, design }: IProps) {
   const mobileFlag = isMobile();
   const { _api } = useWebLoginContext();
   const elfApi = _api.nigthElf;
@@ -52,7 +52,11 @@ export default function ConnectModal({ open, onClose, validWallets }: IProps) {
         title={
           <>
             <span className="title">Connect Wallet</span>
-            <img src={LeftIcon} onClick={onClose}></img>
+            {design === 'Web2Design' ? (
+              <img className="close-icon" src={CloseIcon} onClick={onClose}></img>
+            ) : (
+              <img className="left-icon" src={LeftIcon} onClick={onClose}></img>
+            )}
           </>
         }
         getContainer={false}
