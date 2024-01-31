@@ -57,7 +57,7 @@ export function useDiscover({
       detect().catch((error: any) => {
         console.log(error.message);
       });
-    }, 0);
+    }, 100);
   });
 
   const handleMultiVersionProvider = useCallback(

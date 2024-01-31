@@ -82,9 +82,7 @@ export default function Portkey({
       if (v1ServiceUrl) {
         try {
           const customFetch = new FetchRequest({});
-
           setLoading(true);
-
           const result: any = await customFetch.send({
             // TODO get V1 service url from config
             url: `${v1ServiceUrl}/api/app/account/registerInfo`,

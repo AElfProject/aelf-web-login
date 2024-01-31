@@ -535,9 +535,9 @@ function WebLoginProvider({
         onOk={() => setLogoutConfirmResult(LogoutConfirmResult.ok)}
       />
       {version === 'v1' ? (
-        <PortkeyLoadingV1 loading={!noLoading && loading} />
+        <PortkeyLoadingV1 loading={!noLoading || loading} />
       ) : (
-        <PortkeyLoading loading={!noLoading && loading} />
+        <PortkeyLoading loading={!noLoading || loading} />
       )}
     </WebLoginContext.Provider>
   );

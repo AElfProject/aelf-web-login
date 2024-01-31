@@ -116,7 +116,7 @@ export type WalletInfo = {
   address: string;
   publicKey?: string;
   nightElfInfo?: AElfContextType;
-  portkeyInfo?: PortkeyInfo;
+  portkeyInfo?: PortkeyInfo | PortkeyInfoV1;
   discoverInfo?: DiscoverInfo;
   accountInfoSync: {
     syncCompleted: boolean;

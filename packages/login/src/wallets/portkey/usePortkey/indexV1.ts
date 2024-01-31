@@ -72,7 +72,6 @@ export function usePortkey({
     setLoginState(WebLoginState.logouting);
     try {
       const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
-      localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
       if (originChainId) {
         await did.logout({
           chainId: originChainId as ChainId,
@@ -81,6 +80,7 @@ export function usePortkey({
     } catch (e) {
       console.warn(e);
     }
+    localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
     localStorage.removeItem(appName);
     setDidWalletInfo(undefined);
     setLoginState(WebLoginState.initial);
@@ -212,7 +212,6 @@ export function usePortkey({
         if (!localWallet.didWallet.accountInfo.loginAccount) {
           return Promise.resolve(false);
         }
-
         setLoading(true);
         let caInfo = localWallet.didWallet.caInfo[chainId];
         let caHash = caInfo?.caHash;
@@ -243,7 +242,6 @@ export function usePortkey({
           walletInfo: localWallet.didWallet.managementAccount!.wallet as any,
           accountInfo: localWallet.didWallet.accountInfo as any,
         };
-        setLoading(false);
         setDidWalletInfo({
           ...didWalletInfo,
           accounts: {
@@ -256,14 +254,14 @@ export function usePortkey({
         eventEmitter.emit(WebLoginEvents.LOGINED);
         return Promise.resolve(true);
       } catch (error) {
-        localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
-        setLoading(false);
+        // localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
         setLoginError(error);
         setWalletType(WalletType.unknown);
         setLoginState(WebLoginState.initial);
         eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
         return Promise.resolve(false);
       } finally {
+        setLoading(false);
         setUnlocking(false);
       }
     },
@@ -273,6 +271,7 @@ export function usePortkey({
   const onFinished = useCallback(
     async (didWalletInfo: DIDWalletInfo) => {
       setPreparing(true);
+      setLoading(true);
       try {
         localStorage.setItem(PORTKEY_ORIGIN_CHAIN_ID_KEY, didWalletInfo.chainId);
         if (didWalletInfo.chainId !== chainId) {
@@ -309,13 +308,14 @@ export function usePortkey({
         setLoginState(WebLoginState.logined);
         eventEmitter.emit(WebLoginEvents.LOGINED);
       } catch (error) {
-        setLoading(false);
         setDidWalletInfo(undefined);
         setWalletType(WalletType.unknown);
         setLoginError(error);
         setLoginState(WebLoginState.initial);
         eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
       } finally {
+        // debugger;
+        setLoading(false);
         setPreparing(false);
       }
     },
