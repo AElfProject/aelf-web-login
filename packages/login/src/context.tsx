@@ -510,7 +510,7 @@ function WebLoginProvider({
   );
 
   const PortkeyPage = useMemo(() => {
-    return isShowUnlockPage ? (
+    return isShowUnlockPage || portkeyOpts.noCommonBaseModal ? (
       PortkeySDKEle
     ) : (
       <CommonBaseModal

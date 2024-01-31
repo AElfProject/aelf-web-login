@@ -25,7 +25,7 @@ export default function useAccountInfoSync(
     if (syncCompleted) return;
     const holder = await did.didWallet.getHolderInfoByContract({
       chainId: currentChainId,
-      caHash: didWalletInfo?.caInfo.caHash,
+      caHash: didWalletInfo?.caInfo?.caHash,
       // manager: did.didWallet.managementAccount!.address,
     });
     const filteredHolders = holder.managerInfos.filter(
@@ -35,7 +35,7 @@ export default function useAccountInfoSync(
     setSyncCompleted(filteredHolders.length > 0);
   }, [
     currentChainId,
-    didWalletInfo?.caInfo.caHash,
+    didWalletInfo?.caInfo?.caHash,
     didWalletInfo?.walletInfo?.address,
     loginState,
     shouldSync,

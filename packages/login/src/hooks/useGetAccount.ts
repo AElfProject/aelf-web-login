@@ -36,12 +36,12 @@ export default function useGetAccount(chainId: string) {
         const version = localStorage.getItem(WEB_LOGIN_VERSION);
         if (!accounts || !accounts[chainId]) {
           const caInfo = await (version === 'v1' ? didV1 : did).didWallet.getHolderInfoByContract({
-            caHash: wallet.portkeyInfo!.caInfo.caHash,
+            caHash: wallet.portkeyInfo!.caInfo?.caHash,
             chainId: chainId as ChainId,
           });
           wallet.portkeyInfo!.accounts = {
             ...accounts,
-            [chainId]: caInfo.caAddress,
+            [chainId]: caInfo?.caAddress,
           };
           accounts = wallet.portkeyInfo!.accounts;
         }

@@ -83,7 +83,7 @@ export const sendAdapter = async <T>({
     const { amount, guardiansApproved } = (await (version === 'v1' ? managerApproveV1 : managerApprove)({
       originChainId,
       targetChainId: chainId,
-      caHash: didWalletInfo.caInfo.caHash,
+      caHash: didWalletInfo.caInfo?.caHash,
       ...params.args,
       dappInfo: {
         icon,
@@ -95,7 +95,7 @@ export const sendAdapter = async <T>({
       'ManagerApprove',
       '',
       {
-        caHash: didWalletInfo.caInfo.caHash,
+        caHash: didWalletInfo.caInfo?.caHash,
         ...params.args,
         guardiansApproved,
         amount,
@@ -109,7 +109,7 @@ export const sendAdapter = async <T>({
       'ManagerForwardCall',
       didWalletInfo.walletInfo.address,
       {
-        caHash: didWalletInfo.caInfo.caHash,
+        caHash: didWalletInfo.caInfo?.caHash,
         contractAddress: params.contractAddress,
         methodName: params.methodName,
         args: params.args,

@@ -29,6 +29,7 @@ export type PortkeyOptions = {
   SignInComponent?: React.FC<SignInProps & (RefAttributes<ISignIn> | RefAttributes<ISignInV1>)>;
   ConfirmLogoutDialog?: React.FC<Partial<ConfirmLogoutDialogProps>>;
   design?: TDesign;
+  noCommonBaseModal?: boolean;
 };
 
 export type PluginNotFoundCallback = (openPluginStorePage: () => void) => void;

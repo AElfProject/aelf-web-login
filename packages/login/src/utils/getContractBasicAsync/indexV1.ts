@@ -38,7 +38,7 @@ export default async function getContractBasicAsync(
       return getContractBasicInternal({
         contractAddress,
         callType: 'ca',
-        caHash: wallet.portkeyInfo!.caInfo.caHash,
+        caHash: wallet.portkeyInfo!.caInfo?.caHash,
         caContractAddress: chainInfo.caContractAddress,
         account: wallet.portkeyInfo!.walletInfo,
       });

@@ -17,6 +17,7 @@ import useAccountInfoSync from '../useAccountInfoSync/indexV1';
 import checkSignatureParams from '../../../utils/signatureParams';
 import { PortkeyOptions } from 'src/types';
 import { sendAdapter } from '../../../hooks/useCallContract';
+import { message } from 'antd';
 
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;
@@ -245,7 +246,7 @@ export function usePortkey({
         setDidWalletInfo({
           ...didWalletInfo,
           accounts: {
-            [chainId]: caInfo.caAddress,
+            [chainId]: caInfo?.caAddress,
           },
           nickName,
         });
@@ -274,15 +275,17 @@ export function usePortkey({
       setLoading(true);
       try {
         localStorage.setItem(PORTKEY_ORIGIN_CHAIN_ID_KEY, didWalletInfo.chainId);
-        if (didWalletInfo.chainId !== chainId) {
-          const caInfo = await did.didWallet.getHolderInfoByContract({
-            caHash: didWalletInfo.caInfo.caHash,
-            chainId: chainId,
-          });
-          didWalletInfo.caInfo = {
-            caAddress: caInfo.caAddress,
-            caHash: caInfo.caHash,
-          };
+        try {
+          if (didWalletInfo.chainId !== chainId) {
+            const caInfo = await did.didWallet.getHolderInfoByContract({
+              caHash: didWalletInfo.caInfo?.caHash,
+              chainId: chainId,
+            });
+            didWalletInfo.caInfo.caAddress = caInfo?.caAddress;
+          }
+        } catch (error) {
+          // don't worry about other chainId caAddress
+          message.warning(`Cannot get chain ${chainId} caInfo`);
         }
 
         let nickName = 'Wallet 01';
@@ -300,7 +303,7 @@ export function usePortkey({
         setDidWalletInfo({
           ...didWalletInfo,
           accounts: {
-            [chainId]: didWalletInfo.caInfo.caAddress,
+            [chainId]: didWalletInfo.caInfo?.caAddress,
           },
           nickName,
         });
@@ -344,7 +347,7 @@ export function usePortkey({
       isPreparing,
       wallet: {
         name: didWalletInfo?.nickName || 'Wallet 01',
-        address: didWalletInfo?.caInfo.caAddress || '',
+        address: didWalletInfo?.caInfo?.caAddress || '',
         publicKey: didWalletInfo?.walletInfo.keyPair.getPublic('hex') || '',
         portkeyInfo: didWalletInfo,
         accountInfoSync,

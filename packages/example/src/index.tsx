@@ -46,6 +46,7 @@ function Index() {
           // SignInComponent: React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<ISignIn>) {
           //   return <SignIn ref={ref} {...props} isShowScan={false} />;
           // }) as any,
+          // noCommonBaseModal: true,
         }}
         discover={{
           autoRequestAccount: true,
