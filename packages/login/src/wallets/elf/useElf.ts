@@ -42,7 +42,7 @@ export function useElf({
   const initialWallet = useCallback(async () => {
     if (initializingRef.current) return;
     initializingRef.current = true;
-    setLoading(true);
+    // setLoading(true);
     try {
       const type = await detectNightElf();
 
@@ -126,7 +126,7 @@ export function useElf({
   }, [activate, eventEmitter, nodes, setLoading, setLoginError, setLoginState]);
 
   const loginEagerly = useCallback(async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       console.log('connectEagerly', loginState);
       setLoginState(WebLoginState.logining);
