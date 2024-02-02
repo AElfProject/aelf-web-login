@@ -10,7 +10,7 @@ export default function openPageInDiscover(url?: string) {
       },
     });
   } catch (error) {
-    console.warn(error);
+    console.error(error);
     window.open('https://portkey.finance', '_blank');
   }
 }

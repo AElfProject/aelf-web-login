@@ -239,7 +239,7 @@ export function usePortkey({
             const holderInfo = await did.getCAHolderInfo(originChainId as ChainId);
             nickName = holderInfo.nickName;
           } catch (error) {
-            console.warn(error);
+            console.error(error);
           }
         }
 
@@ -302,12 +302,12 @@ export function usePortkey({
           const holderInfo = await did.getCAHolderInfo(didWalletInfo.chainId);
           nickName = holderInfo.nickName;
         } catch (error) {
-          console.warn(error);
+          console.error(error);
         }
         try {
           await did.save(didWalletInfo.pin, appName);
         } catch (error) {
-          console.warn(error);
+          console.error(error);
         }
         setDidWalletInfo({
           ...didWalletInfo,
