@@ -72,7 +72,6 @@ export function usePortkey({
     setLoginState(WebLoginState.logouting);
     try {
       const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
-      localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
       if (originChainId) {
         await did.logout(
           {
@@ -85,6 +84,7 @@ export function usePortkey({
       console.warn(e);
     }
     localStorage.removeItem(appName);
+    localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
     setDidWalletInfo(undefined);
     setLoginState(WebLoginState.initial);
     eventEmitter.emit(WebLoginEvents.LOGOUT);
