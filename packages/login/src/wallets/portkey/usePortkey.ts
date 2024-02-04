@@ -262,7 +262,7 @@ export function usePortkey({
         eventEmitter.emit(WebLoginEvents.LOGINED);
         return Promise.resolve(true);
       } catch (error) {
-        localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
+        // localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
         setLoading(false);
         setLoginError(error);
         setWalletType(WalletType.unknown);
