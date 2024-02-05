@@ -138,6 +138,7 @@ export default function Portkey({
         open={open}
         value={password}
         isWrongPassword={isWrongPassword}
+        keyboard={portkeyOpts.keyboard}
         onChange={setPassword}
         onCancel={onCancel}
         onUnlock={onUnlockInternal}
@@ -152,6 +153,7 @@ export default function Portkey({
       ref={signInRef}
       uiType="Full"
       design={portkeyOpts.design}
+      keyboard={portkeyOpts.keyboard}
       isShowScan
       extraElement={extraWallets}
       onCancel={onCancel}

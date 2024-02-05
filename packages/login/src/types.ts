@@ -30,6 +30,7 @@ export type PortkeyOptions = {
   ConfirmLogoutDialog?: React.FC<Partial<ConfirmLogoutDialogProps>>;
   design?: TDesign;
   noCommonBaseModal?: boolean;
+  keyboard?: boolean;
 };
 
 export type PluginNotFoundCallback = (openPluginStorePage: () => void) => void;

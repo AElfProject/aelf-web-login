@@ -101,12 +101,12 @@ importers:
       '@portkey-v1/services': 1.5.4-alpha.20
       '@portkey-v1/types': 1.5.4-alpha.20
       '@portkey-v1/utils': 1.5.4-alpha.20
-      '@portkey/contracts': ''
-      '@portkey/did-ui-react': ''
-      '@portkey/request': ''
-      '@portkey/services': ''
-      '@portkey/types': ''
-      '@portkey/utils': ''
+      '@portkey/contracts': 2.0.0-alpha.21
+      '@portkey/did-ui-react': 2.0.0-alpha.21
+      '@portkey/request': 2.0.0-alpha.21
+      '@portkey/services': 2.0.0-alpha.21
+      '@portkey/types': 2.0.0-alpha.21
+      '@portkey/utils': 2.0.0-alpha.21
       '@types/react-dom': ^18.0.0
       aelf-web-login: workspace:*
       ahooks: ^3.7.7
@@ -152,14 +152,14 @@ importers:
       '@portkey-v1/services': 1.5.4-alpha.20
       '@portkey-v1/types': 1.5.4-alpha.20
       '@portkey-v1/utils': 1.5.4-alpha.20
-      '@portkey/contracts': ''
+      '@portkey/contracts': 2.0.0-alpha.21
       '@portkey/detect-provider': 2.0.0-alpha.5
-      '@portkey/did-ui-react': ''
+      '@portkey/did-ui-react': 2.0.0-alpha.21
       '@portkey/provider-types': 2.0.0-alpha.5
-      '@portkey/request': ''
-      '@portkey/services': ''
-      '@portkey/types': ''
-      '@portkey/utils': ''
+      '@portkey/request': 2.0.0-alpha.21
+      '@portkey/services': 2.0.0-alpha.21
+      '@portkey/types': 2.0.0-alpha.21
+      '@portkey/utils': 2.0.0-alpha.21
       '@types/bn.js': ^5.1.3
       '@types/uuid': ^8.3.4
       aelf-bridge: ^0.0.10
