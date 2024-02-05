@@ -7,6 +7,8 @@ import { Tabs } from 'antd';
 import isMobile from './utils/isMobile';
 import Signature from './components/Signature';
 import Events from './components/Events';
+import { useDidComponent } from 'aelf-web-login';
+import { useEffect } from 'react';
 
 const win = window as any;
 let showVConsole = () => {};
@@ -20,8 +22,12 @@ if (isMobile() || win.ReactNativeWebView) {
 export default function App() {
   const config = getConfig();
   const { wallet, walletType, login, loginEagerly, logout, loginState, version } = useWebLogin();
-
   const { isUnlocking, lock } = usePortkeyLock();
+  const { did } = useDidComponent();
+
+  useEffect(() => {
+    console.log(did, 'did');
+  }, [did]);
 
   return (
     <div>

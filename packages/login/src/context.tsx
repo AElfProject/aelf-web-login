@@ -131,6 +131,7 @@ function WebLoginProvider({
 
   useEffect(() => {
     localStorage.setItem(WEB_LOGIN_VERSION, version === 'v1' ? 'v1' : 'v2');
+    eventEmitter.emit(WebLoginEvents.CHANGE_PORTKEY_VERSION, changeVerBtnClicked?.version);
   }, [version]);
 
   const setLoginStateInternal = useCallback(
@@ -343,7 +344,6 @@ function WebLoginProvider({
     if (changeVerBtnClicked?.version) {
       setVersion(changeVerBtnClicked?.version);
       setChangeVerBtnClicked(undefined);
-      eventEmitter.emit(WebLoginEvents.CHANGE_PORTKEY_VERSION, changeVerBtnClicked?.version);
       // need delay login
       setTimeout(() => {
         loginInternal();
