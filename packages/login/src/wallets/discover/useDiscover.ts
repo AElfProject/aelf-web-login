@@ -48,7 +48,12 @@ export function useDiscover({
   const [discoverDetected, setDiscoverDetected] = useState<DiscoverDetectState>('unknown');
   const [switching, setSwitching] = useState(false);
 
-  const chainIdsSync = useChainIdsSync(chainId, loginState, true, discoverProvider);
+  const chainIdsSync = useChainIdsSync(
+    chainId,
+    loginState,
+    true,
+    localStorage.getItem(WEB_LOGIN_VERSION) === 'v1' ? discoverProviderV1 : discoverProvider,
+  );
 
   event$.useSubscription((value: any) => {
     // init
