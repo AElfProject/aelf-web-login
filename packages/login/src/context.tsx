@@ -98,7 +98,6 @@ function WebLoginProvider({
   const [loginError, setLoginError] = useState<any | unknown>();
   const [walletType, setWalletType] = useState<WalletType>(WalletType.unknown);
   const [switchingWalletType, setSwitchingWalletType] = useState<WalletType>(WalletType.unknown);
-
   const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
   const [logoutConfirmResult, setLogoutConfirmResult] = useState<LogoutConfirmResult>(LogoutConfirmResult.default);
   const [loading, setLoading] = useState(false);
@@ -117,6 +116,8 @@ function WebLoginProvider({
   });
 
   useEffect(() => {
+    // design default
+    portkeyOpts.design = portkeyOpts.design || 'CryptoDesign';
     // SSR support
     if (typeof window !== 'undefined') {
       check()

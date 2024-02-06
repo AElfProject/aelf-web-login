@@ -12,7 +12,7 @@ export * as PortkeyDidV1 from '@portkey-v1/did-ui-react';
 
 import getContractBasicAsync from './utils/getContractBasicAsync';
 import getContractBasicAsyncV1 from './utils/getContractBasicAsync/indexV1';
-import { useDidComponent } from './utils/getDidAndVersion';
+import { useComponentFlex } from './utils/getDidAndVersion';
 import detectDiscoverProvider from './wallets/discover/detectProvider';
 import detectNightElf from './wallets/elf/detectNightElf';
 
@@ -42,5 +42,5 @@ export {
   getContractBasicAsyncV1,
   detectDiscoverProvider,
   detectNightElf,
-  useDidComponent,
+  useComponentFlex,
 };

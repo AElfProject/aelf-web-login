@@ -5,7 +5,7 @@ import { WEB_LOGIN_VERSION, WebLoginEvents } from '../constants';
 import { useWebLogin } from '../context';
 import useWebLoginEvent from '../hooks/useWebLoginEvent';
 
-export const useDidComponent = (v?: string) => {
+export const useComponentFlex = (v?: string) => {
   const { version } = useWebLogin();
   const [didComp, setDidComp] = useState<any>(
     v ? (v === 'v1' ? PortkeyDidV1 : PortkeyDid) : version === 'v1' ? PortkeyDidV1 : PortkeyDid,
