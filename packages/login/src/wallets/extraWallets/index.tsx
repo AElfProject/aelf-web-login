@@ -28,6 +28,7 @@ interface IProps {
   elfApi: WalletHookInterface;
   discoverApi: DiscoverInterface;
   isBridgeNotExist: boolean;
+  version?: string;
 }
 export default function ExtraWallets({
   headerClassName,
@@ -36,10 +37,10 @@ export default function ExtraWallets({
   elfApi,
   discoverApi,
   isBridgeNotExist,
+  version = 'v2',
 }: IProps) {
   const isMobileDevice = isMobile();
   const { commonConfig, portkey: portkeyOpts, extraWallets } = useContext(ExtraWalletContext);
-  const { version } = useWebLogin();
   const isDiscoverMobileNotExist = useMemo(() => {
     // console.log(discoverApi.discoverDetected, 'discoverApi.discoverDetected');
     return (

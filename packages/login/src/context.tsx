@@ -104,10 +104,13 @@ function WebLoginProvider({
   const [bridgeType, setBridgeType] = useState('unknown');
   const [loginId, setLoginId] = useState(0);
 
-  const initVersion = useMemo(
-    () => (localStorage.getItem(DISCOVER_LOGIN_EARGERLY_KEY) ? localStorage.getItem(WEB_LOGIN_VERSION) || 'v1' : 'v2'),
-    [],
-  );
+  const initVersion = useMemo(() => {
+    if (localStorage.getItem(DISCOVER_LOGIN_EARGERLY_KEY)) {
+      return localStorage.getItem(WEB_LOGIN_VERSION) || 'v1';
+    } else {
+      return localStorage.getItem(WEB_LOGIN_VERSION) || 'v2';
+    }
+  }, []);
 
   const [version, setVersion] = useState<string>(initVersion);
   const [changeVerBtnClicked, setChangeVerBtnClicked] = useState<{ version: string }>();
@@ -137,7 +140,7 @@ function WebLoginProvider({
   useEffect(() => {
     localStorage.setItem(WEB_LOGIN_VERSION, version === 'v1' ? 'v1' : 'v2');
     eventEmitter.emit(WebLoginEvents.CHANGE_PORTKEY_VERSION, changeVerBtnClicked?.version);
-  }, [version]);
+  }, [changeVerBtnClicked?.version, eventEmitter, version]);
 
   const setLoginStateInternal = useCallback(
     (newLoginState: WebLoginState) => {
@@ -445,6 +448,7 @@ function WebLoginProvider({
         <ExtraWallets
           headerClassName={headerClassName}
           contentClassName={contentClassName}
+          version={version}
           portkeyApi={version === 'v1' ? portkeyApiV1 : portkeyApi}
           elfApi={elfApi}
           discoverApi={discoverApi}
