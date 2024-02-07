@@ -16,6 +16,7 @@ import { WEB_LOGIN_VERSION, WebLoginState } from '../../../constants';
 import { PortkeyOptions } from '../../../types';
 import { FetchRequest } from '@portkey/request';
 import { changePortkeyVersion } from '../../../utils/isPortkeyApp';
+import isMobile from '../../../utils/isMobile';
 
 export default function Portkey({
   open,
@@ -137,16 +138,22 @@ export default function Portkey({
     },
     [switchVersion],
   );
-
-  const onUnlockInternal = useCallback(async () => {
-    const success = await onUnlock(password);
-    if (!success) {
-      setIsWrongPassword(true);
-    } else {
-      setIsWrongPassword(false);
-      setPassword('');
-    }
-  }, [onUnlock, password]);
+  const isMobileDevice = isMobile();
+  const onUnlockInternal = useCallback(
+    async (pin: string) => {
+      const success = await onUnlock(pin);
+      if (!success) {
+        setIsWrongPassword(true);
+        if (isMobileDevice && portkeyOpts.keyboard?.v2) {
+          setPassword('');
+        }
+      } else {
+        setIsWrongPassword(false);
+        setPassword('');
+      }
+    },
+    [isMobileDevice, onUnlock, portkeyOpts.keyboard],
+  );
 
   const extraElement = useMemo(() => {
     const onlyShowV2 = getConfig().onlyShowV2;
@@ -171,7 +178,7 @@ export default function Portkey({
         open={open}
         value={password}
         isWrongPassword={isWrongPassword}
-        keyboard={portkeyOpts.keyboard}
+        keyboard={portkeyOpts.keyboard?.v2}
         onChange={setPassword}
         onCancel={onCancel}
         onUnlock={onUnlockInternal}
@@ -186,7 +193,7 @@ export default function Portkey({
       ref={signInRef}
       uiType="Full"
       design={portkeyOpts.design}
-      keyboard={portkeyOpts.keyboard}
+      keyboard={portkeyOpts.keyboard?.v2}
       isShowScan
       extraElementList={extraElement}
       onCancel={onCancel}

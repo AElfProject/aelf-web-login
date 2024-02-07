@@ -350,7 +350,7 @@ function WebLoginProvider({
         loginInternal();
       }, 500);
     }
-  }, [changeVerBtnClicked?.version, eventEmitter, loginInternal]);
+  }, [changeVerBtnClicked?.version, loginInternal]);
 
   useEffect(() => {
     if (logoutConfirmResult === LogoutConfirmResult.ok) {
