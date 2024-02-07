@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import PluginEntry from '../../components/PluginEntry';
 import { DiscoverDetectState } from './useDiscover';
 import isMobile from '../../utils/isMobile';
@@ -10,16 +10,20 @@ import { ExtraWalletContext } from '../../context';
 
 export default function DiscoverPlugin({
   detectState,
+  version,
   onClick,
 }: {
   detectState: DiscoverDetectState;
+  version?: string;
   onClick: () => void;
 }) {
   const { discover: discoverOpts } = useContext(ExtraWalletContext);
+
+  const _version = useMemo(() => (version === 'v1' ? 'v1' : undefined), [version]);
   const { run: onClickInternal } = useDebounceFn(
     async () => {
       if (isMobile() && !isPortkeyApp()) {
-        openPageInDiscover();
+        openPageInDiscover(undefined, _version);
         return;
       }
 
@@ -27,7 +31,7 @@ export default function DiscoverPlugin({
         if (discoverOpts?.onPluginNotFound) {
           discoverOpts?.onPluginNotFound(openPortkeyPluginPage);
         } else {
-          openPortkeyPluginPage();
+          openPortkeyPluginPage(_version);
         }
         return;
       }

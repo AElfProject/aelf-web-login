@@ -30,10 +30,13 @@ export type PortkeyOptions = {
   ConfirmLogoutDialog?: React.FC<Partial<ConfirmLogoutDialogProps>>;
   design?: TDesign;
   noCommonBaseModal?: boolean;
-  keyboard?: boolean;
+  keyboard?: {
+    v1?: boolean;
+    v2?: boolean;
+  };
 };
 
-export type PluginNotFoundCallback = (openPluginStorePage: () => void) => void;
+export type PluginNotFoundCallback = (openPluginStorePage: (version?: 'v1') => void) => void;
 export type OnClickCryptoWallet = (continueDefaultBehaviour: () => void) => void;
 
 export type DiscoverOptions = {

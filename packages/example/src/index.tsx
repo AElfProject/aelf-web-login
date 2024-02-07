@@ -47,6 +47,10 @@ function Index() {
           //   return <SignIn ref={ref} {...props} isShowScan={false} />;
           // }) as any,
           // noCommonBaseModal: true,
+          keyboard: {
+            v1: false,
+            v2: true,
+          },
         }}
         discover={{
           autoRequestAccount: true,

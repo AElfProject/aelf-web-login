@@ -15,7 +15,7 @@ interface IProps {
 }
 export default function ConnectModal({ open, onClose, validWallets, design }: IProps) {
   const mobileFlag = isMobile();
-  const { _api } = useWebLoginContext();
+  const { _api, version } = useWebLoginContext();
   const elfApi = _api.nigthElf;
   const discoverApi = _api.discover as DiscoverInterface;
   if (mobileFlag) {
@@ -31,6 +31,7 @@ export default function ConnectModal({ open, onClose, validWallets, design }: IP
         getContainer={false}
         closeIcon={null}
         onClose={onClose}
+        prefixCls="portkey-ant-drawer"
         open={open}
         placement={'bottom'}>
         <div className="plugin-entry-wrapper">
@@ -65,6 +66,7 @@ export default function ConnectModal({ open, onClose, validWallets, design }: IP
         footer={null}
         centered={true}
         className="aelf-web-connect-modal"
+        prefixCls="portkey-ant-modal"
         width={430}>
         <div className="plugin-entry-wrapper">
           {validWallets.map((wallet) => {
@@ -72,7 +74,12 @@ export default function ConnectModal({ open, onClose, validWallets, design }: IP
               return <NightElfPlugin key={wallet} onClick={elfApi.login} />;
             } else if (wallet === WalletType.discover) {
               return (
-                <DiscoverPlugin key={wallet} detectState={discoverApi.discoverDetected} onClick={discoverApi.login} />
+                <DiscoverPlugin
+                  version={version}
+                  key={wallet}
+                  detectState={discoverApi.discoverDetected}
+                  onClick={discoverApi.login}
+                />
               );
             }
           })}
