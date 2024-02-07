@@ -60,6 +60,9 @@ export function setGlobalConfig(config: WebLoginConfig) {
   PortkeyDid.ConfigProvider.setGlobalConfig({
     ...config.portkey,
     ...config.portkeyV2,
+  } as GlobalConfigProps & {
+    useLocalStorage?: boolean;
+    networkType: NetworkType;
   });
 }
 
