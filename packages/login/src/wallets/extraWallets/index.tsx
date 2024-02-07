@@ -3,6 +3,7 @@ import {
   CloseIcon,
   DiscoverIcon,
   DiscoverSquareIcon,
+  DiscoverV2Icon,
   ElfIcon,
   ElfSquareIcon,
   RightIcon,
@@ -95,7 +96,12 @@ export default function ExtraWallets({
             return <NightElfPlugin key={wallet} onClick={elfApi.login} />;
           } else if (wallet === WalletType.discover) {
             return (
-              <DiscoverPlugin key={wallet} detectState={discoverApi.discoverDetected} onClick={discoverApi.login} />
+              <DiscoverPlugin
+                version={version}
+                key={wallet}
+                detectState={discoverApi.discoverDetected}
+                onClick={discoverApi.login}
+              />
             );
           }
         })}
@@ -113,9 +119,10 @@ export default function ExtraWallets({
           <span className="icon">
             {validWallets.map((wallet) => {
               if (wallet === WalletType.elf) {
-                return <img src={ElfIcon} key="elf" className="elf"></img>;
+                return <img src={ElfSquareIcon} key="elf" className="elf"></img>;
               } else if (wallet === WalletType.discover) {
-                return <img src={DiscoverIcon} key="discover" className="discover"></img>;
+                if (version === 'v1') return <img src={DiscoverSquareIcon} key="discover" className="discover" />;
+                return <img src={DiscoverV2Icon} key="discoverV2" className="discover"></img>;
               }
             })}
             <img src={RightIcon} className="left"></img>
@@ -137,7 +144,8 @@ export default function ExtraWallets({
               if (wallet === WalletType.elf) {
                 return <img src={ElfSquareIcon} key="elf" className="elf"></img>;
               } else if (wallet === WalletType.discover) {
-                return <img src={DiscoverSquareIcon} key="discover" className="discover"></img>;
+                if (version === 'v1') return <img src={DiscoverSquareIcon} key="discover" className="discover" />;
+                return <img src={DiscoverV2Icon} key="discover" className="discover"></img>;
               }
             })}
             <img src={RightIcon} className="left"></img>

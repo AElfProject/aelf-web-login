@@ -214,6 +214,8 @@ export function useDiscover({
     } catch (error) {
       setLoading(false);
       onAccountsFail(error);
+    } finally {
+      setLoading(false);
     }
   }, [chainId, detect, getVersion, onAccountsFail, onAccountsSuccess, setLoading, setLoginState]);
 

@@ -40,7 +40,12 @@ export default function ConnectModal({ open, onClose, validWallets, design }: IP
               return <NightElfPlugin key={wallet} onClick={elfApi.login} />;
             } else if (wallet === WalletType.discover) {
               return (
-                <DiscoverPlugin key={wallet} detectState={discoverApi.discoverDetected} onClick={discoverApi.login} />
+                <DiscoverPlugin
+                  version={version}
+                  key={wallet}
+                  detectState={discoverApi.discoverDetected}
+                  onClick={discoverApi.login}
+                />
               );
             }
           })}

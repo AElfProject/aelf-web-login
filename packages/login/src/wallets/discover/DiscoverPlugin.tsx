@@ -53,5 +53,19 @@ export default function DiscoverPlugin({
       onClickInternal();
     }
   };
-  return <PluginEntry name="Portkey" icon="discover" onClick={onClickButton} />;
+  return version === 'v1' ? (
+    <PluginEntry name={'Portkey'} icon={'discover'} onClick={onClickButton} />
+  ) : (
+    <PluginEntry
+      name={
+        <>
+          Portkey
+          <br />
+          <span className="nowrap early-access">(Early Access)</span>
+        </>
+      }
+      icon={'discoverV2'}
+      onClick={onClickButton}
+    />
+  );
 }
