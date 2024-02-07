@@ -11,7 +11,6 @@ import { useElf } from './wallets/elf/useElf';
 import { getConfig, event$ } from './config';
 import { WalletType, WebLoginState, WebLoginEvents, WEB_LOGIN_VERSION } from './constants';
 import { CommonBaseModal, PortkeyLoading } from '@portkey/did-ui-react';
-import { PortkeyLoading as PortkeyLoadingV1 } from '@portkey-v1/did-ui-react';
 import { check } from './wallets/elf/utils';
 import isMobile from './utils/isMobile';
 import isPortkeyApp from './utils/isPortkeyApp';
@@ -101,11 +100,19 @@ function WebLoginProvider({
   const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
   const [logoutConfirmResult, setLogoutConfirmResult] = useState<LogoutConfirmResult>(LogoutConfirmResult.default);
   const [loading, setLoading] = useState(false);
-  const [noLoading, setNoLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [bridgeType, setBridgeType] = useState('unknown');
   const [loginId, setLoginId] = useState(0);
-  const [version, setVersion] = useState<string>(localStorage.getItem(WEB_LOGIN_VERSION) === 'v1' ? 'v1' : 'v2');
+
+  const initVersion = useMemo(() => {
+    if (localStorage.getItem(DISCOVER_LOGIN_EARGERLY_KEY)) {
+      return localStorage.getItem(WEB_LOGIN_VERSION) || 'v1';
+    } else {
+      return localStorage.getItem(WEB_LOGIN_VERSION) || 'v2';
+    }
+  }, []);
+
+  const [version, setVersion] = useState<string>(initVersion);
   const [changeVerBtnClicked, setChangeVerBtnClicked] = useState<{ version: string }>();
 
   event$.useSubscription(async (value: any) => {
@@ -133,7 +140,7 @@ function WebLoginProvider({
   useEffect(() => {
     localStorage.setItem(WEB_LOGIN_VERSION, version === 'v1' ? 'v1' : 'v2');
     eventEmitter.emit(WebLoginEvents.CHANGE_PORTKEY_VERSION, changeVerBtnClicked?.version);
-  }, [version]);
+  }, [changeVerBtnClicked?.version, eventEmitter, version]);
 
   const setLoginStateInternal = useCallback(
     (newLoginState: WebLoginState) => {
@@ -198,13 +205,11 @@ function WebLoginProvider({
     setLoginStateInternal(WebLoginState.logining);
     try {
       if (isPortkeyApp()) {
-        setNoLoading(false);
         discoverApi.login();
         return;
       } else {
         const type = await check();
         if (type === 'AelfBridge') {
-          setNoLoading(false);
           elfApi.login();
           return;
         }
@@ -443,6 +448,7 @@ function WebLoginProvider({
         <ExtraWallets
           headerClassName={headerClassName}
           contentClassName={contentClassName}
+          version={version}
           portkeyApi={version === 'v1' ? portkeyApiV1 : portkeyApi}
           elfApi={elfApi}
           discoverApi={discoverApi}
@@ -535,11 +541,8 @@ function WebLoginProvider({
         onCancel={() => setLogoutConfirmResult(LogoutConfirmResult.cancel)}
         onOk={() => setLogoutConfirmResult(LogoutConfirmResult.ok)}
       />
-      {version === 'v1' ? (
-        <PortkeyLoadingV1 loading={!noLoading || loading} />
-      ) : (
-        <PortkeyLoading loading={!noLoading || loading} />
-      )}
+
+      <PortkeyLoading loading={loading} />
     </WebLoginContext.Provider>
   );
 }

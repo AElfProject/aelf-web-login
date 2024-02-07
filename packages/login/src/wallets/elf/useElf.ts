@@ -105,6 +105,7 @@ export function useElf({
   const login = useCallback(async () => {
     let timer;
     let isTimeout = false;
+    setLoading(true);
     try {
       setLoginState(WebLoginState.logining);
       timer = setTimeout(() => {
@@ -122,6 +123,7 @@ export function useElf({
       eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, e);
     } finally {
       clearTimeout(timer as unknown as number);
+      setLoading(false);
     }
   }, [activate, eventEmitter, nodes, setLoading, setLoginError, setLoginState]);
 
