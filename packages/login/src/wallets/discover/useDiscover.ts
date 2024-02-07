@@ -21,6 +21,7 @@ import { zeroFill } from '../../utils/zeroFill';
 import detectDiscoverProvider from './detectProvider';
 import useWebLoginEvent from '../../hooks/useWebLoginEvent';
 import { useWebLogin } from '../../context';
+import isPortkeyApp, { changePortkeyVersion, isPortkeyV2 } from '../../utils/isPortkeyApp';
 
 export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
 export type DiscoverInterface = WalletHookInterface & {
@@ -64,12 +65,13 @@ export function useDiscover({
     async (
       provider: IPortkeyProvider,
       setProvider: React.Dispatch<React.SetStateAction<IPortkeyProvider | undefined>>,
+      version?: string | null,
     ) => {
       if (provider?.isConnected()) {
         setDiscoverDetected('detected');
         return provider!;
       }
-      const detectedProvider = await detectDiscoverProvider();
+      const detectedProvider = await detectDiscoverProvider(version);
       if (detectedProvider) {
         if (!detectedProvider.isPortkey) {
           setDiscoverDetected('not-detected');
@@ -90,9 +92,9 @@ export function useDiscover({
     async (changedVerison?: string): Promise<IPortkeyProvider> => {
       const version = changedVerison || localStorage.getItem(WEB_LOGIN_VERSION);
       if (version === 'v1') {
-        return handleMultiVersionProvider(discoverProviderV1!, setDiscoverProviderV1);
+        return handleMultiVersionProvider(discoverProviderV1!, setDiscoverProviderV1, version);
       }
-      return handleMultiVersionProvider(discoverProvider!, setDiscoverProvider);
+      return handleMultiVersionProvider(discoverProvider!, setDiscoverProvider, version);
     },
     [discoverProvider, discoverProviderV1, handleMultiVersionProvider],
   );
@@ -142,11 +144,24 @@ export function useDiscover({
     [eventEmitter, setLoading, setLoginError, setLoginState, setWalletType],
   );
 
+  const getVersion = useCallback(() => {
+    let version = localStorage.getItem(WEB_LOGIN_VERSION);
+    if (isPortkeyApp()) {
+      const currentVersion = isPortkeyV2() ? 'v2' : 'v1';
+      if (version !== currentVersion)
+        event$.emit({
+          version: currentVersion,
+        });
+      version = currentVersion;
+    }
+    return version;
+  }, []);
+
   const loginEagerly = useCallback(async () => {
     setLoginState(WebLoginState.logining);
-    const version = localStorage.getItem(WEB_LOGIN_VERSION);
+    const version = getVersion();
     try {
-      const provider = await detect();
+      const provider = await detect(version ?? undefined);
       const { isUnlocked } = await provider.request({ method: 'wallet_getWalletState' });
       if (!isUnlocked) {
         setLoginState(WebLoginState.initial);
@@ -170,14 +185,15 @@ export function useDiscover({
         nativeError: error,
       });
     }
-  }, [chainId, detect, onAccountsFail, onAccountsSuccess, setLoginState]);
+  }, [chainId, detect, getVersion, onAccountsFail, onAccountsSuccess, setLoginState]);
 
   const login = useCallback(async () => {
     setLoading(true);
     setLoginState(WebLoginState.logining);
-    const version = localStorage.getItem(WEB_LOGIN_VERSION);
+    const version = getVersion();
+
     try {
-      const provider = await detect();
+      const provider = await detect(version ?? undefined);
       const network = await provider.request({ method: 'network' });
       if (network !== (version === 'v1' ? getConfig().networkType : getConfig().portkeyV2?.networkType)) {
         onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
@@ -199,7 +215,7 @@ export function useDiscover({
       setLoading(false);
       onAccountsFail(error);
     }
-  }, [chainId, detect, onAccountsFail, onAccountsSuccess, setLoading, setLoginState]);
+  }, [chainId, detect, getVersion, onAccountsFail, onAccountsSuccess, setLoading, setLoginState]);
 
   const logout = useCallback(async () => {
     if (walletType !== WalletType.discover) {
