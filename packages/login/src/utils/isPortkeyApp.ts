@@ -6,7 +6,7 @@ export default function isPortkeyApp() {
 }
 
 export const changePortkeyVersion = (version: string) => {
-  const num = version.slice(1);
+  const num = version?.slice(1);
   const changedVer = 'v' + (2 - ((+num + 1) % 2));
   event$.emit({
     version: changedVer,

@@ -17,6 +17,7 @@ import { PortkeyOptions } from '../../../types';
 import { FetchRequest } from '@portkey/request';
 import { changePortkeyVersion } from '../../../utils/isPortkeyApp';
 import isMobile from '../../../utils/isMobile';
+import { useWebLogin } from '../../../context';
 
 export default function Portkey({
   open,
@@ -43,6 +44,7 @@ export default function Portkey({
   const [password, setPassword] = useState('');
   const [isWrongPassword, setIsWrongPassword] = useState(false);
   const { chainId, onlyShowV2 } = getConfig();
+  const { version: originVersion } = useWebLogin();
 
   useEffect(() => {
     if (signInRef.current) {
@@ -65,7 +67,7 @@ export default function Portkey({
   );
 
   const switchVersion = useCallback(() => {
-    const version = localStorage.getItem(WEB_LOGIN_VERSION)!;
+    const version = localStorage.getItem(WEB_LOGIN_VERSION)! || originVersion;
     changePortkeyVersion(version);
   }, []);
 
