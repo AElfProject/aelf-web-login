@@ -139,7 +139,9 @@ function WebLoginProvider({
 
   useEffect(() => {
     localStorage.setItem(WEB_LOGIN_VERSION, version === 'v1' ? 'v1' : 'v2');
-    eventEmitter.emit(WebLoginEvents.CHANGE_PORTKEY_VERSION, changeVerBtnClicked?.version);
+    if (changeVerBtnClicked) {
+      eventEmitter.emit(WebLoginEvents.CHANGE_PORTKEY_VERSION, changeVerBtnClicked?.version);
+    }
   }, [changeVerBtnClicked?.version, eventEmitter, version]);
 
   const setLoginStateInternal = useCallback(
@@ -217,6 +219,7 @@ function WebLoginProvider({
     } catch (error) {
       console.warn(error);
     }
+    console.log(1111111);
     setModalOpen(true);
   }, [discoverApi, elfApi, setLoginStateInternal]);
 
@@ -295,6 +298,7 @@ function WebLoginProvider({
         console.warn('login failed: loginState is logined');
         return;
       }
+      console.log('xxxxx');
       walletApi.login();
     }, [loginState, walletApi]),
     {
@@ -345,17 +349,6 @@ function WebLoginProvider({
       leading: true,
     },
   );
-
-  const onCloseModal = useCallback(async () => {
-    if (changeVerBtnClicked?.version) {
-      setVersion(changeVerBtnClicked?.version);
-      setChangeVerBtnClicked(undefined);
-      // need delay login
-      setTimeout(() => {
-        loginInternal();
-      }, 500);
-    }
-  }, [changeVerBtnClicked?.version, loginInternal]);
 
   useEffect(() => {
     if (logoutConfirmResult === LogoutConfirmResult.ok) {
@@ -480,7 +473,6 @@ function WebLoginProvider({
           onUnlock={portkeyApiV1.onUnlock}
           onError={portkeyApiV1.onError}
           extraWallets={renderExtraWallets()}
-          onCloseModal={onCloseModal}
         />
       ) : (
         <Portkey
@@ -493,13 +485,11 @@ function WebLoginProvider({
           onUnlock={portkeyApi.onUnlock}
           onError={portkeyApi.onError}
           extraWallets={renderExtraWallets()}
-          onCloseModal={onCloseModal}
         />
       ),
     [
       loginState,
       modalOpen,
-      onCloseModal,
       portkeyApi.isManagerExists,
       portkeyApi.onCancel,
       portkeyApi.onError,

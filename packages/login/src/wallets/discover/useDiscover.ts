@@ -21,7 +21,7 @@ import { zeroFill } from '../../utils/zeroFill';
 import detectDiscoverProvider from './detectProvider';
 import useWebLoginEvent from '../../hooks/useWebLoginEvent';
 import { useWebLogin } from '../../context';
-import isPortkeyApp, { changePortkeyVersion, isPortkeyV2 } from '../../utils/isPortkeyApp';
+import isPortkeyApp, { isPortkeyV2 } from '../../utils/isPortkeyApp';
 
 export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
 export type DiscoverInterface = WalletHookInterface & {

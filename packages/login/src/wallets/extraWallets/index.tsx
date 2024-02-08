@@ -12,7 +12,7 @@ import {
 } from '../../constants';
 import { WalletHookInterface } from '../../types';
 import isMobile from '../../utils/isMobile';
-import isPortkeyApp, { changePortkeyVersion } from '../../utils/isPortkeyApp';
+import isPortkeyApp from '../../utils/isPortkeyApp';
 import DiscoverPlugin from '../discover/DiscoverPlugin';
 import { DiscoverInterface } from '../discover/useDiscover';
 import NightElfPlugin from '../elf/NightElfPlugin';
@@ -42,7 +42,6 @@ export default function ExtraWallets({
   const isMobileDevice = isMobile();
   const { commonConfig, portkey: portkeyOpts, extraWallets } = useContext(ExtraWalletContext);
   const isDiscoverMobileNotExist = useMemo(() => {
-    // console.log(discoverApi.discoverDetected, 'discoverApi.discoverDetected');
     return (
       discoverApi.discoverDetected === 'unknown' || (discoverApi.discoverDetected === 'not-detected' && isMobileDevice)
     );
@@ -56,10 +55,6 @@ export default function ExtraWallets({
   const closeConnectModal = useCallback(() => {
     setcCnnectModal(false);
   }, [setcCnnectModal]);
-
-  const onChangeVersion = () => {
-    changePortkeyVersion(version);
-  };
 
   const validWallets = useMemo(() => {
     return extraWallets?.filter((wallet) => {
