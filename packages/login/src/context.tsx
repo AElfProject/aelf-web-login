@@ -219,7 +219,6 @@ function WebLoginProvider({
     } catch (error) {
       console.warn(error);
     }
-    console.log(1111111);
     setModalOpen(true);
   }, [discoverApi, elfApi, setLoginStateInternal]);
 
@@ -298,7 +297,6 @@ function WebLoginProvider({
         console.warn('login failed: loginState is logined');
         return;
       }
-      console.log('xxxxx');
       walletApi.login();
     }, [loginState, walletApi]),
     {
