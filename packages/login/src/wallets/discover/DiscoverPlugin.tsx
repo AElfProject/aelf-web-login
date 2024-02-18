@@ -54,18 +54,18 @@ export default function DiscoverPlugin({
     }
   };
   return version === 'v1' ? (
-    <PluginEntry name={'Portkey'} icon={'discover'} onClick={onClickButton} />
-  ) : (
     <PluginEntry
       name={
         <>
           Portkey
           <br />
-          <span className="nowrap early-access">(Early Access)</span>
+          <span className="nowrap early-access">(Deprecated)</span>
         </>
       }
-      icon={'discoverV2'}
+      icon={'discover'}
       onClick={onClickButton}
     />
+  ) : (
+    <PluginEntry name={'Portkey Wallet'} icon={'discoverV2'} onClick={onClickButton} />
   );
 }

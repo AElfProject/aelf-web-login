@@ -42,7 +42,7 @@ function Index() {
         portkey={{
           autoShowUnlock: false,
           checkAccountInfoSync: true,
-          design: 'SocialDesign', //'CryptoDesign', // 'SocialDesign'
+          design: 'CryptoDesign', //'CryptoDesign', // 'SocialDesign'
           // SignInComponent: React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<ISignIn>) {
           //   return <SignIn ref={ref} {...props} isShowScan={false} />;
           // }) as any,
