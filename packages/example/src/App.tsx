@@ -2,7 +2,7 @@ import { WalletType, WebLoginEvents, WebLoginState, getConfig, useWebLogin, useW
 import VConsole from 'vconsole';
 import MultiWallets from './components/MultiWallets';
 import CallContract from './components/CallContract';
-import { usePortkeyLock } from 'aelf-web-login';
+import { usePortkeyLock, useAppNameFlex } from 'aelf-web-login';
 import { Tabs } from 'antd';
 import isMobile from './utils/isMobile';
 import Signature from './components/Signature';
@@ -22,7 +22,7 @@ export default function App() {
   const config = getConfig();
   const { wallet, walletType, login, loginEagerly, logout, loginState, version } = useWebLogin();
   const { isUnlocking, lock } = usePortkeyLock();
-
+  const appName = useAppNameFlex();
   useEffect(() => {
     console.log(wallet, 'wallet');
   }, [wallet]);
@@ -31,6 +31,7 @@ export default function App() {
     <div>
       <h2 onClick={showVConsole}>Login</h2>
       <h3>version: {version}</h3>
+      <h3>appName: {appName}</h3>
       <div className="buttons">
         <div>
           {getConfig().chainId} wallet: {wallet.name} {wallet.address}

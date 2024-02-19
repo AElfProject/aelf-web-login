@@ -18,6 +18,7 @@ import checkSignatureParams from '../../../utils/signatureParams';
 import { PortkeyOptions } from 'src/types';
 import { sendAdapter } from '../../../hooks/useCallContract';
 import { message } from 'antd';
+import { addPrefix } from '../../../utils/getDidAndVersion';
 
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;
@@ -43,7 +44,7 @@ export function usePortkey({
   setModalOpen: (open: boolean) => void;
 }) {
   // diff from V1
-  const appName = `V2-${getConfig().appName}`;
+  const appName = addPrefix(getConfig().appName);
   const chainId = getConfig().chainId as ChainId;
 
   const autoUnlockCheckRef = useRef(false);
