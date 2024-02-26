@@ -1,4 +1,4 @@
-import { CallContractParams, WebLoginState, useCallContract, useWebLogin } from 'aelf-web-login';
+import { CallContractParams, WebLoginState, useCallContract, useCurrentChainSync, useWebLogin } from 'aelf-web-login';
 import { useState } from 'react';
 import configJson from '../assets/config.json';
 import configTdvwJson from '../assets/config.tdvw.json';
@@ -66,22 +66,15 @@ function useExampleCall(name: string, func: () => any) {
 export default function CallContract() {
   const { wallet, callContract, version } = useWebLogin();
   const getAccountTDVW = useGetAccount('tDVW');
+  const getCurrentChainIdSync = useCurrentChainSync('tDVW');
   const { callViewMethod, callSendMethod } = useCallContract();
   const { callViewMethod: callViewMethodAELF, callSendMethod: callSendMethodAELF } = useCallContract({
     chainId: 'AELF',
-    // test2
-    rpcUrl: 'https://localtest-applesign2.portkey.finance/api/app/search/chainsinfoindex',
+    rpcUrl: 'https://aelf-test-node.aelf.io',
   });
   const { callViewMethod: callViewMethodTDVW, callSendMethod: callSendMethodTDVW } = useCallContract({
     chainId: 'tDVW',
-    // test2
-    rpcUrl: 'https://localtest-applesign2.portkey.finance/api/app/search/chainsinfoindex',
-    // rpcUrl: 'https://tdvw-test-node.aelf.io',
-  });
-
-  const { callViewMethod: callViewMethodTDVV, callSendMethod: callSendMethodTDVV } = useCallContract({
-    chainId: 'tDVV',
-    rpcUrl: 'http://192.168.66.106:8000',
+    rpcUrl: 'https://tdvw-test-node.aelf.io',
   });
 
   const examples = [
@@ -132,6 +125,22 @@ export default function CallContract() {
     }),
 
     useExampleCall('call getBalance in tDVW', async () => {
+      return callContractWithLog(callViewMethodTDVW, {
+        contractAddress: configTdvwJson.multiToken,
+        methodName: 'GetBalance',
+        args: {
+          symbol: 'ELF',
+          owner: await getAccountTDVW(),
+        },
+      });
+    }),
+
+    useExampleCall('call getBalance in tDVW when tDVW is sync', async () => {
+      const isCurrentChainIdSync = await getCurrentChainIdSync();
+      console.log(isCurrentChainIdSync, 'isCurrentChainIdSync');
+      if (!isCurrentChainIdSync) {
+        return new Error('tDVW is not sync');
+      }
       return callContractWithLog(callViewMethodTDVW, {
         contractAddress: configTdvwJson.multiToken,
         methodName: 'GetBalance',
