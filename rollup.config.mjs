@@ -37,9 +37,10 @@ export default function createConfig(packageName, tsconfig = './tsconfig.json') 
   const copyPlugin = copy({
     targets: [
       // Need to copy the files over for usage
-      { src: 'src/assets/fonts', dest: 'dist/assets' },
+      { src: 'assets/fonts', dest: 'dist/assets' },
       // { src: 'src/sandbox', dest: 'dist' },
     ],
+    hook: 'writeBundle',
   });
 
   const postcssPlugin = postcss({
@@ -80,4 +81,4 @@ export default function createConfig(packageName, tsconfig = './tsconfig.json') 
       output: [{ file: './dist/umd/index.js', format: 'umd', ...output }],
     },
   ];
-};
+}

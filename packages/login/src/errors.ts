@@ -9,8 +9,8 @@ export const ERR_CODE_MSG: {
   [key: number]: string;
 } = {
   10001: 'Discover login eagerly fail',
-  10002: 'Network type not match',
-  10003: 'Accounts is empty',
+  10002: 'Unmatched network. Please switch the network through "My" > "Wallet" > "Switch Networks" to continue.',
+  10003: 'Synchronising data on the blockchain. Please wait a few seconds.',
   10004: 'User cancel',
 };
 

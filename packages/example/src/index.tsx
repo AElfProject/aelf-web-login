@@ -1,32 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import 'antd/dist/antd.css';
-import '@portkey/did-ui-react/dist/assets/index.css';
+// import '@portkey/did-ui-react/dist/assets/index.css';
+// import '@portkey-v1/did-ui-react/dist/assets/index.css';
 import 'aelf-web-login/dist/assets/index.css';
 import './index.css';
 import './config';
-import { WebLoginProvider } from 'aelf-web-login';
-import { ISignIn, PortkeyProvider, PortkeyAssetProvider, SignIn, SignInInterface, SignInProps } from 'aelf-web-login';
+import {
+  WebLoginProvider,
+  PortkeyProvider,
+  event$,
+  getConfig,
+  WebLoginConfig,
+  useWebLogin,
+  useWebLoginEvent,
+  WebLoginEvents,
+} from 'aelf-web-login';
 import App from './App';
-import { createPortal } from 'react-dom';
-
-const SignInProxy = React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<any>) {
-  const [renderRoot, setRenderRoot] = React.useState<HTMLElement>();
-  useEffect(() => {
-    const container = (document.querySelector('#sign-in-container') || document.createElement('div')) as HTMLElement;
-    container.id = 'sign-in-container';
-    document.body.appendChild(container);
-    setRenderRoot(container);
-  }, []);
-  if (!renderRoot) {
-    return <></>;
-  }
-  return createPortal(<SignIn ref={ref} {...props} isShowScan={false} />, renderRoot!);
-});
 
 function Index() {
   return (
-    <PortkeyProvider networkType="TESTNET" theme="dark">
+    <PortkeyProvider networkType="TESTNET" networkTypeV2="TESTNET" theme="dark">
       <WebLoginProvider
         commonConfig={{
           showClose: true,
@@ -48,10 +42,15 @@ function Index() {
         portkey={{
           autoShowUnlock: false,
           checkAccountInfoSync: true,
-          design: 'SocialDesign',
-          SignInComponent: React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<ISignIn>) {
-            return <SignIn ref={ref} {...props} isShowScan={false} />;
-          }) as any,
+          design: 'CryptoDesign', //'CryptoDesign', // 'SocialDesign'
+          // SignInComponent: React.forwardRef(function SignInProxy(props: SignInProps, ref: React.Ref<ISignIn>) {
+          //   return <SignIn ref={ref} {...props} isShowScan={false} />;
+          // }) as any,
+          // noCommonBaseModal: true,
+          keyboard: {
+            v1: false,
+            v2: true,
+          },
         }}
         discover={{
           autoRequestAccount: true,

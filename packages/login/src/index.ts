@@ -7,9 +7,12 @@ import usePortkeyLock from './hooks/usePortkeyLock';
 import usePortkeyPreparing from './hooks/usePortkeyPreparing';
 import useGetAccount from './hooks/useGetAccount';
 
-export * from '@portkey/did-ui-react';
+export * as PortkeyDid from '@portkey/did-ui-react';
+export * as PortkeyDidV1 from '@portkey-v1/did-ui-react';
 
 import getContractBasicAsync from './utils/getContractBasicAsync';
+import getContractBasicAsyncV1 from './utils/getContractBasicAsync/indexV1';
+import { useAppNameFlex, useComponentFlex } from './utils/getDidAndVersion';
 import detectDiscoverProvider from './wallets/discover/detectProvider';
 import detectNightElf from './wallets/elf/detectNightElf';
 
@@ -36,6 +39,9 @@ export {
   usePortkeyPreparing,
   useGetAccount,
   getContractBasicAsync,
+  getContractBasicAsyncV1,
   detectDiscoverProvider,
   detectNightElf,
+  useComponentFlex,
+  useAppNameFlex,
 };

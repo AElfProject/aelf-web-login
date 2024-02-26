@@ -1,9 +1,9 @@
 import { useState, useCallback, useEffect } from 'react';
-import { WebLoginState } from '../../constants';
+import { WebLoginState } from '../../../constants';
 import { useInterval } from 'ahooks';
-import { ChainId } from '@portkey/types';
-import type { IHolderInfo } from '@portkey/services';
-import { DIDWalletInfo, did } from '@portkey/did-ui-react';
+import { ChainId } from '@portkey-v1/types';
+import type { IHolderInfo } from '@portkey-v1/services';
+import { DIDWalletInfo, did } from '@portkey-v1/did-ui-react';
 
 export default function useAccountInfoSync(
   chainId: string,
@@ -25,7 +25,7 @@ export default function useAccountInfoSync(
     if (syncCompleted) return;
     const holder = await did.didWallet.getHolderInfoByContract({
       chainId: currentChainId,
-      caHash: didWalletInfo?.caInfo.caHash,
+      caHash: didWalletInfo?.caInfo?.caHash,
       // manager: did.didWallet.managementAccount!.address,
     });
     const filteredHolders = holder.managerInfos.filter(
@@ -35,7 +35,7 @@ export default function useAccountInfoSync(
     setSyncCompleted(filteredHolders.length > 0);
   }, [
     currentChainId,
-    didWalletInfo?.caInfo.caHash,
+    didWalletInfo?.caInfo?.caHash,
     didWalletInfo?.walletInfo?.address,
     loginState,
     shouldSync,

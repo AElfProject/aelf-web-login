@@ -1,12 +1,15 @@
 import type { AElfContextType } from '@aelf-react/core/dist/types';
 import { DIDWalletInfo, ISignIn } from '@portkey/did-ui-react';
+import { DIDWalletInfo as DIDWalletInfoV1, ISignIn as ISignInV1 } from '@portkey-v1/did-ui-react';
 import type { IHolderInfo } from '@portkey/services';
 import type { Accounts, ChainIds, IPortkeyProvider } from '@portkey/provider-types';
 import type { RefAttributes } from 'react';
 import { ConfirmLogoutDialogProps } from './components/CofirmLogoutDialog';
 import { ChainId, SendOptions } from '@portkey/types';
+import { ChainId as ChainIdV1, SendOptions as SendOptionsV1 } from '@portkey-v1/types';
 import { SignInProps, TDesign } from '@portkey/did-ui-react';
 import { IPortkeyContract } from '@portkey/contracts';
+import { IPortkeyContract as IPortkeyContractV1 } from '@portkey-v1/contracts';
 
 /**
  * WebLoginProvider types
@@ -23,12 +26,17 @@ export type NightElfOptions = {
 export type PortkeyOptions = {
   autoShowUnlock: boolean;
   checkAccountInfoSync: boolean;
-  SignInComponent?: React.FC<SignInProps & RefAttributes<ISignIn>>;
+  SignInComponent?: React.FC<SignInProps & (RefAttributes<ISignIn> | RefAttributes<ISignInV1>)>;
   ConfirmLogoutDialog?: React.FC<Partial<ConfirmLogoutDialogProps>>;
   design?: TDesign;
+  noCommonBaseModal?: boolean;
+  keyboard?: {
+    v1?: boolean;
+    v2?: boolean;
+  };
 };
 
-export type PluginNotFoundCallback = (openPluginStorePage: () => void) => void;
+export type PluginNotFoundCallback = (openPluginStorePage: (version?: 'v1') => void) => void;
 export type OnClickCryptoWallet = (continueDefaultBehaviour: () => void) => void;
 
 export type DiscoverOptions = {
@@ -40,7 +48,7 @@ export type DiscoverOptions = {
   onClick?: OnClickCryptoWallet;
   onPluginNotFound?: PluginNotFoundCallback;
 };
-interface ICommonConfig {
+export interface ICommonConfig {
   showClose?: boolean;
   iconSrc?: string;
 }
@@ -94,6 +102,13 @@ export type PortkeyInfo = DIDWalletInfo & {
   };
 };
 
+export type PortkeyInfoV1 = DIDWalletInfoV1 & {
+  nickName: string;
+  accounts: {
+    [key: string]: string;
+  };
+};
+
 export type DiscoverInfo = {
   address: string;
   accounts: Accounts;
@@ -106,7 +121,7 @@ export type WalletInfo = {
   address: string;
   publicKey?: string;
   nightElfInfo?: AElfContextType;
-  portkeyInfo?: PortkeyInfo;
+  portkeyInfo?: PortkeyInfo | PortkeyInfoV1;
   discoverInfo?: DiscoverInfo;
   accountInfoSync: {
     syncCompleted: boolean;
@@ -137,6 +152,8 @@ export type WalletHookInterface = {
   // TODO: move this to new hook
   callContract<T, R>(params: CallContractParams<T>): Promise<R>;
   getSignature(params: SignatureParams): Promise<SignatureData>;
+  // portkey and discover, diff by walletType
+  changeVersion?: () => void;
 };
 
 /**
@@ -151,7 +168,7 @@ export type CallContractHookOptions = {
 export type CallContractHookInterface = {
   contractHookId: string;
   callViewMethod<T, R>(params: CallContractParams<T>): Promise<R>;
-  callSendMethod<T, R>(params: CallContractParams<T>, sendOptions: SendOptions | undefined): Promise<R>;
+  callSendMethod<T, R>(params: CallContractParams<T>, sendOptions: SendOptions | SendOptionsV1 | undefined): Promise<R>;
 };
 
 /**
@@ -164,9 +181,9 @@ export type ContractHookOptions = {
 };
 
 export interface IPortkeySendAdapterProps<T> {
-  caContract: IPortkeyContract;
-  didWalletInfo: DIDWalletInfo;
+  caContract: IPortkeyContract | IPortkeyContractV1;
+  didWalletInfo: DIDWalletInfo | DIDWalletInfoV1;
   params: CallContractParams<T>;
-  chainId: ChainId;
-  sendOptions?: SendOptions;
+  chainId: ChainId | ChainIdV1;
+  sendOptions?: SendOptions | SendOptionsV1;
 }

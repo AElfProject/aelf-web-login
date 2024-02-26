@@ -1,11 +1,11 @@
-import { WalletInfo } from '../types';
+import { WalletInfo } from '../../types';
 
-import { getContractBasic as getContractBasicInternal } from '@portkey/contracts';
-import { did } from '@portkey/did-ui-react';
-import { getConfig } from '../config';
-import { WalletType } from '../constants';
+import { getContractBasic as getContractBasicInternal } from '@portkey-v1/contracts';
+import { did } from '@portkey-v1/did-ui-react';
+import { getConfig } from '../../config';
+import { WalletType } from '../../constants';
 import { ChainId } from '@portkey/provider-types';
-import { IContract } from '@portkey/types';
+import { IContract } from '@portkey-v1/types';
 
 export default async function getContractBasicAsync(
   walletType: WalletType,
@@ -38,7 +38,7 @@ export default async function getContractBasicAsync(
       return getContractBasicInternal({
         contractAddress,
         callType: 'ca',
-        caHash: wallet.portkeyInfo!.caInfo.caHash,
+        caHash: wallet.portkeyInfo!.caInfo?.caHash,
         caContractAddress: chainInfo.caContractAddress,
         account: wallet.portkeyInfo!.walletInfo,
       });

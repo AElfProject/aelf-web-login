@@ -1,4 +1,4 @@
-import { setGlobalConfig } from 'aelf-web-login';
+import { event$, setGlobalConfig } from 'aelf-web-login';
 
 const APPNAME = 'explorer.aelf.io';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
@@ -30,11 +30,15 @@ setGlobalConfig({
   networkType: NETWORK as any,
   defaultRpcUrl: RPC_SERVER,
   portkey: {
+    // loginConfig: {
+    //   recommendIndexes: [0, 1],
+    //   loginMethodsOrder: ['Google', 'Apple', 'Phone', 'Email'],
+    // },
     useLocalStorage: true,
     graphQLUrl: portkeyScanUrl,
     connectUrl: connectUrl,
     requestDefaults: {
-      baseURL: portkeyApiServer,
+      baseURL: '/v1',
       timeout: 30000,
     },
     socialLogin: {
@@ -43,7 +47,14 @@ setGlobalConfig({
         websiteIcon: WEBSITE_ICON,
       },
     },
-  } as any,
+  },
+  portkeyV2: {
+    networkType: NETWORK as any,
+    requestDefaults: {
+      baseURL: '/v2',
+      timeout: 30000,
+    },
+  },
   aelfReact: {
     appName: APPNAME,
     nodes: {
@@ -61,4 +72,5 @@ setGlobalConfig({
       },
     },
   },
+  onlyShowV2: false,
 });

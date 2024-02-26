@@ -1,17 +1,17 @@
-import { CallContractParams, WebLoginState, useCallContract, useWebLogin, PortkeyAssetProvider } from 'aelf-web-login';
+import { CallContractParams, WebLoginState, useCallContract, useWebLogin } from 'aelf-web-login';
 import { useState } from 'react';
 import configJson from '../assets/config.json';
 import configTdvwJson from '../assets/config.tdvw.json';
 import { useGetAccount } from 'aelf-web-login';
 import { SendOptions } from '@portkey/types';
+import { SendOptions as SendOptionsV1 } from '@portkey-v1/types';
 
 async function callContractWithLog<T, R>(
-  callContract: (params: CallContractParams<T>, sendOptions?: SendOptions | undefined) => Promise<R>,
+  callContract: (params: CallContractParams<T>, sendOptions?: SendOptions | SendOptionsV1 | undefined) => Promise<R>,
   params: CallContractParams<T>,
 ): Promise<R> {
   console.log('call', params);
   const res = await callContract(params);
-  console.log('res', res);
   return res;
 }
 
@@ -26,7 +26,6 @@ function useExampleCall(name: string, func: () => any) {
         console.error(res.error);
         return;
       }
-      console.log(name, 'res', res);
       setResult(res);
     } catch (error) {
       console.log(error);
@@ -65,8 +64,7 @@ function useExampleCall(name: string, func: () => any) {
 }
 
 export default function CallContract() {
-  const { wallet, callContract } = useWebLogin();
-  console.log(wallet);
+  const { wallet, callContract, version } = useWebLogin();
   const getAccountTDVW = useGetAccount('tDVW');
   const { callViewMethod, callSendMethod } = useCallContract();
   const { callViewMethod: callViewMethodAELF, callSendMethod: callSendMethodAELF } = useCallContract({

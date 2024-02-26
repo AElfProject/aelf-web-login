@@ -4,24 +4,28 @@ import { AElfReactProvider } from '@aelf-react/core';
 import { WalletHookInterface } from './types';
 import { WebLoginProviderProps } from './types';
 import { usePortkey } from './wallets/portkey/usePortkey';
-import NightElfPlugin from './wallets/elf/NightElfPlugin';
+import { usePortkey as usePortkeyV1 } from './wallets/portkey/usePortkey/indexV1';
 import Portkey from './wallets/portkey/Portkey';
+import PortkeyV1 from './wallets/portkey/Portkey/indexV1';
 import { useElf } from './wallets/elf/useElf';
-import { getConfig } from './config';
-import { CloseIcon, WalletType, WebLoginState } from './constants';
-import { PortkeyLoading } from '@portkey/did-ui-react';
+import { getConfig, event$ } from './config';
+import { WalletType, WebLoginState, WebLoginEvents, WEB_LOGIN_VERSION } from './constants';
+import { CommonBaseModal, PortkeyLoading } from '@portkey/did-ui-react';
 import { check } from './wallets/elf/utils';
 import isMobile from './utils/isMobile';
 import isPortkeyApp from './utils/isPortkeyApp';
-import DiscoverPlugin from './wallets/discover/DiscoverPlugin';
 import { LOGIN_EARGLY_KEY as DISCOVER_LOGIN_EARGERLY_KEY, useDiscover } from './wallets/discover/useDiscover';
 import ConfirmLogoutDialog from './components/CofirmLogoutDialog/ConfirmLogoutDialog';
 import { useDebounceFn } from 'ahooks';
+import ExtraWallets from './wallets/extraWallets';
+import clsx from 'clsx';
+import { PortkeyDid, PortkeyDidV1 } from './index';
 
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,
   loginError: undefined,
   eventEmitter: new EventEmitter(),
+  version: localStorage.getItem(WEB_LOGIN_VERSION) === 'v1' ? 'v1' : 'v2',
 };
 
 export enum LogoutConfirmResult {
@@ -36,6 +40,7 @@ export type WebLoginInterface = WalletHookInterface & {
   loginError: any | unknown;
   eventEmitter: EventEmitter;
   walletType: WalletType;
+  version: string;
 };
 
 export type WebLoginInternalInterface = {
@@ -61,29 +66,65 @@ export const useWebLogin: () => WebLoginInterface = () => {
   return useWebLoginContext() as WebLoginInterface;
 };
 
+export type ExtraWalletProviderProps = Omit<WebLoginProviderProps, 'children'>;
+export const ExtraWalletContext = createContext<ExtraWalletProviderProps>({} as ExtraWalletProviderProps);
+
+export const PortkeyProvider = ({ children, ...props }: any) => {
+  return (
+    <PortkeyDid.PortkeyProvider {...props} networkType={props.networkTypeV2}>
+      <PortkeyDidV1.PortkeyProvider {...props}>{children}</PortkeyDidV1.PortkeyProvider>
+    </PortkeyDid.PortkeyProvider>
+  );
+};
+
+export const PortkeyAssetProvider = ({ children, ...props }: any) => {
+  return (
+    <PortkeyDid.PortkeyAssetProvider {...props}>
+      <PortkeyDidV1.PortkeyAssetProvider {...props}>{children}</PortkeyDidV1.PortkeyAssetProvider>
+    </PortkeyDid.PortkeyAssetProvider>
+  );
+};
 function WebLoginProvider({
-  nightElf: nightEflOpts,
+  nightElf: nightElfOpts,
   portkey: portkeyOpts,
   discover: discoverOpts,
   extraWallets,
   children,
   commonConfig,
 }: WebLoginProviderProps) {
-  const eventEmitter = useMemo(() => new EventEmitter(), []);
+  const eventEmitter = useMemo(() => INITIAL_STATE.eventEmitter, []);
   const [loginState, setLoginState] = useState(WebLoginState.initial);
   const [loginError, setLoginError] = useState<any | unknown>();
   const [walletType, setWalletType] = useState<WalletType>(WalletType.unknown);
   const [switchingWalletType, setSwitchingWalletType] = useState<WalletType>(WalletType.unknown);
-
   const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
   const [logoutConfirmResult, setLogoutConfirmResult] = useState<LogoutConfirmResult>(LogoutConfirmResult.default);
   const [loading, setLoading] = useState(false);
-  const [noLoading, setNoLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [bridgeType, setBridgeType] = useState('unknown');
   const [loginId, setLoginId] = useState(0);
 
+  const initVersion = useMemo(() => {
+    if (localStorage.getItem(DISCOVER_LOGIN_EARGERLY_KEY)) {
+      return localStorage.getItem(WEB_LOGIN_VERSION) || 'v1';
+    } else {
+      return localStorage.getItem(WEB_LOGIN_VERSION) || 'v2';
+    }
+  }, []);
+
+  const [version, setVersion] = useState<string>(initVersion);
+  const [changeVerBtnClicked, setChangeVerBtnClicked] = useState<{ version: string }>();
+
+  event$.useSubscription(async (value: any) => {
+    // setModalOpen(false);
+    setChangeVerBtnClicked(value as { version: string });
+    setLoginState(WebLoginState.initial);
+    value.version && setVersion(value.version);
+  });
+
   useEffect(() => {
+    // design default
+    portkeyOpts.design = portkeyOpts.design || 'CryptoDesign';
     // SSR support
     if (typeof window !== 'undefined') {
       check()
@@ -95,6 +136,13 @@ function WebLoginProvider({
         });
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem(WEB_LOGIN_VERSION, version === 'v1' ? 'v1' : 'v2');
+    if (changeVerBtnClicked) {
+      eventEmitter.emit(WebLoginEvents.CHANGE_PORTKEY_VERSION, changeVerBtnClicked?.version);
+    }
+  }, [changeVerBtnClicked?.version, eventEmitter, version]);
 
   const setLoginStateInternal = useCallback(
     (newLoginState: WebLoginState) => {
@@ -111,7 +159,7 @@ function WebLoginProvider({
   );
 
   const elfApi = useElf({
-    options: nightEflOpts,
+    options: nightElfOpts,
     loginState,
     walletType,
     eventEmitter,
@@ -130,7 +178,20 @@ function WebLoginProvider({
     setWalletType,
     setLoading,
   });
+  // change config according to version of portkey
   const portkeyApi = usePortkey({
+    options: portkeyOpts,
+    loginState,
+    walletType,
+    eventEmitter,
+    setLoginError,
+    setLoginState: setLoginStateInternal,
+    setModalOpen,
+    setWalletType,
+    setLoading,
+  });
+
+  const portkeyApiV1 = usePortkeyV1({
     options: portkeyOpts,
     loginState,
     walletType,
@@ -146,13 +207,11 @@ function WebLoginProvider({
     setLoginStateInternal(WebLoginState.logining);
     try {
       if (isPortkeyApp()) {
-        setNoLoading(false);
         discoverApi.login();
         return;
       } else {
         const type = await check();
         if (type === 'AelfBridge') {
-          setNoLoading(false);
           elfApi.login();
           return;
         }
@@ -190,14 +249,18 @@ function WebLoginProvider({
       return { ...invalidApi, loginEagerly: isDiscoverEagerly ? discoverApi.loginEagerly : elfApi.loginEagerly };
     }
     if (loginState === WebLoginState.lock) {
-      return { ...invalidApi, login: portkeyApi.login, loginEagerly: portkeyApi.loginEagerly };
+      return {
+        ...invalidApi,
+        login: (version === 'v1' ? portkeyApiV1 : portkeyApi).login,
+        loginEagerly: (version === 'v1' ? portkeyApiV1 : portkeyApi).loginEagerly,
+      };
     }
     if (loginState === WebLoginState.logining) {
       if (switchingWalletType !== WalletType.unknown) {
         if (walletType === WalletType.elf) {
           return elfApi;
         } else if (walletType === WalletType.portkey) {
-          return portkeyApi;
+          return version === 'v1' ? portkeyApiV1 : portkeyApi;
         } else if (walletType === WalletType.discover) {
           return discoverApi;
         }
@@ -208,14 +271,25 @@ function WebLoginProvider({
       if (walletType === WalletType.elf) {
         return elfApi;
       } else if (walletType === WalletType.portkey) {
-        return portkeyApi;
+        return version === 'v1' ? portkeyApiV1 : portkeyApi;
       } else if (walletType === WalletType.discover) {
         return discoverApi;
       }
       return invalidApi;
     }
     return invalidApi;
-  }, [loginState, invalidApi, login, elfApi, portkeyApi, walletType, discoverApi]);
+  }, [
+    loginState,
+    invalidApi,
+    login,
+    discoverApi,
+    elfApi,
+    version,
+    portkeyApiV1,
+    portkeyApi,
+    switchingWalletType,
+    walletType,
+  ]);
 
   const { run: loginInternal } = useDebounceFn(
     useCallback(async () => {
@@ -245,11 +319,11 @@ function WebLoginProvider({
       console.warn(e);
     }
     try {
-      await portkeyApi.logoutSilently();
+      await (version === 'v1' ? portkeyApiV1 : portkeyApi).logoutSilently();
     } catch (e) {
       console.warn(e);
     }
-  }, [discoverApi, elfApi, portkeyApi, walletApi]);
+  }, [walletApi, discoverApi, elfApi, version, portkeyApiV1, portkeyApi]);
 
   const { run: logoutInternal } = useDebounceFn(
     useCallback(
@@ -295,7 +369,7 @@ function WebLoginProvider({
       walletType,
       _api: {
         nigthElf: elfApi,
-        portkey: portkeyApi,
+        portkey: version === 'v1' ? portkeyApiV1 : portkeyApi,
         discover: discoverApi,
       },
       _multiWallets: {
@@ -307,6 +381,7 @@ function WebLoginProvider({
       ...walletApi,
       login: loginInternal,
       logout: logoutInternal,
+      version,
     }),
     [
       loginId,
@@ -316,11 +391,13 @@ function WebLoginProvider({
       walletType,
       elfApi,
       portkeyApi,
+      portkeyApiV1,
       discoverApi,
       switchingWalletType,
       walletApi,
       loginInternal,
       logoutInternal,
+      version,
     ],
   );
 
@@ -336,11 +413,14 @@ function WebLoginProvider({
     let contentClassName = 'default-content';
 
     if (portkeyOpts.design === 'Web2Design') {
-      headerClassName = 'social-header web2-header';
-      contentClassName = 'social-content web2-content';
+      headerClassName = 'web2-header';
+      contentClassName = 'web2-content';
     } else if (portkeyOpts.design === 'SocialDesign') {
       headerClassName = 'social-header';
       contentClassName = 'social-content';
+    } else if (portkeyOpts.design === 'CryptoDesign') {
+      headerClassName = 'crypto-header';
+      contentClassName = 'crypto-content';
     }
 
     // hide extra wallets when bridge and discover mobile not exist
@@ -348,77 +428,109 @@ function WebLoginProvider({
       return;
     }
     return (
-      <div className="aelf-web-login aelf-extra-wallets">
-        <div className={headerClassName}>
-          {portkeyOpts.design === 'SocialDesign' && (
-            <div>
-              {commonConfig?.showClose && (
-                <div className="header">
-                  <button className="header-btn" onClick={portkeyApi.onCancel}>
-                    <img src={CloseIcon}></img>
-                  </button>
-                </div>
-              )}
-              {commonConfig?.iconSrc && (
-                <div className="title-icon">
-                  <img src={commonConfig?.iconSrc}></img>
-                </div>
-              )}
-            </div>
-          )}
-
-          <div className="title">Crypto wallet</div>
-        </div>
-        <div className={`wallet-entries ${contentClassName}`}>
-          {extraWallets
-            // hide specific wallet when bridge or discover mobile not exist
-            ?.filter((wallet) => {
-              if (wallet === WalletType.elf) {
-                return !isBridgeNotExist;
-              } else if (wallet === WalletType.discover) {
-                return !isDiscoverMobileNotExist || isShowDiscoverButton;
-              }
-              return true;
-            })
-            .map((wallet) => {
-              if (wallet === WalletType.elf) {
-                return <NightElfPlugin key={wallet} nightEflOpts={nightEflOpts} onClick={elfApi.login} />;
-              } else if (wallet === WalletType.discover) {
-                return (
-                  <DiscoverPlugin
-                    key={wallet}
-                    discoverOpts={discoverOpts}
-                    detectState={discoverApi.discoverDetected}
-                    onClick={discoverApi.login}
-                  />
-                );
-              }
-            })}
-        </div>
-      </div>
+      <ExtraWalletContext.Provider
+        value={{
+          nightElf: nightElfOpts,
+          portkey: portkeyOpts,
+          discover: discoverOpts,
+          extraWallets,
+          commonConfig,
+        }}>
+        <ExtraWallets
+          headerClassName={headerClassName}
+          contentClassName={contentClassName}
+          version={version}
+          portkeyApi={version === 'v1' ? portkeyApiV1 : portkeyApi}
+          elfApi={elfApi}
+          discoverApi={discoverApi}
+          isBridgeNotExist={isBridgeNotExist}></ExtraWallets>
+      </ExtraWalletContext.Provider>
     );
   };
+
+  const isManagerExists = useMemo(
+    () => (version === 'v1' ? portkeyApiV1.isManagerExists : portkeyApi.isManagerExists),
+    [portkeyApi.isManagerExists, portkeyApiV1.isManagerExists, version],
+  );
+
+  const isShowUnlockPage = useMemo(
+    () => isManagerExists && (loginState === WebLoginState.logining || loginState === WebLoginState.lock),
+    [isManagerExists, loginState],
+  );
+
+  const PortkeySDKEle = useMemo(
+    () =>
+      version === 'v1' ? (
+        <PortkeyV1
+          portkeyOpts={portkeyOpts}
+          isManagerExists={portkeyApiV1.isManagerExists}
+          open={modalOpen}
+          loginState={loginState}
+          onCancel={portkeyApiV1.onCancel}
+          onFinish={portkeyApiV1.onFinished}
+          onUnlock={portkeyApiV1.onUnlock}
+          onError={portkeyApiV1.onError}
+          extraWallets={renderExtraWallets()}
+        />
+      ) : (
+        <Portkey
+          portkeyOpts={portkeyOpts}
+          isManagerExists={portkeyApi.isManagerExists}
+          open={modalOpen}
+          loginState={loginState}
+          onCancel={portkeyApi.onCancel}
+          onFinish={portkeyApi.onFinished}
+          onUnlock={portkeyApi.onUnlock}
+          onError={portkeyApi.onError}
+          extraWallets={renderExtraWallets()}
+        />
+      ),
+    [
+      loginState,
+      modalOpen,
+      portkeyApi.isManagerExists,
+      portkeyApi.onCancel,
+      portkeyApi.onError,
+      portkeyApi.onFinished,
+      portkeyApi.onUnlock,
+      portkeyApiV1.isManagerExists,
+      portkeyApiV1.onCancel,
+      portkeyApiV1.onError,
+      portkeyApiV1.onFinished,
+      portkeyApiV1.onUnlock,
+      portkeyOpts,
+      renderExtraWallets,
+      version,
+    ],
+  );
+
+  const PortkeyPage = useMemo(() => {
+    return isShowUnlockPage || portkeyOpts.noCommonBaseModal ? (
+      PortkeySDKEle
+    ) : (
+      <CommonBaseModal
+        destroyOnClose
+        className={clsx('portkey-ui-sign-modal', `portkey-ui-sign-modal-${portkeyOpts.design}`)}
+        maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
+        open={modalOpen}
+        // getContainer={getContainer ? getContainer : `#${PORTKEY_ROOT_ID}`}
+        onClose={version === 'v1' ? portkeyApiV1.onCancel : portkeyApi.onCancel}>
+        {PortkeySDKEle}
+      </CommonBaseModal>
+    );
+  }, [PortkeySDKEle, isShowUnlockPage, modalOpen, portkeyOpts.design]);
 
   return (
     <WebLoginContext.Provider value={state}>
       {children}
-      <Portkey
-        portkeyOpts={portkeyOpts}
-        isManagerExists={portkeyApi.isManagerExists}
-        open={modalOpen}
-        loginState={loginState}
-        onCancel={portkeyApi.onCancel}
-        onFinish={portkeyApi.onFinished}
-        onUnlock={portkeyApi.onUnlock}
-        onError={portkeyApi.onError}
-        extraWallets={renderExtraWallets()}
-      />
+      {PortkeyPage}
       <ConfirmLogoutDialogComponent
         visible={logoutConfirmOpen}
         onCancel={() => setLogoutConfirmResult(LogoutConfirmResult.cancel)}
         onOk={() => setLogoutConfirmResult(LogoutConfirmResult.ok)}
       />
-      <PortkeyLoading loading={!noLoading && loading} />
+
+      <PortkeyLoading loading={loading} />
     </WebLoginContext.Provider>
   );
 }

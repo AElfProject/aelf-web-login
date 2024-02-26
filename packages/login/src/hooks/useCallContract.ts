@@ -1,7 +1,8 @@
 import { useCallback } from 'react';
 import AElf from 'aelf-sdk';
 import { ChainId } from '@portkey/provider-types';
-import { did, managerApprove, AuthServe, getChain } from '@portkey/did-ui-react';
+import { did, managerApprove, getChain } from '@portkey/did-ui-react';
+import { did as didV1, managerApprove as managerApproveV1, getChain as getChainV1 } from '@portkey-v1/did-ui-react';
 import { useWebLogin } from '../context';
 import {
   CallContractHookInterface,
@@ -10,12 +11,13 @@ import {
   IPortkeySendAdapterProps,
 } from '../types';
 import { getConfig } from '../config';
-import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WalletType, WebLoginEvents } from '../constants';
-import { getContractBasic } from '@portkey/contracts';
+import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WEB_LOGIN_VERSION, WalletType, WebLoginEvents } from '../constants';
+import { IPortkeyContract, getContractBasic } from '@portkey/contracts';
+import { IPortkeyContract as IPortkeyContractV1, getContractBasic as getContractBasicV1 } from '@portkey-v1/contracts';
 import { SendOptions } from '@portkey/types';
+import { SendOptions as SendOptionsV1 } from '@portkey-v1/types';
 import useWebLoginEvent from './useWebLoginEvent';
 import { getFaviconUrl, getUrl } from '../utils/getUrl';
-import { AccountTypeEnum } from '@portkey/services';
 
 const getAElfInstance = (() => {
   const instances = new Map<string, any>();
@@ -67,7 +69,8 @@ export const sendAdapter = async <T>({
   chainId,
   sendOptions,
 }: IPortkeySendAdapterProps<T>) => {
-  const chainInfo = await getChain(chainId);
+  const version = localStorage.getItem(WEB_LOGIN_VERSION);
+  const chainInfo = await (version === 'v1' ? getChainV1 : getChain)(chainId);
   // particular case for token contract(contractMethod: managerApprove)
   // don't deal with caContract(contractMethod: ApproveMethod)
   // if dapp provides signature, we won't awake signature pop-up again
@@ -77,10 +80,10 @@ export const sendAdapter = async <T>({
     const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
     // use amount from result of managerApprove not from params
     // dapp user may change amount at pop-up
-    const { amount, guardiansApproved } = (await managerApprove({
+    const { amount, guardiansApproved } = (await (version === 'v1' ? managerApproveV1 : managerApprove)({
       originChainId,
       targetChainId: chainId,
-      caHash: didWalletInfo.caInfo.caHash,
+      caHash: didWalletInfo.caInfo?.caHash,
       ...params.args,
       dappInfo: {
         icon,
@@ -92,7 +95,7 @@ export const sendAdapter = async <T>({
       'ManagerApprove',
       '',
       {
-        caHash: didWalletInfo.caInfo.caHash,
+        caHash: didWalletInfo.caInfo?.caHash,
         ...params.args,
         guardiansApproved,
         amount,
@@ -106,7 +109,7 @@ export const sendAdapter = async <T>({
       'ManagerForwardCall',
       didWalletInfo.walletInfo.address,
       {
-        caHash: didWalletInfo.caInfo.caHash,
+        caHash: didWalletInfo.caInfo?.caHash,
         contractAddress: params.contractAddress,
         methodName: params.methodName,
         args: params.args,
@@ -143,17 +146,18 @@ export default function useCallContract(options?: CallContractHookOptions): Call
   const callSendMethod = useCallback(
     async function callContractSendFunc<T, R>(
       params: CallContractParams<T>,
-      sendOptions: SendOptions | undefined = undefined,
+      sendOptions: SendOptions | SendOptionsV1 | undefined = undefined,
     ): Promise<R> {
       if (walletType === WalletType.unknown) {
         throw new Error('Wallet not login');
       }
+      const version = localStorage.getItem(WEB_LOGIN_VERSION);
       switch (walletType) {
         case WalletType.discover: {
           const discoverInfo = wallet.discoverInfo!;
           const contract = await getContractWithCache(WalletType.discover, params.contractAddress, async () => {
             const chain = await discoverInfo.provider!.getChain(chainId);
-            return getContractBasic({
+            return (version === 'v1' ? getContractBasicV1 : getContractBasic)({
               contractAddress: params.contractAddress,
               chainProvider: chain,
             });
@@ -177,19 +181,19 @@ export default function useCallContract(options?: CallContractHookOptions): Call
           }
           const bridge = bridges[chainId]!;
           const contract = await getContractWithCache(WalletType.elf, params.contractAddress, async () => {
-            return getContractBasic({
+            return (version === 'v1' ? getContractBasicV1 : getContractBasic)({
               contractAddress: params.contractAddress,
               aelfInstance: bridge,
               account: {
                 address: wallet.nightElfInfo!.account!,
               },
-            });
+            } as any);
           });
           return contract.callSendMethod(params.methodName, wallet.address, params.args, sendOptions) as R;
         }
         case WalletType.portkey: {
           // TODO cache chains info
-          const chainsInfo = await did.services.getChainsInfo();
+          const chainsInfo = await (version === 'v1' ? didV1 : did).services.getChainsInfo();
           const chainInfo = chainsInfo.find((chain) => chain.chainId === chainId);
           if (!chainInfo) {
             throw new Error(`Chain is not running: ${chainId}`);
@@ -197,11 +201,11 @@ export default function useCallContract(options?: CallContractHookOptions): Call
           const didWalletInfo = wallet.portkeyInfo!;
           const cacheKey = `${chainInfo.caContractAddress}-${didWalletInfo.walletInfo.address}-${chainInfo.endPoint}`;
           const caContract = await getContractWithCache(WalletType.portkey, cacheKey, async () => {
-            return await getContractBasic({
+            return (await (version === 'v1' ? getContractBasicV1 : getContractBasic)({
               contractAddress: chainInfo.caContractAddress,
               account: didWalletInfo.walletInfo,
               rpcUrl: chainInfo.endPoint,
-            });
+            } as any)) as IPortkeyContract | IPortkeyContractV1;
           });
           const result = await sendAdapter({ caContract, didWalletInfo, params, chainId, sendOptions });
           // compatible with aelf-sdk result of contract
