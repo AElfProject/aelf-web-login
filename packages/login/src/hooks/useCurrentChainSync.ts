@@ -35,18 +35,11 @@ export const useCurrentChainSync = (chainId: ChainId) => {
         }
       }
       case WalletType.portkey: {
-        const holder = (await did.didWallet.getHolderInfoByContract({
+        return did.checkManagerIsExist({
           chainId,
           caHash: wallet.portkeyInfo?.caInfo?.caHash as string,
-        })) as IHolderInfo | IHolderInfoV1;
-        const filteredHolders = holder.managerInfos.filter(
-          (manager) => manager?.address === wallet.portkeyInfo?.walletInfo?.address,
-        );
-        if (filteredHolders.length) {
-          return true;
-        } else {
-          return false;
-        }
+          managementAddress: wallet.portkeyInfo?.walletInfo?.address,
+        });
       }
     }
   }, [loginState, walletType, chainId]);

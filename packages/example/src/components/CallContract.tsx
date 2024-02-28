@@ -139,7 +139,7 @@ export default function CallContract() {
       const isCurrentChainIdSync = await getCurrentChainIdSync();
       console.log(isCurrentChainIdSync, 'isCurrentChainIdSync');
       if (!isCurrentChainIdSync) {
-        return new Error('tDVW is not sync');
+        throw new Error('tDVW is not sync');
       }
       return callContractWithLog(callViewMethodTDVW, {
         contractAddress: configTdvwJson.multiToken,
