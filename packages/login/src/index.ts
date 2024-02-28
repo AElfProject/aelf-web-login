@@ -15,6 +15,7 @@ import getContractBasicAsyncV1 from './utils/getContractBasicAsync/indexV1';
 import { useAppNameFlex, useComponentFlex } from './utils/getDidAndVersion';
 import detectDiscoverProvider from './wallets/discover/detectProvider';
 import detectNightElf from './wallets/elf/detectNightElf';
+import { useCurrentChainSync } from './hooks/useCurrentChainSync';
 
 export * from './utils/pluginPages';
 export * from './wallets/types';
@@ -44,4 +45,5 @@ export {
   detectNightElf,
   useComponentFlex,
   useAppNameFlex,
+  useCurrentChainSync,
 };
