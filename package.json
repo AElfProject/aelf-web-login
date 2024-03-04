@@ -66,5 +66,8 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
   },
-  "packageManager": "yarn@4.1.0"
+  "packageManager": "yarn@4.1.0",
+  "engines": {
+    "node": ">=18.12.0"
+  }
 }

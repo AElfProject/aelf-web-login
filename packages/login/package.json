@@ -92,5 +92,8 @@
     "@portkey/services": "2.0.0-alpha.28",
     "@portkey/types": "2.0.0-alpha.28",
     "@portkey/utils": "2.0.0-alpha.28"
+  },
+  "engines": {
+    "node": ">=18.12.0"
   }
 }
