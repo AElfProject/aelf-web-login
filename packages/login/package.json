@@ -33,7 +33,7 @@
     "start": "tsc --watch",
     "lint": "eslint . --ext .tsx,.ts",
     "lint:md": "remark . -f -q",
-    "dev": "mkdir -p dist/assets/fonts && cp -r ./assets/fonts dist/assets & pnpm run dev:tsc & pnpm run dev:types & pnpm run dev:css",
+    "dev": "mkdir -p dist/assets/fonts && cp -r ./assets/fonts dist/assets & yarn run dev:tsc & yarn run dev:types & yarn run dev:css",
     "dev:tsc": "tsc --p tsconfig.esm.json --watch",
     "dev:types": "tsc --emitDeclarationOnly --p tsconfig.types.json --watch",
     "dev:css": "lessc-watcher --src ./assets/index.less --dst ./dist/assets/index.css",

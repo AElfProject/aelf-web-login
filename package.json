@@ -10,10 +10,10 @@
     "postinstall": "husky install",
     "version": "yarn run bootstrap && yarn build",
     "prebuild": "yarn clean",
-    "login:dev": "pnpm --filter aelf-web-login dev",
-    "login:build": "pnpm --filter aelf-web-login build",
-    "login:pub": "pnpm --filter aelf-web-login pub",
-    "example": "pnpm --filter aelf-web-login-example start",
+    "login:dev": "yarn workspace aelf-web-login dev",
+    "login:build": "yarn workspace aelf-web-login build",
+    "login:pub": "yarn workspace aelf-web-login pub",
+    "example": "yarn workspace aelf-web-login-example start",
     "test": "jest",
     "test:browser": "jest --config=jest.browser.config.ts",
     "make-badges": "istanbul-badges-readme"
@@ -65,5 +65,6 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
-  }
+  },
+  "packageManager": "yarn@4.1.0"
 }
