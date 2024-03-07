@@ -44,8 +44,8 @@
     "build:umd": "rollup --silent --config rollup.config.js",
     "build": "yarn run build:clean; yarn run build:types && yarn run build:tsc && yarn run build:umd && yarn run build:css",
     "build:css": "lessc ./assets/index.less dist/assets/index.css",
-    "release": "yarn version && yarn build",
-    "pub": "yarn run build &&yarn publish"
+    "release": "npm version && yarn run build",
+    "pub": "yarn run build &&npm publish"
   },
   "dependencies": {
     "@aelf-react/core": "^0.1.19",
