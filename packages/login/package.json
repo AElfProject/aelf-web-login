@@ -17,8 +17,7 @@
   "author": "",
   "license": "ISC",
   "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.yarnjs.org"
+    "access": "public"
   },
   "files": [
     "dist/*"
@@ -45,7 +44,7 @@
     "build": "yarn run build:clean; yarn run build:types && yarn run build:tsc && yarn run build:umd && yarn run build:css",
     "build:css": "lessc ./assets/index.less dist/assets/index.css",
     "release": "npm version && yarn run build",
-    "pub": "yarn run build &&npm publish"
+    "pub": "npm run build && npm publish"
   },
   "dependencies": {
     "@aelf-react/core": "^0.1.19",
