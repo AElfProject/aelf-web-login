@@ -56,7 +56,7 @@ export type WebLoginProviderProps = {
   nightElf: NightElfOptions;
   portkey: PortkeyOptions;
   discover: DiscoverOptions;
-  extraWallets: Array<ExtraWalletNames>;
+  extraWallets?: Array<ExtraWalletNames>;
   children: React.ReactNode;
   commonConfig?: ICommonConfig;
 };

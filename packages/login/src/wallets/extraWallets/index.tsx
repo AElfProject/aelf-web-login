@@ -86,25 +86,27 @@ export default function ExtraWallets({
         </div>
         <div className="title">Crypto wallet</div>
       </div>
-      <div className={`wallet-entries ${contentClassName}`}>
-        {validWallets.map((wallet) => {
-          if (wallet === WalletType.elf) {
-            return <NightElfPlugin key={wallet} onClick={elfApi.login} />;
-          } else if (wallet === WalletType.discover) {
-            return (
-              <DiscoverPlugin
-                version={version}
-                key={wallet}
-                detectState={discoverApi.discoverDetected}
-                onClick={discoverApi.login}
-              />
-            );
-          }
-        })}
-      </div>
+      {validWallets && (
+        <div className={`wallet-entries ${contentClassName}`}>
+          {validWallets?.map((wallet) => {
+            if (wallet === WalletType.elf) {
+              return <NightElfPlugin key={wallet} onClick={elfApi.login} />;
+            } else if (wallet === WalletType.discover) {
+              return (
+                <DiscoverPlugin
+                  version={version}
+                  key={wallet}
+                  detectState={discoverApi.discoverDetected}
+                  onClick={discoverApi.login}
+                />
+              );
+            }
+          })}
+        </div>
+      )}
     </>
   );
-  const CryptoDesignnWallet = (
+  const CryptoDesignnWallet = validWallets ? (
     <>
       <div className={headerClassName}>
         <div className="title">Crypto wallet</div>
@@ -126,8 +128,10 @@ export default function ExtraWallets({
         </Button>
       </div>
     </>
+  ) : (
+    <></>
   );
-  const Web2DesignWallet = (
+  const Web2DesignWallet = validWallets ? (
     <>
       <div className={headerClassName}>
         <div className="title">Crypto wallet</div>
@@ -149,6 +153,8 @@ export default function ExtraWallets({
         </Button>
       </div>
     </>
+  ) : (
+    <></>
   );
 
   const extraWalletMap = {
@@ -159,11 +165,13 @@ export default function ExtraWallets({
   return (
     <>
       <div className="aelf-web-login aelf-extra-wallets">{extraWalletMap[portkeyOpts.design || 'SocialDesign']}</div>
-      <ConnectModal
-        open={connectModal}
-        onClose={closeConnectModal}
-        design={portkeyOpts.design}
-        validWallets={validWallets}></ConnectModal>
+      {validWallets && (
+        <ConnectModal
+          open={connectModal}
+          onClose={closeConnectModal}
+          design={portkeyOpts.design}
+          validWallets={validWallets}></ConnectModal>
+      )}
     </>
   );
 }
