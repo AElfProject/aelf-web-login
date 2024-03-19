@@ -10,12 +10,13 @@ import {
   SignUpValue,
 } from '@portkey-v1/did-ui-react';
 import { getConfig } from '../../../config';
-import { WEB_LOGIN_VERSION, WebLoginState } from '../../../constants';
+import { WebLoginState } from '../../../constants';
 import { PortkeyOptions } from '../../../types';
 import { PortkeyDidV1, event$, useWebLogin } from '../../../index';
 import { FetchRequest } from '@portkey-v1/request';
 import { changePortkeyVersion } from '../../../utils/isPortkeyApp';
 import isMobile from '../../../utils/isMobile';
+import { getStorageVersion } from '../../../utils/getUrl';
 
 export default function Portkey({
   open,
@@ -38,6 +39,7 @@ export default function Portkey({
   onUnlock: (password: string) => Promise<boolean>;
   extraWallets: ReactNode;
 }) {
+  const WEB_LOGIN_VERSION = getStorageVersion();
   const signInRef = useRef<SignInInterface>(null);
   const [password, setPassword] = useState('');
   const [isWrongPassword, setIsWrongPassword] = useState(false);

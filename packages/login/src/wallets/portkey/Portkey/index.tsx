@@ -12,12 +12,13 @@ import {
   SignUpValue,
 } from '@portkey/did-ui-react';
 import { getConfig } from '../../../config';
-import { WEB_LOGIN_VERSION, WebLoginState } from '../../../constants';
+import { WebLoginState } from '../../../constants';
 import { PortkeyOptions } from '../../../types';
 import { FetchRequest } from '@portkey/request';
 import { changePortkeyVersion } from '../../../utils/isPortkeyApp';
 import isMobile from '../../../utils/isMobile';
 import { useWebLogin } from '../../../context';
+import { getStorageVersion } from '../../../utils/getUrl';
 
 export default function Portkey({
   open,
@@ -45,7 +46,7 @@ export default function Portkey({
   const [isWrongPassword, setIsWrongPassword] = useState(false);
   const { chainId, onlyShowV2 } = getConfig();
   const { version: originVersion } = useWebLogin();
-
+  const WEB_LOGIN_VERSION = getStorageVersion();
   useEffect(() => {
     if (signInRef.current) {
       signInRef.current.setOpen(open);

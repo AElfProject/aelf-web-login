@@ -11,7 +11,7 @@ import {
   WalletHookInterface,
 } from '../../types';
 import { WalletHookParams } from '../types';
-import { WEB_LOGIN_VERSION, WalletType, WebLoginEvents, WebLoginState } from '../../constants';
+import { WalletType, WebLoginEvents, WebLoginState } from '../../constants';
 import checkSignatureParams from '../../utils/signatureParams';
 import { DiscoverOptions } from 'src/types';
 import useChainIdsSync from './useChainIdsSync';
@@ -22,6 +22,7 @@ import detectDiscoverProvider from './detectProvider';
 import useWebLoginEvent from '../../hooks/useWebLoginEvent';
 import { useWebLogin } from '../../context';
 import isPortkeyApp, { isPortkeyV2 } from '../../utils/isPortkeyApp';
+import { getStorageVersion } from '../../utils/getUrl';
 
 export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
 export type DiscoverInterface = WalletHookInterface & {
@@ -41,6 +42,7 @@ export function useDiscover({
   setLoginState,
   setLoading,
 }: WalletHookParams<DiscoverOptions>) {
+  const WEB_LOGIN_VERSION = getStorageVersion();
   const chainId = getConfig().chainId as ChainId;
   const autoRequestAccountCheck = useRef(false);
   const [discoverProvider, setDiscoverProvider] = useState<IPortkeyProvider>();

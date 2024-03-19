@@ -7,7 +7,6 @@ import {
   ElfIcon,
   ElfSquareIcon,
   RightIcon,
-  WEB_LOGIN_VERSION,
   WalletType,
 } from '../../constants';
 import { WalletHookInterface } from '../../types';
