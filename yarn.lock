@@ -3357,7 +3357,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@portkey-v1/graphql@npm:^1.5.4-alpha.22":
+"@portkey-v1/graphql@npm:1.5.4-alpha.22, @portkey-v1/graphql@npm:^1.5.4-alpha.22":
   version: 1.5.4-alpha.22
   resolution: "@portkey-v1/graphql@npm:1.5.4-alpha.22"
   dependencies:
@@ -5410,6 +5410,7 @@ __metadata:
     "@craco/craco": "npm:^6.4.2"
     "@portkey-v1/contracts": "npm:1.5.4-alpha.22"
     "@portkey-v1/did-ui-react": "npm:1.5.4-alpha.22"
+    "@portkey-v1/graphql": "npm:1.5.4-alpha.22"
     "@portkey-v1/request": "npm:1.5.4-alpha.22"
     "@portkey-v1/services": "npm:1.5.4-alpha.22"
     "@portkey-v1/types": "npm:1.5.4-alpha.22"
@@ -5468,6 +5469,7 @@ __metadata:
   peerDependencies:
     "@portkey-v1/contracts": 1.5.4-alpha.22
     "@portkey-v1/did-ui-react": 1.5.4-alpha.22
+    "@portkey-v1/graphql": 1.5.4-alpha.22
     "@portkey-v1/request": 1.5.4-alpha.22
     "@portkey-v1/services": 1.5.4-alpha.22
     "@portkey-v1/types": 1.5.4-alpha.22
