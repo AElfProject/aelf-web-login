@@ -1,6 +1,6 @@
 {
   "name": "aelf-web-login",
-  "version": "2.0.1-beta.0",
+  "version": "2.0.1-beta.2",
   "main": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "exports": {
@@ -17,8 +17,7 @@
   "author": "",
   "license": "ISC",
   "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org"
+    "access": "public"
   },
   "files": [
     "dist/*"
@@ -42,10 +41,10 @@
     "build:tsc": "tsc --p tsconfig.esm.json",
     "build:cjs": "tsc --p tsconfig.cjs.json",
     "build:umd": "rollup --silent --config rollup.config.js",
-    "build": "npm run build:clean; npm run build:types && npm run build:tsc && npm run build:umd && npm run build:css",
+    "build": "yarn run build:clean; yarn run build:types && yarn run build:tsc && yarn run build:umd && yarn run build:css",
     "build:css": "lessc ./assets/index.less dist/assets/index.css",
-    "release": "yarn version && yarn build",
-    "pub": "npm run build &&npm publish"
+    "release": "npm version && yarn run build",
+    "pub": "npm run build && npm publish"
   },
   "dependencies": {
     "@aelf-react/core": "^0.1.19",

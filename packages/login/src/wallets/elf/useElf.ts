@@ -102,30 +102,36 @@ export function useElf({
   }, [eventEmitter, isActive, loginState, setLoading, setLoginState]);
   timeoutLoginingRef.current = timeoutLogining;
 
-  const login = useCallback(async () => {
-    let timer;
-    let isTimeout = false;
-    setLoading(true);
-    try {
-      setLoginState(WebLoginState.logining);
-      timer = setTimeout(() => {
-        isTimeout = true;
-        timeoutLoginingRef.current();
-      }, 16000);
-      console.log('activate');
-      await activate(nodes);
-      console.log('activated');
-    } catch (e) {
-      if (isTimeout) return;
-      setLoading(false);
-      setLoginError(e);
-      setLoginState(WebLoginState.initial);
-      eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, e);
-    } finally {
-      clearTimeout(timer as unknown as number);
-      setLoading(false);
-    }
-  }, [activate, eventEmitter, nodes, setLoading, setLoginError, setLoginState]);
+  const login = useCallback(
+    async (options: { eagerly?: boolean } = {}) => {
+      let timer;
+      let isTimeout = false;
+      const { eagerly } = options;
+      if (!eagerly) {
+        setLoading(true);
+      }
+      try {
+        setLoginState(WebLoginState.logining);
+        timer = setTimeout(() => {
+          isTimeout = true;
+          timeoutLoginingRef.current();
+        }, 16000);
+        console.log('activate');
+        await activate(nodes);
+        console.log('activated');
+      } catch (e) {
+        if (isTimeout) return;
+        setLoading(false);
+        setLoginError(e);
+        setLoginState(WebLoginState.initial);
+        eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, e);
+      } finally {
+        clearTimeout(timer as unknown as number);
+        setLoading(false);
+      }
+    },
+    [activate, eventEmitter, nodes, setLoading, setLoginError, setLoginState],
+  );
 
   const loginEagerly = useCallback(async () => {
     // setLoading(true);
@@ -143,7 +149,7 @@ export function useElf({
           return;
         }
       }
-      await login();
+      await login({ eagerly: true });
     } catch (e) {
       localStorage.removeItem('aelf-connect-eagerly');
       setLoading(false);
