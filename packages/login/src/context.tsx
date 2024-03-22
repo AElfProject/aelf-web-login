@@ -9,7 +9,7 @@ import Portkey from './wallets/portkey/Portkey';
 import PortkeyV1 from './wallets/portkey/Portkey/indexV1';
 import { useElf } from './wallets/elf/useElf';
 import { getConfig, event$ } from './config';
-import { WalletType, WebLoginState, WebLoginEvents, WEB_LOGIN_VERSION } from './constants';
+import { WalletType, WebLoginState, WebLoginEvents } from './constants';
 import { CommonBaseModal, PortkeyLoading } from '@portkey/did-ui-react';
 import { check } from './wallets/elf/utils';
 import isMobile from './utils/isMobile';
@@ -20,12 +20,13 @@ import { useDebounceFn } from 'ahooks';
 import ExtraWallets from './wallets/extraWallets';
 import clsx from 'clsx';
 import { PortkeyDid, PortkeyDidV1 } from './index';
+import { getStorageVersion } from './utils/getUrl';
 
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,
   loginError: undefined,
   eventEmitter: new EventEmitter(),
-  version: localStorage.getItem(WEB_LOGIN_VERSION) === 'v1' ? 'v1' : 'v2',
+  version: localStorage.getItem(DISCOVER_LOGIN_EARGERLY_KEY) ? 'v1' : 'v2',
 };
 
 export enum LogoutConfirmResult {
@@ -92,6 +93,7 @@ function WebLoginProvider({
   children,
   commonConfig,
 }: WebLoginProviderProps) {
+  const WEB_LOGIN_VERSION = getStorageVersion();
   const eventEmitter = useMemo(() => INITIAL_STATE.eventEmitter, []);
   const [loginState, setLoginState] = useState(WebLoginState.initial);
   const [loginError, setLoginError] = useState<any | unknown>();
@@ -104,6 +106,7 @@ function WebLoginProvider({
   const [bridgeType, setBridgeType] = useState('unknown');
   const [loginId, setLoginId] = useState(0);
 
+  //  old users who have already logged into v1 will be automatically logged in
   const initVersion = useMemo(() => {
     if (localStorage.getItem(DISCOVER_LOGIN_EARGERLY_KEY)) {
       return localStorage.getItem(WEB_LOGIN_VERSION) || 'v1';

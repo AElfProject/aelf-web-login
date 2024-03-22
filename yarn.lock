@@ -5421,7 +5421,7 @@ __metadata:
     "@portkey/types": "npm:2.0.0-alpha.28"
     "@portkey/utils": "npm:2.0.0-alpha.28"
     "@types/react-dom": "npm:^18.0.0"
-    aelf-web-login: "npm:2.0.1-beta.0"
+    aelf-web-login: "npm:2.0.1-beta.3"
     ahooks: "npm:^3.7.7"
     antd: "npm:^4.24.4"
     cross-env: "npm:^7.0.3"
@@ -5433,7 +5433,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"aelf-web-login@npm:2.0.1-beta.0, aelf-web-login@workspace:packages/login":
+"aelf-web-login@npm:2.0.1-beta.3, aelf-web-login@workspace:packages/login":
   version: 0.0.0-use.local
   resolution: "aelf-web-login@workspace:packages/login"
   dependencies:

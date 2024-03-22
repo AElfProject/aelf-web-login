@@ -1,12 +1,14 @@
 import * as PortkeyDid from '@portkey/did-ui-react';
 import * as PortkeyDidV1 from '@portkey-v1/did-ui-react';
 import { useEffect, useMemo, useState } from 'react';
-import { WEB_LOGIN_VERSION, WebLoginEvents } from '../constants';
+import { WebLoginEvents } from '../constants';
 import { useWebLogin } from '../context';
 import useWebLoginEvent from '../hooks/useWebLoginEvent';
 import { getConfig } from '../config';
+import { getStorageVersion } from './getUrl';
 
 export const useComponentFlex = (v?: string) => {
+  const WEB_LOGIN_VERSION = getStorageVersion();
   const { version } = useWebLogin();
   const [didComp, setDidComp] = useState<any>(
     v ? (v === 'v1' ? PortkeyDidV1 : PortkeyDid) : version === 'v1' ? PortkeyDidV1 : PortkeyDid,

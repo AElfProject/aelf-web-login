@@ -1,3 +1,5 @@
+import { getConfig } from './config';
+
 export enum WalletType {
   unknown = 'unknown',
   discover = 'discover',
@@ -52,4 +54,5 @@ export const LeftIcon =
 export const RightIcon =
   'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9Ikljb24gLyBMaW5lIC8gTGVmdCYjMjI5OyYjMTY0OyYjMTM1OyYjMjI4OyYjMTg3OyYjMTg5OyI+CjxwYXRoIGlkPSJTaGFwZSIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zIDExLjEzOThWMTAuMTAzNkMzIDEwLjAzMzIgMy4wMjkzIDkuOTY2ODQgMy4wNzczNCA5LjkyNTM5TDcuNjY2NDEgNi4wMDAyNkwzLjA3NzM0IDIuMDc1MTNDMy4wMjkzIDIuMDMzNjggMyAxLjk2NzM3IDMgMS44OTY5VjAuODYwNzAzQzMgMC43NzA4OTkgMy4wODY3MiAwLjcxODM5OCAzLjE0ODgzIDAuNzcwODk5TDguODQ1MzEgNS42NDI0M0M5LjA1MTU2IDUuODE5MjcgOS4wNTE1NiA2LjE4MTI1IDguODQ1MzEgNi4zNTY3MkwzLjE0ODgzIDExLjIyODJDMy4wODY3MiAxMS4yODIxIDMgMTEuMjI5NiAzIDExLjEzOThaIiBmaWxsPSIjNTE1QTYyIi8+CjwvZz4KPC9zdmc+Cg==';
 export const PORTKEY_ORIGIN_CHAIN_ID_KEY = 'PortkeyOriginChainId';
-export const WEB_LOGIN_VERSION = 'AelfWebLoginVersion';
+
+export const LOGIN_VERSION = 'AelfWebLoginVersion';

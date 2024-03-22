@@ -11,13 +11,13 @@ import {
   IPortkeySendAdapterProps,
 } from '../types';
 import { getConfig } from '../config';
-import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WEB_LOGIN_VERSION, WalletType, WebLoginEvents } from '../constants';
+import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WalletType, WebLoginEvents } from '../constants';
 import { IPortkeyContract, getContractBasic } from '@portkey/contracts';
 import { IPortkeyContract as IPortkeyContractV1, getContractBasic as getContractBasicV1 } from '@portkey-v1/contracts';
 import { SendOptions } from '@portkey/types';
 import { SendOptions as SendOptionsV1 } from '@portkey-v1/types';
 import useWebLoginEvent from './useWebLoginEvent';
-import { getFaviconUrl, getUrl } from '../utils/getUrl';
+import { getFaviconUrl, getStorageVersion, getUrl } from '../utils/getUrl';
 
 const getAElfInstance = (() => {
   const instances = new Map<string, any>();
@@ -69,6 +69,7 @@ export const sendAdapter = async <T>({
   chainId,
   sendOptions,
 }: IPortkeySendAdapterProps<T>) => {
+  const WEB_LOGIN_VERSION = getStorageVersion();
   const version = localStorage.getItem(WEB_LOGIN_VERSION);
   const chainInfo = await (version === 'v1' ? getChainV1 : getChain)(chainId);
   // particular case for token contract(contractMethod: managerApprove)
@@ -151,6 +152,7 @@ export default function useCallContract(options?: CallContractHookOptions): Call
       if (walletType === WalletType.unknown) {
         throw new Error('Wallet not login');
       }
+      const WEB_LOGIN_VERSION = getStorageVersion();
       const version = localStorage.getItem(WEB_LOGIN_VERSION);
       switch (walletType) {
         case WalletType.discover: {
