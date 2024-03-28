@@ -19,6 +19,7 @@ import { PortkeyOptions } from 'src/types';
 import { sendAdapter } from '../../../hooks/useCallContract';
 import { message } from 'antd';
 import { addPrefix } from '../../../utils/getDidAndVersion';
+import { aes } from '@portkey/utils';
 
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;
@@ -213,14 +214,28 @@ export function usePortkey({
     }
   }, [isManagerExists, loginEagerly, setLoginState, loginState, options.autoShowUnlock]);
 
+  const checkPassword = useCallback(async (keyName: string, password: string) => {
+    try {
+      const aesStr = await (did.didWallet as any)._storage.getItem(
+        keyName || (did.didWallet as unknown as { _defaultKeyName: string })._defaultKeyName,
+      );
+      if (aesStr) return !!aes.decrypt(aesStr, password);
+    } catch (error) {
+      return false;
+    }
+    return false;
+  }, []);
+
   const onUnlock = useCallback(
     async (password: string) => {
       setUnlocking(true);
       try {
-        const localWallet = await did.load(password, appName);
-        if (!localWallet.didWallet.accountInfo.loginAccount) {
+        const isValidPinCode = await checkPassword(appName, password);
+        if (!isValidPinCode) {
           return Promise.resolve(false);
         }
+
+        const localWallet = await did.load(password, appName);
         setLoading(true);
         let caInfo = localWallet.didWallet.caInfo[chainId];
         let caHash = caInfo?.caHash;
