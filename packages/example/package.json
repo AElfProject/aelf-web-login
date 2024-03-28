@@ -9,7 +9,6 @@
   "dependencies": {
     "@portkey-v1/contracts": "1.5.4-alpha.22",
     "@portkey-v1/did-ui-react": "1.5.4-alpha.22",
-    "@portkey-v1/graphql": "1.5.4-alpha.22",
     "@portkey-v1/request": "1.5.4-alpha.22",
     "@portkey-v1/services": "1.5.4-alpha.22",
     "@portkey-v1/types": "1.5.4-alpha.22",
