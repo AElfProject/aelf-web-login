@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
-import { ChainId } from '@portkey/types';
+import { ChainId, SendOptions } from '@portkey/types';
 import { IPortkeyProvider, Accounts, ChainIds, NetworkType, ProviderError, DappEvents } from '@portkey/provider-types';
 import { event$, getConfig } from '../../config';
 import {
@@ -290,7 +290,7 @@ export function useDiscover({
   );
 
   const callContract = useCallback(
-    async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
+    async function callContractFunc<T, R>(params: CallContractParams<T>, sendOptions?: SendOptions): Promise<R> {
       const version = localStorage.getItem(WEB_LOGIN_VERSION);
       const provider = version === 'v1' ? discoverProviderV1! : discoverProvider!;
       if (!discoverInfo || !provider) {
@@ -298,7 +298,7 @@ export function useDiscover({
       }
       const chain = await provider.getChain(chainId);
       const contract = chain.getContract(params.contractAddress);
-      const result = contract.callSendMethod(params.methodName, discoverInfo.address, params.args);
+      const result = contract.callSendMethod(params.methodName, discoverInfo.address, params.args, sendOptions);
       return result as R;
     },
     [chainId, discoverInfo, discoverProvider, discoverProviderV1],
