@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { getContractBasic } from '@portkey/contracts';
 import { DIDWalletInfo, did, managerApprove, getChain } from '@portkey/did-ui-react';
-import { ChainId } from '@portkey/types';
+import { ChainId, SendOptions } from '@portkey/types';
 import { getConfig } from '../../../config';
 import {
   CallContractParams,
@@ -155,7 +155,7 @@ export function usePortkey({
   }, [didWalletInfo, eventEmitter, loginState, setLoginState]);
 
   const callContract = useCallback(
-    async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
+    async function callContractFunc<T, R>(params: CallContractParams<T>, sendOptions?: SendOptions): Promise<R> {
       if (!didWalletInfo) {
         throw new Error('Portkey not login');
       }
@@ -170,7 +170,7 @@ export function usePortkey({
         account: didWalletInfo.walletInfo,
         rpcUrl: chainInfo.endPoint,
       });
-      const result = await sendAdapter({ caContract, didWalletInfo, params, chainId });
+      const result = await sendAdapter({ caContract, didWalletInfo, params, chainId, sendOptions });
       return result as R;
     },
     [chainId, didWalletInfo],
