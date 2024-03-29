@@ -69,6 +69,7 @@ export const sendAdapter = async <T>({
   chainId,
   sendOptions,
 }: IPortkeySendAdapterProps<T>) => {
+  console.log(didWalletInfo, 'didWalletInfo');
   const WEB_LOGIN_VERSION = getStorageVersion();
   const version = localStorage.getItem(WEB_LOGIN_VERSION);
   const chainInfo = await (version === 'v1' ? getChainV1 : getChain)(chainId);
@@ -78,7 +79,7 @@ export const sendAdapter = async <T>({
   if ((params.contractAddress === chainInfo?.defaultToken.address && params.methodName) === 'Approve') {
     const { origin, href, hostname: name } = getUrl();
     const icon = getFaviconUrl(href);
-    const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
+    const originChainId = didWalletInfo.chainId;
     // use amount from result of managerApprove not from params
     // dapp user may change amount at pop-up
     const { amount, guardiansApproved } = (await (version === 'v1' ? managerApproveV1 : managerApprove)({
