@@ -5421,7 +5421,7 @@ __metadata:
     "@portkey/types": "npm:2.0.0-alpha.28"
     "@portkey/utils": "npm:2.0.0-alpha.28"
     "@types/react-dom": "npm:^18.0.0"
-    aelf-web-login: "npm:2.0.1-beta.3"
+    aelf-web-login: "npm:^2.0.1-beta.6"
     ahooks: "npm:^3.7.7"
     antd: "npm:^4.24.4"
     cross-env: "npm:^7.0.3"
@@ -5433,40 +5433,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"aelf-web-login@npm:2.0.1-beta.3":
-  version: 2.0.1-beta.3
-  resolution: "aelf-web-login@npm:2.0.1-beta.3"
-  dependencies:
-    "@aelf-react/core": "npm:^0.1.19"
-    "@portkey/detect-provider": "npm:2.0.0-alpha.5"
-    "@portkey/provider-types": "npm:2.0.0-alpha.5"
-    "@types/bn.js": "npm:^5.1.3"
-    aelf-bridge: "npm:^0.0.10"
-    aelf-sdk: "npm:^3.3.0"
-    ahooks: "npm:^3.7.7"
-    antd: "npm:^4.24.4"
-    bn.js: "npm:^5.2.1"
-    clsx: "npm:^2.1.0"
-    lessc-watcher: "npm:^1.2.2"
-    typescript: "npm:^4.9.5"
-  peerDependencies:
-    "@portkey-v1/contracts": 1.5.4-alpha.22
-    "@portkey-v1/did-ui-react": 1.5.4-alpha.22
-    "@portkey-v1/request": 1.5.4-alpha.22
-    "@portkey-v1/services": 1.5.4-alpha.22
-    "@portkey-v1/types": 1.5.4-alpha.22
-    "@portkey-v1/utils": 1.5.4-alpha.22
-    "@portkey/contracts": 2.0.0-alpha.28
-    "@portkey/did-ui-react": 2.0.0-alpha.28
-    "@portkey/request": 2.0.0-alpha.28
-    "@portkey/services": 2.0.0-alpha.28
-    "@portkey/types": 2.0.0-alpha.28
-    "@portkey/utils": 2.0.0-alpha.28
-  checksum: 10c0/b75ddd0edcb6cebf4c01a8334a8a3d3d9f755bd9b4357c27139285b8ea0b07e2f01ace863aac84d441776d8544054ec4bf232f09c9bfea8aeab5b066a8cd02a1
-  languageName: node
-  linkType: hard
-
-"aelf-web-login@workspace:packages/login":
+"aelf-web-login@npm:^2.0.1-beta.6, aelf-web-login@workspace:packages/login":
   version: 0.0.0-use.local
   resolution: "aelf-web-login@workspace:packages/login"
   dependencies:
