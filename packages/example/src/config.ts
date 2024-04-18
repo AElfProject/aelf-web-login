@@ -2,7 +2,7 @@ import { event$, setGlobalConfig } from 'aelf-web-login';
 
 const APPNAME = 'explorer.aelf.io';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
-const CHAIN_ID = 'tDVW';
+const CHAIN_ID = 'AELF';
 const NETWORK: string = 'TESTNET';
 const IS_MAINNET = NETWORK === 'MAIN';
 // portkey ip docs: https://hoopox.feishu.cn/wiki/GjdWwSqc3imGYxkE85bc8KEFnFd

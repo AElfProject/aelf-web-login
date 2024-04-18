@@ -150,7 +150,7 @@ export type WalletHookInterface = {
   logoutSilently: () => Promise<void>;
   switchWallet: SwitchWalletFunc;
   // TODO: move this to new hook
-  callContract<T, R>(params: CallContractParams<T>, sendOptions: SendOptions | SendOptionsV1 | undefined): Promise<R>;
+  callContract<T, R>(params: CallContractParams<T>, sendOptions?: SendOptions | SendOptionsV1): Promise<R>;
   getSignature(params: SignatureParams): Promise<SignatureData>;
   // portkey and discover, diff by walletType
   changeVersion?: () => void;
