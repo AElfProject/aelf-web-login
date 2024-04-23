@@ -51,6 +51,7 @@ export type DiscoverOptions = {
 export interface ICommonConfig {
   showClose?: boolean;
   iconSrc?: string;
+  title?: string;
 }
 export type WebLoginProviderProps = {
   nightElf: NightElfOptions;
