@@ -83,7 +83,7 @@ export default function ExtraWallets({
             </div>
           )}
         </div>
-        <div className="title">Crypto wallet</div>
+        <div className="title">{commonConfig?.title || 'Crypto wallet'} </div>
       </div>
       {validWallets && (
         <div className={`wallet-entries ${contentClassName}`}>
@@ -108,7 +108,7 @@ export default function ExtraWallets({
   const CryptoDesignnWallet = validWallets ? (
     <>
       <div className={headerClassName}>
-        <div className="title">Crypto wallet</div>
+        <div className="title">{commonConfig?.title || 'Crypto wallet'}</div>
       </div>
       <div className={`wallet-entries ${contentClassName}`}>
         <Button type="primary" onClick={openConnectModal}>
