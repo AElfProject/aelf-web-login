@@ -7,3 +7,11 @@ export class WalletError extends Error {
     this.error = error;
   }
 }
+
+export class WalletNotReadyError extends WalletError {
+  name = 'WalletNotReadyError';
+}
+
+export class WalletConnectionError extends WalletError {
+  name = 'WalletConnectionError';
+}

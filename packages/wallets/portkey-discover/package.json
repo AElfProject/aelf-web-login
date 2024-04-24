@@ -1,5 +1,5 @@
 {
-  "name": "@aelf-web-login/wallet-adapter-night-elf",
+  "name": "@aelf-web-login/wallet-adapter-portkey-discover",
   "version": "0.0.1",
   "type": "module",
   "main": "dist/esm/index.js",
@@ -16,18 +16,10 @@
     "README.md"
   ],
   "keywords": [
-    "ant",
-    "component",
-    "components",
-    "design",
-    "framework",
+    "login",
     "frontend",
-    "react",
-    "react-component",
-    "ui",
     "web3"
   ],
-  "homepage": "https://we3.ant.design",
   "bugs": {
     "url": "https://github.com/ant-design/ant-design-web3/issues"
   },
@@ -41,24 +33,17 @@
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
-    "@ant-design/cssinjs": "^1.18.2",
-    "classnames": "^2.3.2",
-    "antd-style": "^3.5.2"
+    "@portkey/detect-provider": "^2.0.0-alpha.5",
+    "@portkey/provider-types": "^2.0.0-alpha.5"
   },
   "devDependencies": {
-    "@types/react": "^18.2.45",
-    "@types/react-dom": "^18.2.18",
-    "antd": "^5.12.4",
     "father": "^4.3.8",
     "glob": "^10.3.10",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "typescript": "^5.3.3"
-  },
-  "peerDependencies": {
-    "antd": ">=4.23.0 || >=5.0.0",
-    "react": ">=17.0.0",
-    "react-dom": ">=17.0.0"
+    "typescript": "^5.3.3",
+    "@portkey/request": "2.0.0-alpha.28",
+    "@portkey/services": "2.0.0-alpha.28",
+    "@portkey/types": "2.0.0-alpha.28",
+    "@portkey/utils": "2.0.0-alpha.28"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

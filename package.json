@@ -5,7 +5,8 @@
   "workspaces": [
     "packages/core/*",
     "packages/starter/*",
-    "packages/wallets/*"
+    "packages/wallets/*",
+    "packages/bridge/*"
   ],
   "type": "module",
   "packageManager": "pnpm@8.9.0",
