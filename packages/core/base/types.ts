@@ -8,10 +8,11 @@ export enum WalletStateEnum {
 }
 
 export enum LoginStateEnum {
-  Lock = 'lock',
-  Logining = 'logining',
-  Logined = 'logined',
-  Logouting = 'logouting',
+  INITIAL = 'INITIAL',
+  LOCK = 'LOCK',
+  CONNECTING = 'CONNECTING',
+  CONNECTED = 'CONNECTED',
+  DISCONNECTING = 'DISCONNECTING',
 }
 
 export type TWalletInfo = {
