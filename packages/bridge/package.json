@@ -1,5 +1,5 @@
 {
-  "name": "@aelf-web-login/bridge",
+  "name": "@aelf-web-login/wallet-adapter-bridge",
   "version": "0.0.1",
   "type": "module",
   "main": "dist/esm/index.js",
@@ -36,7 +36,9 @@
     "@portkey/detect-provider": "^2.0.0-alpha.5",
     "@portkey/provider-types": "^2.0.0-alpha.5",
     "@portkey/did-ui-react": "^2.0.0-alpha.28",
-    "aelf-sdk": "^3.3.0"
+    "aelf-sdk": "^3.3.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "father": "^4.3.8",

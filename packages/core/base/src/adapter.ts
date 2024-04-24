@@ -1,6 +1,5 @@
 import EventEmitter from 'eventemitter3';
 
-import { WalletError } from './errors';
 import {
   ICallContractParams,
   LoginStateEnum,
@@ -13,11 +12,11 @@ import {
 export { EventEmitter };
 
 export interface IWalletAdapterEvents {
-  loggedIn(): void;
-  logout(): void;
+  connected(): void;
+  disconnected(): void;
   lock(): void;
   readyStateChange(readyState: WalletStateEnum): void;
-  error(error: WalletError): void;
+  error(error: Error): void;
 }
 
 export type WalletName<T extends string = string> = T & { __brand__: 'WalletName' };

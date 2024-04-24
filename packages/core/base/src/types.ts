@@ -15,13 +15,15 @@ export enum LoginStateEnum {
   DISCONNECTING = 'DISCONNECTING',
 }
 
-export type TWalletInfo = {
-  name?: string;
-  address: string;
-  extraInfo?: {
-    [key: string]: any;
-  };
-};
+export type TWalletInfo =
+  | {
+      name?: string;
+      address: string;
+      extraInfo?: {
+        [key: string]: any;
+      };
+    }
+  | undefined;
 
 export type TChainId = 'AELF' | 'tDVV' | 'tDVW';
 
