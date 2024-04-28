@@ -43,25 +43,27 @@ const a = {
   networkType: NETWORK,
 } as GlobalConfigProps;
 ConfigProvider.setGlobalConfig(a);
-const DemoButton = (props: any) => {
-  const { bridgeInstance } = props;
-  const [isShow, setIsSHow] = useState(false);
-  const [count, setCount] = useState(0);
-  const ref = useRef(0);
-  ref.current = count;
 
-  function handleOnClick() {
-    console.log('Button onClick');
-    setIsSHow(!isShow);
-  }
-  useEffect(() => {
-    const r = setInterval(() => {
-      setCount(ref.current + 1);
-    }, 2000);
-    return () => {
-      clearInterval(r);
-    };
-  }, []);
+const DemoButton = (props: any) => {
+  const { bridgeInstance, wallets } = props;
+  const [isShow, setIsSHow] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  bridgeInstance.openSignInModal = () => {
+    setIsSHow(true);
+  };
+
+  bridgeInstance.closeSignIModal = () => {
+    setIsSHow(false);
+  };
+
+  bridgeInstance.openLoadingModal = () => {
+    setLoading(true);
+  };
+
+  bridgeInstance.closeLoadingModal = () => {
+    setLoading(false);
+  };
 
   return (
     <PortkeyProvider networkType="TESTNET" theme="dark">
@@ -77,9 +79,12 @@ const DemoButton = (props: any) => {
             uiType="Full"
             design={'CryptoDesign'}
             isShowScan
-            extraElementList={[<div onClick={bridgeInstance.connect}>login</div>]}
+            extraElementList={wallets.map((item) => (
+              <div onClick={() => bridgeInstance.onEOAClick(item.name)}>{item.name}</div>
+            ))}
             onCancel={() => {
-              console.log('onCancel');
+              console.log(11);
+              setIsSHow(false);
             }}
             onError={() => {
               console.log('onErrorInternal');
@@ -94,9 +99,11 @@ const DemoButton = (props: any) => {
           />
         </CommonBaseModal>
 
-        <button type="button" onClick={handleOnClick} {...props}>
+        <PortkeyLoading loading={loading} />
+
+        {/* <button type="button" onClick={handleOnClick} {...props}>
           hi open
-        </button>
+        </button> */}
       </div>
     </PortkeyProvider>
   );

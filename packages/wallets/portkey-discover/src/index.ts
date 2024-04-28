@@ -1,25 +1,20 @@
 import {
   BaseWalletAdapter,
   LoginStateEnum,
-  scopePollingDetectionStrategy,
-  TChainId,
+  makeError,
+  ERR_CODE,
+  ERR_CODE_MSG,
   TWalletInfo,
-  WalletConnectionError,
   WalletName,
-  WalletNotReadyError,
   WalletStateEnum,
 } from '@aelf-web-login/wallet-adapter-base';
-import { Accounts, IPortkeyProvider } from '@portkey/provider-types';
-
+import { Accounts, IPortkeyProvider, NetworkType } from '@portkey/provider-types';
+import { ChainId } from '@portkey/types';
 import detectDiscoverProvider from './detectProvider';
 
-interface PortkeyDiscoverWindow extends Window {
-  portkeyDiscover?: any;
+export interface PortkeyDiscoverWalletAdapterConfig {
+  networkType: NetworkType;
 }
-
-declare const window: PortkeyDiscoverWindow;
-
-export interface PortkeyDiscoverWalletAdapterConfig {}
 
 export const PortkeyDiscoverName = 'PortkeyDiscover' as WalletName<'PortkeyDiscover'>;
 
@@ -30,16 +25,19 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
 
   private _loginState: LoginStateEnum;
   private _wallet: TWalletInfo | null;
-  private _readyState: WalletStateEnum = WalletStateEnum.NotDetected;
+  private _readyState: WalletStateEnum;
   private _detectProvider: IPortkeyProvider | null;
-  private _chainId: TChainId = 'AELF';
+  private _chainId: ChainId;
+  private _config: PortkeyDiscoverWalletAdapterConfig;
 
-  constructor(config: PortkeyDiscoverWalletAdapterConfig = {}) {
+  constructor(config: PortkeyDiscoverWalletAdapterConfig) {
     super();
     this._loginState = LoginStateEnum.INITIAL;
     this._wallet = null;
+    this._readyState = WalletStateEnum.NotDetected;
     this._detectProvider = null;
-
+    this._chainId = 'AELF';
+    this._config = config;
     this.detect();
   }
 
@@ -57,20 +55,22 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
 
   private async detect(): Promise<IPortkeyProvider> {
     if (this._detectProvider?.isConnected()) {
+      this._readyState = WalletStateEnum.Detected;
       this.emit('readyStateChange', WalletStateEnum.Detected);
       return this._detectProvider;
     }
-    this._detectProvider = await detectDiscoverProvider('v2');
+    this._detectProvider = await detectDiscoverProvider();
     if (this._detectProvider) {
       if (!this._detectProvider.isPortkey) {
         this.emit('readyStateChange', WalletStateEnum.NotDetected);
-        throw new WalletNotReadyError();
+        throw new Error('Discover provider found, but check isPortkey failed');
       }
+      this._readyState = WalletStateEnum.Detected;
       this.emit('readyStateChange', WalletStateEnum.Detected);
       return this._detectProvider;
     } else {
       this.emit('readyStateChange', WalletStateEnum.NotDetected);
-      throw new WalletNotReadyError();
+      throw new Error('Discover provider not found');
     }
   }
 
@@ -85,7 +85,6 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     } catch (error) {
       console.warn(error);
     }
-    localStorage.setItem('connectedWallet', this.name);
     this._wallet = {
       address,
       extraInfo: {
@@ -94,42 +93,55 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
         provider,
       },
     };
+    console.log('_wallet', this._wallet);
     this._loginState = LoginStateEnum.CONNECTED;
-    this.emit('loggedIn');
+    this.emit('connected');
     return this._wallet;
   }
 
+  private onAccountsFail(err: any) {
+    this._loginState = LoginStateEnum.INITIAL;
+    throw err;
+  }
+
   async login(): Promise<TWalletInfo> {
-    console.log('login');
     try {
+      console.log('login, this._readyState=', this._readyState);
       if (
         this._loginState === LoginStateEnum.CONNECTING ||
         this._loginState === LoginStateEnum.CONNECTED
-      )
-        throw new WalletConnectionError();
-      if (this._readyState !== WalletStateEnum.Detected) throw new WalletNotReadyError();
-      if (!this._detectProvider) throw new WalletNotReadyError();
+      ) {
+        return;
+      }
+      if (this._readyState !== WalletStateEnum.Detected || !this._detectProvider) {
+        throw new Error(ERR_CODE_MSG[ERR_CODE.UNKNOWN]);
+      }
 
       const provider = this._detectProvider;
       const chainId = this._chainId;
 
       this._loginState = LoginStateEnum.CONNECTING;
 
+      const network = await provider.request({ method: 'network' });
+      console.log('network', network);
+      if (network !== this._config.networkType) {
+        this.onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
+      }
+
       let accounts = await provider.request({ method: 'accounts' });
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
-        const rs = await this.onAccountsSuccess(provider, accounts);
-        return rs;
+        return await this.onAccountsSuccess(provider, accounts);
       }
       accounts = await provider.request({ method: 'requestAccounts' });
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
-        const rs = await this.onAccountsSuccess(provider, accounts);
-        return rs;
+        return await this.onAccountsSuccess(provider, accounts);
+      } else {
+        this.onAccountsFail(makeError(ERR_CODE.ACCOUNTS_IS_EMPTY));
+        return;
       }
-      return null as unknown as TWalletInfo;
     } catch (error: any) {
       this.emit('error', error);
-      throw error;
-    } finally {
+      return;
     }
   }
 }

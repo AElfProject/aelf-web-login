@@ -16,7 +16,12 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@aelf-web-login/wallet-adapter-night-elf": ["./packages/wallets/night-elf/src/index.ts"]
+      "@aelf-web-login/wallet-adapter-night-elf": ["./packages/wallets/night-elf/src/index.ts"],
+      "@aelf-web-login/wallet-adapter-base": ["./packages/core/base/src/index.ts"],
+      "@aelf-web-login/wallet-adapter-bridge": ["./packages/bridge/src/index.ts"],
+      "@aelf-web-login/wallet-adapter-portkey-discover": [
+        "./packages/wallets/portkey-discover/src/index.ts"
+      ]
     }
   }
 }
