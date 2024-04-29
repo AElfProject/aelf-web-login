@@ -10,6 +10,7 @@ import {
 } from './types';
 
 export { EventEmitter };
+export const ConnectedWallet = 'connectedWallet';
 
 export interface IWalletAdapterEvents {
   connected(): void;
@@ -29,16 +30,16 @@ export interface IWalletAdapter<Name extends string = string> {
   wallet: TWalletInfo;
 
   login(): Promise<TWalletInfo>;
-  // logOut(): Promise<void>;
-  // loginEagerly(): Promise<boolean>;
+  logout(): void;
+  loginEagerly(): Promise<boolean>;
   // getAccounts(chainId: TChainId): Promise<string>;
   // callContract<T, R>(params: ICallContractParams<T>): Promise<R>;
-  // getSignature(params: TSignatureParams): Promise<{
-  //   error: number;
-  //   errorMessage: string;
-  //   signature: string;
-  //   from: string;
-  // }>;
+  getSignature(params: TSignatureParams): Promise<{
+    error: number;
+    errorMessage: string;
+    signature: string;
+    from: string;
+  }>;
 }
 
 export type WalletAdapter<Name extends string = string> = IWalletAdapter<Name> &
@@ -55,16 +56,16 @@ export abstract class BaseWalletAdapter<Name extends string = string>
   abstract wallet: TWalletInfo;
 
   abstract login(): Promise<TWalletInfo>;
-  // abstract logOut(): Promise<void>;
-  // abstract loginEagerly(): Promise<boolean>;
+  abstract logout(): void;
+  abstract loginEagerly(): Promise<boolean>;
   // abstract getAccounts(chainId: TChainId): Promise<string>;
   // abstract callContract<T, R>(params: ICallContractParams<T>): Promise<R>;
-  // abstract getSignature(params: TSignatureParams): Promise<{
-  //   error: number;
-  //   errorMessage: string;
-  //   signature: string;
-  //   from: string;
-  // }>;
+  abstract getSignature(params: TSignatureParams): Promise<{
+    error: number;
+    errorMessage: string;
+    signature: string;
+    from: string;
+  }>;
 }
 
 export function scopePollingDetectionStrategy(detect: () => boolean): void {
