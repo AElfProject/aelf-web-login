@@ -220,6 +220,12 @@ importers:
       '@portkey/provider-types':
         specifier: ^2.0.0-alpha.5
         version: 2.1.0
+      '@types/bn.js':
+        specifier: ^5.1.5
+        version: 5.1.5
+      bn.js:
+        specifier: ^5.2.1
+        version: 5.2.1
     devDependencies:
       '@portkey/request':
         specifier: 2.0.0-alpha.28
@@ -4694,6 +4700,12 @@ packages:
     dependencies:
       '@babel/types': 7.24.0
     dev: true
+
+  /@types/bn.js@5.1.5:
+    resolution: {integrity: sha512-V46N0zwKRF5Q00AZ6hWtN0T8gGmDUaUzLWQvHFo5yThtVwK/VCenFY3wXVbOvNfajEpsTfQM4IN9k/d6gUVX3A==}
+    dependencies:
+      '@types/node': 20.12.7
+    dev: false
 
   /@types/debug@4.1.12:
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}

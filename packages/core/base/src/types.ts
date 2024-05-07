@@ -27,6 +27,9 @@ export type TWalletInfo =
 
 export type TChainId = 'AELF' | 'tDVV' | 'tDVW';
 
+/**
+ * getSignature
+ */
 export type TSignatureParams = {
   appName: string;
   address: string;
