@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
+import { WalletAdapter } from '@aelf-web-login/wallet-adapter-base';
+import { Bridge } from './bridge';
 import {
   CommonBaseModal,
   ConfigProvider,
@@ -44,7 +46,12 @@ const a = {
 } as GlobalConfigProps;
 ConfigProvider.setGlobalConfig(a);
 
-const DemoButton = (props: any) => {
+interface IProps {
+  bridgeInstance: Bridge;
+  wallets: WalletAdapter[];
+}
+
+const DemoButton = (props: IProps) => {
   const { bridgeInstance, wallets } = props;
   const [isShow, setIsSHow] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -80,7 +87,9 @@ const DemoButton = (props: any) => {
             design={'CryptoDesign'}
             isShowScan
             extraElementList={wallets.map((item) => (
-              <div onClick={() => bridgeInstance.onEOAClick(item.name)}>{item.name}</div>
+              <div key={item.name} onClick={() => bridgeInstance.onUniqueWalletClick(item.name)}>
+                {item.name}
+              </div>
             ))}
             onCancel={() => {
               console.log(11);

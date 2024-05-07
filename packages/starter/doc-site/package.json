@@ -50,16 +50,18 @@
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
+  "dependencies": {
+    "@aelf-web-login/wallet-adapter-react": "workspace:*",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
   "devDependencies": {
-    "@aelf-web-login/wallet-adapter-night-elf": "workspace:*",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@umijs/lint": "^4.0.0",
     "dumi": "^2.2.13",
     "eslint": "^8.23.0",
     "father": "^4.1.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
     "stylelint": "^14.9.1",
     "glob": "^10.3.12",
     "aelf-design": "^1.0.0-alpha.15"

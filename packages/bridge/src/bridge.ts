@@ -1,4 +1,5 @@
 import { TWalletInfo, WalletAdapter, ConnectedWallet } from '@aelf-web-login/wallet-adapter-base';
+import { setWalletInfo, clearWalletInfo, dispatch } from './store';
 
 class Bridge {
   private _wallets: WalletAdapter[];
@@ -48,9 +49,9 @@ class Bridge {
     localStorage.setItem(ConnectedWallet, this.activeWallet!.name);
   };
 
-  // TODO: how to clear walletInfo after logout
   onDisConnectedHandler = () => {
     localStorage.removeItem(ConnectedWallet);
+    dispatch(clearWalletInfo());
   };
 
   onConnectErrorHandler = (err: any) => {
@@ -64,6 +65,7 @@ class Bridge {
     if (!this.activeWallet) {
       return;
     }
+    // TODO: put them into a list for loop
     this.activeWallet.on('connected', this.onConnectedHandler);
     this.activeWallet.on('disconnected', this.onDisConnectedHandler);
     this.activeWallet.on('error', this.onConnectErrorHandler);
@@ -87,7 +89,7 @@ class Bridge {
 
   closeLoadingModal() {}
 
-  onEOAClick = async (name: string) => {
+  onUniqueWalletClick = async (name: string) => {
     try {
       this.openLoadingModal();
       this._activeWallet = this._wallets.find((ele) => ele.name === name);
@@ -95,6 +97,7 @@ class Bridge {
       this.bindEvents();
       const walletInfo = await this._activeWallet?.login();
       this._loginResolve(walletInfo);
+      dispatch(setWalletInfo(walletInfo));
     } catch (e) {
       console.log('onEOAClickError', e);
     } finally {

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button } from 'aelf-design';
-import { TWalletInfo } from '@aelf-web-login/wallet-adapter-base';
-import { init } from '@aelf-web-login/wallet-adapter-bridge';
 import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-discover';
+import { WebLoginProvider, init, useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 const config = {
   wallets: [
@@ -18,40 +17,56 @@ const config = {
   ],
 };
 
-const { connect, disConnect } = init(config);
-
 const Demo = () => {
-  const [walletInfo, setWalletInfo] = React.useState<TWalletInfo>({} as TWalletInfo);
+  const { connectWallet, disConnectWallet, connecting, stateFromStore } = useConnectWallet();
+
+  console.log('walletInfo----------:', stateFromStore);
   const onConnectBtnClickHandler = async () => {
     // connect().then((rs) => {
     //   setWalletInfo(rs);
     // });
-    const rs = await connect();
-    setWalletInfo(rs);
+    const rs = await connectWallet();
+    console.log('rs', rs);
   };
 
   const onDisConnectBtnClickHandler = () => {
-    disConnect();
-    setWalletInfo({} as TWalletInfo);
+    disConnectWallet();
   };
   return (
     <div>
-      <Button type="primary" onClick={onConnectBtnClickHandler}>
+      <Button
+        type="primary"
+        onClick={onConnectBtnClickHandler}
+        disabled={connecting || !!stateFromStore.walletInfo}
+      >
         connect
       </Button>
       <div>
         walletInfo:
-        <pre>{JSON.stringify(walletInfo, null, 4)}</pre>
+        <pre>{JSON.stringify(stateFromStore.walletInfo, null, 4)}</pre>
       </div>
       <div>
         walletType:
         {localStorage.getItem('connectedWallet')}
       </div>
-      <Button type="primary" onClick={onDisConnectBtnClickHandler}>
+      <Button
+        type="primary"
+        onClick={onDisConnectBtnClickHandler}
+        disabled={!stateFromStore.walletInfo}
+      >
         disConnect
       </Button>
     </div>
   );
 };
 
-export default Demo;
+const App = () => {
+  const bridgeAPI = init(config);
+  return (
+    <WebLoginProvider bridgeAPI={bridgeAPI}>
+      <Demo />
+    </WebLoginProvider>
+  );
+};
+
+export default App;

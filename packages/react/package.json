@@ -1,5 +1,5 @@
 {
-  "name": "@aelf-web-login/wallet-adapter-bridge",
+  "name": "@aelf-web-login/wallet-adapter-react",
   "version": "0.0.1",
   "type": "module",
   "main": "dist/esm/index.js",
@@ -25,9 +25,7 @@
     "build": "father build"
   },
   "dependencies": {
-    "@aelf-web-login/wallet-adapter-base": "workspace:*",
-    "@portkey/did-ui-react": "^2.0.0-alpha.28",
-    "@reduxjs/toolkit": "^2.2.3",
+    "@aelf-web-login/wallet-adapter-bridge": "workspace:*",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },

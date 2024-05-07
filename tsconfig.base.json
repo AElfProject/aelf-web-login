@@ -21,7 +21,8 @@
       "@aelf-web-login/wallet-adapter-bridge": ["./packages/bridge/src/index.ts"],
       "@aelf-web-login/wallet-adapter-portkey-discover": [
         "./packages/wallets/portkey-discover/src/index.ts"
-      ]
+      ],
+      "@aelf-web-login/wallet-adapter-react": ["./packages/react/src/index.tsx"]
     }
   }
 }

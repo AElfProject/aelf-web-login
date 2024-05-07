@@ -259,19 +259,17 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
   }
 
   private listenProviderEvents() {
-    console.log('onDisconnected---', this._detectProvider);
     if (!this._detectProvider) {
       return;
     }
     const onDisconnected = (error: ProviderError) => {
-      console.log('onDisconnected1', error);
+      console.log('onDisconnected', error);
       if (!this._wallet) return;
       if (this._config.autoLogoutOnDisconnected) {
         this.logout();
       }
     };
     const onNetworkChanged = (networkType: NetworkType) => {
-      console.log('onDisconnected2');
       if (networkType !== this._config.networkType) {
         if (this._config.autoLogoutOnNetworkMismatch) {
           this.logout();
@@ -279,7 +277,6 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
       }
     };
     const onAccountsChanged = (accounts: Accounts) => {
-      console.log('onDisconnected3');
       if (!this._wallet) return;
       const chainId = this._chainId;
       if (
@@ -293,7 +290,6 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
       }
     };
     const onChainChanged = (chainIds: ChainIds) => {
-      console.log('onDisconnected4');
       if (chainIds.find((id) => id === this._chainId)) {
         if (this._config.autoLogoutOnChainMismatch) {
           this.logout();
@@ -308,7 +304,6 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
       chainChanged: onChainChanged,
     };
     (Object.keys(discoverEventsMap) as TDiscoverEventsKeys).forEach((ele) => {
-      console.log('onDisconnected', this._detectProvider, ele);
       this._detectProvider?.on(ele, discoverEventsMap[ele]);
     });
   }

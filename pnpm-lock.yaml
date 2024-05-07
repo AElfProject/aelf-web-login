@@ -83,18 +83,12 @@ importers:
       '@aelf-web-login/wallet-adapter-base':
         specifier: workspace:*
         version: link:../core/base
-      '@portkey/detect-provider':
-        specifier: ^2.0.0-alpha.5
-        version: 2.1.0
       '@portkey/did-ui-react':
         specifier: ^2.0.0-alpha.28
-        version: 2.4.5(aelf-sdk@3.4.8)(i18next@23.11.2)(react-dom@18.2.0)(react@18.2.0)
-      '@portkey/provider-types':
-        specifier: ^2.0.0-alpha.5
-        version: 2.1.0
-      aelf-sdk:
-        specifier: ^3.3.0
-        version: 3.4.8
+        version: 2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(i18next@23.11.2)(react-dom@18.2.0)(react@18.2.0)
+      '@reduxjs/toolkit':
+        specifier: ^2.2.3
+        version: 2.2.3(react@18.2.0)
       react:
         specifier: ^18.0.0
         version: 18.2.0
@@ -102,24 +96,15 @@ importers:
         specifier: ^18.0.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
-      '@portkey/request':
-        specifier: 2.0.0-alpha.28
-        version: 2.0.0-alpha.28
-      '@portkey/services':
-        specifier: 2.0.0-alpha.28
-        version: 2.0.0-alpha.28(@portkey/graphql@1.5.3)(@portkey/request@2.0.0-alpha.28)(@portkey/types@2.0.0-alpha.28)(aelf-sdk@3.4.8)(query-string@7.1.3)
-      '@portkey/types':
-        specifier: 2.0.0-alpha.28
-        version: 2.0.0-alpha.28
-      '@portkey/utils':
-        specifier: 2.0.0-alpha.28
-        version: 2.0.0-alpha.28(aelf-sdk@3.4.8)(query-string@7.1.3)
+      '@types/react':
+        specifier: ^18.3.1
+        version: 18.3.1
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.0
       father:
         specifier: ^4.3.8
         version: 4.4.0(@babel/core@7.24.4)(styled-components@6.1.8)(webpack@5.91.0)
-      glob:
-        specifier: ^10.3.10
-        version: 10.3.12
       typescript:
         specifier: ^5.3.3
         version: 5.4.5
@@ -434,7 +419,7 @@ packages:
     resolution: {integrity: sha512-gFPqTG7otEJ8uP6wrhDv6mqwGWYZKNvAcCq6u9hOj0c+IKCEsY4L1oC9trPq2SaWIzAfHvqfBDxF591JkMf+kg==}
     dev: true
 
-  /@apollo/client@3.9.11(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)(subscriptions-transport-ws@0.11.0):
+  /@apollo/client@3.9.11(@types/react@18.3.1)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)(subscriptions-transport-ws@0.11.0):
     resolution: {integrity: sha512-H7e9m7cRcFO93tokwzqrsbnfKorkpV24xU30hFH5u2g6B+c1DMo/ouyF/YrBPdrTzqxQCjTUmds/FLmJ7626GA==}
     peerDependencies:
       graphql: ^15.0.0 || ^16.0.0
@@ -463,7 +448,7 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      rehackt: 0.0.6(react@18.2.0)
+      rehackt: 0.0.6(@types/react@18.3.1)(react@18.2.0)
       response-iterator: 0.2.6
       subscriptions-transport-ws: 0.11.0(graphql@16.8.1)
       symbol-observable: 4.0.0
@@ -3300,7 +3285,7 @@ packages:
       '@portkey/provider-types': 2.1.0
     dev: false
 
-  /@portkey/did-ui-react@2.4.5(aelf-sdk@3.4.8)(i18next@23.11.2)(react-dom@18.2.0)(react@18.2.0):
+  /@portkey/did-ui-react@2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(i18next@23.11.2)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-WUlxJbC1QydeucHQwPkkhOBFQ0voq2Im677O4fEU3b+MCMp4Csen/xFRCM+9BTXUhr24gbqSCqhSFDfvrIXRMg==}
     peerDependencies:
       aelf-sdk: ^3.4.7
@@ -3310,12 +3295,12 @@ packages:
       '@matt-block/react-recaptcha-v2': 2.0.1(react@18.2.0)
       '@portkey/accounts': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
       '@portkey/contracts': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
-      '@portkey/did': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0)
-      '@portkey/graphql': 2.4.5(react-dom@18.2.0)(react@18.2.0)
+      '@portkey/did': 2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0)
+      '@portkey/graphql': 2.4.5(@types/react@18.3.1)(react-dom@18.2.0)(react@18.2.0)
       '@portkey/onboarding': 2.4.5(aelf-sdk@3.4.8)
       '@portkey/ramp': 2.4.5(aelf-sdk@3.4.8)
       '@portkey/request': 2.4.5
-      '@portkey/services': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0)
+      '@portkey/services': 2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0)
       '@portkey/socket': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
       '@portkey/types': 2.4.5
       '@portkey/utils': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
@@ -3346,7 +3331,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@portkey/did@2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0):
+  /@portkey/did@2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-AW/qDRS5ecJ8LdBcWdVDEo09dnHCCYhYu0jBQaOFhTQh2BUsNbWZlcf7jGhYT4ixBraDhULfbCUxSY6sMz0vkQ==}
     peerDependencies:
       aelf-sdk: ^3.4.7
@@ -3354,9 +3339,9 @@ packages:
     dependencies:
       '@portkey/accounts': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
       '@portkey/contracts': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
-      '@portkey/graphql': 2.4.5(react-dom@18.2.0)(react@18.2.0)
+      '@portkey/graphql': 2.4.5(@types/react@18.3.1)(react-dom@18.2.0)(react@18.2.0)
       '@portkey/request': 2.4.5
-      '@portkey/services': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0)
+      '@portkey/services': 2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0)
       '@portkey/types': 2.4.5
       '@portkey/utils': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
       aelf-sdk: 3.4.8
@@ -3375,7 +3360,7 @@ packages:
     peerDependencies:
       '@portkey/types': ^1.5.1
     dependencies:
-      '@apollo/client': 3.9.11(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)(subscriptions-transport-ws@0.11.0)
+      '@apollo/client': 3.9.11(@types/react@18.3.1)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)(subscriptions-transport-ws@0.11.0)
       '@portkey/types': 2.0.0-alpha.28
       graphql: 16.8.1
       subscriptions-transport-ws: 0.11.0(graphql@16.8.1)
@@ -3388,10 +3373,10 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@portkey/graphql@2.4.5(react-dom@18.2.0)(react@18.2.0):
+  /@portkey/graphql@2.4.5(@types/react@18.3.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-OSCXY5Mvd+sGSNB8kdUPaPFK1Iykq7dMcMxk8c2vksIUDs1Onj6MX23gCeH1yGf7yzCt5FDj2c0KU5NOGrTt3Q==}
     dependencies:
-      '@apollo/client': 3.9.11(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)(subscriptions-transport-ws@0.11.0)
+      '@apollo/client': 3.9.11(@types/react@18.3.1)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)(subscriptions-transport-ws@0.11.0)
       '@portkey/types': 2.4.5
       graphql: 16.8.1
       subscriptions-transport-ws: 0.11.0(graphql@16.8.1)
@@ -3468,13 +3453,13 @@ packages:
       query-string: 7.1.3
     dev: true
 
-  /@portkey/services@2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0):
+  /@portkey/services@2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-y5E8Lb9VBb4nC2a560PtqsVK/OEKbHEgYfXNxpHsm9jQWno8PqVvM031BSui2YlduOF7JZYQ90/BCIkILcnIdw==}
     peerDependencies:
       aelf-sdk: ^3.4.7
       query-string: ^7.1.1
     dependencies:
-      '@portkey/graphql': 2.4.5(react-dom@18.2.0)(react@18.2.0)
+      '@portkey/graphql': 2.4.5(@types/react@18.3.1)(react-dom@18.2.0)(react@18.2.0)
       '@portkey/request': 2.4.5
       '@portkey/types': 2.4.5
       aelf-sdk: 3.4.8
@@ -3735,6 +3720,24 @@ packages:
       '@react-spring/types': 9.6.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@reduxjs/toolkit@2.2.3(react@18.2.0):
+    resolution: {integrity: sha512-76dll9EnJXg4EVcI5YNxZA/9hSAmZsFqzMmNRHvIlzw2WS/twfcVX3ysYrWGJMClwEmChQFC4yRq74tn6fdzRA==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.0 || ^18
+      react-redux: ^7.2.1 || ^8.1.3 || ^9.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-redux:
+        optional: true
+    dependencies:
+      immer: 10.1.1
+      react: 18.2.0
+      redux: 5.0.1
+      redux-thunk: 3.1.0(redux@5.0.1)
+      reselect: 5.1.0
     dev: false
 
   /@rollup/rollup-android-arm-eabi@4.16.4:
@@ -4870,8 +4873,20 @@ packages:
       '@types/react': 18.2.79
     dev: true
 
+  /@types/react-dom@18.3.0:
+    resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
+    dependencies:
+      '@types/react': 18.3.1
+    dev: true
+
   /@types/react@18.2.79:
     resolution: {integrity: sha512-RwGAGXPl9kSXwdNTafkOEuFrTBD5SA2B3iEB96xi8+xu5ddUa/cpvyVCSNn+asgLCTHkb5ZxN8gbuibYJi4s1w==}
+    dependencies:
+      '@types/prop-types': 15.7.12
+      csstype: 3.1.3
+
+  /@types/react@18.3.1:
+    resolution: {integrity: sha512-V0kuGBX3+prX+DQ/7r2qsv1NsdfnCLnTgnRJ1pYnxykBhGMz+qj+box5lq7XsO5mtZsBqpjwwTu/7wszPfMBcw==}
     dependencies:
       '@types/prop-types': 15.7.12
       csstype: 3.1.3
@@ -10441,6 +10456,10 @@ packages:
       queue: 6.0.1
     dev: true
 
+  /immer@10.1.1:
+    resolution: {integrity: sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==}
+    dev: false
+
   /immutable@4.3.5:
     resolution: {integrity: sha512-8eabxkth9gZatlwl5TBuJnCsoTADlL6ftEr7A4qgdaTsPyreilDSnUk57SO+jfKcNtxPa22U5KK6DSeAYhpBJw==}
     dev: true
@@ -15380,6 +15399,18 @@ packages:
       strip-indent: 3.0.0
     dev: true
 
+  /redux-thunk@3.1.0(redux@5.0.1):
+    resolution: {integrity: sha512-NW2r5T6ksUKXCabzhL9z+h206HQw/NJkcLm1GPImRQ8IzfXwRGqjVhKJGauHirT0DAuyy6hjdnMZaRoAcy0Klw==}
+    peerDependencies:
+      redux: ^5.0.0
+    dependencies:
+      redux: 5.0.1
+    dev: false
+
+  /redux@5.0.1:
+    resolution: {integrity: sha512-M9/ELqF6fy8FwmkpnF0S3YKOqMyoWJ4+CS5Efg2ct3oY9daQvd/Pc71FpGZsVsbl3Cpb+IIcjBDUnnyBdQbq4w==}
+    dev: false
+
   /reflect.getprototypeof@1.0.6:
     resolution: {integrity: sha512-fmfw4XgoDke3kdI6h4xcUz1dG8uaiv5q9gcEwLS4Pnth2kxT+GZ7YehS1JTMGBQmtV7Y4GFGbs2re2NqhdozUg==}
     engines: {node: '>= 0.4'}
@@ -15435,7 +15466,7 @@ packages:
       rc: 1.2.8
     dev: true
 
-  /rehackt@0.0.6(react@18.2.0):
+  /rehackt@0.0.6(@types/react@18.3.1)(react@18.2.0):
     resolution: {integrity: sha512-l3WEzkt4ntlEc/IB3/mF6SRgNHA6zfQR7BlGOgBTOmx7IJJXojDASav+NsgXHFjHn+6RmwqsGPFgZpabWpeOdw==}
     peerDependencies:
       '@types/react': '*'
@@ -15446,6 +15477,7 @@ packages:
       react:
         optional: true
     dependencies:
+      '@types/react': 18.3.1
       react: 18.2.0
 
   /rehype-autolink-headings@6.1.1:
@@ -15581,6 +15613,10 @@ packages:
   /reselect@4.1.8:
     resolution: {integrity: sha512-ab9EmR80F/zQTMNeneUr4cv+jSwPJgIlvEmVwLerwrWVbpLlBuls9XHzIeTFy4cegU2NHBp3va0LKOzU5qFEYQ==}
     dev: true
+
+  /reselect@5.1.0:
+    resolution: {integrity: sha512-aw7jcGLDpSgNDyWBQLv2cedml85qd95/iszJjN988zX1t7AVRJi19d9kto5+W7oCfQ94gyo40dVbT6g2k4/kXg==}
+    dev: false
 
   /resize-observer-polyfill@1.5.1:
     resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
