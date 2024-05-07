@@ -161,3 +161,31 @@ const onClickLogin = () => {
   loading={loginState === WebLoginState.logining}
 />
 ```
+
+### 3.Run the demo
+
+First you need to run aelf-web-login in development mode. This can be done using the following methods:
+
+npm: `npm run login:dev`
+
+yarn: `yarn run login:dev`
+
+pnpm: `pnpm run login:dev`
+
+Then you can run demo project.This can be done using the following methods:
+
+npm: `npm run example`
+
+yarn: `yarn run example`
+
+pnpm: `pnpm run example`
+
+### 4.Publish
+
+Authorized individuals can publish to npm.This can be done using the following methods:
+
+npm: `npm run login:pub`
+
+yarn: `yarn run login:pub`
+
+pnpm: `pnpm run login:pub`
