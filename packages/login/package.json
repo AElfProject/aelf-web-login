@@ -1,0 +1,98 @@
+{
+  "name": "aelf-web-login",
+  "version": "2.0.1-beta.9",
+  "main": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": "./dist/esm/index.js",
+    "./dist/assets/index.css": "./dist/assets/index.css"
+  },
+  "type": "module",
+  "module": "./dist/esm/index.js",
+  "keywords": [
+    "antd",
+    "portkey"
+  ],
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AElf-devops/aelf-web-login.git",
+    "directory": "packages/login"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "start": "tsc --watch",
+    "lint": "eslint . --ext .tsx,.ts",
+    "lint:md": "remark . -f -q",
+    "dev": "mkdir -p dist/assets/fonts && cp -r ./assets/fonts dist/assets & yarn run dev:tsc & yarn run dev:types & yarn run dev:css",
+    "dev:tsc": "tsc --p tsconfig.esm.json --watch",
+    "dev:types": "tsc --emitDeclarationOnly --p tsconfig.types.json --watch",
+    "dev:css": "lessc-watcher --src ./assets/index.less --dst ./dist/assets/index.css",
+    "build:clean": "rm -rf dist",
+    "build:types": "tsc --emitDeclarationOnly --p tsconfig.types.json",
+    "build:tsc": "tsc --p tsconfig.esm.json",
+    "build:cjs": "tsc --p tsconfig.cjs.json",
+    "build:umd": "rollup --silent --config rollup.config.js",
+    "build": "yarn run build:clean; yarn run build:types && yarn run build:tsc && yarn run build:umd && yarn run build:css",
+    "build:css": "lessc ./assets/index.less dist/assets/index.css",
+    "release": "npm version && yarn run build",
+    "pub": "npm run build && npm publish"
+  },
+  "dependencies": {
+    "@aelf-react/core": "^0.1.19",
+    "@portkey/detect-provider": "2.0.0-alpha.5",
+    "@portkey/provider-types": "2.0.0-alpha.5",
+    "@types/bn.js": "^5.1.3",
+    "aelf-bridge": "^0.0.10",
+    "aelf-sdk": "^3.3.0",
+    "ahooks": "^3.7.7",
+    "antd": "^4.24.4",
+    "bn.js": "^5.2.1",
+    "clsx": "^2.1.0",
+    "lessc-watcher": "^1.2.2",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@portkey-v1/contracts": "1.5.4-alpha.22",
+    "@portkey-v1/did-ui-react": "1.5.4-alpha.22",
+    "@portkey-v1/request": "1.5.4-alpha.22",
+    "@portkey-v1/services": "1.5.4-alpha.22",
+    "@portkey-v1/types": "1.5.4-alpha.22",
+    "@portkey-v1/utils": "1.5.4-alpha.22",
+    "@portkey/contracts": "2.0.0-alpha.28",
+    "@portkey/did-ui-react": "2.0.0-alpha.28",
+    "@portkey/request": "2.0.0-alpha.28",
+    "@portkey/services": "2.0.0-alpha.28",
+    "@portkey/types": "2.0.0-alpha.28",
+    "@portkey/utils": "2.0.0-alpha.28",
+    "@types/uuid": "^8.3.4",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "less": "^4.1.3"
+  },
+  "peerDependencies": {
+    "@portkey-v1/contracts": "1.5.4-alpha.22",
+    "@portkey-v1/did-ui-react": "1.5.4-alpha.22",
+    "@portkey-v1/request": "1.5.4-alpha.22",
+    "@portkey-v1/services": "1.5.4-alpha.22",
+    "@portkey-v1/types": "1.5.4-alpha.22",
+    "@portkey-v1/utils": "1.5.4-alpha.22",
+    "@portkey/contracts": "2.0.0-alpha.28",
+    "@portkey/did-ui-react": "2.0.0-alpha.28",
+    "@portkey/request": "2.0.0-alpha.28",
+    "@portkey/services": "2.0.0-alpha.28",
+    "@portkey/types": "2.0.0-alpha.28",
+    "@portkey/utils": "2.0.0-alpha.28"
+  },
+  "engines": {
+    "node": ">=18.12.0"
+  }
+}
