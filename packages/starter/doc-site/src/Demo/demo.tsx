@@ -18,7 +18,8 @@ const config = {
 };
 
 const Demo = () => {
-  const { connectWallet, disConnectWallet, connecting, stateFromStore } = useConnectWallet();
+  const { connectWallet, disConnectWallet, connecting, stateFromStore, loginState } =
+    useConnectWallet();
 
   console.log('walletInfo----------:', stateFromStore);
   const onConnectBtnClickHandler = async () => {
@@ -41,6 +42,7 @@ const Demo = () => {
       >
         connect
       </Button>
+      <div>loginState:{loginState}</div>
       <div>
         walletInfo:
         <pre>{JSON.stringify(stateFromStore.walletInfo, null, 4)}</pre>

@@ -33,7 +33,7 @@ const a = {
   graphQLUrl: portkeyScanUrl,
   connectUrl: connectUrl,
   requestDefaults: {
-    baseURL: '/v1',
+    baseURL: '/v2',
     timeout: 30000,
   },
   socialLogin: {
@@ -73,7 +73,7 @@ const DemoButton = (props: IProps) => {
   };
 
   return (
-    <PortkeyProvider networkType="TESTNET" theme="dark">
+    <PortkeyProvider networkType="TESTNET">
       <div>
         <CommonBaseModal
           destroyOnClose

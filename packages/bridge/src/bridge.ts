@@ -15,6 +15,10 @@ class Bridge {
     this.bindEvents();
   }
 
+  get loginState() {
+    return this.activeWallet?.loginState;
+  }
+
   get activeWallet() {
     try {
       return (
@@ -44,9 +48,9 @@ class Bridge {
     }
   };
 
-  onConnectedHandler = () => {
-    console.log('in connected event');
+  onConnectedHandler = (walletInfo: TWalletInfo) => {
     localStorage.setItem(ConnectedWallet, this.activeWallet!.name);
+    dispatch(setWalletInfo(walletInfo));
   };
 
   onDisConnectedHandler = () => {
@@ -93,15 +97,13 @@ class Bridge {
     try {
       this.openLoadingModal();
       this._activeWallet = this._wallets.find((ele) => ele.name === name);
-      console.log(this._activeWallet);
       this.bindEvents();
       const walletInfo = await this._activeWallet?.login();
       this._loginResolve(walletInfo);
-      dispatch(setWalletInfo(walletInfo));
     } catch (e) {
-      console.log('onEOAClickError', e);
+      console.log('onUniqueWalletClick', e);
     } finally {
-      console.log('onEOAClickFinally');
+      console.log('onUniqueWalletClick');
       this.closeLoadingModal();
       this.closeSignIModal();
     }

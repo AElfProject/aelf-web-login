@@ -1,9 +1,7 @@
 import EventEmitter from 'eventemitter3';
-
 import {
   ICallContractParams,
   LoginStateEnum,
-  TChainId,
   TSignatureParams,
   TWalletInfo,
   WalletStateEnum,
@@ -13,10 +11,10 @@ export { EventEmitter };
 export const ConnectedWallet = 'connectedWallet';
 
 export interface IWalletAdapterEvents {
-  connected(): void;
+  connected(arg: TWalletInfo): void;
   disconnected(): void;
   lock(): void;
-  readyStateChange(readyState: WalletStateEnum): void;
+  // readyStateChange(readyState: WalletStateEnum): void;
   error(error: Error): void;
 }
 
@@ -25,7 +23,7 @@ export type WalletName<T extends string = string> = T & { __brand__: 'WalletName
 export interface IWalletAdapter<Name extends string = string> {
   name: WalletName<Name>;
   icon: string;
-  readyState: WalletStateEnum;
+  // readyState: WalletStateEnum;
   loginState: LoginStateEnum;
   wallet: TWalletInfo;
 
@@ -51,7 +49,7 @@ export abstract class BaseWalletAdapter<Name extends string = string>
 {
   abstract name: WalletName<Name>;
   abstract icon: string;
-  abstract readyState: WalletStateEnum;
+  // abstract readyState: WalletStateEnum;
   abstract loginState: LoginStateEnum;
   abstract wallet: TWalletInfo;
 

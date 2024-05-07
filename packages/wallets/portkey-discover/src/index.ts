@@ -6,7 +6,6 @@ import {
   ERR_CODE_MSG,
   TWalletInfo,
   WalletName,
-  WalletStateEnum,
   TSignatureParams,
   ConnectedWallet,
 } from '@aelf-web-login/wallet-adapter-base';
@@ -57,7 +56,6 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
 
   private _loginState: LoginStateEnum;
   private _wallet: TWalletInfo | null;
-  private _readyState: WalletStateEnum;
   private _detectProvider: IPortkeyProvider | null;
   private _chainId: ChainId;
   private _config: PortkeyDiscoverWalletAdapterConfig;
@@ -66,7 +64,6 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     super();
     this._loginState = LoginStateEnum.INITIAL;
     this._wallet = null;
-    this._readyState = WalletStateEnum.NotDetected;
     this._detectProvider = null;
     this._chainId = config.chainId;
     this._config = config;
@@ -80,10 +77,6 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
 
   get wallet() {
     return this._wallet as TWalletInfo;
-  }
-
-  get readyState() {
-    return this._readyState;
   }
 
   // TODO:
@@ -115,22 +108,16 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
 
   private async detect(): Promise<IPortkeyProvider> {
     if (this._detectProvider?.isConnected()) {
-      this._readyState = WalletStateEnum.Detected;
-      this.emit('readyStateChange', WalletStateEnum.Detected);
       return this._detectProvider;
     }
     this._detectProvider = await detectDiscoverProvider();
     if (this._detectProvider) {
       if (!this._detectProvider.isPortkey) {
-        this.emit('readyStateChange', WalletStateEnum.NotDetected);
         throw new Error('Discover provider found, but check isPortkey failed');
       }
-      this._readyState = WalletStateEnum.Detected;
-      this.emit('readyStateChange', WalletStateEnum.Detected);
       this.listenProviderEvents();
       return this._detectProvider;
     } else {
-      this.emit('readyStateChange', WalletStateEnum.NotDetected);
       throw new Error('Discover provider not found');
     }
   }
@@ -156,7 +143,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     };
     console.log('_wallet', this._wallet);
     this._loginState = LoginStateEnum.CONNECTED;
-    this.emit('connected');
+    this.emit('connected', this._wallet);
     return this._wallet;
   }
 
@@ -167,14 +154,13 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
 
   async login(): Promise<TWalletInfo> {
     try {
-      console.log('login, this._readyState=', this._readyState);
       if (
         this._loginState === LoginStateEnum.CONNECTING ||
         this._loginState === LoginStateEnum.CONNECTED
       ) {
         return;
       }
-      if (this._readyState !== WalletStateEnum.Detected || !this._detectProvider) {
+      if (!this._detectProvider) {
         // TODO:
         throw new Error(ERR_CODE_MSG[ERR_CODE.UNKNOWN]);
       }
@@ -202,6 +188,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
         return;
       }
     } catch (error: any) {
+      this._loginState = LoginStateEnum.INITIAL;
       this.emit('error', error);
       return;
     }
