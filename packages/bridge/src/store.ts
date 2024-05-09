@@ -25,9 +25,15 @@ const makeStore = () => {
           // Ignore these action types
           ignoredActions: ['aelfWebLogin/setWalletInfo'],
           // Ignore these field paths in all actions
-          ignoredActionPaths: ['walletInfo.extraInfo.provider'],
+          ignoredActionPaths: [
+            'walletInfo.extraInfo.provider',
+            'walletInfo.extraInfo.portkeyInfo.walletInfo',
+          ],
           // Ignore these paths in the state
-          ignoredPaths: ['walletInfo.extraInfo.provider'],
+          ignoredPaths: [
+            'walletInfo.extraInfo.provider',
+            'walletInfo.extraInfo.portkeyInfo.walletInfo',
+          ],
         },
       }),
     devTools: process.env.NODE_ENV !== 'production',

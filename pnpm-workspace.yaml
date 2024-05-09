@@ -3,3 +3,4 @@ packages:
   - 'packages/starter/*'
   - 'packages/wallets/*'
   - 'packages/bridge'
+  - 'packages/react'

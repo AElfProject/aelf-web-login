@@ -1,11 +1,18 @@
-import { TWalletInfo, WalletAdapter, ConnectedWallet } from '@aelf-web-login/wallet-adapter-base';
+import {
+  TWalletInfo,
+  WalletAdapter,
+  ConnectedWallet,
+  TWalletError,
+  PORTKEYAA,
+} from '@aelf-web-login/wallet-adapter-base';
 import { setWalletInfo, clearWalletInfo, dispatch } from './store';
+import { DIDWalletInfo } from '@portkey/did-ui-react';
 
 class Bridge {
   private _wallets: WalletAdapter[];
   private _activeWallet: WalletAdapter | undefined;
   private _loginResolve: (value: TWalletInfo) => void;
-  private _loginReject: (reason?: any) => void;
+  private _loginReject: (error: TWalletError) => void;
 
   constructor(wallets: WalletAdapter[]) {
     this._wallets = wallets;
@@ -30,6 +37,10 @@ class Bridge {
     }
   }
 
+  get isAAWallet() {
+    return this.activeWallet?.name === PORTKEYAA;
+  }
+
   connect = async () => {
     return new Promise((resolve, reject) => {
       this._loginResolve = resolve;
@@ -39,29 +50,45 @@ class Bridge {
     });
   };
 
-  disConnect = () => {
+  disConnect = async (isDoubleCheck: boolean = false) => {
     console.log('disconnect');
     try {
-      this.activeWallet?.logout();
+      if (isDoubleCheck) {
+        // only click confirmLogout button can enter here
+        await this.activeWallet?.logout();
+        this.closeConfirmLogoutPanel();
+        this.closeLockPanel();
+      } else {
+        if (this.isAAWallet) {
+          this.openConfirmLogoutPanel();
+        } else {
+          await this.activeWallet?.logout();
+        }
+      }
     } catch (e) {
       console.log(e);
     }
   };
 
   onConnectedHandler = (walletInfo: TWalletInfo) => {
-    localStorage.setItem(ConnectedWallet, this.activeWallet!.name);
     dispatch(setWalletInfo(walletInfo));
   };
 
   onDisConnectedHandler = () => {
-    localStorage.removeItem(ConnectedWallet);
     dispatch(clearWalletInfo());
   };
 
-  onConnectErrorHandler = (err: any) => {
+  onLockHandler = () => {
+    this.openLockPanel();
+  };
+
+  onConnectErrorHandler = (err: TWalletError) => {
     console.log('in error event', err, this.activeWallet);
-    localStorage.removeItem(ConnectedWallet);
+    this._loginReject(err);
+    alert(err.message);
     this.closeSignIModal();
+    this.closeLoadingModal();
+    dispatch(clearWalletInfo());
   };
 
   bindEvents = () => {
@@ -72,6 +99,7 @@ class Bridge {
     // TODO: put them into a list for loop
     this.activeWallet.on('connected', this.onConnectedHandler);
     this.activeWallet.on('disconnected', this.onDisConnectedHandler);
+    this.activeWallet.on('lock', this.onLockHandler);
     this.activeWallet.on('error', this.onConnectErrorHandler);
   };
 
@@ -82,6 +110,7 @@ class Bridge {
     }
     this.activeWallet.off('connected', this.onConnectedHandler);
     this.activeWallet.off('disconnected', this.onDisConnectedHandler);
+    this.activeWallet.off('lock', this.onLockHandler);
     this.activeWallet.off('error', this.onConnectErrorHandler);
   };
 
@@ -93,6 +122,14 @@ class Bridge {
 
   closeLoadingModal() {}
 
+  openLockPanel() {}
+
+  closeLockPanel() {}
+
+  openConfirmLogoutPanel() {}
+
+  closeConfirmLogoutPanel() {}
+
   onUniqueWalletClick = async (name: string) => {
     try {
       this.openLoadingModal();
@@ -103,9 +140,43 @@ class Bridge {
     } catch (e) {
       console.log('onUniqueWalletClick', e);
     } finally {
-      console.log('onUniqueWalletClick');
       this.closeLoadingModal();
       this.closeSignIModal();
+    }
+  };
+
+  onPortkeyAAWalletLoginFinished = async (didWalletInfo: DIDWalletInfo) => {
+    try {
+      this.openLoadingModal();
+      this._activeWallet = this._wallets.find((item) => item.name === PORTKEYAA);
+      this.bindEvents();
+      const walletInfo = await this.activeWallet?.login(didWalletInfo);
+      this._loginResolve(walletInfo);
+    } catch (error) {
+      console.log('onPortkeyAAWalletLoginFinishedError', error);
+    } finally {
+      this.closeLoadingModal();
+      this.closeSignIModal();
+    }
+  };
+
+  onPortkeyAAUnLock = async (pin: string): Promise<TWalletInfo> => {
+    try {
+      this.openLoadingModal();
+      if (!this.activeWallet?.onUnlock || typeof this.activeWallet.onUnlock !== 'function') {
+        return;
+      }
+      const walletInfo = await this.activeWallet?.onUnlock(pin);
+      console.log('onPortkeyAAUnLockSuccess----------', walletInfo);
+      if (walletInfo) {
+        this.closeSignIModal();
+      }
+      return walletInfo;
+    } catch (error) {
+      console.log('onPortkeyAAUnLockFail----------');
+      return;
+    } finally {
+      this.closeLoadingModal();
     }
   };
 }

@@ -28,6 +28,7 @@
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
     "@portkey/did-ui-react": "^2.0.0-alpha.28",
     "@reduxjs/toolkit": "^2.2.3",
+    "aelf-design": "^1.0.0-alpha.15",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
