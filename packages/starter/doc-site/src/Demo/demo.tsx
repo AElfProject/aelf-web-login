@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'aelf-design';
 import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-discover';
 import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
@@ -47,7 +47,7 @@ const config = {
       autoShowUnlock: true,
     }),
     new PortkeyDiscoverWallet({
-      networkType: 'MAINNET',
+      networkType: 'TESTNET',
       chainId: 'AELF',
       autoRequestAccount: true,
       autoLogoutOnDisconnected: true,
@@ -59,9 +59,13 @@ const config = {
 };
 
 const Demo = () => {
-  const { connectWallet, disConnectWallet, stateFromStore, loginState } = useConnectWallet();
+  const { connectWallet, disConnectWallet, stateFromStore, loginState, lock, getAccountByChainId } =
+    useConnectWallet();
   // why loginState is undefined, instead of LoginStateEnum.INITIAL
   console.log('walletInfo----------:', loginState);
+  const [aelfAccount, setAelfAccount] = useState<string | undefined>('');
+  const [tdvwAccount, setTdvwAccount] = useState<string | undefined>('');
+
   const onConnectBtnClickHandler = async () => {
     try {
       const rs = await connectWallet();
@@ -74,6 +78,17 @@ const Demo = () => {
   const onDisConnectBtnClickHandler = () => {
     disConnectWallet();
   };
+
+  const onGetAccountByAELFHandler = async () => {
+    const account = await getAccountByChainId('AELF');
+    setAelfAccount(account);
+  };
+
+  const onGetAccountBytDVWHandler = async () => {
+    const account = await getAccountByChainId('tDVW');
+    setTdvwAccount(account);
+  };
+
   return (
     <div>
       <Button
@@ -83,6 +98,19 @@ const Demo = () => {
       >
         connect
       </Button>
+      <Button type="primary" onClick={lock} disabled={!stateFromStore.walletInfo}>
+        lock
+      </Button>
+      <Button type="primary" onClick={onGetAccountByAELFHandler}>
+        getAccountByChainId-AELF
+      </Button>
+      <div>getAccountByChainId-AELF:{aelfAccount}</div>
+
+      <Button type="primary" onClick={onGetAccountBytDVWHandler}>
+        getAccountByChainId-tDVW
+      </Button>
+      <div>getAccountByChainId-tDVW:{tdvwAccount}</div>
+
       <div>loginState:{loginState}</div>
       <div>
         walletInfo:

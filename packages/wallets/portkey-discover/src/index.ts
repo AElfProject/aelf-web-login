@@ -16,7 +16,9 @@ import {
   ProviderError,
   ChainIds,
   DappEvents,
+  MethodsWallet,
 } from '@portkey/provider-types';
+
 import { ChainId } from '@portkey/types';
 import detectDiscoverProvider from './detectProvider';
 import checkSignatureParams from './signatureParams';
@@ -267,6 +269,43 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
       signature: signedMsgString,
       from: 'discover',
     };
+  }
+
+  async getAccountByChainId(chainId: ChainId): Promise<string> {
+    if (!this._wallet) {
+      throw makeError(ERR_CODE.DISCOVER_NOT_CONNECTED);
+    }
+    if (!this._detectProvider) {
+      throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
+    }
+    let accounts = this._wallet.extraInfo?.accounts;
+    if (!accounts[chainId] || accounts[chainId]?.length === 0) {
+      accounts = await this._detectProvider?.request({ method: 'accounts' });
+      return accounts[chainId]?.[0];
+    }
+    return accounts[chainId]?.[0];
+  }
+
+  async getWalletSyncIsCompleted(chainId: ChainId): Promise<string | boolean> {
+    if (!this._wallet) {
+      throw makeError(ERR_CODE.DISCOVER_NOT_CONNECTED);
+    }
+    if (!this._detectProvider) {
+      throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
+    }
+    try {
+      const status = await this._detectProvider?.request({
+        method: MethodsWallet.GET_WALLET_MANAGER_SYNC_STATUS,
+        payload: { chainId: chainId },
+      });
+      if (status) {
+        return await this.getAccountByChainId(chainId);
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
   }
 
   private listenProviderEvents() {

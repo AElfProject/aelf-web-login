@@ -218,10 +218,6 @@ const SignInModal = (props: ISignInModalProps) => {
                 console.log('onSignInInternalError');
               }}
               onFinish={onFinishInternal}
-              onSignUp={(identifierInfo: any) => {
-                console.log(identifierInfo);
-                return Promise.resolve(2);
-              }}
             />
           )}
         </CommonBaseModal>

@@ -7,6 +7,7 @@ import {
 } from '@aelf-web-login/wallet-adapter-base';
 import { setWalletInfo, clearWalletInfo, dispatch } from './store';
 import { DIDWalletInfo } from '@portkey/did-ui-react';
+import { ChainId } from '@portkey/types';
 
 class Bridge {
   private _wallets: WalletAdapter[];
@@ -68,6 +69,17 @@ class Bridge {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  getAccountByChainId = async (chainId: ChainId): Promise<string | undefined> => {
+    if (
+      !this.activeWallet?.getAccountByChainId ||
+      typeof this.activeWallet.getAccountByChainId !== 'function'
+    ) {
+      return;
+    }
+    const account = await this.activeWallet?.getAccountByChainId(chainId);
+    return account;
   };
 
   onConnectedHandler = (walletInfo: TWalletInfo) => {
@@ -178,6 +190,16 @@ class Bridge {
     } finally {
       this.closeLoadingModal();
     }
+  };
+
+  lock = () => {
+    if (!this.activeWallet?.lock || typeof this.activeWallet.lock !== 'function') {
+      return;
+    }
+    if (!this.isAAWallet) {
+      return;
+    }
+    this.activeWallet?.lock();
   };
 }
 

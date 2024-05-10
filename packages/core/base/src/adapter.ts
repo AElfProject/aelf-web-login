@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3';
 import { DIDWalletInfo } from '@portkey/did-ui-react';
-
+import { ChainId } from '@portkey/types';
 import {
   TWalletError,
   LoginStateEnum,
@@ -41,7 +41,9 @@ export interface IWalletAdapter<Name extends string = string> {
     signature: string;
     from: string;
   }>;
-  onUnlock?(pin: string): Promise<TWalletInfo>;
+  getAccountByChainId(chainId: ChainId): Promise<string>;
+  onUnlock?: (pin: string) => Promise<TWalletInfo>;
+  lock?: () => void;
 }
 
 export type WalletAdapter<Name extends string = string> = IWalletAdapter<Name> &
@@ -68,6 +70,7 @@ export abstract class BaseWalletAdapter<Name extends string = string>
     signature: string;
     from: string;
   }>;
+  abstract getAccountByChainId(chainId: ChainId): Promise<string>;
 }
 
 export function scopePollingDetectionStrategy(detect: () => boolean): void {

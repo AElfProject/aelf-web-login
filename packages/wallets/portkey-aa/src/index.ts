@@ -113,6 +113,20 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     }, 1000);
   }
 
+  lock() {
+    if (!this._wallet) {
+      console.warn(`lock on invalid walletInfo: ${this._wallet}`);
+    }
+    try {
+      did.reset();
+      this._wallet = null;
+      this._loginState = LoginStateEnum.INITIAL;
+      this.emit('disconnected');
+    } catch (error) {
+      console.warn('lock error:', error);
+    }
+  }
+
   async logout() {
     try {
       const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
@@ -249,5 +263,20 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       signature,
       from: 'portkey',
     };
+  }
+
+  async getAccountByChainId(chainId: ChainId): Promise<string> {
+    if (this.loginState !== LoginStateEnum.CONNECTED) {
+      throw new Error('Please login first');
+    }
+    const accounts = this._wallet?.extraInfo?.portkeyInfo.accounts;
+    if (!accounts && !accounts[chainId]) {
+      const caInfo = await did.didWallet.getHolderInfoByContract({
+        caHash: this._wallet?.extraInfo?.portkeyInfo?.caInfo?.caHash,
+        chainId: chainId,
+      });
+      return caInfo?.caAddress;
+    }
+    return accounts[chainId];
   }
 }

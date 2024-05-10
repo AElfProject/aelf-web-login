@@ -8,7 +8,8 @@ export const ERR_CODE = {
   WITHOUT_DETECT_PROVIDER: 10005,
   NOT_PORTKEY: 10006,
   DISCOVER_NOT_CONNECTED: 10007,
-  UNKNOWN: 10008,
+  // LOCK_FAIL: 10008,
+  UNKNOWN: 10009,
 };
 
 export const ERR_CODE_MSG: {
@@ -22,7 +23,8 @@ export const ERR_CODE_MSG: {
   10005: 'Discover provider not found',
   10006: 'Discover provider found, but check isPortkey failed',
   10007: 'Discover not connected',
-  10008: 'Unknown error',
+  // 10008: 'Lock failed',
+  10009: 'Unknown error',
 };
 
 export function makeError(code: number, nativeError?: any): TWalletError {
