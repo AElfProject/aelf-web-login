@@ -1,9 +1,9 @@
 import EventEmitter from 'eventemitter3';
+import { DIDWalletInfo } from '@portkey/did-ui-react';
 
 import {
-  ICallContractParams,
+  TWalletError,
   LoginStateEnum,
-  TChainId,
   TSignatureParams,
   TWalletInfo,
   WalletStateEnum,
@@ -11,27 +11,28 @@ import {
 
 export { EventEmitter };
 export const ConnectedWallet = 'connectedWallet';
-
-export interface IWalletAdapterEvents {
-  connected(): void;
-  disconnected(): void;
-  lock(): void;
-  readyStateChange(readyState: WalletStateEnum): void;
-  error(error: Error): void;
-}
+export const PORTKEY_ORIGIN_CHAIN_ID_KEY = 'PortkeyOriginChainId';
+export const PORTKEYAA = 'PortkeyAA';
 
 export type WalletName<T extends string = string> = T & { __brand__: 'WalletName' };
 
+export interface IWalletAdapterEvents {
+  connected(walletInfo: TWalletInfo): void;
+  disconnected(): void;
+  lock(): void;
+  // readyStateChange(readyState: WalletStateEnum): void;
+  error(error: TWalletError): void;
+}
 export interface IWalletAdapter<Name extends string = string> {
   name: WalletName<Name>;
   icon: string;
-  readyState: WalletStateEnum;
+  // readyState: WalletStateEnum;
   loginState: LoginStateEnum;
   wallet: TWalletInfo;
 
-  login(): Promise<TWalletInfo>;
-  logout(): void;
-  loginEagerly(): Promise<boolean>;
+  login(arg?: DIDWalletInfo): Promise<TWalletInfo>;
+  logout(): Promise<void>;
+  loginEagerly(): Promise<void>;
   // getAccounts(chainId: TChainId): Promise<string>;
   // callContract<T, R>(params: ICallContractParams<T>): Promise<R>;
   getSignature(params: TSignatureParams): Promise<{
@@ -40,6 +41,7 @@ export interface IWalletAdapter<Name extends string = string> {
     signature: string;
     from: string;
   }>;
+  onUnlock?(pin: string): Promise<TWalletInfo>;
 }
 
 export type WalletAdapter<Name extends string = string> = IWalletAdapter<Name> &
@@ -51,13 +53,13 @@ export abstract class BaseWalletAdapter<Name extends string = string>
 {
   abstract name: WalletName<Name>;
   abstract icon: string;
-  abstract readyState: WalletStateEnum;
+  // abstract readyState: WalletStateEnum;
   abstract loginState: LoginStateEnum;
   abstract wallet: TWalletInfo;
 
-  abstract login(): Promise<TWalletInfo>;
-  abstract logout(): void;
-  abstract loginEagerly(): Promise<boolean>;
+  abstract login(arg?: DIDWalletInfo): Promise<TWalletInfo>;
+  abstract logout(): Promise<void>;
+  abstract loginEagerly(): Promise<void>;
   // abstract getAccounts(chainId: TChainId): Promise<string>;
   // abstract callContract<T, R>(params: ICallContractParams<T>): Promise<R>;
   abstract getSignature(params: TSignatureParams): Promise<{

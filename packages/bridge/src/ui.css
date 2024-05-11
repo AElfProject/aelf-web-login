@@ -1,0 +1,18 @@
+.aelf-web-logout-dialog-title-wrap {
+  margin: 40px 0 12px 0;
+}
+.aelf-web-logout-dialog-title {
+  text-align: center;
+}
+.aelf-web-logout-dialog-sub-title {
+  margin-top: 12px;
+  text-align: center;
+}
+.aelf-web-logout-dialog-btn-wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+}
+.aelf-web-logout-dialog-btn-wrap button:first-child {
+  margin-bottom: 12px;
+}

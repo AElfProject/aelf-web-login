@@ -42,3 +42,10 @@ export interface ICallContractParams<T> {
   methodName: string;
   args: T;
 }
+
+export type TWalletError = {
+  name: string;
+  code: number;
+  message: string;
+  nativeError?: any;
+};

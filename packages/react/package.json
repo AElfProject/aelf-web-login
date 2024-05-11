@@ -1,5 +1,5 @@
 {
-  "name": "@aelf-web-login/wallet-adapter-portkey-discover",
+  "name": "@aelf-web-login/wallet-adapter-react",
   "version": "0.0.1",
   "type": "module",
   "main": "dist/esm/index.js",
@@ -25,16 +25,15 @@
     "build": "father build"
   },
   "dependencies": {
-    "@aelf-web-login/wallet-adapter-base": "workspace:*",
-    "@portkey/detect-provider": "^2.0.0-alpha.5",
-    "@portkey/provider-types": "^2.0.0-alpha.5",
-    "bn.js": "^5.2.1"
+    "@aelf-web-login/wallet-adapter-bridge": "workspace:*",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@portkey/types": "2.0.0-alpha.28",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
     "father": "^4.3.8",
-    "typescript": "^5.3.3",
-    "@types/bn.js": "^5.1.5"
+    "typescript": "^5.3.3"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

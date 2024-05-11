@@ -3,12 +3,11 @@ import {
   LoginStateEnum,
   makeError,
   ERR_CODE,
-  ERR_CODE_MSG,
   TWalletInfo,
   WalletName,
-  WalletStateEnum,
   TSignatureParams,
   ConnectedWallet,
+  TWalletError,
 } from '@aelf-web-login/wallet-adapter-base';
 import {
   Accounts,
@@ -25,6 +24,8 @@ import zeroFill from './zeroFill';
 
 type TDiscoverEventsKeys = Array<Exclude<DappEvents, 'connected' | 'message' | 'error'>>;
 
+export type TPluginNotFoundCallback = (openPluginStorePage: () => void) => void;
+export type TOnClickCryptoWallet = (continueDefaultBehaviour: () => void) => void;
 export interface PortkeyDiscoverWalletAdapterConfig {
   networkType: NetworkType;
   chainId: ChainId;
@@ -33,6 +34,8 @@ export interface PortkeyDiscoverWalletAdapterConfig {
   autoLogoutOnNetworkMismatch: boolean;
   autoLogoutOnAccountMismatch: boolean;
   autoLogoutOnChainMismatch: boolean;
+  onClick?: TOnClickCryptoWallet;
+  onPluginNotFound?: TPluginNotFoundCallback;
 }
 
 // autoRequestAccount: true,
@@ -57,7 +60,6 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
 
   private _loginState: LoginStateEnum;
   private _wallet: TWalletInfo | null;
-  private _readyState: WalletStateEnum;
   private _detectProvider: IPortkeyProvider | null;
   private _chainId: ChainId;
   private _config: PortkeyDiscoverWalletAdapterConfig;
@@ -66,12 +68,12 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     super();
     this._loginState = LoginStateEnum.INITIAL;
     this._wallet = null;
-    this._readyState = WalletStateEnum.NotDetected;
     this._detectProvider = null;
     this._chainId = config.chainId;
     this._config = config;
-    this.detect();
-    this.autoRequestAccountHandler();
+    this.detect().then(() => {
+      this.autoRequestAccountHandler();
+    });
   }
 
   get loginState() {
@@ -82,14 +84,9 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     return this._wallet as TWalletInfo;
   }
 
-  get readyState() {
-    return this._readyState;
-  }
-
-  // TODO:
   async autoRequestAccountHandler() {
-    const canLoginEargly = !!localStorage.getItem(ConnectedWallet);
-    if (!canLoginEargly) {
+    const canLoginEargly = localStorage.getItem(ConnectedWallet);
+    if (canLoginEargly !== this.name) {
       return;
     }
     if (!this._config.autoRequestAccount) {
@@ -115,23 +112,17 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
 
   private async detect(): Promise<IPortkeyProvider> {
     if (this._detectProvider?.isConnected()) {
-      this._readyState = WalletStateEnum.Detected;
-      this.emit('readyStateChange', WalletStateEnum.Detected);
       return this._detectProvider;
     }
     this._detectProvider = await detectDiscoverProvider();
     if (this._detectProvider) {
       if (!this._detectProvider.isPortkey) {
-        this.emit('readyStateChange', WalletStateEnum.NotDetected);
-        throw new Error('Discover provider found, but check isPortkey failed');
+        throw makeError(ERR_CODE.NOT_PORTKEY);
       }
-      this._readyState = WalletStateEnum.Detected;
-      this.emit('readyStateChange', WalletStateEnum.Detected);
       this.listenProviderEvents();
       return this._detectProvider;
     } else {
-      this.emit('readyStateChange', WalletStateEnum.NotDetected);
-      throw new Error('Discover provider not found');
+      throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
     }
   }
 
@@ -156,27 +147,19 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     };
     console.log('_wallet', this._wallet);
     this._loginState = LoginStateEnum.CONNECTED;
-    this.emit('connected');
+    localStorage.setItem(ConnectedWallet, this.name);
+    this.emit('connected', this._wallet);
     return this._wallet;
   }
 
-  private onAccountsFail(err: any) {
-    this._loginState = LoginStateEnum.INITIAL;
+  private onAccountsFail(err: TWalletError) {
     throw err;
   }
 
   async login(): Promise<TWalletInfo> {
     try {
-      console.log('login, this._readyState=', this._readyState);
-      if (
-        this._loginState === LoginStateEnum.CONNECTING ||
-        this._loginState === LoginStateEnum.CONNECTED
-      ) {
-        return;
-      }
-      if (this._readyState !== WalletStateEnum.Detected || !this._detectProvider) {
-        // TODO:
-        throw new Error(ERR_CODE_MSG[ERR_CODE.UNKNOWN]);
+      if (!this._detectProvider) {
+        throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
       }
 
       const provider = this._detectProvider;
@@ -188,6 +171,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
       console.log('network', network);
       if (network !== this._config.networkType) {
         this.onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
+        return;
       }
 
       let accounts = await provider.request({ method: 'accounts' });
@@ -201,26 +185,53 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
         this.onAccountsFail(makeError(ERR_CODE.ACCOUNTS_IS_EMPTY));
         return;
       }
-    } catch (error: any) {
-      this.emit('error', error);
+    } catch (error) {
+      this._loginState = LoginStateEnum.INITIAL;
+      this.emit('error', makeError(ERR_CODE.UNKNOWN, error));
       return;
     }
   }
 
-  // TODO:
-  async loginEagerly(): Promise<boolean> {
+  async loginEagerly() {
     try {
-      await this.login();
-      return true;
-    } catch (error: any) {
-      this.emit('error', error);
-      return false;
+      if (!this._detectProvider) {
+        throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
+      }
+
+      const provider = this._detectProvider;
+      const chainId = this._chainId;
+
+      this._loginState = LoginStateEnum.CONNECTING;
+
+      const { isUnlocked } = await provider.request({ method: 'wallet_getWalletState' });
+
+      console.log('isUnlocked', isUnlocked);
+      if (!isUnlocked) {
+        this._loginState = LoginStateEnum.INITIAL;
+        return;
+      }
+
+      const network = await provider.request({ method: 'network' });
+      if (network !== this._config.networkType) {
+        this.onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
+        return;
+      }
+
+      const accounts = await provider.request({ method: 'accounts' });
+      if (accounts[chainId] && accounts[chainId]!.length > 0) {
+        await this.onAccountsSuccess(provider, accounts);
+      } else {
+        this.onAccountsFail(makeError(ERR_CODE.DISCOVER_LOGIN_EAGERLY_FAIL));
+      }
+    } catch (error) {
+      this.emit('error', makeError(ERR_CODE.UNKNOWN, error));
     }
   }
 
-  logout(): void {
+  async logout() {
     this._wallet = null;
     this._loginState = LoginStateEnum.INITIAL;
+    localStorage.removeItem(ConnectedWallet);
     this.emit('disconnected');
   }
 
@@ -232,10 +243,10 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
   }> {
     checkSignatureParams(params);
     if (!this._wallet) {
-      throw new Error('Discover not connected');
+      throw makeError(ERR_CODE.DISCOVER_NOT_CONNECTED);
     }
     if (!this._detectProvider) {
-      throw new Error('_detectProvider not found');
+      throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
     }
 
     const signInfo = params.signInfo;
@@ -259,19 +270,17 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
   }
 
   private listenProviderEvents() {
-    console.log('onDisconnected---', this._detectProvider);
     if (!this._detectProvider) {
       return;
     }
     const onDisconnected = (error: ProviderError) => {
-      console.log('onDisconnected1', error);
+      console.log('onDisconnected', error);
       if (!this._wallet) return;
       if (this._config.autoLogoutOnDisconnected) {
         this.logout();
       }
     };
     const onNetworkChanged = (networkType: NetworkType) => {
-      console.log('onDisconnected2');
       if (networkType !== this._config.networkType) {
         if (this._config.autoLogoutOnNetworkMismatch) {
           this.logout();
@@ -279,7 +288,6 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
       }
     };
     const onAccountsChanged = (accounts: Accounts) => {
-      console.log('onDisconnected3');
       if (!this._wallet) return;
       const chainId = this._chainId;
       if (
@@ -293,7 +301,6 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
       }
     };
     const onChainChanged = (chainIds: ChainIds) => {
-      console.log('onDisconnected4');
       if (chainIds.find((id) => id === this._chainId)) {
         if (this._config.autoLogoutOnChainMismatch) {
           this.logout();
@@ -308,7 +315,6 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
       chainChanged: onChainChanged,
     };
     (Object.keys(discoverEventsMap) as TDiscoverEventsKeys).forEach((ele) => {
-      console.log('onDisconnected', this._detectProvider, ele);
       this._detectProvider?.on(ele, discoverEventsMap[ele]);
     });
   }
