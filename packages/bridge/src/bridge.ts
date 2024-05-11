@@ -42,7 +42,7 @@ class Bridge {
     return this.activeWallet?.name === PORTKEYAA;
   }
 
-  connect = async () => {
+  connect = async (): Promise<TWalletInfo> => {
     return new Promise((resolve, reject) => {
       this._loginResolve = resolve;
       this._loginReject = reject;

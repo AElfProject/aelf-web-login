@@ -13,7 +13,7 @@ import {
 import { did, DIDWalletInfo } from '@portkey/did-ui-react';
 import { aes } from '@portkey/utils';
 
-export interface PortkeyAAWalletAdapterConfig {
+export interface IPortkeyAAWalletAdapterConfig {
   appName: string;
   chainId: TChainId;
   autoShowUnlock: boolean;
@@ -28,9 +28,9 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
 
   private _loginState: LoginStateEnum;
   private _wallet: TWalletInfo | null;
-  private _config: PortkeyAAWalletAdapterConfig;
+  private _config: IPortkeyAAWalletAdapterConfig;
 
-  constructor(config: PortkeyAAWalletAdapterConfig) {
+  constructor(config: IPortkeyAAWalletAdapterConfig) {
     super();
     this._loginState = LoginStateEnum.INITIAL;
     this._wallet = null;
@@ -101,7 +101,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       return this._wallet;
     } catch (error) {
       this._loginState = LoginStateEnum.INITIAL;
-      this.emit('error', makeError(ERR_CODE.UNKNOWN, error));
+      this.emit('error', makeError(ERR_CODE.PORTKEY_AA_LOGIN_FAIL, error));
       return;
     }
   }
@@ -126,25 +126,26 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
   async logout() {
     try {
       const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
-      if (originChainId) {
-        await did.logout(
-          {
-            chainId: originChainId as TChainId,
-          },
-          { onMethod: 'transactionHash' },
-        );
+      if (!originChainId) {
+        return;
       }
+      await did.logout(
+        {
+          chainId: originChainId as TChainId,
+        },
+        { onMethod: 'transactionHash' },
+      );
+
+      this._wallet = null;
+      this._loginState = LoginStateEnum.INITIAL;
+      localStorage.removeItem(ConnectedWallet);
+      localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
+      localStorage.removeItem(this._config.appName);
+
+      this.emit('disconnected');
     } catch (error) {
-      this.emit('error', makeError(ERR_CODE.UNKNOWN, error));
+      this.emit('error', makeError(ERR_CODE.PORTKEY_AA_LOGOUT_FAIL, error));
     }
-
-    this._wallet = null;
-    this._loginState = LoginStateEnum.INITIAL;
-    localStorage.removeItem(ConnectedWallet);
-    localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
-    localStorage.removeItem(this._config.appName);
-
-    this.emit('disconnected');
   }
 
   async checkPassword(keyName: string, password: string) {
@@ -226,7 +227,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     } catch (error) {
       console.log('onUnLockFail----------');
       this._loginState = LoginStateEnum.INITIAL;
-      this.emit('error', makeError(ERR_CODE.UNKNOWN, error));
+      this.emit('error', makeError(ERR_CODE.PORTKEY_AA_UNLOCK_FAIL, error));
       return;
     }
   }
@@ -244,7 +245,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     }
 
     if (!this._wallet) {
-      throw new Error('PortkeyAA not login');
+      throw makeError(ERR_CODE.PORTKEY_AA_NOT_CONNECTED);
     }
     let signInfo = '';
     if (params.hexToBeSign) {

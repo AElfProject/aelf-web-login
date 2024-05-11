@@ -28,11 +28,13 @@ const makeStore = () => {
           ignoredActionPaths: [
             'walletInfo.extraInfo.provider',
             'walletInfo.extraInfo.portkeyInfo.walletInfo',
+            'walletInfo.extraInfo.nightElfInfo',
           ],
           // Ignore these paths in the state
           ignoredPaths: [
             'walletInfo.extraInfo.provider',
             'walletInfo.extraInfo.portkeyInfo.walletInfo',
+            'walletInfo.extraInfo.nightElfInfo',
           ],
         },
       }),

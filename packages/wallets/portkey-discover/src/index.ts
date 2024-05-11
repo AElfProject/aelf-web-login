@@ -29,7 +29,7 @@ type TDiscoverEventsKeys = Array<Exclude<DappEvents, 'connected' | 'message' | '
 
 export type TPluginNotFoundCallback = (openPluginStorePage: () => void) => void;
 export type TOnClickCryptoWallet = (continueDefaultBehaviour: () => void) => void;
-export interface PortkeyDiscoverWalletAdapterConfig {
+export interface IPortkeyDiscoverWalletAdapterConfig {
   networkType: NetworkType;
   chainId: TChainId;
   autoRequestAccount: boolean;
@@ -65,9 +65,9 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
   private _wallet: TWalletInfo | null;
   private _detectProvider: IPortkeyProvider | null;
   private _chainId: TChainId;
-  private _config: PortkeyDiscoverWalletAdapterConfig;
+  private _config: IPortkeyDiscoverWalletAdapterConfig;
 
-  constructor(config: PortkeyDiscoverWalletAdapterConfig) {
+  constructor(config: IPortkeyDiscoverWalletAdapterConfig) {
     super();
     this._loginState = LoginStateEnum.INITIAL;
     this._wallet = null;
@@ -190,7 +190,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
       }
     } catch (error) {
       this._loginState = LoginStateEnum.INITIAL;
-      this.emit('error', makeError(ERR_CODE.UNKNOWN, error));
+      this.emit('error', makeError(ERR_CODE.DISCOVER_LOGIN_FAIL, error));
       return;
     }
   }
@@ -227,7 +227,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
         this.onAccountsFail(makeError(ERR_CODE.DISCOVER_LOGIN_EAGERLY_FAIL));
       }
     } catch (error) {
-      this.emit('error', makeError(ERR_CODE.UNKNOWN, error));
+      this.emit('error', makeError(ERR_CODE.DISCOVER_LOGIN_EAGERLY_FAIL, error));
     }
   }
 

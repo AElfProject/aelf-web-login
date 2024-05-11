@@ -29,7 +29,7 @@ export interface IWalletAdapter<Name extends string = string> {
 
   login(arg?: DIDWalletInfo): Promise<TWalletInfo>;
   logout(): Promise<void>;
-  loginEagerly(): Promise<void>;
+  loginEagerly(type?: string): Promise<void>;
   // getAccounts(chainId: TChainId): Promise<string>;
   // callContract<T, R>(params: ICallContractParams<T>): Promise<R>;
   getSignature(params: TSignatureParams): Promise<{
@@ -59,7 +59,7 @@ export abstract class BaseWalletAdapter<Name extends string = string>
 
   abstract login(arg?: DIDWalletInfo): Promise<TWalletInfo>;
   abstract logout(): Promise<void>;
-  abstract loginEagerly(): Promise<void>;
+  abstract loginEagerly(type?: string): Promise<void>;
   // abstract getAccounts(chainId: TChainId): Promise<string>;
   // abstract callContract<T, R>(params: ICallContractParams<T>): Promise<R>;
   abstract getSignature(params: TSignatureParams): Promise<{
