@@ -8,7 +8,7 @@ export const ERR_CODE = {
   WITHOUT_DETECT_PROVIDER: 10005,
   NOT_PORTKEY: 10006,
   DISCOVER_NOT_CONNECTED: 10007,
-  // LOCK_FAIL: 10008,
+  PORTKEY_AA_NOT_CONNECTED: 10008,
   UNKNOWN: 10009,
 };
 
@@ -23,7 +23,7 @@ export const ERR_CODE_MSG: {
   10005: 'Discover provider not found',
   10006: 'Discover provider found, but check isPortkey failed',
   10007: 'Discover not connected',
-  // 10008: 'Lock failed',
+  10008: 'portkeyAA wallet is not connected, or is locked',
   10009: 'Unknown error',
 };
 

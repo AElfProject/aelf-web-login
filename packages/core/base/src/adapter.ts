@@ -1,18 +1,15 @@
 import EventEmitter from 'eventemitter3';
 import { DIDWalletInfo } from '@portkey/did-ui-react';
-import { ChainId } from '@portkey/types';
 import {
   TWalletError,
   LoginStateEnum,
   TSignatureParams,
   TWalletInfo,
+  TChainId,
   WalletStateEnum,
 } from './types';
 
 export { EventEmitter };
-export const ConnectedWallet = 'connectedWallet';
-export const PORTKEY_ORIGIN_CHAIN_ID_KEY = 'PortkeyOriginChainId';
-export const PORTKEYAA = 'PortkeyAA';
 
 export type WalletName<T extends string = string> = T & { __brand__: 'WalletName' };
 
@@ -41,7 +38,8 @@ export interface IWalletAdapter<Name extends string = string> {
     signature: string;
     from: string;
   }>;
-  getAccountByChainId(chainId: ChainId): Promise<string>;
+  getAccountByChainId(chainId: TChainId): Promise<string>;
+  getWalletSyncIsCompleted(chainId: TChainId): Promise<string | boolean>;
   onUnlock?: (pin: string) => Promise<TWalletInfo>;
   lock?: () => void;
 }
@@ -70,7 +68,8 @@ export abstract class BaseWalletAdapter<Name extends string = string>
     signature: string;
     from: string;
   }>;
-  abstract getAccountByChainId(chainId: ChainId): Promise<string>;
+  abstract getAccountByChainId(chainId: TChainId): Promise<string>;
+  abstract getWalletSyncIsCompleted(chainId: TChainId): Promise<string | boolean>;
 }
 
 export function scopePollingDetectionStrategy(detect: () => boolean): void {

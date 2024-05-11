@@ -57,7 +57,8 @@ function useExternalStore() {
 export function useConnectWallet() {
   const { instance } = useWebLoginContext();
   const stateFromStore = useExternalStore();
-  const { connect, disConnect, loginState, lock, getAccountByChainId } = instance;
+  const { connect, disConnect, loginState, lock, getAccountByChainId, getWalletSyncIsCompleted } =
+    instance;
   const [connecting, setConnecting] = useState(false);
 
   const connectWallet = useCallback(async () => {
@@ -78,5 +79,6 @@ export function useConnectWallet() {
     loginState,
     lock,
     getAccountByChainId,
+    getWalletSyncIsCompleted,
   };
 }

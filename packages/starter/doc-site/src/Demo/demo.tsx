@@ -4,6 +4,7 @@ import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-di
 import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
 import { WebLoginProvider, init, useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import { GlobalConfigProps } from '@portkey/did-ui-react/dist/_types/src/components/config-provider/types';
+import { IBaseConfig } from '@aelf-web-login/wallet-adapter-bridge';
 
 const APPNAME = 'explorer.aelf.io';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
@@ -30,7 +31,7 @@ const didConfig: GlobalConfigProps = {
       websiteIcon: WEBSITE_ICON,
     },
   },
-  //TODO:  still need here? delete it
+  //TODO:  still need here? delete it, implement store that support SSR
   // networkType: NETWORK,
   // useLocalStorage: true,
 };
@@ -38,12 +39,15 @@ const didConfig: GlobalConfigProps = {
 const config = {
   didConfig,
   baseConfig: {
+    // TODO: type error
+    chainId: 'AELF',
     keyboard: true,
-  },
+    design: 'CryptoDesign', // "SocialDesign" | "CryptoDesign" | "Web2Design"
+  } as IBaseConfig,
   wallets: [
     new PortkeyAAWallet({
       appName: APPNAME,
-      chainId: 'tDVW',
+      chainId: 'AELF',
       autoShowUnlock: true,
     }),
     new PortkeyDiscoverWallet({
@@ -59,12 +63,21 @@ const config = {
 };
 
 const Demo = () => {
-  const { connectWallet, disConnectWallet, stateFromStore, loginState, lock, getAccountByChainId } =
-    useConnectWallet();
+  const {
+    connectWallet,
+    disConnectWallet,
+    stateFromStore,
+    loginState,
+    lock,
+    getAccountByChainId,
+    getWalletSyncIsCompleted,
+  } = useConnectWallet();
   // why loginState is undefined, instead of LoginStateEnum.INITIAL
   console.log('walletInfo----------:', loginState);
-  const [aelfAccount, setAelfAccount] = useState<string | undefined>('');
-  const [tdvwAccount, setTdvwAccount] = useState<string | undefined>('');
+  const [aelfAccount, setAelfAccount] = useState<string>('');
+  const [tdvwAccount, setTdvwAccount] = useState<string>('');
+  const [syncIsCompleted, setSyncIsCompleted] = useState<string | boolean>(false);
+  const [syncIsCompletedTDVW, setSyncIsCompletedTDVW] = useState<string | boolean>(false);
 
   const onConnectBtnClickHandler = async () => {
     try {
@@ -89,6 +102,16 @@ const Demo = () => {
     setTdvwAccount(account);
   };
 
+  const onGetWalletSyncIsCompletedHandler = async () => {
+    const account = await getWalletSyncIsCompleted('AELF');
+    setSyncIsCompleted(account);
+  };
+
+  const onGetWalletSyncIsCompletetDVWdHandler = async () => {
+    const account = await getWalletSyncIsCompleted('tDVW');
+    setSyncIsCompletedTDVW(account);
+  };
+
   return (
     <div>
       <Button
@@ -110,6 +133,16 @@ const Demo = () => {
         getAccountByChainId-tDVW
       </Button>
       <div>getAccountByChainId-tDVW:{tdvwAccount}</div>
+
+      <Button type="primary" onClick={onGetWalletSyncIsCompletedHandler}>
+        getWalletSyncIsCompleted-AELF
+      </Button>
+      <div>getWalletSyncIsCompleted-AELF:{syncIsCompleted}</div>
+
+      <Button type="primary" onClick={onGetWalletSyncIsCompletetDVWdHandler}>
+        getWalletSyncIsCompleted-tDVW
+      </Button>
+      <div>getWalletSyncIsCompleted-tDVW:{syncIsCompletedTDVW}</div>
 
       <div>loginState:{loginState}</div>
       <div>

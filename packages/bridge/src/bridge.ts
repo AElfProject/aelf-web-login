@@ -4,10 +4,10 @@ import {
   ConnectedWallet,
   TWalletError,
   PORTKEYAA,
+  TChainId,
 } from '@aelf-web-login/wallet-adapter-base';
 import { setWalletInfo, clearWalletInfo, dispatch } from './store';
 import { DIDWalletInfo } from '@portkey/did-ui-react';
-import { ChainId } from '@portkey/types';
 
 class Bridge {
   private _wallets: WalletAdapter[];
@@ -71,14 +71,25 @@ class Bridge {
     }
   };
 
-  getAccountByChainId = async (chainId: ChainId): Promise<string | undefined> => {
+  getAccountByChainId = async (chainId: TChainId): Promise<string> => {
     if (
       !this.activeWallet?.getAccountByChainId ||
       typeof this.activeWallet.getAccountByChainId !== 'function'
     ) {
-      return;
+      return '';
     }
     const account = await this.activeWallet?.getAccountByChainId(chainId);
+    return account;
+  };
+
+  getWalletSyncIsCompleted = async (chainId: TChainId): Promise<string | boolean> => {
+    if (
+      !this.activeWallet?.getWalletSyncIsCompleted ||
+      typeof this.activeWallet.getWalletSyncIsCompleted !== 'function'
+    ) {
+      return false;
+    }
+    const account = await this.activeWallet?.getWalletSyncIsCompleted(chainId);
     return account;
   };
 

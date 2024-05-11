@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { WalletAdapter } from '@aelf-web-login/wallet-adapter-base';
+import { WalletAdapter, utils } from '@aelf-web-login/wallet-adapter-base';
 import { Bridge } from './bridge';
 import {
   CommonBaseModal,
@@ -11,7 +11,6 @@ import {
 } from '@portkey/did-ui-react';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import { IBaseConfig } from '.';
-import isMobile from './utils/isMobile';
 import { Modal, Button, Typography, FontWeightEnum } from 'aelf-design';
 import './ui.css';
 
@@ -47,13 +46,13 @@ interface ISignInModalProps {
   wallets: WalletAdapter[];
   baseConfig: IBaseConfig;
 }
+const { isMobile } = utils;
 
 const ConfirmLogoutDialog = (props: Partial<ConfirmLogoutDialogProps>) => {
   const { title, subTitle, okTxt, cancelTxt, visible, onOk, onCancel, width, mobileWidth } = {
     ...defaultProps,
     ...props,
   };
-
   const isMobileDevice = isMobile();
 
   return (
@@ -196,9 +195,9 @@ const SignInModal = (props: ISignInModalProps) => {
             />
           ) : (
             <SignIn
-              defaultChainId={'AELF'}
+              defaultChainId={baseConfig.chainId}
               uiType="Full"
-              design={'CryptoDesign'}
+              design={baseConfig.design}
               isShowScan
               extraElementList={wallets
                 .filter((ele) => ele.name !== 'PortkeyAA')
