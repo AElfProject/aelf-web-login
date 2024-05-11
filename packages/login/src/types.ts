@@ -70,6 +70,9 @@ export interface CallContractParams<T> {
   contractAddress: string;
   methodName: string;
   args: T;
+  options?: {
+    chainId?: ChainId | ChainIdV1;
+  };
 }
 
 export type CallContractFunc<T, R> = (params: CallContractParams<T>) => Promise<R>;

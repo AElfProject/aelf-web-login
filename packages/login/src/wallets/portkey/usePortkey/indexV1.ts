@@ -151,17 +151,18 @@ export function usePortkey({
         throw new Error('Portkey not login');
       }
       // TODO: fixes cache contract
+      const _chainId = params.options?.chainId || chainId;
       const chainsInfo = await did.services.getChainsInfo();
-      const chainInfo = chainsInfo.find((chain) => chain.chainId === chainId);
+      const chainInfo = chainsInfo.find((chain) => chain.chainId === _chainId);
       if (!chainInfo) {
-        throw new Error(`chain is not running: ${chainId}`);
+        throw new Error(`chain is not running: ${_chainId}`);
       }
       const caContract = await getContractBasic({
         contractAddress: chainInfo.caContractAddress,
         account: didWalletInfo.walletInfo,
         rpcUrl: chainInfo.endPoint,
       });
-      const result = await sendAdapter({ caContract, didWalletInfo, params, chainId, sendOptions });
+      const result = await sendAdapter({ caContract, didWalletInfo, params, chainId: _chainId, sendOptions });
       return result as R;
     },
     [chainId, didWalletInfo],

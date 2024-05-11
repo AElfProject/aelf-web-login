@@ -82,7 +82,7 @@ export const sendAdapter = async <T>({
     const originChainId = didWalletInfo.chainId;
     // use amount from result of managerApprove not from params
     // dapp user may change amount at pop-up
-    const { amount, guardiansApproved } = (await (version === 'v1' ? managerApproveV1 : managerApprove)({
+    const { amount, guardiansApproved, symbol } = (await (version === 'v1' ? managerApproveV1 : managerApprove)({
       originChainId,
       targetChainId: chainId,
       caHash: didWalletInfo.caInfo?.caHash,
@@ -101,6 +101,7 @@ export const sendAdapter = async <T>({
         ...params.args,
         guardiansApproved,
         amount,
+        symbol,
       },
       {
         onMethod: 'transactionHash',

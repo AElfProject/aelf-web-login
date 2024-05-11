@@ -100,6 +100,18 @@ export default function CallContract() {
       });
     }),
 
+    useExampleCall('Approve in AELF with useWebLogin', async () => {
+      return await callContract({
+        contractAddress: configJson.multiToken,
+        methodName: 'Approve',
+        args: {
+          symbol: 'ELF',
+          spender: configJson.multiToken,
+          amount: '100000000',
+        },
+      });
+    }),
+
     useExampleCall('Approve in tDVW with useWebLogin', async () => {
       return await callContract({
         contractAddress: configTdvwJson.multiToken,
@@ -108,6 +120,9 @@ export default function CallContract() {
           symbol: 'ELF',
           spender: configTdvwJson.multiToken,
           amount: '100000000',
+        },
+        options: {
+          chainId: 'tDVW',
         },
       });
     }),
