@@ -1,8 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-base",
-  "version": "0.9.23",
-  "author": "Solana Maintainers <maintainers@solana.foundation>",
-  "repository": "https://github.com/anza-xyz/wallet-adapter",
+  "version": "0.0.1",
   "license": "Apache-2.0",
   "publishConfig": {
     "access": "public"
@@ -31,8 +29,7 @@
     "lint": "prettier --check 'src/{*,**/*}.{ts,tsx,js,jsx,json}' && eslint",
     "package": "shx mkdir -p lib/cjs && shx echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json"
   },
-  "dependencies": {
-    "eventemitter3": "^4.0.7"
-  },
-  "devDependencies": {}
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
 }

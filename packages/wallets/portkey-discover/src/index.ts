@@ -8,6 +8,8 @@ import {
   TSignatureParams,
   ConnectedWallet,
   TWalletError,
+  utils,
+  TChainId,
 } from '@aelf-web-login/wallet-adapter-base';
 import {
   Accounts,
@@ -16,8 +18,9 @@ import {
   ProviderError,
   ChainIds,
   DappEvents,
+  MethodsWallet,
 } from '@portkey/provider-types';
-import { ChainId } from '@portkey/types';
+
 import detectDiscoverProvider from './detectProvider';
 import checkSignatureParams from './signatureParams';
 import zeroFill from './zeroFill';
@@ -26,9 +29,9 @@ type TDiscoverEventsKeys = Array<Exclude<DappEvents, 'connected' | 'message' | '
 
 export type TPluginNotFoundCallback = (openPluginStorePage: () => void) => void;
 export type TOnClickCryptoWallet = (continueDefaultBehaviour: () => void) => void;
-export interface PortkeyDiscoverWalletAdapterConfig {
+export interface IPortkeyDiscoverWalletAdapterConfig {
   networkType: NetworkType;
-  chainId: ChainId;
+  chainId: TChainId;
   autoRequestAccount: boolean;
   autoLogoutOnDisconnected: boolean;
   autoLogoutOnNetworkMismatch: boolean;
@@ -61,10 +64,10 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
   private _loginState: LoginStateEnum;
   private _wallet: TWalletInfo | null;
   private _detectProvider: IPortkeyProvider | null;
-  private _chainId: ChainId;
-  private _config: PortkeyDiscoverWalletAdapterConfig;
+  private _chainId: TChainId;
+  private _config: IPortkeyDiscoverWalletAdapterConfig;
 
-  constructor(config: PortkeyDiscoverWalletAdapterConfig) {
+  constructor(config: IPortkeyDiscoverWalletAdapterConfig) {
     super();
     this._loginState = LoginStateEnum.INITIAL;
     this._wallet = null;
@@ -187,7 +190,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
       }
     } catch (error) {
       this._loginState = LoginStateEnum.INITIAL;
-      this.emit('error', makeError(ERR_CODE.UNKNOWN, error));
+      this.emit('error', makeError(ERR_CODE.DISCOVER_LOGIN_FAIL, error));
       return;
     }
   }
@@ -224,7 +227,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
         this.onAccountsFail(makeError(ERR_CODE.DISCOVER_LOGIN_EAGERLY_FAIL));
       }
     } catch (error) {
-      this.emit('error', makeError(ERR_CODE.UNKNOWN, error));
+      this.emit('error', makeError(ERR_CODE.DISCOVER_LOGIN_EAGERLY_FAIL, error));
     }
   }
 
@@ -267,6 +270,44 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
       signature: signedMsgString,
       from: 'discover',
     };
+  }
+
+  async getAccountByChainId(chainId: TChainId): Promise<string> {
+    if (!this._wallet) {
+      throw makeError(ERR_CODE.DISCOVER_NOT_CONNECTED);
+    }
+    if (!this._detectProvider) {
+      throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
+    }
+    let accounts = this._wallet.extraInfo?.accounts;
+    if (!accounts[chainId] || accounts[chainId]?.length === 0) {
+      accounts = await this._detectProvider.request({ method: 'accounts' });
+    }
+    return accounts[chainId]?.[0];
+  }
+
+  async getWalletSyncIsCompleted(chainId: TChainId): Promise<string | boolean> {
+    if (!this._wallet) {
+      throw makeError(ERR_CODE.DISCOVER_NOT_CONNECTED);
+    }
+    if (!this._detectProvider) {
+      throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
+    }
+    const { getOriginalAddress } = utils;
+    try {
+      const status = await this._detectProvider?.request({
+        method: MethodsWallet.GET_WALLET_MANAGER_SYNC_STATUS,
+        payload: { chainId: chainId },
+      });
+      if (status) {
+        const address = await this.getAccountByChainId(chainId);
+        return getOriginalAddress(address);
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
   }
 
   private listenProviderEvents() {

@@ -8,14 +8,14 @@ import {
   makeError,
   ERR_CODE,
   ConnectedWallet,
+  TChainId,
 } from '@aelf-web-login/wallet-adapter-base';
-import { ChainId } from '@portkey/types';
 import { did, DIDWalletInfo } from '@portkey/did-ui-react';
 import { aes } from '@portkey/utils';
 
-export interface PortkeyAAWalletAdapterConfig {
+export interface IPortkeyAAWalletAdapterConfig {
   appName: string;
-  chainId: ChainId;
+  chainId: TChainId;
   autoShowUnlock: boolean;
 }
 
@@ -28,9 +28,9 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
 
   private _loginState: LoginStateEnum;
   private _wallet: TWalletInfo | null;
-  private _config: PortkeyAAWalletAdapterConfig;
+  private _config: IPortkeyAAWalletAdapterConfig;
 
-  constructor(config: PortkeyAAWalletAdapterConfig) {
+  constructor(config: IPortkeyAAWalletAdapterConfig) {
     super();
     this._loginState = LoginStateEnum.INITIAL;
     this._wallet = null;
@@ -101,7 +101,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       return this._wallet;
     } catch (error) {
       this._loginState = LoginStateEnum.INITIAL;
-      this.emit('error', makeError(ERR_CODE.UNKNOWN, error));
+      this.emit('error', makeError(ERR_CODE.PORTKEY_AA_LOGIN_FAIL, error));
       return;
     }
   }
@@ -113,28 +113,39 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     }, 1000);
   }
 
+  lock() {
+    if (!this._wallet) {
+      throw makeError(ERR_CODE.PORTKEY_AA_NOT_CONNECTED);
+    }
+    did.reset();
+    this._wallet = null;
+    this._loginState = LoginStateEnum.INITIAL;
+    this.emit('disconnected');
+  }
+
   async logout() {
     try {
       const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
-      if (originChainId) {
-        await did.logout(
-          {
-            chainId: originChainId as ChainId,
-          },
-          { onMethod: 'transactionHash' },
-        );
+      if (!originChainId) {
+        return;
       }
+      await did.logout(
+        {
+          chainId: originChainId as TChainId,
+        },
+        { onMethod: 'transactionHash' },
+      );
+
+      this._wallet = null;
+      this._loginState = LoginStateEnum.INITIAL;
+      localStorage.removeItem(ConnectedWallet);
+      localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
+      localStorage.removeItem(this._config.appName);
+
+      this.emit('disconnected');
     } catch (error) {
-      this.emit('error', makeError(ERR_CODE.UNKNOWN, error));
+      this.emit('error', makeError(ERR_CODE.PORTKEY_AA_LOGOUT_FAIL, error));
     }
-
-    this._wallet = null;
-    this._loginState = LoginStateEnum.INITIAL;
-    localStorage.removeItem(ConnectedWallet);
-    localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
-    localStorage.removeItem(this._config.appName);
-
-    this.emit('disconnected');
   }
 
   async checkPassword(keyName: string, password: string) {
@@ -168,7 +179,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         caHash = localWallet.didWallet.caInfo[key].caHash;
         caInfo = await did.didWallet.getHolderInfoByContract({
           caHash: caHash,
-          chainId: chainId as ChainId,
+          chainId: chainId as TChainId,
         });
       }
 
@@ -176,7 +187,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       let nickName = localWallet.didWallet.accountInfo.nickName || 'Wallet 01';
       if (originChainId) {
         try {
-          const holderInfo = await did.getCAHolderInfo(originChainId as ChainId);
+          const holderInfo = await did.getCAHolderInfo(originChainId as TChainId);
           nickName = holderInfo.nickName;
         } catch (error) {
           console.error(error);
@@ -186,7 +197,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       const didWalletInfo: DIDWalletInfo = {
         caInfo,
         pin: password,
-        chainId: originChainId as ChainId,
+        chainId: originChainId as TChainId,
         walletInfo: localWallet.didWallet.managementAccount!.wallet as any,
         accountInfo: localWallet.didWallet.accountInfo as any,
         createType: 'recovery',
@@ -216,7 +227,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     } catch (error) {
       console.log('onUnLockFail----------');
       this._loginState = LoginStateEnum.INITIAL;
-      this.emit('error', makeError(ERR_CODE.UNKNOWN, error));
+      this.emit('error', makeError(ERR_CODE.PORTKEY_AA_UNLOCK_FAIL, error));
       return;
     }
   }
@@ -234,7 +245,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     }
 
     if (!this._wallet) {
-      throw new Error('PortkeyAA not login');
+      throw makeError(ERR_CODE.PORTKEY_AA_NOT_CONNECTED);
     }
     let signInfo = '';
     if (params.hexToBeSign) {
@@ -249,5 +260,57 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       signature,
       from: 'portkey',
     };
+  }
+
+  async getAccountByChainId(chainId: TChainId): Promise<string> {
+    if (!this._wallet) {
+      throw makeError(ERR_CODE.PORTKEY_AA_NOT_CONNECTED);
+    }
+    const accounts = this._wallet?.extraInfo?.portkeyInfo.accounts;
+    if (!accounts || !accounts[chainId]) {
+      const caInfo = await did.didWallet.getHolderInfoByContract({
+        caHash: this._wallet?.extraInfo?.portkeyInfo?.caInfo?.caHash,
+        chainId: chainId,
+      });
+      return caInfo?.caAddress;
+    }
+    return accounts[chainId];
+  }
+
+  async getWalletSyncIsCompleted(chainId: TChainId): Promise<string | boolean> {
+    if (!this._wallet) {
+      throw makeError(ERR_CODE.PORTKEY_AA_NOT_CONNECTED);
+    }
+    const didWalletInfo = this._wallet.extraInfo?.portkeyInfo;
+    const caHash = didWalletInfo?.caInfo?.caHash;
+    const address = didWalletInfo?.walletInfo?.address;
+    const originChainId = didWalletInfo?.chainId;
+    console.log(
+      'originChainId === chainId',
+      originChainId === chainId,
+      originChainId,
+      chainId,
+      this._wallet.address,
+      address,
+    );
+    if (originChainId === chainId) {
+      return this._wallet.address;
+    }
+    try {
+      console.log('continut------');
+      const holder = await did.didWallet.getHolderInfoByContract({
+        chainId: chainId,
+        caHash: caHash as string,
+      });
+      const filteredHolders = holder.managerInfos.filter((manager) => manager?.address === address);
+      console.log('filteredHolders.length', filteredHolders.length);
+      if (filteredHolders.length) {
+        return this._wallet.address;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
   }
 }

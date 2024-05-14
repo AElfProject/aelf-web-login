@@ -4,6 +4,7 @@ import {
   ConnectedWallet,
   TWalletError,
   PORTKEYAA,
+  TChainId,
 } from '@aelf-web-login/wallet-adapter-base';
 import { setWalletInfo, clearWalletInfo, dispatch } from './store';
 import { DIDWalletInfo } from '@portkey/did-ui-react';
@@ -41,7 +42,7 @@ class Bridge {
     return this.activeWallet?.name === PORTKEYAA;
   }
 
-  connect = async () => {
+  connect = async (): Promise<TWalletInfo> => {
     return new Promise((resolve, reject) => {
       this._loginResolve = resolve;
       this._loginReject = reject;
@@ -68,6 +69,28 @@ class Bridge {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  getAccountByChainId = async (chainId: TChainId): Promise<string> => {
+    if (
+      !this.activeWallet?.getAccountByChainId ||
+      typeof this.activeWallet.getAccountByChainId !== 'function'
+    ) {
+      return '';
+    }
+    const account = await this.activeWallet?.getAccountByChainId(chainId);
+    return account;
+  };
+
+  getWalletSyncIsCompleted = async (chainId: TChainId): Promise<string | boolean> => {
+    if (
+      !this.activeWallet?.getWalletSyncIsCompleted ||
+      typeof this.activeWallet.getWalletSyncIsCompleted !== 'function'
+    ) {
+      return false;
+    }
+    const account = await this.activeWallet?.getWalletSyncIsCompleted(chainId);
+    return account;
   };
 
   onConnectedHandler = (walletInfo: TWalletInfo) => {
@@ -178,6 +201,16 @@ class Bridge {
     } finally {
       this.closeLoadingModal();
     }
+  };
+
+  lock = () => {
+    if (!this.activeWallet?.lock || typeof this.activeWallet.lock !== 'function') {
+      return;
+    }
+    if (!this.isAAWallet) {
+      return;
+    }
+    this.activeWallet?.lock();
   };
 }
 
