@@ -26,10 +26,12 @@
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
-    "@portkey/did-ui-react": "^2.0.0-alpha.28",
-    "@portkey/utils": "^2.0.0-alpha.28"
+    "@portkey/did-ui-react": "^2.4.5",
+    "@portkey/contracts": "^2.6.2",
+    "@portkey/utils": "^2.4.5"
   },
   "devDependencies": {
+    "@portkey/types": "^2.6.2",
     "father": "^4.3.8",
     "typescript": "^5.3.3"
   },

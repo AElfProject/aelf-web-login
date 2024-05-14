@@ -5,6 +5,8 @@ import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
 import { NightElfWallet } from '@aelf-web-login/wallet-adapter-night-elf';
 import { WebLoginProvider, init, useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import { IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
+import configJson from './contract/config.json';
+import configTdvwJson from './contract/config.tdvw.json';
 
 const APP_NAME = 'explorer.aelf.io';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
@@ -86,18 +88,165 @@ const config = {
   ],
 } as IConfigProps;
 
-const Demo = () => {
+function useExampleCall(name: string, func: () => any) {
+  const [result, setResult] = useState({});
+  const { walletInfo } = useConnectWallet();
+
+  const onClick = async () => {
+    try {
+      const res = await func();
+      if (res.error) {
+        console.error(res.error);
+        return;
+      }
+      setResult(res);
+    } catch (error) {
+      console.log(error);
+      setResult({ error });
+    }
+  };
+
+  return {
+    name,
+    render: () => {
+      return (
+        <>
+          <hr />
+          <h3>{name}:</h3>
+          <div>
+            <Button disabled={!walletInfo} onClick={onClick}>
+              {name}
+            </Button>
+            <div>
+              <h4>Result</h4>
+              <pre className="result">{JSON.stringify(result, null, '  ')}</pre>
+            </div>
+          </div>
+        </>
+      );
+    },
+  };
+}
+
+const ContractDemo = () => {
+  const {
+    callSendMethod,
+    callViewMethod,
+    walletInfo,
+    getAccountByChainId,
+    getWalletSyncIsCompleted,
+  } = useConnectWallet();
+  console.log('ContractDemo init----------');
+
+  const examples = [
+    useExampleCall('call getBalance', async () => {
+      return callViewMethod({
+        contractAddress: configJson.multiToken,
+        methodName: 'GetBalance',
+        args: {
+          symbol: 'ELF',
+          owner: (walletInfo as any).address,
+        },
+      });
+    }),
+
+    useExampleCall('Buy 1 WRITE', async () => {
+      return await callSendMethod({
+        contractAddress: configJson.tokenConverter,
+        methodName: 'Buy',
+        args: {
+          symbol: configJson.resourceTokens[0].symbol,
+          amount: 1 * Math.pow(10, configJson.resourceTokens[0].decimals),
+        },
+      });
+    }),
+
+    useExampleCall('Approve in AELF', async () => {
+      return await callSendMethod({
+        chainId: 'AELF',
+        contractAddress: configJson.multiToken,
+        methodName: 'Approve',
+        args: {
+          symbol: 'ELF',
+          spender: configJson.multiToken,
+          amount: '100000000',
+        },
+      });
+    }),
+
+    useExampleCall('Approve in tDVW', async () => {
+      return await callSendMethod({
+        chainId: 'tDVW',
+        contractAddress: configTdvwJson.multiToken,
+        methodName: 'Approve',
+        args: {
+          symbol: 'ELF',
+          spender: configTdvwJson.multiToken,
+          amount: '100000000',
+        },
+      });
+    }),
+
+    useExampleCall('call getBalance in tDVW', async () => {
+      return callViewMethod({
+        chainId: 'tDVW',
+        contractAddress: configTdvwJson.multiToken,
+        methodName: 'GetBalance',
+        args: {
+          symbol: 'ELF',
+          owner: await getAccountByChainId('tDVW'),
+        },
+      });
+    }),
+
+    useExampleCall('call getBalance in tDVW when tDVW is sync', async () => {
+      const isCurrentChainIdSync = await getWalletSyncIsCompleted('tDVW');
+      console.log(isCurrentChainIdSync, 'isCurrentChainIdSync');
+      if (!isCurrentChainIdSync) {
+        throw new Error('tDVW is not sync');
+      }
+      return callViewMethod({
+        chainId: 'tDVW',
+        contractAddress: configTdvwJson.multiToken,
+        methodName: 'GetBalance',
+        args: {
+          symbol: 'ELF',
+          owner: await getAccountByChainId('tDVW'),
+        },
+      });
+    }),
+
+    useExampleCall('Buy 1 WRITE in tDVW', async () => {
+      return await callSendMethod({
+        chainId: 'tDVW',
+        contractAddress: configTdvwJson.tokenConverter as unknown as string,
+        methodName: 'Buy',
+        args: {
+          symbol: configJson.resourceTokens[0].symbol,
+          amount: 1 * Math.pow(10, configJson.resourceTokens[0].decimals),
+        },
+      });
+    }),
+  ];
+  return (
+    <div>
+      {examples.map((example) => {
+        return <div key={example.name}>{example.render()}</div>;
+      })}
+    </div>
+  );
+};
+
+const LoginDemo = () => {
   const {
     connectWallet,
     disConnectWallet,
     walletInfo,
-    loginState,
     lock,
     getAccountByChainId,
     getWalletSyncIsCompleted,
   } = useConnectWallet();
-  // TODO: why loginState is undefined, instead of LoginStateEnum.INITIAL
-  console.log('page init----------:', loginState);
+  console.log('LoginDemo init----------');
   const [aelfAccount, setAelfAccount] = useState<string>('');
   const [tdvwAccount, setTdvwAccount] = useState<string>('');
   const [syncIsCompleted, setSyncIsCompleted] = useState<string | boolean>(false);
@@ -164,7 +313,6 @@ const Demo = () => {
       </Button>
       <div>getWalletSyncIsCompleted-tDVW:{syncIsCompletedTDVW}</div>
 
-      <div>loginState:{loginState}</div>
       <div>
         walletInfo:
         <pre>{JSON.stringify(walletInfo, null, 4)}</pre>
@@ -184,7 +332,8 @@ const App = () => {
   const bridgeAPI = init(config);
   return (
     <WebLoginProvider bridgeAPI={bridgeAPI}>
-      <Demo />
+      <LoginDemo />
+      <ContractDemo />
     </WebLoginProvider>
   );
 };

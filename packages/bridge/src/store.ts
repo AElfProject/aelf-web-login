@@ -1,5 +1,4 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
-// import { TWalletInfo } from '@aelf-web-login/wallet-adapter-base';
 
 const aelfWebLoginSlice = createSlice({
   name: 'aelfWebLogin',

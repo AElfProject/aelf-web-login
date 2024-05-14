@@ -19,7 +19,8 @@ export const ERR_CODE = {
   NIGHT_ELF_LOGIN_EAGERLY_FAIL: 10016,
   NIGHT_ELF_LOGOUT_FAIL: 10017,
   NIGHT_ELF_NOT_CONNECTED: 10018,
-  UNKNOWN: 10019,
+  INVALID_CONTRACT_ADDRESS: 10019,
+  UNKNOWN: 10020,
 };
 
 export const ERR_CODE_MSG: {
@@ -46,7 +47,8 @@ export const ERR_CODE_MSG: {
   10016: 'There is something wrong at loginEagerly stage with nightElf',
   10017: 'There is something wrong at logout stage with nightElf',
   10018: 'NightElf is not connected',
-  10019: 'Unknown error',
+  10019: 'The contract address is invalid',
+  10020: 'Unknown error',
 };
 
 export function makeError(code: number, nativeError?: any): TWalletError {
