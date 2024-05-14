@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { WalletAdapter, utils } from '@aelf-web-login/wallet-adapter-base';
 import { Bridge } from './bridge';
 import {
@@ -169,6 +169,26 @@ const SignInModal = (props: ISignInModalProps) => {
     [baseConfig.keyboard, bridgeInstance, isMobileDevice],
   );
 
+  const extraWallets = useMemo(() => {
+    return (
+      <div className="aelf-web-extra-wallets-wrapper">
+        <Typography.Text className="aelf-web-extra-wallets-title">Crypto wallet</Typography.Text>
+        <div className="aelf-web-extra-wallets">
+          {wallets
+            .filter((ele) => ele.name !== 'PortkeyAA')
+            .map((item) => (
+              <div className="aelf-web-extra-image" key={item.name}>
+                <img
+                  src={item.icon}
+                  onClick={() => bridgeInstance.onUniqueWalletClick(item.name)}
+                />
+              </div>
+            ))}
+        </div>
+      </div>
+    );
+  }, [bridgeInstance, wallets]);
+
   return (
     <PortkeyProvider networkType="TESTNET">
       <div>
@@ -199,16 +219,7 @@ const SignInModal = (props: ISignInModalProps) => {
               uiType="Full"
               design={baseConfig.design}
               isShowScan
-              extraElementList={wallets
-                .filter((ele) => ele.name !== 'PortkeyAA')
-                .map((item) => (
-                  <div
-                    key={item.name}
-                    onClick={() => bridgeInstance.onUniqueWalletClick(item.name)}
-                  >
-                    {item.name}
-                  </div>
-                ))}
+              extraElementList={[extraWallets]}
               onCancel={() => {
                 //TODO: seem to not execute
                 console.log('onSignInCancel');

@@ -113,10 +113,10 @@ importers:
         version: 5.4.5
 
   packages/core/base:
-    dependencies:
-      eventemitter3:
-        specifier: ^4.0.7
-        version: 4.0.7
+    devDependencies:
+      typescript:
+        specifier: ^5.3.3
+        version: 5.4.5
 
   packages/react:
     dependencies:
@@ -188,12 +188,9 @@ importers:
       '@aelf-web-login/wallet-adapter-base':
         specifier: workspace:*
         version: link:../../core/base
-      '@portkey/did-ui-react':
-        specifier: ^2.0.0-alpha.28
-        version: 2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(i18next@23.11.2)(react-dom@18.2.0)(react@18.2.0)
-      '@portkey/utils':
-        specifier: ^2.0.0-alpha.28
-        version: 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
+      '@portkey/contracts':
+        specifier: ^2.6.2
+        version: 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
       aelf-bridge:
         specifier: ^0.0.10
         version: 0.0.10
@@ -204,6 +201,9 @@ importers:
       '@aelf-react/types':
         specifier: ^0.1.10
         version: 0.1.10
+      '@portkey/types':
+        specifier: ^2.6.2
+        version: 2.6.2
       '@types/bn.js':
         specifier: ^5.1.5
         version: 5.1.5
@@ -219,13 +219,19 @@ importers:
       '@aelf-web-login/wallet-adapter-base':
         specifier: workspace:*
         version: link:../../core/base
+      '@portkey/contracts':
+        specifier: ^2.6.2
+        version: 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
       '@portkey/did-ui-react':
-        specifier: ^2.0.0-alpha.28
-        version: 2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(i18next@23.11.2)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^2.4.5
+        version: 2.4.5(aelf-sdk@3.4.8)(i18next@23.11.2)(react-dom@18.2.0)(react@18.2.0)
       '@portkey/utils':
-        specifier: ^2.0.0-alpha.28
-        version: 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
+        specifier: ^2.4.5
+        version: 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
     devDependencies:
+      '@portkey/types':
+        specifier: ^2.6.2
+        version: 2.6.2
       father:
         specifier: ^4.3.8
         version: 4.4.0(@babel/core@7.24.4)(styled-components@6.1.8)(webpack@5.91.0)
@@ -238,19 +244,22 @@ importers:
       '@aelf-web-login/wallet-adapter-base':
         specifier: workspace:*
         version: link:../../core/base
+      '@portkey/contracts':
+        specifier: ^2.6.2
+        version: 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
       '@portkey/detect-provider':
-        specifier: ^2.0.0-alpha.5
-        version: 2.1.0
+        specifier: ^2.2.0
+        version: 2.2.0
       '@portkey/provider-types':
-        specifier: ^2.0.0-alpha.5
-        version: 2.1.0
+        specifier: ^2.2.0
+        version: 2.2.0
       bn.js:
         specifier: ^5.2.1
         version: 5.2.1
     devDependencies:
       '@portkey/types':
-        specifier: 2.0.0-alpha.28
-        version: 2.0.0-alpha.28
+        specifier: ^2.6.2
+        version: 2.6.2
       '@types/bn.js':
         specifier: ^5.1.5
         version: 5.1.5
@@ -3288,8 +3297,8 @@ packages:
     peerDependencies:
       aelf-sdk: ^3.4.7
     dependencies:
-      '@portkey/types': 2.4.5
-      '@portkey/utils': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
+      '@portkey/types': 2.6.2
+      '@portkey/utils': 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
       '@portkey/validator': 2.4.5
       aelf-sdk: 3.4.8
     transitivePeerDependencies:
@@ -3302,8 +3311,21 @@ packages:
       aelf-sdk: ^3.4.7
     dependencies:
       '@portkey/provider-types': 2.1.0
-      '@portkey/types': 2.4.5
-      '@portkey/utils': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
+      '@portkey/types': 2.6.2
+      '@portkey/utils': 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
+      aelf-sdk: 3.4.8
+    transitivePeerDependencies:
+      - query-string
+    dev: false
+
+  /@portkey/contracts@2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3):
+    resolution: {integrity: sha512-HK2kTNkdoVCt7DSlKsxrjAWo5fqsSa5Du+puvyyTHalgXFRAle++EuLTLK7aFVnAY5B5+1i1E0AAaEGSu03LOA==}
+    peerDependencies:
+      aelf-sdk: ^3.4.7
+    dependencies:
+      '@portkey/provider-types': 2.2.0
+      '@portkey/types': 2.6.2
+      '@portkey/utils': 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
       aelf-sdk: 3.4.8
     transitivePeerDependencies:
       - query-string
@@ -3312,7 +3334,13 @@ packages:
   /@portkey/detect-provider@2.1.0:
     resolution: {integrity: sha512-WP52a54+mhraYVrZUfMFjvXwmB0trrLZ0HN3wSksnQkv8eH/fPacYWq0eeFPxnzRu1b1T1lFbEHdzEdnZAmnxg==}
     dependencies:
-      '@portkey/provider-types': 2.1.0
+      '@portkey/provider-types': 2.2.0
+    dev: false
+
+  /@portkey/detect-provider@2.2.0:
+    resolution: {integrity: sha512-Tlzf8LWbdp+qahinSc/hYtRZ0Te3XWE6LA+eAnHgn9C4q4J+O9BiwagREjO0MvqUVqPJVbZovq28qf1FIu8ZQg==}
+    dependencies:
+      '@portkey/provider-types': 2.2.0
     dev: false
 
   /@portkey/did-ui-react@2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(i18next@23.11.2)(react-dom@18.2.0)(react@18.2.0):
@@ -3332,8 +3360,54 @@ packages:
       '@portkey/request': 2.4.5
       '@portkey/services': 2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0)
       '@portkey/socket': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
-      '@portkey/types': 2.4.5
+      '@portkey/types': 2.6.2
       '@portkey/utils': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
+      '@portkey/validator': 2.4.5
+      '@rc-component/portal': 1.0.2(react-dom@18.2.0)(react@18.2.0)
+      aelf-sdk: 3.4.8
+      antd: 4.24.14(react-dom@18.2.0)(react@18.2.0)
+      antd-mobile: 5.33.0(react-dom@18.2.0)(react@18.2.0)
+      bignumber.js: 9.1.2
+      clsx: 1.2.1
+      lottie-web: 5.9.6
+      moment: 2.30.1
+      query-string: 7.1.3
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-i18next: 11.18.6(i18next@23.11.2)(react-dom@18.2.0)(react@18.2.0)
+      react-qrcode-logo: 2.9.0(react-dom@18.2.0)(react@18.2.0)
+      react-use: 17.5.0(react-dom@18.2.0)(react@18.2.0)
+      spark-md5: 3.0.2
+      uuid: 8.3.2
+    transitivePeerDependencies:
+      - '@types/react'
+      - bufferutil
+      - encoding
+      - graphql-ws
+      - i18next
+      - react-native
+      - utf-8-validate
+    dev: false
+
+  /@portkey/did-ui-react@2.4.5(aelf-sdk@3.4.8)(i18next@23.11.2)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-WUlxJbC1QydeucHQwPkkhOBFQ0voq2Im677O4fEU3b+MCMp4Csen/xFRCM+9BTXUhr24gbqSCqhSFDfvrIXRMg==}
+    peerDependencies:
+      aelf-sdk: ^3.4.7
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      '@matt-block/react-recaptcha-v2': 2.0.1(react@18.2.0)
+      '@portkey/accounts': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
+      '@portkey/contracts': 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
+      '@portkey/did': 2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0)
+      '@portkey/graphql': 2.4.5(@types/react@18.3.1)(react-dom@18.2.0)(react@18.2.0)
+      '@portkey/onboarding': 2.4.5(aelf-sdk@3.4.8)
+      '@portkey/ramp': 2.4.5(aelf-sdk@3.4.8)
+      '@portkey/request': 2.4.5
+      '@portkey/services': 2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0)
+      '@portkey/socket': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
+      '@portkey/types': 2.6.2
+      '@portkey/utils': 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
       '@portkey/validator': 2.4.5
       '@rc-component/portal': 1.0.2(react-dom@18.2.0)(react@18.2.0)
       aelf-sdk: 3.4.8
@@ -3368,12 +3442,12 @@ packages:
       react: ^18.2.0
     dependencies:
       '@portkey/accounts': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
-      '@portkey/contracts': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
+      '@portkey/contracts': 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
       '@portkey/graphql': 2.4.5(@types/react@18.3.1)(react-dom@18.2.0)(react@18.2.0)
       '@portkey/request': 2.4.5
       '@portkey/services': 2.4.5(@types/react@18.3.1)(aelf-sdk@3.4.8)(query-string@7.1.3)(react-dom@18.2.0)(react@18.2.0)
-      '@portkey/types': 2.4.5
-      '@portkey/utils': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
+      '@portkey/types': 2.6.2
+      '@portkey/utils': 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
       aelf-sdk: 3.4.8
       react: 18.2.0
     transitivePeerDependencies:
@@ -3389,7 +3463,7 @@ packages:
     resolution: {integrity: sha512-OSCXY5Mvd+sGSNB8kdUPaPFK1Iykq7dMcMxk8c2vksIUDs1Onj6MX23gCeH1yGf7yzCt5FDj2c0KU5NOGrTt3Q==}
     dependencies:
       '@apollo/client': 3.9.11(@types/react@18.3.1)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)(subscriptions-transport-ws@0.11.0)
-      '@portkey/types': 2.4.5
+      '@portkey/types': 2.6.2
       graphql: 16.8.1
       subscriptions-transport-ws: 0.11.0(graphql@16.8.1)
     transitivePeerDependencies:
@@ -3405,8 +3479,8 @@ packages:
     resolution: {integrity: sha512-BYonDxKv/uIU4zVyutRzPsQXDKnfdU8KaCL7TL1hK/MhuoIlMxojr07p90fr5mENvopCiKGiHW2y09bC+gOVbg==}
     dependencies:
       '@portkey/detect-provider': 2.1.0
-      '@portkey/types': 2.4.5
-      '@portkey/utils': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
+      '@portkey/types': 2.6.2
+      '@portkey/utils': 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
       bowser: 2.11.0
       query-string: 7.1.3
     transitivePeerDependencies:
@@ -3416,7 +3490,14 @@ packages:
   /@portkey/provider-types@2.1.0:
     resolution: {integrity: sha512-FyNQHIr4G04mY2RPHNLTRM/iEMUVLtMwFKayu2UIhxTz2E+EjLq9jWz6zlkZjr1PESxYvBJiVUQikK+giVcCbg==}
     dependencies:
-      '@portkey/types': 2.0.0-alpha.28
+      '@portkey/types': 2.6.2
+      '@types/readable-stream': 2.3.15
+    dev: false
+
+  /@portkey/provider-types@2.2.0:
+    resolution: {integrity: sha512-+rRoZKP8O//D4k9ZwRnkYYmDe76xMW87U84r1QDvwJ7n2oQTk8hy7fQ8c2ut0twVsIibZfevvxzOttbkJ1RNZQ==}
+    dependencies:
+      '@portkey/types': 2.6.2
       '@types/readable-stream': 2.3.15
     dev: false
 
@@ -3425,8 +3506,8 @@ packages:
     dependencies:
       '@portkey/request': 2.4.5
       '@portkey/socket': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
-      '@portkey/types': 2.4.5
-      '@portkey/utils': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
+      '@portkey/types': 2.6.2
+      '@portkey/utils': 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
       query-string: 7.1.3
     transitivePeerDependencies:
       - aelf-sdk
@@ -3438,7 +3519,7 @@ packages:
   /@portkey/request@2.4.5:
     resolution: {integrity: sha512-aV1JyARl9tFlkMnj9LndsmqdYh5VT2Vg7rudXtzuD3clID21BWVqSX3HXL3PvpcppNuv3CHyiP12X++5D1tvkA==}
     dependencies:
-      '@portkey/types': 2.4.5
+      '@portkey/types': 2.6.2
       query-string: 7.1.3
     dev: false
 
@@ -3450,7 +3531,7 @@ packages:
     dependencies:
       '@portkey/graphql': 2.4.5(@types/react@18.3.1)(react-dom@18.2.0)(react@18.2.0)
       '@portkey/request': 2.4.5
-      '@portkey/types': 2.4.5
+      '@portkey/types': 2.6.2
       aelf-sdk: 3.4.8
       query-string: 7.1.3
     transitivePeerDependencies:
@@ -3466,7 +3547,7 @@ packages:
     resolution: {integrity: sha512-lgKwfHwmacaIL7CQNqyAJSafuW8aAjvWjIsdKy5uB4TfzBAyCiTMo79B271JjLjsnoLMyfad/VKdMlVebrHb1g==}
     dependencies:
       '@abp/signalr': 7.4.5
-      '@portkey/utils': 2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3)
+      '@portkey/utils': 2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3)
     transitivePeerDependencies:
       - aelf-sdk
       - bufferutil
@@ -3475,15 +3556,21 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@portkey/types@2.0.0-alpha.28:
-    resolution: {integrity: sha512-AexD8hFvqBj+hnSNJLrfmVNOAzUwCjuaz+jYu/0YUqR8u7f/CCWj1uF3Su59SAqjAOi979yUntWacsMFv/AO3g==}
-
-  /@portkey/types@2.4.5:
-    resolution: {integrity: sha512-zxKWXXDBNEWv19/uDK9gf2ctQ+pZAWJCpdPId+6+/R3hZF1FPReWotZLF0itFaQypuagsev7Ela+82Ocwr5R3w==}
-    dev: false
+  /@portkey/types@2.6.2:
+    resolution: {integrity: sha512-949D6Ft9l4eGL8TkOfAB26J4zPsTYeBDkxp9ZMJ+qmLrM3nsxahbjF1qoEAXuKosOoeG9BsLK6vtva+ZY8Pbbg==}
 
   /@portkey/utils@2.4.5(aelf-sdk@3.4.8)(query-string@7.1.3):
     resolution: {integrity: sha512-9Iz2VRlMsGpp/N6CPtPuGu9qUqqnzkcFpA/6niQ1Keqf1Bj0AIIHzMOZLlJ/ks1xAlHNxFxRJ4l+MNwEPynDKw==}
+    peerDependencies:
+      aelf-sdk: ^3.4.7
+      query-string: ^7.1.1
+    dependencies:
+      aelf-sdk: 3.4.8
+      query-string: 7.1.3
+    dev: false
+
+  /@portkey/utils@2.6.2(aelf-sdk@3.4.8)(query-string@7.1.3):
+    resolution: {integrity: sha512-yi2g68G6PQN83BYoPQyxOfVb8QZgZhc8G21FVY7pZ+f0mLMWYPXFS5F43rlc1673llYg60IN/FeYwO3dPudNTA==}
     peerDependencies:
       aelf-sdk: ^3.4.7
       query-string: ^7.1.1
@@ -9105,10 +9192,6 @@ packages:
 
   /eventemitter3@3.1.2:
     resolution: {integrity: sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==}
-    dev: false
-
-  /eventemitter3@4.0.7:
-    resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
     dev: false
 
   /eventemitter3@5.0.1:

@@ -9,9 +9,13 @@ import {
   ERR_CODE,
   ConnectedWallet,
   TChainId,
+  ICallContractParams,
+  ISendOrViewAdapter,
 } from '@aelf-web-login/wallet-adapter-base';
-import { did, DIDWalletInfo } from '@portkey/did-ui-react';
+import { did, DIDWalletInfo, managerApprove, getChain } from '@portkey/did-ui-react';
 import { aes } from '@portkey/utils';
+import { getContractBasic } from '@portkey/contracts';
+import { IContract } from '@portkey/types';
 
 export interface IPortkeyAAWalletAdapterConfig {
   appName: string;
@@ -312,5 +316,151 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     } catch (error) {
       return false;
     }
+  }
+
+  private getUrl() {
+    return new URL(location.href);
+  }
+
+  private getFaviconUrl(url: string, size = 50): string {
+    const hostUrl = new URL(url).host;
+    return `https://icon.horse/icon/${hostUrl}/${size}`;
+  }
+
+  private async sendOrViewAdapter<T>({
+    caContract,
+    chainId,
+    contractAddress,
+    methodName,
+    args,
+    sendOptions,
+    type = 'send',
+  }: ISendOrViewAdapter<T>) {
+    const didWalletInfo = this._wallet!.extraInfo?.portkeyInfo;
+
+    const chainInfo = await getChain(chainId!);
+    // particular case for token contract(contractMethod: managerApprove)
+    // don't deal with caContract(contractMethod: ApproveMethod)
+    // if dapp provides signature, we won't awake signature pop-up again
+    if ((contractAddress === chainInfo?.defaultToken.address && methodName) === 'Approve') {
+      const { origin, href, hostname: name } = this.getUrl();
+      const icon = this.getFaviconUrl(href);
+      const originChainId = didWalletInfo.chainId;
+      // use amount from result of managerApprove not from params
+      // dapp user may change amount at pop-up
+      const { amount, guardiansApproved, symbol } = (await managerApprove({
+        originChainId,
+        targetChainId: chainId,
+        caHash: didWalletInfo.caInfo?.caHash,
+        ...args,
+        dappInfo: {
+          icon,
+          href: origin,
+          name,
+        },
+      } as any)) as any;
+      return caContract.callSendMethod(
+        'ManagerApprove',
+        '',
+        {
+          caHash: didWalletInfo.caInfo?.caHash,
+          ...args,
+          guardiansApproved,
+          amount,
+          symbol,
+        },
+        {
+          onMethod: 'transactionHash',
+        },
+      );
+    } else {
+      const params = {
+        caHash: didWalletInfo.caInfo?.caHash,
+        contractAddress: contractAddress,
+        methodName: methodName,
+        args: args,
+      };
+      if (type === 'view') {
+        return caContract.callViewMethod('ManagerForwardCall', params);
+      } else {
+        return caContract.callSendMethod(
+          'ManagerForwardCall',
+          didWalletInfo.walletInfo.address,
+          params,
+          sendOptions,
+        );
+      }
+    }
+  }
+
+  async getContract(chainId: TChainId): Promise<IContract> {
+    if (!this._wallet) {
+      throw makeError(ERR_CODE.PORTKEY_AA_NOT_CONNECTED);
+    }
+    const chainsInfo = await did.services.getChainsInfo();
+    const chainInfo = chainsInfo.find((chain) => chain.chainId === chainId);
+    if (!chainInfo) {
+      throw new Error(`chain is not running: ${chainId}`);
+    }
+    return getContractBasic({
+      contractAddress: chainInfo.caContractAddress,
+      account: this._wallet.extraInfo?.portkeyInfo.walletInfo,
+      rpcUrl: chainInfo.endPoint,
+    });
+  }
+
+  async callSendMethod<T, R>({
+    chainId,
+    contractAddress,
+    methodName,
+    args,
+    sendOptions,
+  }: ICallContractParams<T>) {
+    if (!this._wallet) {
+      throw makeError(ERR_CODE.PORTKEY_AA_NOT_CONNECTED);
+    }
+    if (!contractAddress) {
+      throw makeError(ERR_CODE.INVALID_CONTRACT_ADDRESS);
+    }
+
+    const finalChainId = chainId || this._config.chainId;
+    const contract = await this.getContract(finalChainId);
+    const adapterProps = {
+      caContract: contract,
+      chainId: finalChainId,
+      contractAddress,
+      methodName,
+      args,
+      sendOptions,
+    };
+    const rs = await this.sendOrViewAdapter(adapterProps);
+    return rs as R;
+  }
+
+  async callViewMethod<T, R>({
+    chainId,
+    contractAddress,
+    methodName,
+    args,
+  }: ICallContractParams<T>) {
+    if (!this._wallet) {
+      throw makeError(ERR_CODE.PORTKEY_AA_NOT_CONNECTED);
+    }
+    if (!contractAddress) {
+      throw makeError(ERR_CODE.INVALID_CONTRACT_ADDRESS);
+    }
+
+    const finalChainId = chainId || this._config.chainId;
+    const contract = await this.getContract(finalChainId);
+    const adapterProps = {
+      caContract: contract,
+      chainId: finalChainId,
+      contractAddress,
+      methodName,
+      args,
+      type: 'view',
+    };
+    const rs = await this.sendOrViewAdapter(adapterProps);
+    return rs as R;
   }
 }

@@ -7,6 +7,7 @@ import {
   TWalletInfo,
   TChainId,
   WalletStateEnum,
+  ICallContractParams,
 } from './types';
 
 export { EventEmitter };
@@ -40,6 +41,8 @@ export interface IWalletAdapter<Name extends string = string> {
   }>;
   getAccountByChainId(chainId: TChainId): Promise<string>;
   getWalletSyncIsCompleted(chainId: TChainId): Promise<string | boolean>;
+  callSendMethod<T, R>(props: ICallContractParams<T>): Promise<R>;
+  callViewMethod<T, R>(props: ICallContractParams<T>): Promise<R>;
   onUnlock?: (pin: string) => Promise<TWalletInfo>;
   lock?: () => void;
 }
@@ -70,6 +73,8 @@ export abstract class BaseWalletAdapter<Name extends string = string>
   }>;
   abstract getAccountByChainId(chainId: TChainId): Promise<string>;
   abstract getWalletSyncIsCompleted(chainId: TChainId): Promise<string | boolean>;
+  abstract callSendMethod<T, R>(props: ICallContractParams<T>): Promise<R>;
+  abstract callViewMethod<T, R>(props: ICallContractParams<T>): Promise<R>;
 }
 
 export function scopePollingDetectionStrategy(detect: () => boolean): void {

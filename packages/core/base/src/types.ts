@@ -1,3 +1,5 @@
+import { SendOptions, IContract } from '@portkey/types';
+
 export enum WalletStateEnum {
   // Wallet plug-in detected
   Detected = 'detected',
@@ -49,3 +51,16 @@ export type TWalletError = {
   message: string;
   nativeError?: any;
 };
+
+export interface ICallContractParams<T> {
+  contractAddress: string;
+  methodName: string;
+  args: T;
+  chainId?: TChainId;
+  sendOptions?: SendOptions;
+}
+
+export interface ISendOrViewAdapter<T> extends ICallContractParams<T> {
+  caContract: IContract;
+  type?: string;
+}

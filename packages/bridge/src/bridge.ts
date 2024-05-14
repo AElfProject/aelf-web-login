@@ -5,6 +5,7 @@ import {
   TWalletError,
   PORTKEYAA,
   TChainId,
+  ICallContractParams,
 } from '@aelf-web-login/wallet-adapter-base';
 import { setWalletInfo, clearWalletInfo, dispatch } from './store';
 import { DIDWalletInfo } from '@portkey/did-ui-react';
@@ -91,6 +92,28 @@ class Bridge {
     }
     const account = await this.activeWallet?.getWalletSyncIsCompleted(chainId);
     return account;
+  };
+
+  callSendMethod = async <T, R>(props: ICallContractParams<T>): Promise<R> => {
+    if (
+      !this.activeWallet?.callSendMethod ||
+      typeof this.activeWallet.callSendMethod !== 'function'
+    ) {
+      return null as R;
+    }
+    const rs = await this.activeWallet?.callSendMethod(props);
+    return rs as R;
+  };
+
+  callViewMethod = async <T, R>(props: ICallContractParams<T>): Promise<R> => {
+    if (
+      !this.activeWallet?.callViewMethod ||
+      typeof this.activeWallet.callViewMethod !== 'function'
+    ) {
+      return null as R;
+    }
+    const rs = await this.activeWallet?.callViewMethod(props);
+    return rs as R;
   };
 
   onConnectedHandler = (walletInfo: TWalletInfo) => {

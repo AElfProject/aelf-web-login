@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useSyncExternalStore } from 'react';
 import { initBridge, IConfigProps, IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
-import { TWalletInfo } from '@aelf-web-login/wallet-adapter-base';
 
 const HOOK_ERROR_MESSAGE =
   'Must call the provided initialization method`init` method before using hooks.';
@@ -58,8 +57,15 @@ function useExternalStore() {
 export function useConnectWallet() {
   const { instance } = useWebLoginContext();
   const stateFromStore = useExternalStore();
-  const { connect, disConnect, loginState, lock, getAccountByChainId, getWalletSyncIsCompleted } =
-    instance;
+  const {
+    connect,
+    disConnect,
+    lock,
+    getAccountByChainId,
+    getWalletSyncIsCompleted,
+    callSendMethod,
+    callViewMethod,
+  } = instance;
   const [connecting, setConnecting] = useState(false);
 
   const connectWallet = useCallback(async () => {
@@ -78,9 +84,10 @@ export function useConnectWallet() {
     disConnectWallet,
     connecting,
     walletInfo: stateFromStore.walletInfo,
-    loginState,
     lock,
     getAccountByChainId,
     getWalletSyncIsCompleted,
+    callSendMethod,
+    callViewMethod,
   };
 }
