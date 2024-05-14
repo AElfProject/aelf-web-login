@@ -1,15 +1,16 @@
 {
-  "name": "aelf-web-login/main",
-  "version": "0.0.0",
+  "name": "aelf-web-login-monorepo",
+  "version": "0.0.1",
   "private": true,
   "workspaces": [
     "packages/core/*",
     "packages/starter/*",
     "packages/wallets/*",
-    "packages/bridge"
+    "packages/bridge",
+    "packages/react"
   ],
   "type": "module",
-  "packageManager": "pnpm@8.9.0",
+  "packageManager": "pnpm@8.15.4",
   "files": [],
   "scripts": {
     "start": "dumi dev",
@@ -79,7 +80,7 @@
     "autoBadges": false
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "repository": "https://github.com/AElf-devops/aelf-design"
 }

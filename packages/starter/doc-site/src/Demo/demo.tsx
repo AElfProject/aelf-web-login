@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'aelf-design';
+import { Button, Input } from 'aelf-design';
 import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-discover';
 import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
 import { NightElfWallet } from '@aelf-web-login/wallet-adapter-night-elf';
@@ -328,12 +328,41 @@ const LoginDemo = () => {
   );
 };
 
+const SignatureDemo = () => {
+  const { walletInfo, getSignature } = useConnectWallet();
+  const [signInfo, setSignInfo] = useState('');
+  const [signed, setSigned] = useState('');
+
+  const sign = async () => {
+    const signature = await getSignature({
+      signInfo,
+      appName: '',
+      address: '',
+    });
+    console.log('signature', signature);
+    setSigned(signature.signature);
+  };
+
+  return (
+    <div>
+      <div>
+        <Button disabled={!walletInfo} onClick={sign}>
+          Sign
+        </Button>
+        <Input value={signInfo} onChange={(e) => setSignInfo(e.target.value)} />
+        <div>{signed}</div>
+      </div>
+    </div>
+  );
+};
+
 const App = () => {
   const bridgeAPI = init(config);
   return (
     <WebLoginProvider bridgeAPI={bridgeAPI}>
       <LoginDemo />
       <ContractDemo />
+      <SignatureDemo />
     </WebLoginProvider>
   );
 };

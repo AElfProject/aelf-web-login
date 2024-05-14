@@ -1,35 +1,41 @@
 {
   "name": "@aelf-web-login/wallet-adapter-base",
   "version": "0.0.1",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "access": "public"
+  "type": "module",
+  "main": "dist/esm/index.js",
+  "module": "dist/esm/index.js",
+  "typings": "dist/esm/index.d.ts",
+  "exports": {
+    "import": "./dist/esm/index.js",
+    "require": "./dist/lib/index.js",
+    "types": "./dist/esm/index.d.ts"
   },
   "files": [
-    "lib",
-    "src",
-    "LICENSE"
+    "dist",
+    "CHANGELOG.md",
+    "README.md"
   ],
-  "engines": {
-    "node": ">=16"
-  },
-  "type": "module",
-  "sideEffects": false,
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./lib/types/index.d.ts",
-  "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js",
-    "types": "./lib/types/index.d.ts"
-  },
+  "keywords": [
+    "login",
+    "frontend",
+    "web3"
+  ],
   "scripts": {
-    "build": "tsc --build --verbose && pnpm run package",
-    "clean": "shx mkdir -p lib && shx rm -rf lib",
-    "lint": "prettier --check 'src/{*,**/*}.{ts,tsx,js,jsx,json}' && eslint",
-    "package": "shx mkdir -p lib/cjs && shx echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json"
+    "dev": "father dev",
+    "build": "father build"
   },
   "devDependencies": {
+    "@portkey/did-ui-react": "^2.6.2",
     "typescript": "^5.3.3"
-  }
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "> 1%",
+    "ie >= 11"
+  ]
 }

@@ -65,6 +65,7 @@ export function useConnectWallet() {
     getWalletSyncIsCompleted,
     callSendMethod,
     callViewMethod,
+    getSignature,
   } = instance;
   const [connecting, setConnecting] = useState(false);
 
@@ -89,5 +90,6 @@ export function useConnectWallet() {
     getWalletSyncIsCompleted,
     callSendMethod,
     callViewMethod,
+    getSignature,
   };
 }
