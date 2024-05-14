@@ -6,6 +6,7 @@ import {
   PORTKEYAA,
   TChainId,
   ICallContractParams,
+  TSignatureParams,
 } from '@aelf-web-login/wallet-adapter-base';
 import { setWalletInfo, clearWalletInfo, dispatch } from './store';
 import { DIDWalletInfo } from '@portkey/did-ui-react';
@@ -116,6 +117,26 @@ class Bridge {
     return rs as R;
   };
 
+  getSignature = async (
+    params: TSignatureParams,
+  ): Promise<{
+    error: number;
+    errorMessage: string;
+    signature: string;
+    from: string;
+  } | null> => {
+    if (!this.activeWallet?.getSignature || typeof this.activeWallet.getSignature !== 'function') {
+      return null;
+    }
+    try {
+      const rs = await this.activeWallet?.getSignature(params);
+      return rs;
+    } catch (e) {
+      console.warn(e);
+      return null;
+    }
+  };
+
   onConnectedHandler = (walletInfo: TWalletInfo) => {
     dispatch(setWalletInfo(walletInfo));
   };
@@ -131,6 +152,7 @@ class Bridge {
   onConnectErrorHandler = (err: TWalletError) => {
     console.log('in error event', err, this.activeWallet);
     this._loginReject(err);
+    // TODO:use toast instead of alert
     alert(err.message);
     this.closeSignIModal();
     this.closeLoadingModal();
