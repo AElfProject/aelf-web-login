@@ -4,7 +4,6 @@ import { createRoot } from 'react-dom/client';
 import SignInModal from './ui';
 import { Bridge } from './bridge';
 import { IBaseConfig } from '.';
-import { createPortal } from 'react-dom';
 
 export function mountApp(
   bridgeInstance: Bridge,
@@ -21,13 +20,7 @@ export function mountApp(
   if (!containerElement) {
     throw new Error(`Element with query ${containerElementQuery} does not exist.`);
   }
-  // let SignInWrapperDom;
-  // if (document.querySelector('#sign-in-wrapper')) {
-  //   SignInWrapperDom = document.querySelector('#sign-in-wrapper') as Element;
-  // } else {
-  //   SignInWrapperDom = document.createElement('div');
-  //   SignInWrapperDom.setAttribute('id', 'sign-in-wrapper');
-  // }
+
   const SignInWrapperDom = document.createElement('div');
   SignInWrapperDom.setAttribute('id', 'sign-in-wrapper');
   const root = createRoot(SignInWrapperDom);
@@ -35,12 +28,4 @@ export function mountApp(
     <SignInModal bridgeInstance={bridgeInstance} wallets={wallets} baseConfig={baseConfig} />,
   );
   containerElement.appendChild(SignInWrapperDom);
-
-  // const a = createPortal(
-  //   <SignInModal bridgeInstance={bridgeInstance} wallets={wallets} baseConfig={baseConfig} />,
-  //   SignInWrapperDom,
-  //   'xxx-aa-bb',
-  // );
-  // root.render(a);
-  // containerElement.appendChild(SignInWrapperDom);
 }

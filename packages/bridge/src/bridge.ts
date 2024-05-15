@@ -142,7 +142,7 @@ class Bridge {
   };
 
   onDisConnectedHandler = (isLocking = false) => {
-    this.unbindEvents();
+    !isLocking && this.unbindEvents();
     isLocking && this.openLockPanel();
     dispatch(clearWalletInfo());
   };
