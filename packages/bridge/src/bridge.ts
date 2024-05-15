@@ -141,7 +141,8 @@ class Bridge {
     dispatch(setWalletInfo(walletInfo));
   };
 
-  onDisConnectedHandler = () => {
+  onDisConnectedHandler = (isLocking = false) => {
+    isLocking && this.openLockPanel();
     dispatch(clearWalletInfo());
   };
 

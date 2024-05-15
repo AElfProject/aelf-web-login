@@ -124,7 +124,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     did.reset();
     this._wallet = null;
     this._loginState = LoginStateEnum.INITIAL;
-    this.emit('disconnected');
+    this.emit('disconnected', true);
   }
 
   async logout() {
