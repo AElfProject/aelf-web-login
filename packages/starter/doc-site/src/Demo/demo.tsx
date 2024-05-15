@@ -315,7 +315,9 @@ const LoginDemo = () => {
 
       <div>
         walletInfo:
-        <pre>{JSON.stringify(walletInfo, null, 4)}</pre>
+        <pre style={{ overflow: 'auto', height: '300px' }}>
+          {JSON.stringify(walletInfo, null, 4)}
+        </pre>
       </div>
       <div>
         walletType:

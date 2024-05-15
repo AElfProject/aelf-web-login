@@ -380,20 +380,16 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         methodName: methodName,
         args: args,
       };
-      if (type === 'view') {
-        return caContract.callViewMethod('ManagerForwardCall', params);
-      } else {
-        return caContract.callSendMethod(
-          'ManagerForwardCall',
-          didWalletInfo.walletInfo.address,
-          params,
-          sendOptions,
-        );
-      }
+      return caContract.callSendMethod(
+        'ManagerForwardCall',
+        didWalletInfo.walletInfo.address,
+        params,
+        sendOptions,
+      );
     }
   }
 
-  async getContract(chainId: TChainId): Promise<IContract> {
+  async getContract(chainId: TChainId, contractAddress?: string): Promise<IContract> {
     if (!this._wallet) {
       throw makeError(ERR_CODE.PORTKEY_AA_NOT_CONNECTED);
     }
@@ -403,7 +399,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       throw new Error(`chain is not running: ${chainId}`);
     }
     return getContractBasic({
-      contractAddress: chainInfo.caContractAddress,
+      contractAddress: contractAddress || chainInfo.caContractAddress,
       account: this._wallet.extraInfo?.portkeyInfo.walletInfo,
       rpcUrl: chainInfo.endPoint,
     });
@@ -451,16 +447,8 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     }
 
     const finalChainId = chainId || this._config.chainId;
-    const contract = await this.getContract(finalChainId);
-    const adapterProps = {
-      caContract: contract,
-      chainId: finalChainId,
-      contractAddress,
-      methodName,
-      args,
-      type: 'view',
-    };
-    const rs = await this.sendOrViewAdapter(adapterProps);
+    const contract = await this.getContract(finalChainId, contractAddress);
+    const rs = contract.callViewMethod(methodName, args);
     return rs as R;
   }
 }
