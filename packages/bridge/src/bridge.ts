@@ -142,6 +142,7 @@ class Bridge {
   };
 
   onDisConnectedHandler = (isLocking = false) => {
+    this.unbindEvents();
     isLocking && this.openLockPanel();
     dispatch(clearWalletInfo());
   };
@@ -152,6 +153,7 @@ class Bridge {
 
   onConnectErrorHandler = (err: TWalletError) => {
     console.log('in error event', err, this.activeWallet);
+    this.unbindEvents();
     this._loginReject(err);
     // TODO:use toast instead of alert
     alert(err.message);
