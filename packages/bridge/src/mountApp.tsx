@@ -20,13 +20,9 @@ export function mountApp(
   if (!containerElement) {
     throw new Error(`Element with query ${containerElementQuery} does not exist.`);
   }
-  let SignInWrapperDom;
-  if (document.querySelector('#sign-in-wrapper')) {
-    SignInWrapperDom = document.querySelector('#sign-in-wrapper') as Element;
-  } else {
-    SignInWrapperDom = document.createElement('div');
-    SignInWrapperDom.setAttribute('id', 'sign-in-wrapper');
-  }
+
+  const SignInWrapperDom = document.createElement('div');
+  SignInWrapperDom.setAttribute('id', 'sign-in-wrapper');
   const root = createRoot(SignInWrapperDom);
   root.render(
     <SignInModal bridgeInstance={bridgeInstance} wallets={wallets} baseConfig={baseConfig} />,

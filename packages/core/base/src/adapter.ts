@@ -16,7 +16,7 @@ export type WalletName<T extends string = string> = T & { __brand__: 'WalletName
 
 export interface IWalletAdapterEvents {
   connected(walletInfo: TWalletInfo): void;
-  disconnected(): void;
+  disconnected(isLocking?: boolean): void;
   lock(): void;
   // readyStateChange(readyState: WalletStateEnum): void;
   error(error: TWalletError): void;

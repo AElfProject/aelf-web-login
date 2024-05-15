@@ -11,6 +11,7 @@ import configTdvwJson from './contract/config.tdvw.json';
 const APP_NAME = 'explorer.aelf.io';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
 const CHAIN_ID = 'AELF';
+const NETWORK_TYPE = 'TESTNET';
 const RPC_SERVER = 'https://explorer-test.aelf.io/chain';
 
 const IS_MAINNET = false;
@@ -45,6 +46,7 @@ const config = {
   didConfig,
   baseConfig: {
     // TODO: type error
+    networkType: NETWORK_TYPE,
     chainId: CHAIN_ID,
     keyboard: true,
     design: 'CryptoDesign', // "SocialDesign" | "CryptoDesign" | "Web2Design"
@@ -56,7 +58,7 @@ const config = {
       autoShowUnlock: true,
     }),
     new PortkeyDiscoverWallet({
-      networkType: 'TESTNET',
+      networkType: NETWORK_TYPE,
       chainId: CHAIN_ID,
       autoRequestAccount: true,
       autoLogoutOnDisconnected: true,
@@ -293,6 +295,9 @@ const LoginDemo = () => {
       <Button type="primary" onClick={lock} disabled={!walletInfo}>
         lock
       </Button>
+      <Button type="primary" onClick={onDisConnectBtnClickHandler} disabled={!walletInfo}>
+        disConnect
+      </Button>
       <Button type="primary" onClick={onGetAccountByAELFHandler}>
         getAccountByChainId-AELF
       </Button>
@@ -323,9 +328,6 @@ const LoginDemo = () => {
         walletType:
         {localStorage.getItem('connectedWallet')}
       </div>
-      <Button type="primary" onClick={onDisConnectBtnClickHandler} disabled={!walletInfo}>
-        disConnect
-      </Button>
     </div>
   );
 };
@@ -342,7 +344,7 @@ const SignatureDemo = () => {
       address: '',
     });
     console.log('signature', signature);
-    setSigned(signature.signature);
+    setSigned(signature!.signature);
   };
 
   return (

@@ -7,6 +7,7 @@ import { GlobalConfigProps } from '@portkey/did-ui-react/dist/_types/src/compone
 import { ConfigProvider, TDesign } from '@portkey/did-ui-react';
 
 export interface IBaseConfig {
+  networkType: 'MAINNET' | 'TESTNET';
   chainId: TChainId;
   keyboard?: boolean;
   design?: TDesign;

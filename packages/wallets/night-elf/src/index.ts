@@ -130,8 +130,8 @@ export class NightElfWallet extends BaseWalletAdapter {
           httpProvider: this._config.defaultRpcUrl!,
         }).getExtensionInfo();
         if (locked) {
-          // TODO:  In what scenario is it triggered
-          this._loginState = LoginStateEnum.INITIAL;
+          // when click 'lock' button in nightelf panel, it is triggered, just return
+          console.log('night-elf-loginEagerly-locked');
           return;
         }
       }

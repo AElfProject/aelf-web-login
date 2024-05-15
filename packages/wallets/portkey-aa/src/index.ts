@@ -124,7 +124,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     did.reset();
     this._wallet = null;
     this._loginState = LoginStateEnum.INITIAL;
-    this.emit('disconnected');
+    this.emit('disconnected', true);
   }
 
   async logout() {
@@ -327,14 +327,13 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     return `https://icon.horse/icon/${hostUrl}/${size}`;
   }
 
-  private async sendOrViewAdapter<T>({
+  private async sendAdapter<T>({
     caContract,
     chainId,
     contractAddress,
     methodName,
     args,
     sendOptions,
-    type = 'send',
   }: ISendOrViewAdapter<T>) {
     const didWalletInfo = this._wallet!.extraInfo?.portkeyInfo;
 
@@ -429,7 +428,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       args,
       sendOptions,
     };
-    const rs = await this.sendOrViewAdapter(adapterProps);
+    const rs = await this.sendAdapter(adapterProps);
     return rs as R;
   }
 

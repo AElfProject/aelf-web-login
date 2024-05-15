@@ -190,7 +190,7 @@ const SignInModal = (props: ISignInModalProps) => {
   }, [bridgeInstance, wallets]);
 
   return (
-    <PortkeyProvider networkType="TESTNET">
+    <PortkeyProvider networkType={baseConfig.networkType}>
       <div>
         <CommonBaseModal
           destroyOnClose
