@@ -214,11 +214,13 @@ export function useElf({
 
   const callContract = useCallback(
     async function callContractFunc<T, R>(params: CallContractParams<T>): Promise<R> {
-      if (!isActive || !account || !chain) {
+      const _chainId = params.options?.chainId || chainId;
+      if (!isActive || !account || !_chainId) {
         throw new Error('Elf not login');
       }
+      const _chain = aelfBridges?.[_chainId as string]?.chain;
       // TODO: fixes cache contract
-      const contract = await chain.contractAt(params.contractAddress, {
+      const contract = await _chain?.contractAt(params.contractAddress, {
         address: account!,
       });
       return await contract[params.methodName](params.args);
