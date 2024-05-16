@@ -10,6 +10,7 @@ import {
   TChainId,
   utils,
   ICallContractParams,
+  enhancedLocalStorage,
 } from '@aelf-web-login/wallet-adapter-base';
 import { getContractBasic } from '@portkey/contracts';
 import { IContract } from '@portkey/types';
@@ -67,7 +68,7 @@ export class NightElfWallet extends BaseWalletAdapter {
   }
 
   async autoRequestAccountHandler(type: string) {
-    const canLoginEargly = localStorage.getItem(ConnectedWallet);
+    const canLoginEargly = enhancedLocalStorage.getItem(ConnectedWallet);
     if (canLoginEargly !== this.name) {
       return;
     }
@@ -112,7 +113,7 @@ export class NightElfWallet extends BaseWalletAdapter {
         },
       };
       this._loginState = LoginStateEnum.CONNECTED;
-      localStorage.setItem(ConnectedWallet, this.name);
+      enhancedLocalStorage.setItem(ConnectedWallet, this.name);
       this.emit('connected', this._wallet);
       return this._wallet;
     } catch (error) {
@@ -154,7 +155,7 @@ export class NightElfWallet extends BaseWalletAdapter {
 
       this._wallet = null;
       this._loginState = LoginStateEnum.INITIAL;
-      localStorage.removeItem(ConnectedWallet);
+      enhancedLocalStorage.removeItem(ConnectedWallet);
       this.emit('disconnected');
     } catch (error) {
       this.emit('error', makeError(ERR_CODE.NIGHT_ELF_LOGOUT_FAIL, error));

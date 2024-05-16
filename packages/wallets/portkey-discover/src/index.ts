@@ -11,6 +11,7 @@ import {
   utils,
   TChainId,
   ICallContractParams,
+  enhancedLocalStorage,
 } from '@aelf-web-login/wallet-adapter-base';
 import {
   Accounts,
@@ -93,7 +94,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
   }
 
   async autoRequestAccountHandler() {
-    const canLoginEargly = localStorage.getItem(ConnectedWallet);
+    const canLoginEargly = enhancedLocalStorage.getItem(ConnectedWallet);
     if (canLoginEargly !== this.name) {
       return;
     }
@@ -155,7 +156,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     };
     console.log('_wallet', this._wallet);
     this._loginState = LoginStateEnum.CONNECTED;
-    localStorage.setItem(ConnectedWallet, this.name);
+    enhancedLocalStorage.setItem(ConnectedWallet, this.name);
     this.emit('connected', this._wallet);
     return this._wallet;
   }
@@ -215,7 +216,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
 
       console.log('isUnlocked', isUnlocked);
       if (!isUnlocked) {
-        this._loginState = LoginStateEnum.INITIAL;
+        console.log('portkey-discover-loginEagerly-locked');
         return;
       }
 
@@ -239,7 +240,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
   async logout() {
     this._wallet = null;
     this._loginState = LoginStateEnum.INITIAL;
-    localStorage.removeItem(ConnectedWallet);
+    enhancedLocalStorage.removeItem(ConnectedWallet);
     this.emit('disconnected');
   }
 

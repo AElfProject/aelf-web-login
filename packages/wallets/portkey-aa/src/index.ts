@@ -11,6 +11,7 @@ import {
   TChainId,
   ICallContractParams,
   ISendOrViewAdapter,
+  enhancedLocalStorage,
 } from '@aelf-web-login/wallet-adapter-base';
 import { did, DIDWalletInfo, managerApprove, getChain } from '@portkey/did-ui-react';
 import { aes } from '@portkey/utils';
@@ -51,7 +52,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
   }
 
   async autoRequestAccountHandler() {
-    const canLoginEargly = !!localStorage.getItem(this._config.appName);
+    const canLoginEargly = !!enhancedLocalStorage.getItem(this._config.appName);
     if (!canLoginEargly) {
       return;
     }
@@ -64,7 +65,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
 
   async login(didWalletInfo: DIDWalletInfo): Promise<TWalletInfo> {
     try {
-      localStorage.setItem(PORTKEY_ORIGIN_CHAIN_ID_KEY, didWalletInfo.chainId);
+      enhancedLocalStorage.setItem(PORTKEY_ORIGIN_CHAIN_ID_KEY, didWalletInfo.chainId);
       this._loginState = LoginStateEnum.CONNECTING;
       const chainId = this._config.chainId;
       if (didWalletInfo.chainId !== chainId) {
@@ -100,7 +101,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         },
       };
       this._loginState = LoginStateEnum.CONNECTED;
-      localStorage.setItem(ConnectedWallet, this.name);
+      enhancedLocalStorage.setItem(ConnectedWallet, this.name);
       this.emit('connected', this._wallet);
       return this._wallet;
     } catch (error) {
@@ -129,7 +130,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
 
   async logout() {
     try {
-      const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
+      const originChainId = enhancedLocalStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
       if (!originChainId) {
         return;
       }
@@ -142,9 +143,9 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
 
       this._wallet = null;
       this._loginState = LoginStateEnum.INITIAL;
-      localStorage.removeItem(ConnectedWallet);
-      localStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
-      localStorage.removeItem(this._config.appName);
+      enhancedLocalStorage.removeItem(ConnectedWallet);
+      enhancedLocalStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
+      enhancedLocalStorage.removeItem(this._config.appName);
 
       this.emit('disconnected');
     } catch (error) {
@@ -187,7 +188,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         });
       }
 
-      const originChainId = localStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
+      const originChainId = enhancedLocalStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
       let nickName = localWallet.didWallet.accountInfo.nickName || 'Wallet 01';
       if (originChainId) {
         try {
@@ -225,7 +226,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       };
       this._loginState = LoginStateEnum.CONNECTED;
       console.log('onUnLockSuccess----------');
-      localStorage.setItem(ConnectedWallet, this.name);
+      enhancedLocalStorage.setItem(ConnectedWallet, this.name);
       this.emit('connected', this._wallet);
       return this._wallet;
     } catch (error) {

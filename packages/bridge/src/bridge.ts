@@ -7,6 +7,7 @@ import {
   TChainId,
   ICallContractParams,
   TSignatureParams,
+  enhancedLocalStorage,
 } from '@aelf-web-login/wallet-adapter-base';
 import { setWalletInfo, clearWalletInfo, dispatch } from './store';
 import { DIDWalletInfo } from '@portkey/did-ui-react';
@@ -33,7 +34,7 @@ class Bridge {
     try {
       return (
         this._activeWallet ||
-        this._wallets.find((item) => item.name === localStorage.getItem(ConnectedWallet))
+        this._wallets.find((item) => item.name === enhancedLocalStorage.getItem(ConnectedWallet))
       );
     } catch (e) {
       return undefined;
@@ -154,11 +155,9 @@ class Bridge {
   onConnectErrorHandler = (err: TWalletError) => {
     console.log('in error event', err, this.activeWallet);
     this.unbindEvents();
-    this._loginReject(err);
-    // TODO:use toast instead of alert
-    alert(err.message);
     this.closeSignIModal();
     this.closeLoadingModal();
+    this._loginReject(err);
     dispatch(clearWalletInfo());
   };
 

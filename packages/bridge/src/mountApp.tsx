@@ -14,7 +14,6 @@ export function mountApp(
     return;
   }
   console.log('mountApp');
-  // TODO: Can be passed from the configuration
   const containerElementQuery = 'body';
   const containerElement = document.querySelector(containerElementQuery);
   if (!containerElement) {

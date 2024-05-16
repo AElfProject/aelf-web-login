@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Input } from 'aelf-design';
+import { message } from 'antd';
 import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-discover';
 import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
 import { NightElfWallet } from '@aelf-web-login/wallet-adapter-night-elf';
@@ -249,6 +250,7 @@ const LoginDemo = () => {
     getWalletSyncIsCompleted,
   } = useConnectWallet();
   console.log('LoginDemo init----------');
+  const [messageApi, contextHolder] = message.useMessage();
   const [aelfAccount, setAelfAccount] = useState<string>('');
   const [tdvwAccount, setTdvwAccount] = useState<string>('');
   const [syncIsCompleted, setSyncIsCompleted] = useState<string | boolean>(false);
@@ -258,8 +260,11 @@ const LoginDemo = () => {
     try {
       const rs = await connectWallet();
       console.log('rs', rs);
-    } catch (e) {
-      console.log('ERR', e);
+    } catch (e: any) {
+      messageApi.open({
+        type: 'error',
+        content: e.message,
+      });
     }
   };
 
@@ -289,6 +294,7 @@ const LoginDemo = () => {
 
   return (
     <div>
+      {contextHolder}
       <Button type="primary" onClick={onConnectBtnClickHandler} disabled={!!walletInfo}>
         connect
       </Button>
