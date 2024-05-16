@@ -47,11 +47,11 @@
     "access": "public"
   },
   "dependencies": {
-    "@aelf-web-login/wallet-adapter-react": "workspace:*",
     "@aelf-web-login/wallet-adapter-bridge": "workspace:*",
-    "@aelf-web-login/wallet-adapter-portkey-discover": "workspace:*",
-    "@aelf-web-login/wallet-adapter-portkey-aa": "workspace:*",
     "@aelf-web-login/wallet-adapter-night-elf": "workspace:*",
+    "@aelf-web-login/wallet-adapter-portkey-aa": "workspace:*",
+    "@aelf-web-login/wallet-adapter-portkey-discover": "workspace:*",
+    "@aelf-web-login/wallet-adapter-react": "workspace:*",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
@@ -59,11 +59,12 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@umijs/lint": "^4.0.0",
+    "aelf-design": "^1.0.0-alpha.15",
+    "antd": "^5.17.2",
     "dumi": "^2.2.13",
     "eslint": "^8.23.0",
     "father": "^4.1.0",
-    "stylelint": "^14.9.1",
     "glob": "^10.3.12",
-    "aelf-design": "^1.0.0-alpha.15"
+    "stylelint": "^14.9.1"
   }
 }
