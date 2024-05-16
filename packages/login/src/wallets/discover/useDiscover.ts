@@ -296,7 +296,9 @@ export function useDiscover({
       if (!discoverInfo || !provider) {
         throw new Error('Discover not connected');
       }
-      const chain = await provider.getChain(chainId);
+      // users can
+      const _chainId = params.options?.chainId || chainId;
+      const chain = await provider.getChain(_chainId);
       const contract = chain.getContract(params.contractAddress);
       const result = contract.callSendMethod(params.methodName, discoverInfo.address, params.args, sendOptions);
       return result as R;
@@ -339,7 +341,7 @@ export function useDiscover({
       return;
     }
     autoRequestAccountCheck.current = true;
-    const canLoginEargly = !!localStorage.getItem(LOGIN_EARGLY_KEY);
+    const canLoginEargly = !!localStorage.getItem(LOGIN_EARGLY_KEY) || isPortkeyApp();
     if (canLoginEargly) {
       if (options.autoRequestAccount) {
         if (loginState === WebLoginState.initial) {

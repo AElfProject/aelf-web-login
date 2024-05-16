@@ -64,7 +64,7 @@ setGlobalConfig({
       },
       tDVW: {
         chainId: 'tDVW',
-        rpcUrl: RPC_SERVER,
+        rpcUrl: 'https://explorer-test-side02.aelf.io/chain',
       },
       tDVV: {
         chainId: 'tDVV',
