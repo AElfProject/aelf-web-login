@@ -341,7 +341,7 @@ export function useDiscover({
       return;
     }
     autoRequestAccountCheck.current = true;
-    const canLoginEargly = !!localStorage.getItem(LOGIN_EARGLY_KEY);
+    const canLoginEargly = !!localStorage.getItem(LOGIN_EARGLY_KEY) || isPortkeyApp();
     if (canLoginEargly) {
       if (options.autoRequestAccount) {
         if (loginState === WebLoginState.initial) {
