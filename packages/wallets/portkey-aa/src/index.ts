@@ -80,7 +80,6 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
 
       const holderInfo = await did.getCAHolderInfo(didWalletInfo.chainId);
       nickName = holderInfo.nickName;
-      console.log('********', holderInfo);
 
       await did.save(didWalletInfo.pin, this._config.appName);
 
@@ -158,7 +157,6 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       const aesStr = await (did.didWallet as any)._storage.getItem(
         keyName || (did.didWallet as unknown as { _defaultKeyName: string })._defaultKeyName,
       );
-      console.log('aesStr', aesStr);
       if (aesStr) return !!aes.decrypt(aesStr, password);
     } catch (error) {
       return false;
@@ -171,11 +169,9 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       const appName = this._config.appName;
       const chainId = this._config.chainId;
       const isValidPinCode = await this.checkPassword(appName, password);
-      console.log('isValidPinCode', isValidPinCode);
       if (!isValidPinCode) {
         return;
       }
-      console.log('isValidPinCodeSucess---------');
       const localWallet = await did.load(password, appName);
       let caInfo = localWallet.didWallet.caInfo[chainId];
       let caHash = caInfo?.caHash;
@@ -191,12 +187,8 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       const originChainId = enhancedLocalStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
       let nickName = localWallet.didWallet.accountInfo.nickName || 'Wallet 01';
       if (originChainId) {
-        try {
-          const holderInfo = await did.getCAHolderInfo(originChainId as TChainId);
-          nickName = holderInfo.nickName;
-        } catch (error) {
-          console.error(error);
-        }
+        const holderInfo = await did.getCAHolderInfo(originChainId as TChainId);
+        nickName = holderInfo.nickName;
       }
 
       const didWalletInfo: DIDWalletInfo = {
@@ -225,12 +217,10 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         },
       };
       this._loginState = LoginStateEnum.CONNECTED;
-      console.log('onUnLockSuccess----------');
       enhancedLocalStorage.setItem(ConnectedWallet, this.name);
       this.emit('connected', this._wallet);
       return this._wallet;
     } catch (error) {
-      console.log('onUnLockFail----------');
       this._loginState = LoginStateEnum.INITIAL;
       this.emit('error', makeError(ERR_CODE.PORTKEY_AA_UNLOCK_FAIL, error));
       return;
@@ -290,25 +280,16 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     const caHash = didWalletInfo?.caInfo?.caHash;
     const address = didWalletInfo?.walletInfo?.address;
     const originChainId = didWalletInfo?.chainId;
-    console.log(
-      'originChainId === chainId',
-      originChainId === chainId,
-      originChainId,
-      chainId,
-      this._wallet.address,
-      address,
-    );
+
     if (originChainId === chainId) {
       return this._wallet.address;
     }
     try {
-      console.log('continut------');
       const holder = await did.didWallet.getHolderInfoByContract({
         chainId: chainId,
         caHash: caHash as string,
       });
       const filteredHolders = holder.managerInfos.filter((manager) => manager?.address === address);
-      console.log('filteredHolders.length', filteredHolders.length);
       if (filteredHolders.length) {
         return this._wallet.address;
       } else {

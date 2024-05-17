@@ -8,8 +8,9 @@ import {
   ICallContractParams,
   TSignatureParams,
   enhancedLocalStorage,
+  IWalletAdapterEvents,
 } from '@aelf-web-login/wallet-adapter-base';
-import { setWalletInfo, clearWalletInfo, dispatch } from './store';
+import { setWalletInfo, clearWalletInfo, setLocking, dispatch } from './store';
 import { DIDWalletInfo } from '@portkey/did-ui-react';
 
 class Bridge {
@@ -17,12 +18,19 @@ class Bridge {
   private _activeWallet: WalletAdapter | undefined;
   private _loginResolve: (value: TWalletInfo) => void;
   private _loginReject: (error: TWalletError) => void;
+  private _eventMap: Record<keyof IWalletAdapterEvents, any> = {} as IWalletAdapterEvents;
 
   constructor(wallets: WalletAdapter[]) {
     this._wallets = wallets;
     this._activeWallet = undefined;
     this._loginResolve = () => {};
     this._loginReject = () => {};
+    this._eventMap = {
+      connected: this.onConnectedHandler,
+      disconnected: this.onDisConnectedHandler,
+      lock: this.onLockHandler,
+      error: this.onConnectErrorHandler,
+    };
     this.bindEvents();
   }
 
@@ -50,7 +58,7 @@ class Bridge {
       this._loginResolve = resolve;
       this._loginReject = reject;
       console.log('connect');
-      this.openSignInModal();
+      this.openLoginPanel();
     });
   };
 
@@ -150,14 +158,16 @@ class Bridge {
 
   onLockHandler = () => {
     this.openLockPanel();
+    dispatch(setLocking(true));
   };
 
   onConnectErrorHandler = (err: TWalletError) => {
     console.log('in error event', err, this.activeWallet);
     this.unbindEvents();
-    this.closeSignIModal();
+    this.closeLoginPanel();
     this.closeLoadingModal();
     this._loginReject(err);
+    this.closeNestedModal();
     dispatch(clearWalletInfo());
   };
 
@@ -166,11 +176,9 @@ class Bridge {
     if (!this.activeWallet) {
       return;
     }
-    // TODO: put them into a list for loop
-    this.activeWallet.on('connected', this.onConnectedHandler);
-    this.activeWallet.on('disconnected', this.onDisConnectedHandler);
-    this.activeWallet.on('lock', this.onLockHandler);
-    this.activeWallet.on('error', this.onConnectErrorHandler);
+    Object.entries(this._eventMap).forEach(([k, v]) => {
+      this.activeWallet!.on(k as keyof IWalletAdapterEvents, v);
+    });
   };
 
   unbindEvents = () => {
@@ -178,15 +186,14 @@ class Bridge {
     if (!this.activeWallet) {
       return;
     }
-    this.activeWallet.off('connected', this.onConnectedHandler);
-    this.activeWallet.off('disconnected', this.onDisConnectedHandler);
-    this.activeWallet.off('lock', this.onLockHandler);
-    this.activeWallet.off('error', this.onConnectErrorHandler);
+    Object.entries(this._eventMap).forEach(([k, v]) => {
+      this.activeWallet!.off(k as keyof IWalletAdapterEvents, v);
+    });
   };
 
-  openSignInModal() {}
+  openLoginPanel() {}
 
-  closeSignIModal() {}
+  closeLoginPanel() {}
 
   openLoadingModal() {}
 
@@ -200,6 +207,8 @@ class Bridge {
 
   closeConfirmLogoutPanel() {}
 
+  closeNestedModal() {}
+
   onUniqueWalletClick = async (name: string) => {
     try {
       this.openLoadingModal();
@@ -211,7 +220,7 @@ class Bridge {
       console.log('onUniqueWalletClick', e);
     } finally {
       this.closeLoadingModal();
-      this.closeSignIModal();
+      this.closeLoginPanel();
     }
   };
 
@@ -226,7 +235,7 @@ class Bridge {
       console.log('onPortkeyAAWalletLoginFinishedError', error);
     } finally {
       this.closeLoadingModal();
-      this.closeSignIModal();
+      this.closeLoginPanel();
     }
   };
 
@@ -239,7 +248,8 @@ class Bridge {
       const walletInfo = await this.activeWallet?.onUnlock(pin);
       console.log('onPortkeyAAUnLockSuccess----------', walletInfo);
       if (walletInfo) {
-        this.closeSignIModal();
+        this.closeLoginPanel();
+        dispatch(setLocking(false));
       }
       return walletInfo;
     } catch (error) {
@@ -258,6 +268,7 @@ class Bridge {
       return;
     }
     this.activeWallet?.lock();
+    dispatch(setLocking(true));
   };
 }
 

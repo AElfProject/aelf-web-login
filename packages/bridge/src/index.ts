@@ -11,6 +11,9 @@ export interface IBaseConfig {
   chainId: TChainId;
   keyboard?: boolean;
   design?: TDesign;
+  iconSrcForSocialDesign?: string;
+  titleForSocialDesign?: string;
+  noCommonBaseModal?: boolean;
 }
 export interface IConfigProps {
   didConfig: GlobalConfigProps;

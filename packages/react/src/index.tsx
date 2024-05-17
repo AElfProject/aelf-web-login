@@ -85,6 +85,7 @@ export function useConnectWallet() {
     disConnectWallet,
     connecting,
     walletInfo: stateFromStore.walletInfo,
+    isLocking: stateFromStore.isLocking,
     lock,
     getAccountByChainId,
     getWalletSyncIsCompleted,

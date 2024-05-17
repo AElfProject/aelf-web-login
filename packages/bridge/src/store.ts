@@ -4,6 +4,7 @@ const aelfWebLoginSlice = createSlice({
   name: 'aelfWebLogin',
   initialState: {
     walletInfo: null,
+    isLocking: false,
   },
   reducers: {
     setWalletInfo: (state, action) => {
@@ -11,6 +12,9 @@ const aelfWebLoginSlice = createSlice({
     },
     clearWalletInfo: (state) => {
       state.walletInfo = null;
+    },
+    setLocking: (state, action) => {
+      state.isLocking = action.payload;
     },
   },
 });
@@ -43,7 +47,7 @@ const makeStore = () => {
   return store;
 };
 
-export const { setWalletInfo, clearWalletInfo } = aelfWebLoginSlice.actions;
+export const { setWalletInfo, clearWalletInfo, setLocking } = aelfWebLoginSlice.actions;
 
 export type AppStore = ReturnType<typeof makeStore>;
 export type AppDispatch = typeof store.dispatch;
