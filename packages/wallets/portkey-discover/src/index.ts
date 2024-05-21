@@ -27,7 +27,7 @@ import { IContract } from '@portkey/types';
 
 import detectDiscoverProvider from './detectProvider';
 import checkSignatureParams from './signatureParams';
-import zeroFill from './zeroFill';
+import { zeroFill, isPortkeyApp } from './utils';
 
 type TDiscoverEventsKeys = Array<Exclude<DappEvents, 'connected' | 'message' | 'error'>>;
 
@@ -94,15 +94,15 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
   }
 
   async autoRequestAccountHandler() {
-    const canLoginEargly = enhancedLocalStorage.getItem(ConnectedWallet);
-    if (canLoginEargly !== this.name) {
-      return;
-    }
     if (!this._config.autoRequestAccount) {
       return;
     }
-    console.log('this._config.autoRequestAccount', this._config.autoRequestAccount);
-    await this.loginEagerly();
+    const canLoginEargly =
+      enhancedLocalStorage.getItem(ConnectedWallet) === this.name || isPortkeyApp();
+    if (canLoginEargly) {
+      console.log('this._config.autoRequestAccount', this._config.autoRequestAccount);
+      await this.loginEagerly();
+    }
   }
 
   // private executeOnce<T extends (...args: any) => any>(fn: T) {

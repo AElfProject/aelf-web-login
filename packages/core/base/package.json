@@ -25,6 +25,7 @@
     "build": "father build"
   },
   "dependencies": {
+    "eventemitter3": "^5.0.1",
     "node-localstorage": "^3.0.5"
   },
   "devDependencies": {
