@@ -87,14 +87,11 @@
   height: 28px;
 }
 .web-login-unlock-wrapper > div:nth-child(2) {
-  height: 100%;
-}
-.nested-connect-modal {
-  min-height: 500px;
   height: 500px;
 }
+
 .nested-connect-modal > div:nth-child(2) {
-  height: 100%;
+  height: 500px
 }
 .nested-title {
   padding: 24px;
@@ -122,6 +119,9 @@
   justify-content: center;
   padding: 0 60px;
 }
+.nested-entry-wrapper-mobile{
+  padding-top: 24px;
+}
 .nested-wallet-wrapper {
   display: flex;
   flex-direction: column;
@@ -136,4 +136,9 @@
 .nested-wallet-wrapper > img {
   width: 48px;
   height: 48px;
+}
+.nested-drawer-title-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

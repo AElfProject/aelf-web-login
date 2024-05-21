@@ -12,6 +12,7 @@ import {
 import '@portkey/did-ui-react/dist/assets/index.css';
 import { IBaseConfig } from '.';
 import { Modal, Button, Typography, FontWeightEnum } from 'aelf-design';
+import { Drawer } from 'antd';
 import './ui.css';
 
 interface ConfirmLogoutDialogProps {
@@ -151,7 +152,39 @@ const NestedModal = ({
 }: INestedModalProps) => {
   const isMobileDevice = isMobile();
   const isWeb2Design = design === 'Web2Design';
-  return (
+
+  const validWalletList = validWallets.map((wallet) => {
+    return (
+      <div
+        key={wallet.name}
+        className="nested-wallet-wrapper"
+        onClick={() => bridgeInstance.onUniqueWalletClick(wallet.name)}
+      >
+        <img src={wallet.icon} />
+        <Typography.Text>{wallet.name}</Typography.Text>
+      </div>
+    );
+  });
+
+  return isMobileDevice ? (
+    <Drawer
+      className="aelf-web-conntect-drawer"
+      title={
+        <div className="nested-drawer-title-wrapper">
+          <span className="title">Connect Wallet</span>
+          <img src={constant.closeImg} onClick={onClose}></img>
+        </div>
+      }
+      getContainer={false}
+      closeIcon={null}
+      onClose={onClose}
+      prefixCls="portkey-ant-drawer"
+      open={open}
+      placement={'bottom'}
+    >
+      <div className="nested-entry-wrapper nested-entry-wrapper-mobile">{validWalletList}</div>
+    </Drawer>
+  ) : (
     <Modal
       title={
         <>
@@ -178,20 +211,7 @@ const NestedModal = ({
       prefixCls="portkey-ant-modal"
       width={430}
     >
-      <div className="nested-entry-wrapper">
-        {validWallets.map((wallet) => {
-          return (
-            <div
-              key={wallet.name}
-              className="nested-wallet-wrapper"
-              onClick={() => bridgeInstance.onUniqueWalletClick(wallet.name)}
-            >
-              <img src={wallet.icon} />
-              <Typography.Text>{wallet.name}</Typography.Text>
-            </div>
-          );
-        })}
-      </div>
+      <div className="nested-entry-wrapper">{validWalletList}</div>
     </Modal>
   );
 };
@@ -254,6 +274,7 @@ const SignInModal = (props: ISignInModalProps) => {
   );
 
   const onCloseWrapperInternal = useCallback(() => {
+    setIsShowNestedModal(false);
     setIsShowWrapper(false);
   }, []);
 
