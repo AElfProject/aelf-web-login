@@ -64,3 +64,10 @@ export interface ISendOrViewAdapter<T> extends ICallContractParams<T> {
   caContract: IContract;
   type?: string;
 }
+
+export enum WalletTypeEnum {
+  unknown = 'Unknown',
+  elf = 'NightElf',
+  aa = 'PortkeyAA',
+  discover = 'PortkeyDiscover',
+}

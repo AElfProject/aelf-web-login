@@ -90,7 +90,7 @@ importers:
         specifier: ^2.2.3
         version: 2.2.3(react@18.2.0)
       aelf-design:
-        specifier: ^1.0.0-alpha.17
+        specifier: 1.0.0-alpha.17
         version: 1.0.0-alpha.17(@types/react@18.3.1)(antd@5.17.2)(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18.0.0
@@ -124,6 +124,9 @@ importers:
       '@portkey/did-ui-react':
         specifier: ^2.6.2
         version: 2.6.2(@types/react@18.3.1)(aelf-sdk@3.4.8)(i18next@23.11.2)(react-dom@18.2.0)(react@18.2.0)
+      '@portkey/types':
+        specifier: ^2.6.2
+        version: 2.6.2
       '@types/node-localstorage':
         specifier: ^1.3.3
         version: 1.3.3
@@ -190,8 +193,8 @@ importers:
         specifier: ^4.0.0
         version: 4.1.10(eslint@8.57.0)(stylelint@14.16.1)(typescript@5.4.5)
       aelf-design:
-        specifier: ^1.0.0-alpha.15
-        version: 1.0.0-alpha.15(@types/react@18.2.79)(antd@5.17.2)(react-dom@18.2.0)(react@18.2.0)
+        specifier: 1.0.0-alpha.17
+        version: 1.0.0-alpha.17(@types/react@18.2.79)(antd@5.17.2)(react-dom@18.2.0)(react@18.2.0)
       antd:
         specifier: ^5.17.2
         version: 5.17.2(react-dom@18.2.0)(react@18.2.0)
@@ -2040,7 +2043,7 @@ packages:
     resolution: {integrity: sha512-m4HEDZleaaCH+XgDDsPF15Ht6wTLsgDTeR3WYj9Q/k76JtWhrJjcP4+/XlG8LGT/Rol9qUfOIztXeA84ATpqPQ==}
     dependencies:
       '@babel/helper-module-imports': 7.24.3
-      '@babel/runtime': 7.24.4
+      '@babel/runtime': 7.24.5
       '@emotion/hash': 0.9.1
       '@emotion/memoize': 0.8.1
       '@emotion/serialize': 1.1.4
@@ -2093,7 +2096,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.24.4
+      '@babel/runtime': 7.24.5
       '@emotion/babel-plugin': 11.11.0
       '@emotion/cache': 11.11.0
       '@emotion/serialize': 1.1.4
@@ -2114,7 +2117,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.24.4
+      '@babel/runtime': 7.24.5
       '@emotion/babel-plugin': 11.11.0
       '@emotion/cache': 11.11.0
       '@emotion/serialize': 1.1.4
@@ -5919,8 +5922,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /aelf-design@1.0.0-alpha.15(@types/react@18.2.79)(antd@5.17.2)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-3i4js4uzPljDwEOvnCqOELiKug8gxPjlXwQCrYxMM6FSy94L3bkYDxeBlNqJELDSxfG5/gzFQC4Zj+ej5Wz8VA==}
+  /aelf-design@1.0.0-alpha.17(@types/react@18.2.79)(antd@5.17.2)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Kspimme96GB92V0OTJn44Jyfv9nXw1mZKRNWXHooQbD8C9lrgaeB3aMEznCSSGcm+amWDhsBB1Bw/dpXwl7n5Q==}
     peerDependencies:
       antd: '>=5.0.0'
       react: '>=17.0.0'
@@ -6184,7 +6187,7 @@ packages:
       react: '>=18'
     dependencies:
       '@ant-design/cssinjs': 1.20.0(react-dom@18.2.0)(react@18.2.0)
-      '@babel/runtime': 7.24.4
+      '@babel/runtime': 7.24.5
       '@emotion/cache': 11.11.0
       '@emotion/css': 11.11.2
       '@emotion/react': 11.11.4(@types/react@18.2.79)(react@18.2.0)
@@ -6206,7 +6209,7 @@ packages:
       react: '>=18'
     dependencies:
       '@ant-design/cssinjs': 1.20.0(react-dom@18.2.0)(react@18.2.0)
-      '@babel/runtime': 7.24.4
+      '@babel/runtime': 7.24.5
       '@emotion/cache': 11.11.0
       '@emotion/css': 11.11.2
       '@emotion/react': 11.11.4(@types/react@18.3.1)(react@18.2.0)
@@ -6627,7 +6630,7 @@ packages:
     resolution: {integrity: sha512-Cg7TFGpIr01vOQNODXOOaGz2NpCU5gl8x1qJFbb6hbZxR7XrcE2vtbAsTAbJ7/xwJtUuJEw8K8Zr/AE0LHlesg==}
     engines: {node: '>=10', npm: '>=6'}
     dependencies:
-      '@babel/runtime': 7.24.4
+      '@babel/runtime': 7.24.5
       cosmiconfig: 7.1.0
       resolve: 1.22.8
 
