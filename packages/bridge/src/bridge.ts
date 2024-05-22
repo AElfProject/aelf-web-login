@@ -10,7 +10,14 @@ import {
   enhancedLocalStorage,
   IWalletAdapterEvents,
 } from '@aelf-web-login/wallet-adapter-base';
-import { setWalletInfo, clearWalletInfo, setLocking, dispatch } from './store';
+import {
+  setWalletInfo,
+  clearWalletInfo,
+  setLocking,
+  setWalletType,
+  clearWalletType,
+  dispatch,
+} from './store';
 import { DIDWalletInfo } from '@portkey/did-ui-react';
 
 class Bridge {
@@ -148,12 +155,14 @@ class Bridge {
 
   onConnectedHandler = (walletInfo: TWalletInfo) => {
     dispatch(setWalletInfo(walletInfo));
+    dispatch(setWalletType(this.activeWallet?.name));
   };
 
   onDisConnectedHandler = (isLocking = false) => {
     !isLocking && this.unbindEvents();
     isLocking && this.openLockPanel();
     dispatch(clearWalletInfo());
+    dispatch(clearWalletType());
   };
 
   onLockHandler = () => {
@@ -169,6 +178,7 @@ class Bridge {
     this._loginReject(err);
     this.closeNestedModal();
     dispatch(clearWalletInfo());
+    dispatch(clearWalletType());
   };
 
   bindEvents = () => {

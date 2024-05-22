@@ -1,5 +1,5 @@
 {
-  "name": "aelf-web-login/doc-site",
+  "name": "@aelf-web-login/doc-site",
   "version": "0.0.1",
   "description": "aelf-web-login doc site",
   "module": "dist/index.js",
@@ -59,7 +59,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@umijs/lint": "^4.0.0",
-    "aelf-design": "^1.0.0-alpha.15",
+    "aelf-design": "1.0.0-alpha.17",
     "antd": "^5.17.2",
     "dumi": "^2.2.13",
     "eslint": "^8.23.0",

@@ -11,8 +11,7 @@ import {
 } from '@portkey/did-ui-react';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import { IBaseConfig } from '.';
-import { Modal, Button, Typography, FontWeightEnum } from 'aelf-design';
-import { Drawer } from 'antd';
+import { Modal, Button, Typography, FontWeightEnum, Drawer } from 'aelf-design';
 import './ui.css';
 
 interface ConfirmLogoutDialogProps {

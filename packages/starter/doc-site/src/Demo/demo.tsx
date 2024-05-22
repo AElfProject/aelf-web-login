@@ -262,6 +262,7 @@ const LoginDemo = () => {
     walletInfo,
     lock,
     isLocking,
+    walletType,
     getAccountByChainId,
     getWalletSyncIsCompleted,
   } = useConnectWallet();
@@ -346,10 +347,7 @@ const LoginDemo = () => {
           {JSON.stringify(walletInfo, null, 4)}
         </pre>
       </div>
-      <div>
-        walletType:
-        {localStorage.getItem('connectedWallet')}
-      </div>
+      <div>walletType:{walletType}</div>
     </div>
   );
 };
