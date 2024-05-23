@@ -5,6 +5,7 @@ const HOOK_ERROR_MESSAGE =
   'Must call the provided initialization method`init` method before using hooks.';
 
 export const init = (options: IConfigProps): IBridgeAPI => {
+  console.log('aelf-web-login-init..............');
   const dataFromBridge = initBridge(options);
   return dataFromBridge;
 };
@@ -87,6 +88,7 @@ export function useConnectWallet() {
     walletInfo: stateFromStore.walletInfo,
     isLocking: stateFromStore.isLocking,
     walletType: stateFromStore.walletType,
+    isConnected: !!stateFromStore.walletInfo,
     lock,
     getAccountByChainId,
     getWalletSyncIsCompleted,

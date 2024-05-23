@@ -39,12 +39,6 @@ export type TSignatureParams = {
   hexToBeSign?: string;
 };
 
-export interface ICallContractParams<T> {
-  contractAddress: string;
-  methodName: string;
-  args: T;
-}
-
 export type TWalletError = {
   name: string;
   code: number;

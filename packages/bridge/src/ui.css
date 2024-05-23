@@ -87,11 +87,11 @@
   height: 28px;
 }
 .web-login-unlock-wrapper > div:nth-child(2) {
-  height: 500px;
+  height: 100%;
 }
 
 .nested-connect-modal > div:nth-child(2) {
-  height: 500px
+  height: 100%;
 }
 .nested-title {
   padding: 24px;
@@ -119,7 +119,7 @@
   justify-content: center;
   padding: 0 60px;
 }
-.nested-entry-wrapper-mobile{
+.nested-entry-wrapper-mobile {
   padding-top: 24px;
 }
 .nested-wallet-wrapper {
@@ -137,7 +137,7 @@
   width: 48px;
   height: 48px;
 }
-.nested-drawer-title-wrapper{
+.nested-drawer-title-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
