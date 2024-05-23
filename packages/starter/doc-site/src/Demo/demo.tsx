@@ -263,6 +263,7 @@ const LoginDemo = () => {
     lock,
     isLocking,
     walletType,
+    isConnected,
     getAccountByChainId,
     getWalletSyncIsCompleted,
   } = useConnectWallet();
@@ -312,13 +313,13 @@ const LoginDemo = () => {
   return (
     <div>
       {contextHolder}
-      <Button type="primary" onClick={onConnectBtnClickHandler} disabled={!!walletInfo}>
+      <Button type="primary" onClick={onConnectBtnClickHandler} disabled={isConnected}>
         {isLocking ? 'unlock' : 'connect'}
       </Button>
       <Button type="primary" onClick={lock} disabled={!walletInfo}>
         lock
       </Button>
-      <Button type="primary" onClick={onDisConnectBtnClickHandler} disabled={!walletInfo}>
+      <Button type="primary" onClick={onDisConnectBtnClickHandler} disabled={!isConnected}>
         disConnect
       </Button>
       <Button type="primary" onClick={onGetAccountByAELFHandler}>

@@ -161,6 +161,7 @@ class Bridge {
   onDisConnectedHandler = (isLocking = false) => {
     !isLocking && this.unbindEvents();
     isLocking && this.openLockPanel();
+    this.closeNestedModal();
     dispatch(clearWalletInfo());
     dispatch(clearWalletType());
   };
