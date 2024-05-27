@@ -28,3 +28,14 @@ export function mountApp(
   );
   containerElement.appendChild(SignInWrapperDom);
 }
+
+export function unMountApp() {
+  if (typeof window === 'undefined') {
+    return;
+  }
+  const SignInWrapperDom = document.querySelector('#sign-in-wrapper');
+  if (!SignInWrapperDom) {
+    return;
+  }
+  document.body.removeChild(SignInWrapperDom);
+}

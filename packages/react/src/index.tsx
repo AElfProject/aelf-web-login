@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useSyncExternalStore } from 'react';
+import React, { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
 import { initBridge, IConfigProps, IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
 
 const HOOK_ERROR_MESSAGE =
@@ -22,6 +22,11 @@ export function WebLoginProvider({
   children,
   bridgeAPI,
 }: React.PropsWithChildren<WebLoginProviderProps>) {
+  const { mountApp, unMountApp } = bridgeAPI;
+  useEffect(() => {
+    mountApp();
+    return unMountApp;
+  }, [mountApp, unMountApp]);
   return <Context.Provider value={bridgeAPI}>{children}</Context.Provider>;
 }
 
