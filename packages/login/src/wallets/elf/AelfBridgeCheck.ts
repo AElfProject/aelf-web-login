@@ -1,4 +1,5 @@
 import AElfBridge from 'aelf-bridge';
+import { getConfig } from '../../index';
 
 let aelfBridgeInstance: AelfBridgeCheck | undefined = undefined;
 
@@ -8,8 +9,11 @@ export default class AelfBridgeCheck {
     this.check = async () => {
       return new Promise((resolve, reject) => {
         let timeout = false;
+        const chainId = getConfig()?.chainId;
+        const endpoint = getConfig()?.aelfReact?.nodes?.[chainId].rpcUrl;
         const bridgeInstance = new AElfBridge({
           timeout: 3000,
+          endpoint,
         });
         bridgeInstance.connect().then((isConnected: boolean) => {
           if (timeout) return;
