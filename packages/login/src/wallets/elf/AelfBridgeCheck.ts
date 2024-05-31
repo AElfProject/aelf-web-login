@@ -5,17 +5,20 @@ let aelfBridgeInstance: AelfBridgeCheck | undefined = undefined;
 
 export default class AelfBridgeCheck {
   public check?: () => Promise<boolean>;
+  public bridgeInstance?: typeof AElfBridge;
   constructor() {
     this.check = async () => {
       return new Promise((resolve, reject) => {
         let timeout = false;
         const chainId = getConfig()?.chainId;
         const endpoint = getConfig()?.aelfReact?.nodes?.[chainId].rpcUrl;
-        const bridgeInstance = new AElfBridge({
-          timeout: 3000,
-          endpoint,
-        });
-        bridgeInstance.connect().then((isConnected: boolean) => {
+        if (!this.bridgeInstance) {
+          this.bridgeInstance = new AElfBridge({
+            timeout: 3000,
+            endpoint,
+          });
+        }
+        this.bridgeInstance.connect().then((isConnected: boolean) => {
           if (timeout) return;
           if (isConnected) {
             resolve(true);
