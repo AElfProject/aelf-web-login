@@ -1,4 +1,3 @@
-import React from 'react';
 import { WalletAdapter } from '@aelf-web-login/wallet-adapter-base';
 import { createRoot } from 'react-dom/client';
 import SignInModal from './ui';

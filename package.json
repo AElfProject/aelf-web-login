@@ -15,7 +15,7 @@
   "scripts": {
     "start": "dumi dev",
     "dev": "dumi dev",
-    "dev:lib": "pnpm run --parallel --if-present --recursive --filter \"@aelf-design/*\" dev",
+    "dev:lib": "pnpm run --parallel --if-present --recursive --filter \"@aelf-web-login/*\" dev",
     "build": "pnpm run --if-present --recursive build",
     "build:docs": "dumi build",
     "postinstall": "pnpm run husky:prepare",
@@ -82,5 +82,5 @@
   "engines": {
     "node": ">=20"
   },
-  "repository": "https://github.com/AElf-devops/aelf-design"
+  "repository": "https://github.com/AElf-devops/aelf-web-login"
 }
