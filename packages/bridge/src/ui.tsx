@@ -11,7 +11,7 @@ import {
 } from '@portkey/did-ui-react';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import { IBaseConfig } from '.';
-import { Modal, Button, Typography, FontWeightEnum, Drawer } from 'aelf-design';
+import { Modal, Button, Typography, Drawer } from 'antd';
 import './ui.css';
 
 interface ConfirmLogoutDialogProps {
@@ -81,19 +81,16 @@ const ConfirmLogoutDialog = (props: Partial<ConfirmLogoutDialogProps>) => {
       <>
         <div>
           <div className="aelf-web-logout-dialog-title-wrap">
-            <Typography.Title
-              className="aelf-web-logout-dialog-title"
-              fontWeight={FontWeightEnum.Bold}
-              level={5}
-            >
-              {title}
-            </Typography.Title>
+            <div className="aelf-web-logout-dialog-title">{title}</div>
           </div>
 
           <div>
             {subTitle?.map((t) => (
-              <div key={t} className="aelf-web-logout-dialog-sub-title">
-                <Typography.Title level={7}>{t}</Typography.Title>
+              <div
+                key={t}
+                className="aelf-web-logout-dialog-sub-title aelf-web-logout-dialog-mt-12"
+              >
+                {t}
               </div>
             ))}
           </div>
@@ -187,13 +184,14 @@ const NestedModal = ({
     <Modal
       title={
         <>
-          <Typography.Title
-            className={isWeb2Design ? 'nested-title-12' : 'nested-title'}
-            fontWeight={FontWeightEnum.Bold}
-            level={5}
+          <div
+            className={`aelf-web-logout-dialog-title ${
+              isWeb2Design ? 'nested-title-12' : 'nested-title'
+            }`}
           >
             {constant.connectWallet}
-          </Typography.Title>
+          </div>
+
           {isWeb2Design ? (
             <img className="nested-close-icon" src={constant.closeImg} onClick={onClose}></img>
           ) : (
@@ -314,9 +312,9 @@ const SignInModal = (props: ISignInModalProps) => {
                 }
               ></img>
             </div>
-            <Typography.Title fontWeight={FontWeightEnum.Bold} level={5}>
+            <div className="aelf-web-logout-dialog-title">
               {baseConfig?.titleForSocialDesign || defaultPropsForSocialDesign.titleForSocialDesign}
-            </Typography.Title>
+            </div>
           </div>
           <div className="social-design-wallets">
             {filteredWallets.map((item) => (
@@ -326,9 +324,7 @@ const SignInModal = (props: ISignInModalProps) => {
                 key={item.name}
               >
                 <img src={item.icon} />
-                <Typography.Title fontWeight={FontWeightEnum.Medium} level={7}>
-                  {item.name}
-                </Typography.Title>
+                <div className="aelf-web-logout-dialog-sub-title">{item.name}</div>
               </div>
             ))}
           </div>

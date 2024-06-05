@@ -3,10 +3,17 @@
 }
 .aelf-web-logout-dialog-title {
   text-align: center;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: bold;
 }
 .aelf-web-logout-dialog-sub-title {
-  margin-top: 12px;
   text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+}
+.aelf-web-logout-dialog-mt-12{
+  margin-top: 12px;
 }
 .aelf-web-logout-dialog-btn-wrap {
   display: flex;
@@ -15,6 +22,9 @@
 }
 .aelf-web-logout-dialog-btn-wrap button:first-child {
   margin-bottom: 12px;
+}
+.aelf-web-logout-dialog-btn-wrap button{
+  height: 40px;
 }
 
 .aelf-web-extra-wallets-wrapper-crypto {

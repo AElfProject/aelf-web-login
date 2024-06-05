@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import {
   TWalletInfo,
   WalletAdapter,
@@ -69,7 +70,7 @@ class Bridge {
     });
   };
 
-  disConnect = async (isDoubleCheck: boolean = false) => {
+  disConnect = async (isDoubleCheck = false) => {
     console.log('disconnect');
     try {
       if (isDoubleCheck) {

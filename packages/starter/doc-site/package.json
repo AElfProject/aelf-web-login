@@ -59,8 +59,6 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@umijs/lint": "^4.0.0",
-    "aelf-design": "1.0.0-alpha.17",
-    "antd": "^5.17.2",
     "dumi": "^2.2.13",
     "eslint": "^8.23.0",
     "father": "^4.1.0",
