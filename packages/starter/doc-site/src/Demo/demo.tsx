@@ -93,7 +93,7 @@ const config = {
   ],
 } as IConfigProps;
 
-const App = () => {
+const App: React.FC = () => {
   const bridgeAPI = init(config);
   return (
     <WebLoginProvider bridgeAPI={bridgeAPI}>

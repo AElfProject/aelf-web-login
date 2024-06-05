@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Input } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
-const SignatureDemo = () => {
+const SignatureDemo: React.FC = () => {
   const { walletInfo, getSignature } = useConnectWallet();
   const [signInfo, setSignInfo] = useState('');
   const [signed, setSigned] = useState('');

@@ -10,28 +10,26 @@ export const init = (options: IConfigProps): IBridgeAPI => {
   return dataFromBridge;
 };
 
-export const Context: React.Context<IBridgeAPI | undefined> = React.createContext<
+export const WebLoginContext: React.Context<IBridgeAPI | undefined> = React.createContext<
   IBridgeAPI | undefined
 >(undefined);
 
-export type WebLoginProviderProps = {
+interface IWebLoginProviderProps {
+  children: React.ReactNode;
   bridgeAPI: IBridgeAPI;
-};
+}
 
-export function WebLoginProvider({
-  children,
-  bridgeAPI,
-}: React.PropsWithChildren<WebLoginProviderProps>) {
+export const WebLoginProvider: React.FC<IWebLoginProviderProps> = ({ children, bridgeAPI }) => {
   const { mountApp, unMountApp } = bridgeAPI;
   useEffect(() => {
     mountApp();
     return unMountApp;
   }, [mountApp, unMountApp]);
-  return <Context.Provider value={bridgeAPI}>{children}</Context.Provider>;
-}
+  return <WebLoginContext.Provider value={bridgeAPI}>{children}</WebLoginContext.Provider>;
+};
 
 export function useWebLoginContext(): IBridgeAPI {
-  const bridgeAPI = React.useContext(Context);
+  const bridgeAPI = React.useContext(WebLoginContext);
 
   if (!bridgeAPI) {
     throw new Error(HOOK_ERROR_MESSAGE);

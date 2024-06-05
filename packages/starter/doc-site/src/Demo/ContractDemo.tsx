@@ -44,7 +44,7 @@ function useExampleCall(name: string, func: () => any) {
   };
 }
 
-const ContractDemo = () => {
+const ContractDemo: React.FC = () => {
   const {
     callSendMethod,
     callViewMethod,

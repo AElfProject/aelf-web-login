@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, message, Divider, Flex } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
-const LoginDemo = () => {
+const LoginDemo: React.FC = () => {
   const {
     connectWallet,
     disConnectWallet,
