@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, message, Divider, Flex } from 'antd';
+import { Button, message, Divider } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 const LoginDemo: React.FC = () => {
@@ -55,7 +55,7 @@ const LoginDemo: React.FC = () => {
 
   return (
     <div>
-      <Flex gap="small">
+      <div>
         <Button type="primary" onClick={onConnectBtnClickHandler} disabled={isConnected}>
           {isLocking ? 'unlock' : 'connect'}
         </Button>
@@ -63,9 +63,9 @@ const LoginDemo: React.FC = () => {
           lock
         </Button>
         <Button type="primary" onClick={onDisConnectBtnClickHandler} disabled={!isConnected}>
-          disConnect
+          disconnect
         </Button>
-      </Flex>
+      </div>
       <div>
         walletInfo:
         <pre style={{ overflow: 'auto', height: '300px' }}>

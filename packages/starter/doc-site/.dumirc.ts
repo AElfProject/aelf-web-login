@@ -39,4 +39,5 @@ export default defineConfig({
   themeConfig: {
     name: 'aelf-web-login',
   },
+  locales: [{ id: 'en-US', name: 'EN' }],
 });
