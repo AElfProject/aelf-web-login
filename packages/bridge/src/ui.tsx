@@ -334,9 +334,7 @@ const SignInModal = (props: ISignInModalProps) => {
       return (
         <>
           <div className="aelf-web-extra-wallets-wrapper-crypto">
-            <Typography.Text size="small" className="crypto-wallets-title">
-              Crypto wallet
-            </Typography.Text>
+            <Typography.Text className="crypto-wallets-title">Crypto wallet</Typography.Text>
             <div
               className={`crypto-extra-wallets ${
                 baseConfig.design === 'Web2Design' && 'web2-extra-wallets'

@@ -104,7 +104,6 @@
   height: 100%;
 }
 .nested-title {
-  padding: 24px;
   text-align: center;
 }
 .nested-title-12 {
@@ -127,7 +126,7 @@
   display: flex;
   gap: 24px;
   justify-content: center;
-  padding: 0 60px;
+  padding: 36px 60px;
 }
 .nested-entry-wrapper-mobile {
   padding-top: 24px;

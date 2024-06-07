@@ -110,11 +110,11 @@ const wallets = [
   }),
 ]
 
-const config = {
+const config: IConfigProps = {
   didConfig,
   baseConfig,
   wallets
-} as IConfigProps;
+};
 ```
 
 # Usage
