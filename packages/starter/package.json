@@ -47,6 +47,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@aelf-web-login/wallet-adapter-base": "workspace:*",
     "@aelf-web-login/wallet-adapter-bridge": "workspace:*",
     "@aelf-web-login/wallet-adapter-night-elf": "workspace:*",
     "@aelf-web-login/wallet-adapter-portkey-aa": "workspace:*",
@@ -59,11 +60,11 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@umijs/lint": "^4.0.0",
-    "dumi": "^2.2.13",
+    "antd": "5.18.0",
+    "dumi": "2.2.17",
     "eslint": "^8.23.0",
     "father": "^4.1.0",
     "glob": "^10.3.12",
-    "stylelint": "^14.9.1",
-    "antd": "4.24.14"
+    "stylelint": "^14.9.1"
   }
 }

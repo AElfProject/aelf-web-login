@@ -10,9 +10,9 @@ export const init = (options: IConfigProps): IBridgeAPI => {
   return dataFromBridge;
 };
 
-export const WebLoginContext: React.Context<IBridgeAPI | undefined> = React.createContext<
-  IBridgeAPI | undefined
->(undefined);
+export const WebLoginContext: React.Context<IBridgeAPI> = React.createContext<IBridgeAPI>(
+  {} as IBridgeAPI,
+);
 
 interface IWebLoginProviderProps {
   children: React.ReactNode;
@@ -20,11 +20,14 @@ interface IWebLoginProviderProps {
 }
 
 export const WebLoginProvider: React.FC<IWebLoginProviderProps> = ({ children, bridgeAPI }) => {
-  const { mountApp, unMountApp } = bridgeAPI;
+  const { mountApp, unMountApp } = bridgeAPI ?? { mountApp: () => {}, unMountApp: () => {} };
   useEffect(() => {
     mountApp();
     return unMountApp;
   }, [mountApp, unMountApp]);
+  if (!bridgeAPI) {
+    return null;
+  }
   return <WebLoginContext.Provider value={bridgeAPI}>{children}</WebLoginContext.Provider>;
 };
 
@@ -92,6 +95,7 @@ export function useConnectWallet() {
     isLocking: stateFromStore.isLocking,
     walletType: stateFromStore.walletType,
     isConnected: !!stateFromStore.walletInfo,
+    loginError: stateFromStore.loginError,
     lock,
     getAccountByChainId,
     getWalletSyncIsCompleted,

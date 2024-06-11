@@ -1,16 +1,18 @@
 import { createSlice, configureStore, EnhancedStore } from '@reduxjs/toolkit';
-import { TWalletInfo, WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
+import { TWalletInfo, WalletTypeEnum, TWalletError } from '@aelf-web-login/wallet-adapter-base';
 
 type TState = {
   walletInfo: TWalletInfo;
   isLocking: boolean;
   walletType: WalletTypeEnum;
+  loginError: TWalletError | null;
 };
 
 const initialState: TState = {
   walletInfo: undefined,
   isLocking: false,
   walletType: WalletTypeEnum.unknown,
+  loginError: null,
 };
 
 const aelfWebLoginSlice = createSlice({
@@ -31,6 +33,12 @@ const aelfWebLoginSlice = createSlice({
     },
     clearWalletType: (state) => {
       state.walletType = WalletTypeEnum.unknown;
+    },
+    setLoginError: (state, action) => {
+      state.loginError = action.payload;
+    },
+    clearLoginError: (state) => {
+      state.loginError = null;
     },
   },
 });
@@ -59,8 +67,15 @@ export const store: EnhancedStore<TState> = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
 });
 
-export const { setWalletInfo, clearWalletInfo, setLocking, setWalletType, clearWalletType } =
-  aelfWebLoginSlice.actions;
+export const {
+  setWalletInfo,
+  clearWalletInfo,
+  setLocking,
+  setWalletType,
+  clearWalletType,
+  setLoginError,
+  clearLoginError,
+} = aelfWebLoginSlice.actions;
 
 export type AppDispatch = typeof store.dispatch;
 export const dispatch: AppDispatch = store.dispatch;

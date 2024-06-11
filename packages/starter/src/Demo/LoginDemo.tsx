@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Button, message, Divider } from 'antd';
+import { useEffect, useState } from 'react';
+import { Button, message, Divider, Flex } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 const LoginDemo: React.FC = () => {
@@ -11,6 +11,7 @@ const LoginDemo: React.FC = () => {
     isLocking,
     walletType,
     isConnected,
+    loginError,
     getAccountByChainId,
     getWalletSyncIsCompleted,
   } = useConnectWallet();
@@ -25,9 +26,16 @@ const LoginDemo: React.FC = () => {
       const rs = await connectWallet();
       console.log('rs', rs);
     } catch (e: any) {
-      message.error(e.message);
+      // message.error(e.message);
     }
   };
+
+  useEffect(() => {
+    if (!loginError) {
+      return;
+    }
+    message.error(loginError.message);
+  }, [loginError]);
 
   const onDisConnectBtnClickHandler = () => {
     disConnectWallet();
@@ -55,7 +63,7 @@ const LoginDemo: React.FC = () => {
 
   return (
     <div>
-      <div>
+      <Flex gap={'small'}>
         <Button type="primary" onClick={onConnectBtnClickHandler} disabled={isConnected}>
           {isLocking ? 'unlock' : 'connect'}
         </Button>
@@ -65,7 +73,7 @@ const LoginDemo: React.FC = () => {
         <Button type="primary" onClick={onDisConnectBtnClickHandler} disabled={!isConnected}>
           disconnect
         </Button>
-      </div>
+      </Flex>
       <div>
         walletInfo:
         <pre style={{ overflow: 'auto', height: '300px' }}>

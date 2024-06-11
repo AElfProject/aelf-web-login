@@ -22,6 +22,7 @@ export interface IPortkeyAAWalletAdapterConfig {
   appName: string;
   chainId: TChainId;
   autoShowUnlock: boolean;
+  noNeedForConfirm?: boolean;
 }
 
 export const PortkeyAAName = 'PortkeyAA' as WalletName<'PortkeyAA'>;
@@ -45,6 +46,10 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
 
   get loginState() {
     return this._loginState;
+  }
+
+  get noNeedForConfirm() {
+    return this._config.noNeedForConfirm;
   }
 
   get wallet() {

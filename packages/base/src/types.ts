@@ -65,3 +65,13 @@ export enum WalletTypeEnum {
   aa = 'PortkeyAA',
   discover = 'PortkeyDiscover',
 }
+export enum SignInDesignEnum {
+  SocialDesign = 'SocialDesign',
+  CryptoDesign = 'CryptoDesign',
+  Web2Design = 'Web2Design',
+}
+
+export enum NetworkEnum {
+  MAINNET = 'MAINNET',
+  TESTNET = 'TESTNET',
+}
