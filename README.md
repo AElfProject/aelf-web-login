@@ -36,12 +36,12 @@ import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-di
 import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
 import { NightElfWallet } from '@aelf-web-login/wallet-adapter-night-elf';
 import { IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
-import { TChainId } from '@aelf-web-login/wallet-adapter-base';
+import { TChainId, SignInDesignEnum, NetworkEnum } from '@aelf-web-login/wallet-adapter-base';
 
 const APP_NAME = 'explorer.aelf.io';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
 const CHAIN_ID = 'AELF' as TChainId;
-const NETWORK_TYPE = 'TESTNET';
+const NETWORK_TYPE = NetworkEnum.TESTNET;
 const RPC_SERVER_AELF = 'https://explorer-test.aelf.io/chain';
 const RPC_SERVER_TDVV = 'https://explorer-test-side02.aelf.io/chain';
 const RPC_SERVER_TDVW = 'https://explorer-test-side02.aelf.io/chain';
@@ -68,10 +68,10 @@ const baseConfig = {
   chainId: CHAIN_ID,
   keyboard: true,
   noCommonBaseModal: false,
-  design: 'CryptoDesign', // "SocialDesign" | "CryptoDesign" | "Web2Design"
+  design: SignInDesignEnum.CryptoDesign, // "SocialDesign" | "CryptoDesign" | "Web2Design"
   titleForSocialDesign: 'Crypto wallet',
   iconSrcForSocialDesign: 'url or base64',
-}
+};
 
 const wallets = [
   new PortkeyAAWallet({
@@ -151,24 +151,6 @@ const Demo = () => {
     callViewMethod
   } = useConnectWallet();
 }
-
-const connectWallet: () => Promise<TWalletInfo>
-const disConnectWallet: () => Promise<void>
-const walletInfo: TWalletInfo
-const lock: () => void
-const isLocking: boolean
-const isConnected: boolean
-const walletType: WalletTypeEnum
-const getAccountByChainId: (chainId: TChainId) => Promise<string>
-const getWalletSyncIsCompleted: (chainId: TChainId) => Promise<string | boolean>
-const getSignature: (params: TSignatureParams) => Promise<{
-    error: number;
-    errorMessage: string;
-    signature: string;
-    from: string;
-} | null>
-const callSendMethod: <T, R>(props: ICallContractParams<T>) => Promise<R>
-const callViewMethod: <T, R>(props: ICallContractParams<T>) => Promise<R>
 ```
 
 # API
@@ -181,7 +163,9 @@ connectWallet: () => Promise<TWalletInfo>
 
 > Connect wallet and return walletInfo
 
-```JavaScript
+```TypeScript
+import { Button } from 'aelf-design';
+
 const Demo = () => {
     const { connectWallet } = useConnectWallet();
     const onConnectBtnClickHandler = async() => {
@@ -205,7 +189,9 @@ disConnectWallet: () => Promise<void>
 
 > Disconnect wallet
 
-```JavaScript
+```TypeScript
+import { Button } from 'aelf-design';
+
 const Demo = () => {
     const { disConnectWallet } = useConnectWallet();
     const onDisConnectBtnClickHandler = () => {
@@ -225,7 +211,9 @@ lock: () => void
 
 > Lock wallet, only portkeyAA wallet take effect
 
-```JavaScript
+```TypeScript
+import { Button } from 'aelf-design';
+
 const Demo = () => {
     const { lock } = useConnectWallet();
     return (
@@ -242,7 +230,9 @@ getAccountByChainId: (chainId: TChainId) => Promise<string>
 
 > Get account address of designative chainId
 
-```JavaScript
+```TypeScript
+import { Button } from 'aelf-design';
+
 const Demo = () => {
     const { getAccountByChainId } = useConnectWallet();
 
@@ -270,6 +260,8 @@ getWalletSyncIsCompleted: (chainId: TChainId) => Promise<string | boolean>
 > Return account address of designative chainId if sync is competed, otherwise return false
 
 ```TypeScript
+import { Button } from 'aelf-design';
+
 const Demo = () => {
     const { getWalletSyncIsCompleted } = useConnectWallet();
 
@@ -297,6 +289,8 @@ const getSignature: (params: TSignatureParams) => Promise<{ ``    error: number;
 > Get signature message
 
 ```TypeScript
+import { Button, Input } from 'aelf-design';
+
 type TSignatureParams = {
   appName: string;
   address: string;
@@ -341,6 +335,8 @@ callSendMethod: <T, R>(props: ICallContractParams<T>) => Promise<R>
 > Call contract's send method
 
 ```TypeScript
+import { Button } from 'aelf-design';
+
 interface ICallContractParams<T> {
   contractAddress: string;
   methodName: string;
@@ -388,6 +384,8 @@ callViewMethod: <T, R>(props: ICallContractParams<T>) => Promise<R>
 > Call contract's view method
 
 ```TypeScript
+import { Button } from 'aelf-design';
+
 interface ICallContractParams<T> {
   contractAddress: string;
   methodName: string;
@@ -527,6 +525,8 @@ const isLocking: boolean
 > indicate whether the current state is locked, only portkeyAA wallet take effect, other wallets always return false
 
 ```TypeScript
+import { Button } from 'aelf-design';
+
  const Demo = () => {
     const { isLocking } = useConnectWallet();
 
@@ -547,6 +547,8 @@ const isConnected: boolean
 > indicate whether the current state is connected
 
 ```TypeScript
+import { Button } from 'aelf-design';
+
  const Demo = () => {
     const { isConnected } = useConnectWallet();
 

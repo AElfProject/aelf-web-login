@@ -317,6 +317,7 @@ export class NightElfWallet extends BaseWalletAdapter {
     }
     const finalChainId = chainId || this._config.chainId;
     const bridge = this._wallet.extraInfo?.nightElfInfo?.aelfBridges?.[finalChainId];
+    console.log(finalChainId, bridge, '---');
     if (!bridge) {
       throw makeError(ERR_CODE.NIGHT_ELF_NOT_CONNECTED);
     }

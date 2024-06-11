@@ -18,6 +18,8 @@ import {
   setWalletType,
   clearWalletType,
   dispatch,
+  setLoginError,
+  clearLoginError,
 } from './store';
 import { DIDWalletInfo } from '@portkey/did-ui-react';
 
@@ -71,7 +73,7 @@ class Bridge {
   };
 
   disConnect = async (isDoubleCheck = false) => {
-    console.log('disconnect');
+    console.log('disconnect', isDoubleCheck, this.isAAWallet);
     try {
       if (isDoubleCheck) {
         // only click confirmLogout button can enter here
@@ -157,6 +159,7 @@ class Bridge {
   onConnectedHandler = (walletInfo: TWalletInfo) => {
     dispatch(setWalletInfo(walletInfo));
     dispatch(setWalletType(this.activeWallet?.name));
+    dispatch(clearLoginError());
   };
 
   onDisConnectedHandler = (isLocking = false) => {
@@ -165,6 +168,7 @@ class Bridge {
     this.closeNestedModal();
     dispatch(clearWalletInfo());
     dispatch(clearWalletType());
+    dispatch(clearLoginError());
   };
 
   onLockHandler = () => {
@@ -181,6 +185,7 @@ class Bridge {
     this.closeNestedModal();
     dispatch(clearWalletInfo());
     dispatch(clearWalletType());
+    dispatch(setLoginError(err));
   };
 
   bindEvents = () => {
@@ -262,6 +267,7 @@ class Bridge {
       if (walletInfo) {
         this.closeLoginPanel();
         dispatch(setLocking(false));
+        dispatch(clearLoginError());
       }
       return walletInfo;
     } catch (error) {

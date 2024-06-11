@@ -92,6 +92,7 @@ export function useConnectWallet() {
     isLocking: stateFromStore.isLocking,
     walletType: stateFromStore.walletType,
     isConnected: !!stateFromStore.walletInfo,
+    loginError: stateFromStore.loginError,
     lock,
     getAccountByChainId,
     getWalletSyncIsCompleted,

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, message, Divider } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
@@ -11,6 +11,7 @@ const LoginDemo: React.FC = () => {
     isLocking,
     walletType,
     isConnected,
+    loginError,
     getAccountByChainId,
     getWalletSyncIsCompleted,
   } = useConnectWallet();
@@ -25,9 +26,16 @@ const LoginDemo: React.FC = () => {
       const rs = await connectWallet();
       console.log('rs', rs);
     } catch (e: any) {
-      message.error(e.message);
+      // message.error(e.message);
     }
   };
+
+  useEffect(() => {
+    if (!loginError) {
+      return;
+    }
+    message.error(loginError.message);
+  }, [loginError]);
 
   const onDisConnectBtnClickHandler = () => {
     disConnectWallet();
