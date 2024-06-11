@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import React, { createContext, useEffect, useContext, useCallback, useMemo, useState } from 'react';
 import { AElfReactProvider } from '@aelf-react/core';
-import { WalletHookInterface } from './types';
+import { ExtraWalletNames, WalletHookInterface } from './types';
 import { WebLoginProviderProps } from './types';
 import { usePortkey } from './wallets/portkey/usePortkey';
 import { usePortkey as usePortkeyV1 } from './wallets/portkey/usePortkey/indexV1';
@@ -14,7 +14,11 @@ import { CommonBaseModal, PortkeyLoading } from '@portkey/did-ui-react';
 import { check } from './wallets/elf/utils';
 import isMobile from './utils/isMobile';
 import isPortkeyApp from './utils/isPortkeyApp';
-import { LOGIN_EARGLY_KEY as DISCOVER_LOGIN_EARGERLY_KEY, useDiscover } from './wallets/discover/useDiscover';
+import {
+  LOGIN_EARGLY_KEY as DISCOVER_LOGIN_EARGERLY_KEY,
+  LOGIN_EARGLY_KEY,
+  useDiscover,
+} from './wallets/discover/useDiscover';
 import ConfirmLogoutDialog from './components/CofirmLogoutDialog/ConfirmLogoutDialog';
 import { useDebounceFn } from 'ahooks';
 import ExtraWallets from './wallets/extraWallets';
@@ -85,6 +89,23 @@ export const PortkeyAssetProvider = ({ children, ...props }: any) => {
     </PortkeyDid.PortkeyAssetProvider>
   );
 };
+
+export function removeOtherKey(type: WalletType) {
+  if (type === 'unknown') return;
+  const map = {
+    discover: [LOGIN_EARGLY_KEY],
+    elf: ['aelf-connect-eagerly'],
+  };
+  (Object.keys(map) as Array<keyof typeof map>).forEach((key) => {
+    if (type !== key) {
+      const keyArr: string[] = map[key];
+      keyArr.forEach((item) => {
+        localStorage.removeItem(item);
+      });
+    }
+  });
+}
+
 function WebLoginProvider({
   nightElf: nightElfOpts,
   portkey: portkeyOpts,
