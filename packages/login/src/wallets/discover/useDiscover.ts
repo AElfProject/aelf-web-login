@@ -20,7 +20,7 @@ import wait from '../../utils/waitForSeconds';
 import { zeroFill } from '../../utils/zeroFill';
 import detectDiscoverProvider from './detectProvider';
 import useWebLoginEvent from '../../hooks/useWebLoginEvent';
-import { useWebLogin } from '../../context';
+import { removeOtherKey, useWebLogin } from '../../context';
 import isPortkeyApp, { isPortkeyV2 } from '../../utils/isPortkeyApp';
 import { getStorageVersion } from '../../utils/getUrl';
 
@@ -182,6 +182,7 @@ export function useDiscover({
       const accounts = await provider.request({ method: 'accounts' });
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
         onAccountsSuccess(provider, accounts);
+        removeOtherKey(walletType);
       } else {
         onAccountsFail(makeError(ERR_CODE.DISCOVER_LOGIN_EAGERLY_FAIL));
       }
@@ -209,11 +210,13 @@ export function useDiscover({
       let accounts = await provider.request({ method: 'accounts' });
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
         onAccountsSuccess(provider, accounts);
+        removeOtherKey(walletType);
         return;
       }
       accounts = await provider.request({ method: 'requestAccounts' });
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
         onAccountsSuccess(provider, accounts);
+        removeOtherKey(walletType);
       } else {
         setLoading(false);
         onAccountsFail(makeError(ERR_CODE.ACCOUNTS_IS_EMPTY));

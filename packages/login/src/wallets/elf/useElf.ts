@@ -8,6 +8,7 @@ import { WalletType, WebLoginState, WebLoginEvents } from '../../constants';
 import checkSignatureParams from '../../utils/signatureParams';
 import detectNightElf from './detectNightElf';
 import { zeroFill } from '../../utils/zeroFill';
+import { removeOtherKey } from '../../context';
 
 export function useElf({
   options,
@@ -119,6 +120,7 @@ export function useElf({
         console.log('activate');
         await activate(nodes);
         console.log('activated');
+        removeOtherKey('elf' as WalletType);
       } catch (e) {
         if (isTimeout) return;
         setLoading(false);
@@ -149,6 +151,7 @@ export function useElf({
         }
       }
       await login({ eagerly: true });
+      removeOtherKey('elf' as WalletType);
     } catch (e) {
       localStorage.removeItem('aelf-connect-eagerly');
       setLoading(false);
