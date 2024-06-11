@@ -3,11 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "workspaces": [
-    "packages/core/*",
-    "packages/starter/*",
-    "packages/wallets/*",
+    "packages/base",
+    "packages/starter",
     "packages/bridge",
-    "packages/react"
+    "packages/react",
+    "packages/wallets/*"
   ],
   "type": "module",
   "packageManager": "pnpm@8.15.4",

@@ -16,7 +16,7 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@aelf-web-login/wallet-adapter-base": ["./packages/core/base/src/index.ts"],
+      "@aelf-web-login/wallet-adapter-base": ["./packages/base/src/index.ts"],
       "@aelf-web-login/wallet-adapter-bridge": ["./packages/bridge/src/index.ts"],
       "@aelf-web-login/wallet-adapter-react": ["./packages/react/src/index.tsx"],
       "@aelf-web-login/wallet-adapter-portkey-aa": ["./packages/wallets/portkey-aa/src/index.ts"],

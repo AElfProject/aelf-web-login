@@ -3,7 +3,7 @@ import { dirname, join } from 'path';
 import { defineConfig } from 'dumi';
 import { glob, Glob, globStream, globStreamSync, globSync } from 'glob';
 
-const packagePath = join(__dirname, '../../../packages');
+const packagePath = join(__dirname, '../../packages');
 const createAlias = () => {
   const jsonFilePath = globSync(join(packagePath, '/**/*/package.json'), {
     ignore: join(packagePath, '/**/*/node_modules/**/*/package.json'),

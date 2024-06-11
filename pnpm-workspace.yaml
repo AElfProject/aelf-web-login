@@ -1,6 +1,6 @@
 packages:
-  - 'packages/core/*'
-  - 'packages/starter/*'
-  - 'packages/wallets/*'
+  - 'packages/base'
+  - 'packages/starter'
   - 'packages/bridge'
   - 'packages/react'
+  - 'packages/wallets/*'

@@ -603,7 +603,7 @@ const Demo = () => {
 2. cd to demo directory and execute dev command
 
 ```bash
-  cd packages/starter/doc-site
+  cd packages/starter
   pnpm dev
 ```
 
