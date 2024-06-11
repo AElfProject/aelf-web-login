@@ -82,5 +82,5 @@
   "engines": {
     "node": ">=20"
   },
-  "repository": "https://github.com/AElf-devops/aelf-web-login"
+  "repository": "https://github.com/AElfProject/aelf-web-login"
 }

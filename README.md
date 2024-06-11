@@ -143,6 +143,7 @@ const Demo = () => {
     lock,
     isLocking,
     isConnected,
+    loginError,
     walletType,
     getAccountByChainId,
     getWalletSyncIsCompleted,
@@ -486,7 +487,7 @@ type TWalletInfo =
     },
   }
 
- const Demo = () => {
+const Demo = () => {
     const { walletInfo } = useConnectWallet();
     console.log(walletInfo)
     return null
@@ -509,7 +510,7 @@ enum WalletTypeEnum {
   discover = 'PortkeyDiscover',
 }
 
- const Demo = () => {
+const Demo = () => {
     const { walletType } = useConnectWallet();
     console.log(walletType)
     return null
@@ -527,7 +528,7 @@ const isLocking: boolean
 ```TypeScript
 import { Button } from 'aelf-design';
 
- const Demo = () => {
+const Demo = () => {
     const { isLocking } = useConnectWallet();
 
     return (
@@ -549,7 +550,7 @@ const isConnected: boolean
 ```TypeScript
 import { Button } from 'aelf-design';
 
- const Demo = () => {
+const Demo = () => {
     const { isConnected } = useConnectWallet();
 
     return (
@@ -558,6 +559,36 @@ import { Button } from 'aelf-design';
         <Button disabled={!isConnected}>disConnect</Button>
       </div>
     )
+}
+```
+
+## loginError
+
+```
+const loginError: TWalletError | null
+```
+
+> indicate are there any errors during the login/logout/unlock process
+
+```TypeScript
+type TWalletError = {
+  name: string;
+  code: number;
+  message: string;
+  nativeError?: any;
+}
+
+const Demo = () => {
+  const { loginError } = useConnectWallet();
+
+  useEffect(() => {
+    if (!loginError) {
+      return;
+    }
+    console.log(loginError.message);
+  }, [loginError]);
+
+  return null
 }
 ```
 

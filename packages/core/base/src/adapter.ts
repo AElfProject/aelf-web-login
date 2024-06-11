@@ -27,6 +27,7 @@ export interface IWalletAdapter<Name extends string = string> {
   // readyState: WalletStateEnum;
   loginState: LoginStateEnum;
   wallet: TWalletInfo;
+  noNeedForConfirm?: boolean;
 
   login(arg?: DIDWalletInfo): Promise<TWalletInfo>;
   logout(): Promise<void>;

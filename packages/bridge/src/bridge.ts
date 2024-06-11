@@ -75,8 +75,8 @@ class Bridge {
   disConnect = async (isDoubleCheck = false) => {
     console.log('disconnect', isDoubleCheck, this.isAAWallet);
     try {
-      if (isDoubleCheck) {
-        // only click confirmLogout button can enter here
+      if (isDoubleCheck || (this.isAAWallet && this.activeWallet!.noNeedForConfirm)) {
+        // only click confirmLogout button/or noNeedForConfirm can enter here
         await this.activeWallet?.logout();
         this.closeConfirmLogoutPanel();
         this.closeLockPanel();
