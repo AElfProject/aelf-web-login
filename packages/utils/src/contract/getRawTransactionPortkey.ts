@@ -1,7 +1,7 @@
 import { getContractBasic } from '@portkey/contracts';
 import { aelf } from '@portkey/utils';
 
-interface IRowTransactionPortkeyParams {
+export interface IRowTransactionPortkeyParams {
   caHash: string;
   privateKey: string;
   contractAddress: string;

@@ -20,17 +20,8 @@ async function getRawTransactionNight({
     contractAddress: contractAddress,
     rpcUrl: rpcUrl,
   });
-  const a = await contract.encodedTx(methodName, params);
-  console.log(
-    '----getRawTransactionNight',
-    methodName,
-    params,
-    account,
-    contractAddress,
-    rpcUrl,
-    a,
-  );
-  return a.data;
+  const rs = await contract.encodedTx(methodName, params);
+  return rs.data;
 }
 
 export default getRawTransactionNight;

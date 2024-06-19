@@ -39,7 +39,7 @@ const LoginDemo: React.FC = () => {
   const { start, loading: allowanceAndApproveLoading } = useCheckAllowanceAndApprove({
     tokenContractAddress: 'ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx',
     approveTargetAddress: 'ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx',
-    account: walletInfo?.address,
+    account: walletInfo?.address as string,
     amount: '65',
     symbol: 'ELF',
     chainId: 'tDVW',
@@ -47,7 +47,7 @@ const LoginDemo: React.FC = () => {
 
   const { getBalance, loading: getBalanceLoading } = useGetBalance({
     tokenContractAddress: 'ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx',
-    account: walletInfo?.address,
+    account: walletInfo?.address as string,
     symbol: 'ELF',
     chainId: 'tDVW',
   });
@@ -115,7 +115,7 @@ const LoginDemo: React.FC = () => {
     <div>
       <div>{formatTime('2021/9/11')}</div>
       <div>{createDuration({ days: 3, hours: 3, minutes: 45 }).format('DD[d] HH[h] mm[m]')}</div>
-      <div>{formatNumberWithDecimalPlaces('12345678900.111111', 3)}</div>
+      <div>{formatNumberWithDecimalPlaces('12113.11', 3)}</div>
       <div>{formatPrice(1111.1234, { minValue: 1100 })}</div>
       <div>{getOriginalAddress('ELF_xxxx_dd')}</div>
       <div>{addPrefixSuffix('FASFSAFSADFSADFS ')}</div>

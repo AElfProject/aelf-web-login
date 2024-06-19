@@ -18,9 +18,6 @@ type DurationUnitsObjectType = Partial<{
 
 type DurationUnitType = Exclude<OpUnitType, 'date' | 'dates'>;
 
-// ((units: DurationUnitsObjectType) => Duration)
-// & ((time: number, unit?: DurationUnitType) => Duration)
-// & ((ISO_8601: string) => Duration)
 function formatTime(date: string | number, formats = 'YYYY-MM-DD') {
   return dayjs(date).format(formats);
 }
@@ -36,7 +33,6 @@ function createDuration(
   if (typeof args1 === 'number') {
     return dayjs.duration(args1, args2);
   } else if (typeof args1 === 'string') {
-    console.log('arg', args1);
     return dayjs.duration(args1);
   } else {
     return dayjs.duration(args1);

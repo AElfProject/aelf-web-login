@@ -1,8 +1,8 @@
-function addPrefixSuffix(str: string, chainId = 'tDVW') {
+function addPrefixSuffix(str: string, chainId?: string) {
   if (!str) return str;
   let resStr = str.trim();
   const prefix = 'ELF_';
-  const suffix = `_${chainId}`;
+  const suffix = chainId ? `_${chainId}` : `_tDVW`;
   if (!str.startsWith(prefix)) {
     resStr = `${prefix}${resStr}`;
   }
