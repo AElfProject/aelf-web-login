@@ -19,7 +19,7 @@ function logMissingProviderError(action: string, property: string) {
   return error;
 }
 
-export const WalletContext = createContext<WalletContextState>(
+export const WalletContext: React.Context<WalletContextState> = createContext<WalletContextState>(
   DEFAULT_CONTEXT as WalletContextState,
 );
 

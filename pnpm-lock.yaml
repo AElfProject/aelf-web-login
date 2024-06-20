@@ -90,15 +90,15 @@ importers:
       '@portkey/types':
         specifier: ^2.6.2
         version: 2.6.8
-      node-localstorage:
-        specifier: ^3.0.5
-        version: 3.0.5
       typescript:
         specifier: ^5.3.3
         version: 5.4.5
 
   packages/bridge:
     dependencies:
+      '@aelf-web-login/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@aelf-web-login/wallet-adapter-base':
         specifier: workspace:*
         version: link:../base
@@ -155,6 +155,12 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.4.5
+      vconsole:
+        specifier: ^3.15.1
+        version: 3.15.1
+      vconsole-webpack-plugin:
+        specifier: ^1.8.0
+        version: 1.8.0
 
   packages/starter:
     dependencies:
@@ -223,16 +229,16 @@ importers:
         specifier: workspace:*
         version: link:../bridge
       '@aelf-web-login/wallet-adapter-night-elf':
-        specifier: workspace:0.0.2-alpha.13
+        specifier: workspace:*
         version: link:../wallets/night-elf
       '@aelf-web-login/wallet-adapter-portkey-aa':
-        specifier: workspace:0.0.2-alpha.13
+        specifier: workspace:*
         version: link:../wallets/portkey-aa
       '@aelf-web-login/wallet-adapter-portkey-discover':
-        specifier: workspace:0.0.2-alpha.13
+        specifier: workspace:*
         version: link:../wallets/portkey-discover
       '@aelf-web-login/wallet-adapter-react':
-        specifier: workspace:0.0.2-alpha.13
+        specifier: workspace:*
         version: link:../react
       react:
         specifier: ^18.0.0
@@ -347,7 +353,7 @@ importers:
         specifier: ^2.6.2
         version: 2.6.8(aelf-sdk@3.4.12)(query-string@7.1.3)
       aelf-bridge:
-        specifier: ^0.0.10
+        specifier: 0.0.10
         version: 0.0.10
       bn.js:
         specifier: ^5.2.1
@@ -396,6 +402,9 @@ importers:
 
   packages/wallets/portkey-discover:
     dependencies:
+      '@aelf-web-login/utils':
+        specifier: workspace:*
+        version: link:../../utils
       '@aelf-web-login/wallet-adapter-base':
         specifier: workspace:*
         version: link:../../base
@@ -9554,6 +9563,11 @@ packages:
       run-queue: 1.0.3
     dev: true
 
+  /copy-text-to-clipboard@3.2.0:
+    resolution: {integrity: sha512-RnJFp1XR/LOBDckxTib5Qjr/PMfkatD0MUCQgdpqS8MdKiNUzBjAQBEN6oUy+jW7LI93BBG3DtMB2KOOKpGs2Q==}
+    engines: {node: '>=12'}
+    dev: true
+
   /copy-to-clipboard@3.3.3:
     resolution: {integrity: sha512-2KV8NhB5JqC3ky0r9PMCAZKbUHSwtEo4CwCs0KXgruG43gX5PMqDEBbVU4OUzw2MuAWUfsuFmWvEKG5QRfSnJA==}
     dependencies:
@@ -10601,8 +10615,8 @@ packages:
       once: 1.4.0
     dev: true
 
-  /engine.io-client@3.5.3:
-    resolution: {integrity: sha512-qsgyc/CEhJ6cgMUwxRRtOndGVhIu5hpL5tR4umSpmX/MvkFoIxUTM7oFMDQumHNzlNLwSVy6qhstFPoWTf7dOw==}
+  /engine.io-client@3.5.4:
+    resolution: {integrity: sha512-ydc8uuMMDxC5KCKNJN3zZKYJk2sgyTuTZQ7Aj1DJSsLKAcizA/PzWivw8fZMIjJVBo2CJOYzntv4FSjY/Lr//g==}
     dependencies:
       component-emitter: 1.3.1
       component-inherit: 0.0.3
@@ -10612,7 +10626,7 @@ packages:
       indexof: 0.0.1
       parseqs: 0.0.6
       parseuri: 0.0.6
-      ws: 7.4.6
+      ws: 7.5.10
       xmlhttprequest-ssl: 1.6.3
       yeast: 0.1.2
     transitivePeerDependencies:
@@ -15471,6 +15485,10 @@ packages:
       object-assign: 4.1.1
     dev: true
 
+  /mutation-observer@1.0.3:
+    resolution: {integrity: sha512-M/O/4rF2h776hV7qGMZUH3utZLO/jK7p8rnNgGkjKUw8zCGjRQPxB8z6+5l8+VjRUQ3dNYu4vjqXYLr+U8ZVNA==}
+    dev: true
+
   /mute-stream@0.0.7:
     resolution: {integrity: sha512-r65nCZhrbXXb6dXOACihYApHw2Q6pV0M3V0PSxd74N0+D8nzAdEAITq2oAjA1jVnKI+tGvEBUpqiMh0+rW6zDQ==}
     dev: true
@@ -15636,13 +15654,6 @@ packages:
       url: 0.11.3
       util: 0.11.1
       vm-browserify: 1.1.2
-    dev: true
-
-  /node-localstorage@3.0.5:
-    resolution: {integrity: sha512-GCwtK33iwVXboZWYcqQHu3aRvXEBwmPkAMRBLeaX86ufhqslyUkLGsi4aW3INEfdQYpUB5M9qtYf3eHvAk2VBg==}
-    engines: {node: '>=0.12'}
-    dependencies:
-      write-file-atomic: 5.0.1
     dev: true
 
   /node-releases@2.0.14:
@@ -19415,7 +19426,7 @@ packages:
       component-bind: 1.0.0
       component-emitter: 1.3.1
       debug: 3.1.0
-      engine.io-client: 3.5.3
+      engine.io-client: 3.5.4
       has-binary2: 1.0.3
       indexof: 0.0.1
       parseqs: 0.0.6
@@ -21125,6 +21136,22 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
+  /vconsole-webpack-plugin@1.8.0:
+    resolution: {integrity: sha512-rqRPWZ+reNLxysT+xJSpwp+HIWB/WgMRq7xe/hjEb6lY/LY1fmqfGvejnZPHhIoF53zjl8iQLFk7/zQuGi1XVA==}
+    dependencies:
+      resize-observer-polyfill: 1.5.1
+      vconsole: 3.15.1
+    dev: true
+
+  /vconsole@3.15.1:
+    resolution: {integrity: sha512-KH8XLdrq9T5YHJO/ixrjivHfmF2PC2CdVoK6RWZB4yftMykYIaXY1mxZYAic70vADM54kpMQF+dYmvl5NRNy1g==}
+    dependencies:
+      '@babel/runtime': 7.24.7
+      copy-text-to-clipboard: 3.2.0
+      core-js: 3.34.0
+      mutation-observer: 1.0.3
+    dev: true
+
   /vfile-location@4.1.0:
     resolution: {integrity: sha512-YF23YMyASIIJXpktBa4vIGLJ5Gs88UB/XePgqPmTa7cDA+JeO3yclbpheQYCHjVHBn/yePzrXuygIL+xbvRYHw==}
     dependencies:
@@ -21617,16 +21644,8 @@ packages:
       signal-exit: 3.0.7
     dev: true
 
-  /write-file-atomic@5.0.1:
-    resolution: {integrity: sha512-+QU2zd6OTD8XWIJCbffaiQeH9U73qIqafo1x6V1snCWYGJf6cVE0cDR4D8xRzcEnfI21IFrUPzPGtcPf8AC+Rw==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-    dependencies:
-      imurmurhash: 0.1.4
-      signal-exit: 4.1.0
-    dev: true
-
-  /ws@7.4.6:
-    resolution: {integrity: sha512-YmhHDO4MzaDLB+M9ym/mDA5z0naX8j7SIlT8f8z+I0VtzsRbekxEutHSme7NPS2qE8StCYQNUnfWdXta/Yu85A==}
+  /ws@7.5.10:
+    resolution: {integrity: sha512-+dbF1tHwZpXcbOJdVOkzLDxZP1ailvSxM6ZweXTegylPny803bFhA+vqBYw4s31NSAk4S2Qz+AKXK9a4wkdjcQ==}
     engines: {node: '>=8.3.0'}
     peerDependencies:
       bufferutil: ^4.0.1

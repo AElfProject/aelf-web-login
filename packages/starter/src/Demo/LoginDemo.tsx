@@ -12,7 +12,7 @@ import {
   addPrefixSuffix,
   decodeAddress,
   isELFAddress,
-  isPortkey,
+  isPortkeyApp,
   isPrivateKey,
   Loading,
 } from '@aelf-web-login/utils';
@@ -121,7 +121,7 @@ const LoginDemo: React.FC = () => {
       <div>{addPrefixSuffix('FASFSAFSADFSADFS ')}</div>
       <div>{decodeAddress('rRZCro3wsAk2mW1s4CvM66wCe8cYgKKBCUFGuBhF6rUtoQNyk') + ''}</div>
       <div>{isELFAddress('rRZCro3wsAk2mW1s4CvM66wCe8cYgKKBCUFGuBh86rUtoQNyk') + ''}</div>
-      <div>{isPortkey() + ''}</div>
+      <div>{isPortkeyApp() + ''}</div>
       <div>
         {isPrivateKey(
           '048001adae89cca64f63b8d014b16fd2519a61fa68bac9bc147684e589fbe8c4b976e7927fb3362d4ce14e8249d71390e16aeaf1eac3dc5e24a6c7ba3700d199b4',

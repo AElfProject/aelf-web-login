@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-react",
-  "version": "0.0.2-alpha.13",
+  "version": "0.0.2-alpha.22",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
@@ -33,7 +33,9 @@
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "father": "^4.3.8",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vconsole": "^3.15.1",
+    "vconsole-webpack-plugin": "^1.8.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

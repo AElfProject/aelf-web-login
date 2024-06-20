@@ -213,7 +213,7 @@ const NestedModal = ({
   );
 };
 
-const SignInModal = (props: ISignInModalProps) => {
+const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   const { bridgeInstance, wallets, baseConfig } = props;
   const [isShowWrapper, setIsShowWrapper] = useState(false);
   const [loading, setLoading] = useState(false);

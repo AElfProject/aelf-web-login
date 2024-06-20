@@ -27,7 +27,8 @@ import { IContract } from '@portkey/types';
 
 import detectDiscoverProvider from './detectProvider';
 import checkSignatureParams from './signatureParams';
-import { zeroFill, isPortkeyApp } from './utils';
+import { zeroFill } from './utils';
+import { isPortkeyApp } from '@aelf-web-login/utils';
 
 type TDiscoverEventsKeys = Array<Exclude<DappEvents, 'connected' | 'message' | 'error'>>;
 

@@ -1,9 +1,9 @@
-import { isPortkey } from '../isPortkey';
+import { isPortkeyApp } from '../isPortkeyApp';
 
 describe('isPortkey in SSR', () => {
   test('should return undefined when in SSR', () => {
-    const result = isPortkey();
-    expect(result).toBeUndefined();
+    const result = isPortkeyApp();
+    expect(result).toBeFalsy();
   });
 });
 
@@ -30,7 +30,7 @@ describe('isPortkey in window', () => {
     delete (global as any).window;
   });
   test('should return false when not in Portkey environment', () => {
-    const result = isPortkey();
+    const result = isPortkeyApp();
     expect(result).toBeFalsy();
   });
 });
