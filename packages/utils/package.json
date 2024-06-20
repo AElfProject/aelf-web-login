@@ -1,0 +1,84 @@
+{
+  "name": "@aelf-web-login/utils",
+  "version": "0.0.2-alpha.21",
+  "type": "module",
+  "main": "dist/esm/index.js",
+  "module": "dist/esm/index.js",
+  "typings": "dist/esm/index.d.ts",
+  "exports": {
+    "import": "./dist/esm/index.js",
+    "require": "./dist/lib/index.js",
+    "types": "./dist/esm/index.d.ts"
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "keywords": [
+    "login",
+    "frontend",
+    "web3"
+  ],
+  "scripts": {
+    "dev": "father dev",
+    "build": "father build",
+    "test": "jest --config=jest.config.ts  --detectOpenHandles",
+    "test:watch": "jest --config=jest.config.ts --watch --detectOpenHandles",
+    "test:coverage": "jest --config=jest.config.ts --coverage --detectOpenHandles"
+  },
+  "dependencies": {
+    "@aelf-web-login/wallet-adapter-base": "workspace:*",
+    "@aelf-web-login/wallet-adapter-bridge": "workspace:*",
+    "@aelf-web-login/wallet-adapter-night-elf": "workspace:*",
+    "@aelf-web-login/wallet-adapter-portkey-aa": "workspace:*",
+    "@aelf-web-login/wallet-adapter-portkey-discover": "workspace:*",
+    "@aelf-web-login/wallet-adapter-react": "workspace:*",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@aelf-react/types": "^0.1.10",
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@portkey/contracts": "^2.6.2",
+    "@portkey/detect-provider": "^2.2.0",
+    "@portkey/did-ui-react": "^2.6.2",
+    "@portkey/provider-types": "^2.2.0",
+    "@portkey/utils": "^2.4.5",
+    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/react": "^14.1.2",
+    "@types/jest": "^29.5.12",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "aelf-design": "^1.1.1",
+    "aelf-sdk": "^3.4.12",
+    "babel-jest": "^29.7.0",
+    "bignumber.js": "^9.1.2",
+    "dayjs": "^1.11.11",
+    "father": "^4.3.8",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-canvas-mock": "^2.5.2",
+    "jest-environment-jsdom": "^29.7.0",
+    "react-redux": "^9.1.2",
+    "react-test-renderer": "^18.3.1",
+    "redux": "^5.0.1",
+    "test-node": "^0.0.2",
+    "ts-jest": "^29.1.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "> 1%",
+    "ie >= 11"
+  ]
+}

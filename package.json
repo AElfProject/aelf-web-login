@@ -7,6 +7,7 @@
     "packages/starter",
     "packages/bridge",
     "packages/react",
+    "packages/utils",
     "packages/wallets/*"
   ],
   "type": "module",

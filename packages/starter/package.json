@@ -47,6 +47,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@aelf-web-login/utils": "workspace:*",
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
     "@aelf-web-login/wallet-adapter-bridge": "workspace:*",
     "@aelf-web-login/wallet-adapter-night-elf": "workspace:*",
