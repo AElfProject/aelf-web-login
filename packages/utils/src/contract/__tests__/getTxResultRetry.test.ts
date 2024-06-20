@@ -1,6 +1,5 @@
 import { getAElf, getTxResultRetry } from '../getTxResultRetry';
 import { getTxResult } from '@portkey/contracts';
-import AElf from 'aelf-sdk';
 
 jest.mock('@portkey/contracts', () => ({
   getTxResult: jest.fn(),
