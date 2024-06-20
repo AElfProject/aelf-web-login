@@ -1,13 +1,12 @@
-import { Loading as AelfdLoading } from 'aelf-design';
 import { createRoot, Root } from 'react-dom/client';
 
 class Loading {
   private container: HTMLDivElement | null = null;
   private root: Root | null = null;
-  private content?: string | React.ReactNode;
+  private renderNode: React.ReactNode;
 
-  constructor(props?: string | React.ReactNode) {
-    this.content = props;
+  constructor(props: React.ReactNode) {
+    this.renderNode = props;
   }
 
   private createContainer() {
@@ -20,7 +19,8 @@ class Loading {
 
   private renderLoading(visible: boolean) {
     this.createContainer();
-    this.root?.render(<AelfdLoading open={visible} content={this.content} />);
+
+    this.root?.render(visible ? this.renderNode : null);
   }
 
   show() {

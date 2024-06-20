@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, message, Divider, Flex } from 'antd';
+import { Button, message, Divider, Flex, Modal } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import {
   useCheckAllowanceAndApprove,
@@ -52,7 +52,13 @@ const LoginDemo: React.FC = () => {
     chainId: 'tDVW',
   });
 
-  const loadingInstance = new Loading(<div style={{ color: 'red' }}>xxxx</div>);
+  const loadingInstance = new Loading(
+    (
+      <Modal title={null} footer={null} open={true}>
+        <p>loading...</p>
+      </Modal>
+    ),
+  );
 
   const onConnectBtnClickHandler = async () => {
     try {

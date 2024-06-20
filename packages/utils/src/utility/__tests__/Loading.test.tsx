@@ -3,17 +3,11 @@ import { screen, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Loading } from '../Loading';
 
-jest.mock('aelf-design', () => ({
-  Loading: jest.fn(({ open, content }) =>
-    open ? <div data-testid="loading-component">{content}</div> : null,
-  ),
-}));
-
 describe('Loading class', () => {
   let loadingInstance: Loading;
 
   beforeEach(() => {
-    loadingInstance = new Loading('Loading content');
+    loadingInstance = new Loading(<div data-testid="loading-component">Loading content</div>);
   });
 
   afterEach(() => {
@@ -42,7 +36,7 @@ describe('Loading class', () => {
   });
 
   it('should render with updated content', async () => {
-    const newLoadingInstance = new Loading('New content');
+    const newLoadingInstance = new Loading(<div data-testid="loading-component">New content</div>);
     await act(() => {
       newLoadingInstance.show();
     });
