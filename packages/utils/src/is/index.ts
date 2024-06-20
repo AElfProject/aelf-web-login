@@ -1,5 +1,5 @@
 export * from './isELFAddress';
-export * from './isPortkey';
+export * from './isPortkeyApp';
 export * from './isPrivateKey';
 export * from './isAElfBridge';
 export * from './isMobileDevices';

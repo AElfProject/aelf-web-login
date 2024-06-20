@@ -19,6 +19,7 @@ export interface IBaseConfig {
   iconSrcForSocialDesign?: string;
   titleForSocialDesign?: string;
   noCommonBaseModal?: boolean;
+  showVconsole?: boolean;
 }
 export interface IConfigProps {
   didConfig: GlobalConfigProps;

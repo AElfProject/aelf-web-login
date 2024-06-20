@@ -4,6 +4,25 @@ export interface Storage {
   removeItem(key: string, ...args: Array<any>): any;
 }
 
+const localStorageMock = (function () {
+  let store: { [key: string]: string } = {};
+
+  return {
+    getItem: function (key: string): string | null {
+      return store[key] || null;
+    },
+    setItem: function (key: string, value: string) {
+      store[key] = value.toString();
+    },
+    removeItem: function (key: string) {
+      delete store[key];
+    },
+    clear: function () {
+      store = {};
+    },
+  };
+})();
+
 // let enhancedLocalStorage: Storage = {} as Storage;
 // if (typeof window !== 'undefined') {
 //   enhancedLocalStorage = window.localStorage;
@@ -18,6 +37,6 @@ let enhancedLocalStorage: Storage;
 if (typeof window !== 'undefined') {
   enhancedLocalStorage = localStorage;
 } else {
-  enhancedLocalStorage = {} as Storage;
+  enhancedLocalStorage = localStorageMock;
 }
 export { enhancedLocalStorage };

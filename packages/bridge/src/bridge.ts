@@ -5,6 +5,7 @@ import {
   ConnectedWallet,
   TWalletError,
   PORTKEYAA,
+  PORTKEY_DISCOVER,
   TChainId,
   ICallContractParams,
   TSignatureParams,
@@ -22,6 +23,7 @@ import {
   clearLoginError,
 } from './store';
 import { DIDWalletInfo } from '@portkey/did-ui-react';
+import { isPortkeyApp } from '@aelf-web-login/utils';
 
 class Bridge {
   private _wallets: WalletAdapter[];
@@ -50,10 +52,15 @@ class Bridge {
 
   get activeWallet() {
     try {
-      return (
-        this._activeWallet ||
-        this._wallets.find((item) => item.name === enhancedLocalStorage.getItem(ConnectedWallet))
-      );
+      if (isPortkeyApp()) {
+        this._activeWallet = this._wallets.find((item) => item.name === PORTKEY_DISCOVER);
+        return this._activeWallet;
+      } else {
+        return (
+          this._activeWallet ||
+          this._wallets.find((item) => item.name === enhancedLocalStorage.getItem(ConnectedWallet))
+        );
+      }
     } catch (e) {
       return undefined;
     }
@@ -157,6 +164,7 @@ class Bridge {
   };
 
   onConnectedHandler = (walletInfo: TWalletInfo) => {
+    console.log('xxxxxxxxxxxxx-------');
     dispatch(setWalletInfo(walletInfo));
     dispatch(setWalletType(this.activeWallet?.name));
     dispatch(clearLoginError());

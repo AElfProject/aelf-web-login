@@ -1,11 +1,15 @@
 import React, { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
 import { initBridge, IConfigProps, IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
+import VConsole from 'vconsole';
 
 const HOOK_ERROR_MESSAGE =
   'Must call the provided initialization method`init` method before using hooks.';
 
 export const init = (options: IConfigProps): IBridgeAPI => {
   console.log('aelf-web-login-init..............');
+  if (options.baseConfig.showVconsole) {
+    const vConsole = new VConsole();
+  }
   const dataFromBridge = initBridge(options);
   return dataFromBridge;
 };
