@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-portkey-aa",
-  "version": "0.0.2-alpha.26",
+  "version": "0.0.2-alpha.35",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
@@ -26,8 +26,8 @@
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
-    "@portkey/did-ui-react": "^2.6.2",
     "@portkey/contracts": "^2.6.2",
+    "@portkey/did-ui-react": "^2.6.2",
     "@portkey/utils": "^2.4.5"
   },
   "devDependencies": {
