@@ -30,7 +30,7 @@ function useExampleCall(name: string, func: () => any) {
           <hr />
           <h3>{name}:</h3>
           <div>
-            <Button disabled={!walletInfo} onClick={onClick}>
+            <Button type="primary" disabled={!walletInfo} onClick={onClick}>
               {name}
             </Button>
             <div>
