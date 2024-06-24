@@ -10,7 +10,7 @@ interface IRawTransactionPrams {
   params: any;
   methodName: string;
   contractAddress: string;
-  caContractAddress: string;
+  caContractAddress?: string;
   rpcUrl: string;
 }
 
@@ -35,7 +35,7 @@ export const getRawTransaction: (params: IRawTransactionPrams) => Promise<string
           caHash: walletInfo.extraInfo.portkeyInfo.caInfo.caHash,
           privateKey: walletInfo.extraInfo.portkeyInfo.walletInfo.privateKey,
           contractAddress,
-          caContractAddress,
+          caContractAddress: caContractAddress ?? '',
           rpcUrl,
           params,
           methodName,

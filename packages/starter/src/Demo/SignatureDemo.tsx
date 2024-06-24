@@ -20,11 +20,11 @@ const SignatureDemo: React.FC = () => {
   return (
     <div>
       <div>
-        <Button disabled={!walletInfo} onClick={sign}>
+        <Button type="primary" disabled={!walletInfo} onClick={sign}>
           Sign
         </Button>
         <Input value={signInfo} onChange={(e: any) => setSignInfo(e.target.value)} />
-        <div>{signed}</div>
+        <div style={{ wordWrap: 'break-word' }}>{signed}</div>
       </div>
     </div>
   );
