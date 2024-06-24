@@ -54,12 +54,13 @@
     "@aelf-web-login/wallet-adapter-portkey-aa": "workspace:*",
     "@aelf-web-login/wallet-adapter-portkey-discover": "workspace:*",
     "@aelf-web-login/wallet-adapter-react": "workspace:*",
+    "flatted": "^3.3.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
     "@umijs/lint": "^4.0.0",
     "antd": "5.18.0",
     "dumi": "2.2.17",

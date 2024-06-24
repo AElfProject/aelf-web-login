@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-react",
-  "version": "0.0.2-alpha.26",
+  "version": "0.0.2-alpha.35",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
