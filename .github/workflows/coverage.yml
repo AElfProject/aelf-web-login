@@ -1,0 +1,45 @@
+name: Unit Test
+
+on:
+  push:
+    branches:
+      - release/refactor-3.0.0
+  pull_request:
+    branches:
+      - release/refactor-3.0.0
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        package: [utils]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Run tests with coverage
+        run: |
+          cd packages/${{ matrix.package }}
+          pnpm run test:coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: packages/${{ matrix.package }}/coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
