@@ -1,8 +1,7 @@
-import { WalletTypeEnum, TWalletInfo } from '@aelf-web-login/wallet-adapter-base';
-
 import getRawTransactionNight from './getRawTransactionNight';
 import getRawTransactionDiscover from './getRawTransactionDiscover';
 import getRawTransactionPortkey from './getRawTransactionPortkey';
+import { WalletTypeEnum, TWalletInfo } from '@aelf-web-login/wallet-adapter-base';
 
 interface IRawTransactionPrams {
   walletInfo: TWalletInfo;
