@@ -126,7 +126,7 @@ const App: React.FC = () => {
   return (
     <WebLoginProvider bridgeAPI={bridgeAPI}>
       <LoginDemo />
-      <Tabs defaultActiveKey="UtilsDemo" items={items} />
+      <Tabs defaultActiveKey="AccountDemo" items={items} />
     </WebLoginProvider>
   );
 };

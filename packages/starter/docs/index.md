@@ -1,22 +1,10 @@
 ---
 hero:
-  title: library
-  description: aelf-web-login doc site
+  title: aelf-web-login
+  description: Modular React wallet collection and components for aelf applications.
   actions:
-    - text: Hello
-      link: /
-    - text: World
-      link: /
-features:
-  - title: Hello
-    emoji: 💎
-    description: Put hello description here
-  - title: World
-    emoji: 🌈
-    description: Put world description here
-  - title: '!'
-    emoji: 🚀
-    description: Put ! description here
+    - text: Begin
+      link: /components/demo
+    - text: Github
+      link: https://github.com/AElfProject/aelf-web-login
 ---
-
-aelf-web-login/doc
