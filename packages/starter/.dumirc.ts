@@ -1,5 +1,5 @@
 import { readdirSync } from 'fs';
-import { dirname, join } from 'path';
+import { dirname, join, resolve } from 'path';
 import { defineConfig } from 'dumi';
 import { glob, Glob, globStream, globStreamSync, globSync } from 'glob';
 
@@ -27,7 +27,7 @@ const createAlias = () => {
           ...pre,
         };
       },
-      {} as Record<string, string>,
+      { 'aelf-design': resolve(__dirname, 'node_modules/aelf-design') } as Record<string, string>,
     );
 };
 
@@ -37,7 +37,11 @@ export default defineConfig({
   alias,
   outputPath: 'docs-dist',
   themeConfig: {
-    name: 'aelf-web-login',
+    logo: 'https://ipfs.io/ipfs/QmWtjvb47DU1EQ4MpridFY1ow4214aAWCkhGu3ZF4xvRSY/',
+    socialLinks: {
+      github: 'https://github.com/AElfProject/aelf-web-login',
+    },
   },
+  favicons: ['https://ipfs.io/ipfs/QmWtjvb47DU1EQ4MpridFY1ow4214aAWCkhGu3ZF4xvRSY/'],
   locales: [{ id: 'en-US', name: 'EN' }],
 });
