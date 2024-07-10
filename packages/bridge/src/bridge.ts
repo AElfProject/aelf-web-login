@@ -22,7 +22,7 @@ import {
   setLoginError,
   clearLoginError,
 } from './store';
-import { DIDWalletInfo } from '@portkey/did-ui-react';
+import { DIDWalletInfo, TelegramPlatform } from '@portkey/did-ui-react';
 import { isPortkeyApp } from '@aelf-web-login/utils';
 
 class Bridge {
@@ -44,6 +44,7 @@ class Bridge {
       error: this.onConnectErrorHandler,
     };
     this.bindEvents();
+    this.initializeTelegramWebApp();
   }
 
   get loginState() {
@@ -52,7 +53,10 @@ class Bridge {
 
   get activeWallet() {
     try {
-      if (isPortkeyApp()) {
+      if (TelegramPlatform.isTelegramPlatform()) {
+        this._activeWallet = this._wallets.find((item) => item.name === PORTKEYAA);
+        return this._activeWallet;
+      } else if (isPortkeyApp()) {
         this._activeWallet = this._wallets.find((item) => item.name === PORTKEY_DISCOVER);
         return this._activeWallet;
       } else {
@@ -69,6 +73,18 @@ class Bridge {
   get isAAWallet() {
     return this.activeWallet?.name === PORTKEYAA;
   }
+
+  initializeTelegramWebApp = () => {
+    if (!TelegramPlatform.isTelegramPlatform()) {
+      return;
+    }
+    console.log('initializeTelegramWebApp', TelegramPlatform);
+
+    const handleLogout = async () => {
+      await this.disConnect(true);
+    };
+    TelegramPlatform.initializeTelegramWebApp({ handleLogout });
+  };
 
   connect = async (): Promise<TWalletInfo> => {
     return new Promise((resolve, reject) => {
@@ -180,6 +196,9 @@ class Bridge {
   };
 
   onLockHandler = () => {
+    if (TelegramPlatform.isTelegramPlatform()) {
+      return;
+    }
     this.openLockPanel();
     dispatch(setLocking(true));
   };

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import SignInModal from './ui';
 import { Bridge } from './bridge';
 import { IBaseConfig } from '.';
+import { PortkeyProvider } from '@portkey/did-ui-react';
 
 export function mountApp(
   bridgeInstance: Bridge,
@@ -23,7 +24,9 @@ export function mountApp(
   SignInWrapperDom.setAttribute('id', 'sign-in-wrapper');
   const root = createRoot(SignInWrapperDom);
   root.render(
-    <SignInModal bridgeInstance={bridgeInstance} wallets={wallets} baseConfig={baseConfig} />,
+    <PortkeyProvider networkType={baseConfig.networkType} theme="dark">
+      <SignInModal bridgeInstance={bridgeInstance} wallets={wallets} baseConfig={baseConfig} />,
+    </PortkeyProvider>,
   );
   containerElement.appendChild(SignInWrapperDom);
 }

@@ -26,7 +26,22 @@ interface IWebLoginProviderProps {
 export const WebLoginProvider: React.FC<IWebLoginProviderProps> = ({ children, bridgeAPI }) => {
   const { mountApp, unMountApp } = bridgeAPI ?? { mountApp: () => {}, unMountApp: () => {} };
   useEffect(() => {
-    mountApp();
+    function initScriptAndMountApp() {
+      const HOSTNAME_PREFIX_LIST = ['tg.', 'tg-test.', 'localhost'];
+      const TELEGRAM_SRC = 'https://telegram.org/js/telegram-web-app.js';
+      if (typeof window !== 'undefined' && typeof location !== 'undefined') {
+        if (HOSTNAME_PREFIX_LIST.some((h) => location.hostname.includes(h))) {
+          const script = document.createElement('script');
+          script.src = TELEGRAM_SRC;
+          script.type = 'text/javascript';
+          script.async = true;
+          document.head.appendChild(script);
+        }
+      }
+      mountApp();
+    }
+    initScriptAndMountApp();
+
     return unMountApp;
   }, [mountApp, unMountApp]);
   if (!bridgeAPI) {
