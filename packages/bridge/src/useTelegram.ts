@@ -217,6 +217,8 @@ const useTelegram = (
       network: network,
     });
 
+    console.log('socialLoginAuth', res);
+
     signHandle.onSocialFinish({
       type: res!.provider,
       data: { accessToken: res!.token },

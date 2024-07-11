@@ -23,8 +23,7 @@ const GRAPHQL_SERVER =
   'https://dapp-aa-portkey-test.portkey.finance/Portkey_DID/PortKeyIndexerCASchema/graphql';
 const CONNECT_SERVER = 'https://auth-aa-portkey-test.portkey.finance';
 const SERVICE_SERVER = 'https://aa-portkey-test.portkey.finance';
-// TODO:
-const TELEGRAM_BOT_ID = 'xx';
+const TELEGRAM_BOT_ID = '7329439364';
 
 const didConfig = {
   graphQLUrl: GRAPHQL_SERVER,
@@ -67,36 +66,36 @@ const wallets = [
     autoShowUnlock: true,
     noNeedForConfirm: false,
   }),
-  new PortkeyDiscoverWallet({
-    networkType: NETWORK_TYPE,
-    chainId: CHAIN_ID,
-    autoRequestAccount: true,
-    autoLogoutOnDisconnected: true,
-    autoLogoutOnNetworkMismatch: true,
-    autoLogoutOnAccountMismatch: true,
-    autoLogoutOnChainMismatch: true,
-  }),
-  new NightElfWallet({
-    chainId: CHAIN_ID,
-    appName: APP_NAME,
-    connectEagerly: true,
-    useMultiChain: false,
-    defaultRpcUrl: RPC_SERVER_AELF,
-    nodes: {
-      AELF: {
-        chainId: 'AELF',
-        rpcUrl: RPC_SERVER_AELF,
-      },
-      tDVW: {
-        chainId: 'tDVW',
-        rpcUrl: RPC_SERVER_TDVW,
-      },
-      tDVV: {
-        chainId: 'tDVV',
-        rpcUrl: RPC_SERVER_TDVV,
-      },
-    },
-  }),
+  // new PortkeyDiscoverWallet({
+  //   networkType: NETWORK_TYPE,
+  //   chainId: CHAIN_ID,
+  //   autoRequestAccount: true,
+  //   autoLogoutOnDisconnected: true,
+  //   autoLogoutOnNetworkMismatch: true,
+  //   autoLogoutOnAccountMismatch: true,
+  //   autoLogoutOnChainMismatch: true,
+  // }),
+  // new NightElfWallet({
+  //   chainId: CHAIN_ID,
+  //   appName: APP_NAME,
+  //   connectEagerly: true,
+  //   useMultiChain: false,
+  //   defaultRpcUrl: RPC_SERVER_AELF,
+  //   nodes: {
+  //     AELF: {
+  //       chainId: 'AELF',
+  //       rpcUrl: RPC_SERVER_AELF,
+  //     },
+  //     tDVW: {
+  //       chainId: 'tDVW',
+  //       rpcUrl: RPC_SERVER_TDVW,
+  //     },
+  //     tDVV: {
+  //       chainId: 'tDVV',
+  //       rpcUrl: RPC_SERVER_TDVV,
+  //     },
+  //   },
+  // }),
 ];
 
 const config: IConfigProps = {

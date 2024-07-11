@@ -44,4 +44,8 @@ export default defineConfig({
   },
   favicons: ['https://ipfs.io/ipfs/QmWtjvb47DU1EQ4MpridFY1ow4214aAWCkhGu3ZF4xvRSY/'],
   locales: [{ id: 'en-US', name: 'EN' }],
+  https: {
+    key: './ssl/server.key',
+    cert: './ssl/server.cert',
+  },
 });

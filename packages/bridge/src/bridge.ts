@@ -44,7 +44,6 @@ class Bridge {
       error: this.onConnectErrorHandler,
     };
     this.bindEvents();
-    this.initializeTelegramWebApp();
   }
 
   get loginState() {
@@ -73,18 +72,6 @@ class Bridge {
   get isAAWallet() {
     return this.activeWallet?.name === PORTKEYAA;
   }
-
-  initializeTelegramWebApp = () => {
-    if (!TelegramPlatform.isTelegramPlatform()) {
-      return;
-    }
-    console.log('initializeTelegramWebApp', TelegramPlatform);
-
-    const handleLogout = async () => {
-      await this.disConnect(true);
-    };
-    TelegramPlatform.initializeTelegramWebApp({ handleLogout });
-  };
 
   connect = async (): Promise<TWalletInfo> => {
     return new Promise((resolve, reject) => {

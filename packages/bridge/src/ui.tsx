@@ -19,7 +19,6 @@ import '@portkey/did-ui-react/dist/assets/index.css';
 import { IBaseConfig } from '.';
 import { Modal, Button, Typography, Drawer } from 'antd';
 import useTelegram from './useTelegram';
-import { store } from './store';
 import './ui.css';
 
 interface ConfirmLogoutDialogProps {
@@ -193,9 +192,7 @@ const NestedModal = ({
       title={
         <>
           <div
-            className={`aelf-web-logout-dialog-title ${
-              isWeb2Design ? 'nested-title-12' : 'nested-title'
-            }`}
+            className={`aelf-web-logout-dialog-title ${isWeb2Design ? 'nested-title-12' : 'nested-title'}`}
           >
             {constant.connectWallet}
           </div>
@@ -243,10 +240,15 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   // console.log('isLocking', isLocking);
 
   useEffect(() => {
+    if (!TelegramPlatform.isTelegramPlatform()) {
+      return;
+    }
+    console.log('begin to init and execute handleTelegram', TelegramPlatform.isTelegramPlatform());
+    const handleLogout = async () => {
+      await bridgeInstance.disConnect(true);
+    };
+    TelegramPlatform.initializeTelegramWebApp({ handleLogout });
     async function autoAuthInTelegram() {
-      if (!TelegramPlatform.isTelegramPlatform()) {
-        return;
-      }
       console.log('begin to excute autoAuthInTelegram');
       if (enhancedLocalStorage.getItem('connectedWallet') === PORTKEYAA) {
         await bridgeInstance.onPortkeyAAUnLock(DEFAULT_PIN);
@@ -367,9 +369,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
           <div className="aelf-web-extra-wallets-wrapper-crypto">
             <Typography.Text className="crypto-wallets-title">Crypto wallet</Typography.Text>
             <div
-              className={`crypto-extra-wallets ${
-                baseConfig.design === 'Web2Design' && 'web2-extra-wallets'
-              }`}
+              className={`crypto-extra-wallets ${baseConfig.design === 'Web2Design' && 'web2-extra-wallets'}`}
               onClick={() => {
                 setIsShowNestedModal(true);
               }}
