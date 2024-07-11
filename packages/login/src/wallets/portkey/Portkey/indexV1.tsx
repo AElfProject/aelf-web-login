@@ -9,6 +9,11 @@ import {
   setLoading,
   SignUpValue,
 } from '@portkey-v1/did-ui-react';
+
+import {
+  DIDWalletInfo as DIDWalletInfoV2,
+  TSignUpContinueHandler as TSignUpContinueHandlerV2,
+} from '@portkey/did-ui-react';
 import { getConfig } from '../../../config';
 import { WebLoginState } from '../../../constants';
 import { PortkeyOptions } from '../../../types';
@@ -53,7 +58,7 @@ export default function Portkey({
   }, [open]);
 
   const onFinishInternal = useCallback(
-    (didWallet: DIDWalletInfo) => {
+    (didWallet: DIDWalletInfo & DIDWalletInfoV2) => {
       onFinish(didWallet);
     },
     [onFinish],
@@ -87,7 +92,7 @@ export default function Portkey({
     changePortkeyVersion(version);
   }, []);
 
-  const onSignUpHandler: TSignUpContinueHandler = useCallback(
+  const onSignUpHandler: TSignUpContinueHandler & TSignUpContinueHandlerV2 = useCallback(
     async (identifierInfo) => {
       let isLoginGuardian = false;
       const config = getConfig();
