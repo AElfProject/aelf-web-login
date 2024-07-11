@@ -10,7 +10,7 @@ import PortkeyV1 from './wallets/portkey/Portkey/indexV1';
 import { useElf } from './wallets/elf/useElf';
 import { getConfig, event$ } from './config';
 import { WalletType, WebLoginState, WebLoginEvents } from './constants';
-import { CommonBaseModal, PortkeyLoading } from '@portkey/did-ui-react';
+import { CommonBaseModal, PortkeyLoading, TelegramPlatform } from '@portkey/did-ui-react';
 import { check } from './wallets/elf/utils';
 import isMobile from './utils/isMobile';
 import isPortkeyApp from './utils/isPortkeyApp';
@@ -167,6 +167,16 @@ function WebLoginProvider({
       eventEmitter.emit(WebLoginEvents.CHANGE_PORTKEY_VERSION, changeVerBtnClicked?.version);
     }
   }, [changeVerBtnClicked?.version, eventEmitter, version]);
+
+  useEffect(() => {
+    if (!TelegramPlatform.isTelegramPlatform()) {
+      return;
+    }
+    async function handleSDKLogout() {
+      await logout();
+    }
+    TelegramPlatform.initializeTelegramWebApp({ handleLogout: handleSDKLogout });
+  }, []);
 
   const setLoginStateInternal = useCallback(
     (newLoginState: WebLoginState) => {
@@ -498,6 +508,7 @@ function WebLoginProvider({
         />
       ) : (
         <Portkey
+          currentLifeCircle={portkeyApi.currentLifeCircle}
           portkeyOpts={portkeyOpts}
           isManagerExists={portkeyApi.isManagerExists}
           open={modalOpen}
@@ -561,6 +572,22 @@ function WebLoginProvider({
 
 export default function Provider({ children, ...props }: WebLoginProviderProps) {
   const aelfReactConfig = getConfig().aelfReact;
+  useEffect(() => {
+    function initTelegramScript() {
+      const HOSTNAME_PREFIX_LIST = ['tg.', 'tg-test.', 'localhost'];
+      const TELEGRAM_SRC = 'https://telegram.org/js/telegram-web-app.js';
+      if (typeof window !== 'undefined' && typeof location !== 'undefined') {
+        if (HOSTNAME_PREFIX_LIST.some((h) => location.hostname.includes(h))) {
+          const script = document.createElement('script');
+          script.src = TELEGRAM_SRC;
+          script.type = 'text/javascript';
+          script.async = true;
+          document.head.appendChild(script);
+        }
+      }
+    }
+    initTelegramScript();
+  }, []);
   return (
     <AElfReactProvider appName={aelfReactConfig.appName} nodes={aelfReactConfig.nodes}>
       <WebLoginProvider {...props}>{children}</WebLoginProvider>

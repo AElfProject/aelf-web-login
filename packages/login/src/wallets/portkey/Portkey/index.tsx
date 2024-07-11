@@ -10,9 +10,14 @@ import {
   CustomSvg,
   TModalMethodRef,
   SignUpValue,
+  TelegramPlatform,
+  TStep2SignInLifeCycle,
+  TStep1LifeCycle,
+  TStep3LifeCycle,
+  TStep2SignUpLifeCycle,
 } from '@portkey/did-ui-react';
 import { getConfig } from '../../../config';
-import { WebLoginState } from '../../../constants';
+import { WebLoginState, DEFAULT_PIN } from '../../../constants';
 import { PortkeyOptions } from '../../../types';
 import { FetchRequest } from '@portkey/request';
 import { changePortkeyVersion } from '../../../utils/isPortkeyApp';
@@ -20,17 +25,7 @@ import isMobile from '../../../utils/isMobile';
 import { useWebLogin } from '../../../context';
 import { getStorageVersion } from '../../../utils/getUrl';
 
-export default function Portkey({
-  open,
-  loginState,
-  isManagerExists,
-  portkeyOpts,
-  onCancel,
-  onFinish,
-  onError,
-  onUnlock,
-  extraWallets,
-}: {
+interface IPortkeyPanelProps {
   open: boolean;
   loginState: WebLoginState;
   isManagerExists: boolean;
@@ -40,7 +35,21 @@ export default function Portkey({
   onFinish: (didWalletInfo: DIDWalletInfo) => void;
   onUnlock: (password: string) => Promise<boolean>;
   extraWallets: ReactNode;
-}) {
+  currentLifeCircle: TStep2SignInLifeCycle | TStep1LifeCycle | TStep3LifeCycle | TStep2SignUpLifeCycle;
+}
+
+const Portkey = ({
+  open,
+  loginState,
+  isManagerExists,
+  portkeyOpts,
+  onCancel,
+  onFinish,
+  onError,
+  onUnlock,
+  extraWallets,
+  currentLifeCircle,
+}: IPortkeyPanelProps) => {
   const signInRef = useRef<SignInInterface>(null);
   const [password, setPassword] = useState('');
   const [isWrongPassword, setIsWrongPassword] = useState(false);
@@ -52,6 +61,11 @@ export default function Portkey({
       signInRef.current.setOpen(open);
     }
   }, [open]);
+
+  useEffect(() => {
+    console.log('currentLifeCircle', currentLifeCircle);
+    signInRef.current && signInRef.current.setOpen(true);
+  }, [currentLifeCircle]);
 
   const onFinishInternal = useCallback(
     (didWallet: DIDWalletInfo) => {
@@ -187,6 +201,8 @@ export default function Portkey({
   const SignInComponent = portkeyOpts.SignInComponent || SignIn;
   return (
     <SignInComponent
+      pin={TelegramPlatform.isTelegramPlatform() ? DEFAULT_PIN : undefined}
+      defaultLifeCycle={currentLifeCircle}
       defaultChainId={chainId as any}
       ref={signInRef}
       uiType="Full"
@@ -200,4 +216,5 @@ export default function Portkey({
       onSignUp={onlyShowV2 ? undefined : onSignUpHandler}
     />
   );
-}
+};
+export default Portkey;

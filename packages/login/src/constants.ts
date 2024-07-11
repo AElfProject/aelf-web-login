@@ -56,3 +56,5 @@ export const RightIcon =
 export const PORTKEY_ORIGIN_CHAIN_ID_KEY = 'PortkeyOriginChainId';
 
 export const LOGIN_VERSION = 'AelfWebLoginVersion';
+
+export const DEFAULT_PIN = '111111';
