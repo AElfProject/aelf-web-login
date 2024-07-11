@@ -60,8 +60,10 @@ export function usePortkey({
   setLoginState,
   setModalOpen,
   setLoading,
+  setApproveModalInTG,
 }: WalletHookParams<PortkeyOptions> & {
   setModalOpen: (open: boolean) => void;
+  setApproveModalInTG: (open: boolean) => void;
 }) {
   // diff from V1
   const appName = addPrefix(getConfig().appName);
@@ -270,9 +272,10 @@ export function usePortkey({
         // debugger;
         setLoading(false);
         setPreparing(false);
+        setApproveModalInTG(false);
       }
     },
-    [appName, chainId, eventEmitter, setLoading, setLoginError, setLoginState, setWalletType],
+    [appName, chainId, eventEmitter, setLoading, setLoginError, setLoginState, setApproveModalInTG, setWalletType],
   );
 
   const { handleTelegram, currentLifeCircle } = useTelegram(chainId, networkType as NetworkType, onFinished);
@@ -283,6 +286,11 @@ export function usePortkey({
     }
     autoUnlockCheckRef.current = true;
     const canShowUnlock = isManagerExists;
+    console.log(
+      'if is login successfully and TelegramPlatform.isTelegramPlatform()',
+      canShowUnlock,
+      TelegramPlatform.isTelegramPlatform(),
+    );
     if (canShowUnlock) {
       console.log('+++++++', canShowUnlock, options.autoShowUnlock, loginState);
       if (options.autoShowUnlock && loginState === WebLoginState.initial) {
@@ -292,10 +300,10 @@ export function usePortkey({
       }
     } else if (TelegramPlatform.isTelegramPlatform()) {
       console.log('isTelegramPlatform and begin to execute handleTelegram()');
-      setModalOpen(true);
+      // setModalOpen(true);
       handleTelegram();
     }
-  }, [handleTelegram, isManagerExists, loginEagerly, setLoginState, loginState, options.autoShowUnlock, setModalOpen]);
+  }, [handleTelegram, isManagerExists, loginEagerly, setLoginState, loginState, options.autoShowUnlock]);
 
   const checkPassword = useCallback(async (keyName: string, password: string) => {
     try {
@@ -394,6 +402,7 @@ export function usePortkey({
 
   useEffect(() => {
     if (TelegramPlatform.isTelegramPlatform() && isManagerExists && loginState === WebLoginState.lock) {
+      console.log('isTelegramPlatform and execute unlock()');
       onUnlock(DEFAULT_PIN);
     }
   }, [loginState, onUnlock, isManagerExists]);

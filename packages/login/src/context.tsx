@@ -124,6 +124,7 @@ function WebLoginProvider({
   const [logoutConfirmResult, setLogoutConfirmResult] = useState<LogoutConfirmResult>(LogoutConfirmResult.default);
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [approveModalInTG, setApproveModalInTG] = useState(true);
   const [bridgeType, setBridgeType] = useState('unknown');
   const [loginId, setLoginId] = useState(0);
 
@@ -167,16 +168,6 @@ function WebLoginProvider({
       eventEmitter.emit(WebLoginEvents.CHANGE_PORTKEY_VERSION, changeVerBtnClicked?.version);
     }
   }, [changeVerBtnClicked?.version, eventEmitter, version]);
-
-  useEffect(() => {
-    if (!TelegramPlatform.isTelegramPlatform()) {
-      return;
-    }
-    async function handleSDKLogout() {
-      await logout();
-    }
-    TelegramPlatform.initializeTelegramWebApp({ handleLogout: handleSDKLogout });
-  }, []);
 
   const setLoginStateInternal = useCallback(
     (newLoginState: WebLoginState) => {
@@ -223,6 +214,7 @@ function WebLoginProvider({
     setModalOpen,
     setWalletType,
     setLoading,
+    setApproveModalInTG,
   });
 
   const portkeyApiV1 = usePortkeyV1({
@@ -392,6 +384,16 @@ function WebLoginProvider({
     }
   }, [logout, logoutConfirmResult, walletApi]);
 
+  useEffect(() => {
+    if (!TelegramPlatform.isTelegramPlatform()) {
+      return;
+    }
+    async function handleSDKLogout() {
+      await logout();
+    }
+    TelegramPlatform.initializeTelegramWebApp({ handleLogout: handleSDKLogout });
+  }, [logout]);
+
   const ConfirmLogoutDialogComponent = portkeyOpts.ConfirmLogoutDialog || ConfirmLogoutDialog;
 
   const state = useMemo<WebLoginContextType>(
@@ -492,54 +494,68 @@ function WebLoginProvider({
     [isManagerExists, loginState],
   );
 
-  const PortkeySDKEle = useMemo(
-    () =>
-      version === 'v1' ? (
-        <PortkeyV1
-          portkeyOpts={portkeyOpts}
-          isManagerExists={portkeyApiV1.isManagerExists}
-          open={modalOpen}
-          loginState={loginState}
-          onCancel={portkeyApiV1.onCancel}
-          onFinish={portkeyApiV1.onFinished}
-          onUnlock={portkeyApiV1.onUnlock}
-          onError={portkeyApiV1.onError}
-          extraWallets={renderExtraWallets()}
-        />
-      ) : (
-        <Portkey
-          currentLifeCircle={portkeyApi.currentLifeCircle}
-          portkeyOpts={portkeyOpts}
-          isManagerExists={portkeyApi.isManagerExists}
-          open={modalOpen}
-          loginState={loginState}
-          onCancel={portkeyApi.onCancel}
-          onFinish={portkeyApi.onFinished}
-          onUnlock={portkeyApi.onUnlock}
-          onError={portkeyApi.onError}
-          extraWallets={renderExtraWallets()}
-        />
-      ),
-    [
-      loginState,
-      modalOpen,
-      portkeyApi.isManagerExists,
-      portkeyApi.onCancel,
-      portkeyApi.onError,
-      portkeyApi.onFinished,
-      portkeyApi.onUnlock,
-      portkeyApiV1.isManagerExists,
-      portkeyApiV1.onCancel,
-      portkeyApiV1.onError,
-      portkeyApiV1.onFinished,
-      portkeyApiV1.onUnlock,
-      portkeyOpts,
-      renderExtraWallets,
-      version,
-    ],
-  );
+  const PortkeySDKEle = useMemo(() => {
+    return version === 'v1' ? (
+      <PortkeyV1
+        portkeyOpts={portkeyOpts}
+        isManagerExists={portkeyApiV1.isManagerExists}
+        open={modalOpen}
+        loginState={loginState}
+        onCancel={portkeyApiV1.onCancel}
+        onFinish={portkeyApiV1.onFinished}
+        onUnlock={portkeyApiV1.onUnlock}
+        onError={portkeyApiV1.onError}
+        extraWallets={renderExtraWallets()}
+      />
+    ) : (
+      <Portkey
+        currentLifeCircle={portkeyApi.currentLifeCircle}
+        portkeyOpts={portkeyOpts}
+        isManagerExists={portkeyApi.isManagerExists}
+        open={modalOpen}
+        loginState={loginState}
+        onCancel={portkeyApi.onCancel}
+        onFinish={portkeyApi.onFinished}
+        onUnlock={portkeyApi.onUnlock}
+        onError={portkeyApi.onError}
+        extraWallets={renderExtraWallets()}
+      />
+    );
+  }, [
+    loginState,
+    modalOpen,
+    portkeyApi.currentLifeCircle,
+    portkeyApi.isManagerExists,
+    portkeyApi.onCancel,
+    portkeyApi.onError,
+    portkeyApi.onFinished,
+    portkeyApi.onUnlock,
+    portkeyApiV1.isManagerExists,
+    portkeyApiV1.onCancel,
+    portkeyApiV1.onError,
+    portkeyApiV1.onFinished,
+    portkeyApiV1.onUnlock,
+    portkeyOpts,
+    renderExtraWallets,
+    version,
+  ]);
 
   const PortkeyPage = useMemo(() => {
+    const isShowApprovePanelInTG = Object.keys(portkeyApi.currentLifeCircle).length > 0;
+    console.log(Object.keys(portkeyApi.currentLifeCircle).length, 'portkeyApi.currentLifeCircle');
+    if (isShowApprovePanelInTG) {
+      return (
+        <CommonBaseModal
+          destroyOnClose
+          className={clsx('portkey-ui-sign-modal', `portkey-ui-sign-modal-${portkeyOpts.design}`)}
+          maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
+          open={approveModalInTG}
+          // getContainer={getContainer ? getContainer : `#${PORTKEY_ROOT_ID}`}
+          onClose={version === 'v1' ? portkeyApiV1.onCancel : portkeyApi.onCancel}>
+          {PortkeySDKEle}
+        </CommonBaseModal>
+      );
+    }
     return isShowUnlockPage || portkeyOpts.noCommonBaseModal ? (
       PortkeySDKEle
     ) : (
@@ -572,22 +588,33 @@ function WebLoginProvider({
 
 export default function Provider({ children, ...props }: WebLoginProviderProps) {
   const aelfReactConfig = getConfig().aelfReact;
+  const TELEGRAM_SRC = 'https://telegram.org/js/telegram-web-app.js';
+
+  const [scriptLoaded, setScriptLoaded] = useState(false);
+
   useEffect(() => {
-    function initTelegramScript() {
-      const HOSTNAME_PREFIX_LIST = ['tg.', 'tg-test.', 'localhost'];
-      const TELEGRAM_SRC = 'https://telegram.org/js/telegram-web-app.js';
-      if (typeof window !== 'undefined' && typeof location !== 'undefined') {
-        if (HOSTNAME_PREFIX_LIST.some((h) => location.hostname.includes(h))) {
-          const script = document.createElement('script');
-          script.src = TELEGRAM_SRC;
-          script.type = 'text/javascript';
-          script.async = true;
-          document.head.appendChild(script);
-        }
-      }
+    if (typeof window !== 'undefined' && typeof location !== 'undefined') {
+      const script = document.createElement('script');
+      script.src = TELEGRAM_SRC;
+      script.type = 'text/javascript';
+      script.onload = () => {
+        setScriptLoaded(true);
+      };
+
+      script.onerror = () => {
+        console.error('Failed to load the Telegram script');
+        setScriptLoaded(false);
+      };
+      document.head.appendChild(script);
+      return () => {
+        document.head.removeChild(script);
+      };
     }
-    initTelegramScript();
   }, []);
+  if (!scriptLoaded) {
+    return null;
+  }
+
   return (
     <AElfReactProvider appName={aelfReactConfig.appName} nodes={aelfReactConfig.nodes}>
       <WebLoginProvider {...props}>{children}</WebLoginProvider>

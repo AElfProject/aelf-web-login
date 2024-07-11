@@ -62,11 +62,6 @@ const Portkey = ({
     }
   }, [open]);
 
-  useEffect(() => {
-    console.log('currentLifeCircle', currentLifeCircle);
-    signInRef.current && signInRef.current.setOpen(true);
-  }, [currentLifeCircle]);
-
   const onFinishInternal = useCallback(
     (didWallet: DIDWalletInfo) => {
       onFinish(didWallet);

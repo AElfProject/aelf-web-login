@@ -89,12 +89,12 @@ const useTelegram = (
         const createResult = await createWallet(params);
         createResult && onFinished(createResult);
       } else {
-        setCurrentLifeCircle({
-          SetPinAndAddManager: {
-            guardianIdentifierInfo: identifier,
-            approvedList: list,
-          },
-        });
+        // setCurrentLifeCircle({
+        //   SetPinAndAddManager: {
+        //     guardianIdentifierInfo: identifier,
+        //     approvedList: list,
+        //   },
+        // });
         // setTimeout(() => {
         //   portkeyPanelRef.current?.open();
         // }, 500);

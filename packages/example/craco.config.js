@@ -40,6 +40,10 @@ module.exports = {
     },
   },
   devServer: {
+    https: {
+      key: './ssl/server.key', 
+      cert: './ssl/server.cert', 
+    },
     proxy: {
       '/v1/api': {
         target: 'https://did-portkey-test.portkey.finance',

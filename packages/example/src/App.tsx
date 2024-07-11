@@ -11,12 +11,10 @@ import { useEffect } from 'react';
 
 const win = window as any;
 let showVConsole = () => {};
-if (isMobile() || win.ReactNativeWebView) {
-  const vConsole = new VConsole();
-  showVConsole = () => {
-    vConsole.show();
-  };
-}
+const vConsole = new VConsole();
+showVConsole = () => {
+  vConsole.show();
+};
 
 export default function App() {
   const config = getConfig();
