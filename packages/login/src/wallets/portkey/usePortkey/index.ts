@@ -48,7 +48,7 @@ export type PortkeyInterface = WalletHookInterface & {
   onError: (error: any) => void;
   onFinished: (didWalletInfo: DIDWalletInfo) => void;
   onCancel: () => void;
-  currentLifeCircle: TStep2SignInLifeCycle | TStep1LifeCycle | TStep3LifeCycle | TStep2SignUpLifeCycle;
+  currentLifeCircle?: TStep2SignInLifeCycle | TStep1LifeCycle | TStep3LifeCycle | TStep2SignUpLifeCycle;
 };
 
 export function usePortkey({
