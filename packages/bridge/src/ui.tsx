@@ -1,17 +1,24 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { WalletAdapter, utils } from '@aelf-web-login/wallet-adapter-base';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  WalletAdapter,
+  utils,
+  enhancedLocalStorage,
+  DEFAULT_PIN,
+  PORTKEYAA,
+} from '@aelf-web-login/wallet-adapter-base';
 import { Bridge } from './bridge';
 import {
   CommonBaseModal,
   PortkeyLoading,
-  PortkeyProvider,
   SignIn,
   Unlock,
   DIDWalletInfo,
+  TelegramPlatform,
 } from '@portkey/did-ui-react';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import { IBaseConfig } from '.';
 import { Modal, Button, Typography, Drawer } from 'antd';
+import useTelegram from './useTelegram';
 import './ui.css';
 
 interface ConfirmLogoutDialogProps {
@@ -185,9 +192,7 @@ const NestedModal = ({
       title={
         <>
           <div
-            className={`aelf-web-logout-dialog-title ${
-              isWeb2Design ? 'nested-title-12' : 'nested-title'
-            }`}
+            className={`aelf-web-logout-dialog-title ${isWeb2Design ? 'nested-title-12' : 'nested-title'}`}
           >
             {constant.connectWallet}
           </div>
@@ -222,10 +227,38 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   const [isWrongPassword, setIsWrongPassword] = useState(false);
   const [isShowConfirmLogoutPanel, setIsShowConfirmLogoutPanel] = useState(false);
   const [isShowNestedModal, setIsShowNestedModal] = useState(false);
-  const filteredWallets = wallets.filter((ele) => ele.name !== 'PortkeyAA');
-
+  const { handleTelegram, currentLifeCircle } = useTelegram(
+    baseConfig.chainId,
+    baseConfig.networkType,
+    bridgeInstance,
+    setIsShowWrapper,
+  );
+  const filteredWallets = wallets.filter((ele) => ele.name !== PORTKEYAA);
   const isMobileDevice = isMobile();
   const { noCommonBaseModal = false } = baseConfig;
+  // const isLocking = store.getState().isLocking;
+  // console.log('isLocking', isLocking);
+
+  useEffect(() => {
+    if (!TelegramPlatform.isTelegramPlatform()) {
+      return;
+    }
+    console.log('begin to init and execute handleTelegram', TelegramPlatform.isTelegramPlatform());
+    const handleLogout = async () => {
+      await bridgeInstance.disConnect(true);
+    };
+    TelegramPlatform.initializeTelegramWebApp({ handleLogout });
+    async function autoAuthInTelegram() {
+      console.log('begin to excute autoAuthInTelegram');
+      if (enhancedLocalStorage.getItem('connectedWallet') === PORTKEYAA) {
+        await bridgeInstance.onPortkeyAAUnLock(DEFAULT_PIN);
+        return;
+      }
+      console.log('begin to excute handleTelegram');
+      handleTelegram();
+    }
+    autoAuthInTelegram();
+  }, [bridgeInstance, handleTelegram]);
 
   bridgeInstance.openLoginPanel = () => {
     setIsShowWrapper(true);
@@ -336,9 +369,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
           <div className="aelf-web-extra-wallets-wrapper-crypto">
             <Typography.Text className="crypto-wallets-title">Crypto wallet</Typography.Text>
             <div
-              className={`crypto-extra-wallets ${
-                baseConfig.design === 'Web2Design' && 'web2-extra-wallets'
-              }`}
+              className={`crypto-extra-wallets ${baseConfig.design === 'Web2Design' && 'web2-extra-wallets'}`}
               onClick={() => {
                 setIsShowNestedModal(true);
               }}
@@ -376,50 +407,52 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   ]);
 
   return (
-    <PortkeyProvider networkType={baseConfig.networkType} theme="dark">
-      <div>
-        {!isShowWrapper ? null : isShowLockPanel ? (
-          <Unlock
-            className="web-login-unlock-wrapper"
-            open={true}
-            value={password}
-            isWrongPassword={isWrongPassword}
-            keyboard={baseConfig.keyboard}
-            onChange={setPassword}
-            onCancel={onCloseWrapperInternal}
-            onUnlock={onUnlockInternal}
-          />
-        ) : (
-          <DynamicWrapper
-            onCloseHandler={onCloseWrapperInternal}
-            noCommonBaseModal={noCommonBaseModal}
-          >
-            <SignIn
-              defaultChainId={baseConfig.chainId}
-              uiType="Full"
-              design={baseConfig.design}
-              isShowScan
-              extraElementList={[extraWallets]}
-              onCancel={() => {
-                //TODO: seem to not execute
-                console.log('onSignInCancel');
-              }}
-              onError={() => {
-                console.log('onSignInInternalError');
-              }}
-              onFinish={onFinishInternal}
-            />
-          </DynamicWrapper>
-        )}
-
-        <ConfirmLogoutDialog
-          visible={isShowConfirmLogoutPanel}
-          onOk={confirmLogoutHandler}
-          onCancel={cancelLogoutHandler}
+    // <PortkeyProvider networkType={baseConfig.networkType} theme="dark">
+    <div>
+      {!isShowWrapper ? null : isShowLockPanel ? (
+        <Unlock
+          className="web-login-unlock-wrapper"
+          open={true}
+          value={password}
+          isWrongPassword={isWrongPassword}
+          keyboard={baseConfig.keyboard}
+          onChange={setPassword}
+          onCancel={onCloseWrapperInternal}
+          onUnlock={onUnlockInternal}
         />
-        <PortkeyLoading loading={loading} />
-      </div>
-    </PortkeyProvider>
+      ) : (
+        <DynamicWrapper
+          onCloseHandler={onCloseWrapperInternal}
+          noCommonBaseModal={noCommonBaseModal}
+        >
+          <SignIn
+            pin={TelegramPlatform.isTelegramPlatform() ? DEFAULT_PIN : undefined}
+            defaultLifeCycle={currentLifeCircle}
+            defaultChainId={baseConfig.chainId}
+            uiType="Full"
+            design={baseConfig.design}
+            isShowScan
+            extraElementList={[extraWallets]}
+            onCancel={() => {
+              //TODO: seem to not execute
+              console.log('onSignInCancel');
+            }}
+            onError={() => {
+              console.log('onSignInInternalError');
+            }}
+            onFinish={onFinishInternal}
+          />
+        </DynamicWrapper>
+      )}
+
+      <ConfirmLogoutDialog
+        visible={isShowConfirmLogoutPanel}
+        onOk={confirmLogoutHandler}
+        onCancel={cancelLogoutHandler}
+      />
+      <PortkeyLoading loading={loading} />
+    </div>
+    // </PortkeyProvider>
   );
 };
 

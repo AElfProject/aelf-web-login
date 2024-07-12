@@ -22,7 +22,7 @@ import {
   setLoginError,
   clearLoginError,
 } from './store';
-import { DIDWalletInfo } from '@portkey/did-ui-react';
+import { DIDWalletInfo, TelegramPlatform } from '@portkey/did-ui-react';
 import { isPortkeyApp } from '@aelf-web-login/utils';
 
 class Bridge {
@@ -52,7 +52,10 @@ class Bridge {
 
   get activeWallet() {
     try {
-      if (isPortkeyApp()) {
+      if (TelegramPlatform.isTelegramPlatform()) {
+        this._activeWallet = this._wallets.find((item) => item.name === PORTKEYAA);
+        return this._activeWallet;
+      } else if (isPortkeyApp()) {
         this._activeWallet = this._wallets.find((item) => item.name === PORTKEY_DISCOVER);
         return this._activeWallet;
       } else {
@@ -180,6 +183,9 @@ class Bridge {
   };
 
   onLockHandler = () => {
+    if (TelegramPlatform.isTelegramPlatform()) {
+      return;
+    }
     this.openLockPanel();
     dispatch(setLocking(true));
   };
@@ -242,7 +248,7 @@ class Bridge {
       const walletInfo = await this._activeWallet?.login();
       this._loginResolve(walletInfo);
     } catch (e) {
-      console.log('onUniqueWalletClick', e);
+      console.log('onUniqueWalletClick--', e);
     } finally {
       this.closeLoadingModal();
       this.closeLoginPanel();

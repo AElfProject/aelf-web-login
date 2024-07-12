@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-portkey-discover",
-  "version": "0.0.2-alpha.35",
+  "version": "0.1.0",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
@@ -33,7 +33,7 @@
     "bn.js": "^5.2.1"
   },
   "devDependencies": {
-    "@portkey/types": "^2.6.2",
+    "@portkey/types": "^2.7.1-alpha.0",
     "@types/bn.js": "^5.1.5",
     "father": "^4.3.8",
     "typescript": "^5.3.3"

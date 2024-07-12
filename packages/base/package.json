@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-base",
-  "version": "0.0.2-alpha.35",
+  "version": "0.1.0",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
@@ -28,8 +28,8 @@
     "eventemitter3": "^5.0.1"
   },
   "devDependencies": {
-    "@portkey/did-ui-react": "^2.6.2",
-    "@portkey/types": "^2.6.2",
+    "@portkey/did-ui-react": "^2.7.1-alpha.0",
+    "@portkey/types": "^2.7.1-alpha.0",
     "typescript": "^5.3.3"
   },
   "publishConfig": {

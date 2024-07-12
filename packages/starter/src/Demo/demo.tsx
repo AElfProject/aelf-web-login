@@ -22,18 +22,24 @@ const RPC_SERVER_TDVW = 'https://explorer-test-side02.aelf.io/chain';
 const GRAPHQL_SERVER =
   'https://dapp-aa-portkey-test.portkey.finance/Portkey_DID/PortKeyIndexerCASchema/graphql';
 const CONNECT_SERVER = 'https://auth-aa-portkey-test.portkey.finance';
+const SERVICE_SERVER = 'https://aa-portkey-test.portkey.finance';
+const TELEGRAM_BOT_ID = '7329439364';
 
 const didConfig = {
   graphQLUrl: GRAPHQL_SERVER,
   connectUrl: CONNECT_SERVER,
+  serviceUrl: SERVICE_SERVER,
   requestDefaults: {
-    baseURL: 'https://aa-portkey-test.portkey.finance',
+    baseURL: SERVICE_SERVER,
     timeout: 30000,
   },
   socialLogin: {
     Portkey: {
       websiteName: APP_NAME,
       websiteIcon: WEBSITE_ICON,
+    },
+    Telegram: {
+      botId: TELEGRAM_BOT_ID,
     },
   },
   // loginConfig: {

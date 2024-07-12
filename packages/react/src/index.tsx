@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
 import { initBridge, IConfigProps, IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
 import VConsole from 'vconsole';
@@ -6,10 +7,25 @@ const HOOK_ERROR_MESSAGE =
   'Must call the provided initialization method`init` method before using hooks.';
 
 export const init = (options: IConfigProps): IBridgeAPI => {
-  console.log('aelf-web-login-init..............');
   if (options.baseConfig.showVconsole) {
-    const vConsole = new VConsole();
+    new VConsole();
   }
+  console.log('aelf-web-login-init..............');
+  function initScriptAndMountApp() {
+    // const HOSTNAME_PREFIX_LIST = ['tg.', 'tg-test.', 'localhost'];
+    const TELEGRAM_SRC = 'https://telegram.org/js/telegram-web-app.js';
+    if (typeof window !== 'undefined' && typeof location !== 'undefined') {
+      // if (HOSTNAME_PREFIX_LIST.some(h => location.hostname.includes(h))) {
+      const script = document.createElement('script');
+      script.src = TELEGRAM_SRC;
+      script.async = false;
+      document.head.appendChild(script);
+      console.log('initScriptAndMountApp');
+      // }
+    }
+  }
+
+  initScriptAndMountApp();
   const dataFromBridge = initBridge(options);
   return dataFromBridge;
 };
