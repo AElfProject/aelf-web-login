@@ -13,7 +13,7 @@ export function mountApp(
   if (typeof window === 'undefined') {
     return;
   }
-  console.log('mountApp');
+  console.log('mountApp--');
   const containerElementQuery = 'body';
   const containerElement = document.querySelector(containerElementQuery);
   if (!containerElement) {

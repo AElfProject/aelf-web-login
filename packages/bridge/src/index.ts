@@ -35,6 +35,7 @@ export interface IBridgeAPI {
 export function initBridge({ baseConfig, wallets, didConfig }: IConfigProps): IBridgeAPI {
   const bridgeInstance = new Bridge(wallets);
   ConfigProvider.setGlobalConfig(didConfig);
+  console.log('init bridge');
 
   // mountApp(bridgeInstance, wallets, baseConfig);
   return {

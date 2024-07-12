@@ -27,5 +27,4 @@ package.json.lerna_backup
 **/raw/*.ssz
 
 *.crt
-*.key
 *.pem

@@ -248,7 +248,7 @@ class Bridge {
       const walletInfo = await this._activeWallet?.login();
       this._loginResolve(walletInfo);
     } catch (e) {
-      console.log('onUniqueWalletClick', e);
+      console.log('onUniqueWalletClick--', e);
     } finally {
       this.closeLoadingModal();
       this.closeLoginPanel();

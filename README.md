@@ -6,20 +6,21 @@
 
 # Install
 
-```Dockerfile
-yarn add @aelf-web-login/wallet-adapter-night-elf @aelf-web-login/wallet-adapter-portkey-aa @aelf-web-login/wallet-adapter-portkey-discover @aelf-web-login/wallet-adapter-react @aelf-web-login/wallet-adapter-base @aelf-web-login/wallet-adapter-bridge
+```sh
+yarn add @aelf-web-login/wallet-adapter-night-elf @aelf-web-login/wallet-adapter-portkey-aa @aelf-web-login/wallet-adapter-portkey-discover @aelf-web-login/wallet-adapter-react @aelf-web-login/wallet-adapter-base @aelf-web-login/wallet-adapter-bridge @aelf-web-login/utils
 ```
 
 Then the `package.json` will be like this
 
-```JSON
+```json
 "dependencies": {
-    "@aelf-web-login/wallet-adapter-night-elf": "^0.0.2-alpha.7",
-    "@aelf-web-login/wallet-adapter-portkey-aa": "^0.0.2-alpha.7",
-    "@aelf-web-login/wallet-adapter-portkey-discover": "^0.0.2-alpha.7",
-    "@aelf-web-login/wallet-adapter-react": "^0.0.2-alpha.7",
-    "@aelf-web-login/wallet-adapter-base": "^0.0.2-alpha.7",
-    "@aelf-web-login/wallet-adapter-bridge": "^0.0.2-alpha.7",
+    "@aelf-web-login/wallet-adapter-night-elf": "^0.1.0",
+    "@aelf-web-login/wallet-adapter-portkey-aa": "^0.1.0",
+    "@aelf-web-login/wallet-adapter-portkey-discover": "^0.1.0",
+    "@aelf-web-login/wallet-adapter-react": "^0.1.0",
+    "@aelf-web-login/wallet-adapter-base": "^0.1.0",
+    "@aelf-web-login/wallet-adapter-bridge": "^0.1.0",
+    "@aelf-web-login/utils": "^0.1.0",
 }
 ```
 
@@ -31,7 +32,7 @@ Then the `package.json` will be like this
 4. Create `wallets` by wallet instance
 5. Combine them into a whole as `config`
 
-```TypeScript
+```ts
 import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-discover';
 import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
 import { NightElfWallet } from '@aelf-web-login/wallet-adapter-night-elf';
@@ -45,11 +46,11 @@ const NETWORK_TYPE = NetworkEnum.TESTNET;
 const RPC_SERVER_AELF = 'https://aelf-test-node.aelf.io';
 const RPC_SERVER_TDVV = 'https://tdvv-public-node.aelf.io';
 const RPC_SERVER_TDVW = 'https://tdvw-test-node.aelf.io';
-const GRAPHQL_SERVER = 'https://dapp-aa-portkey-test.portkey.finance/Portkey_DID/PortKeyIndexerCASchema/graphql';
+const GRAPHQL_SERVER =
+  'https://dapp-aa-portkey-test.portkey.finance/Portkey_DID/PortKeyIndexerCASchema/graphql';
 const CONNECT_SERVER = 'https://auth-aa-portkey-test.portkey.finance';
 const SERVICE_SERVER = 'https://aa-portkey-test.portkey.finance';
 const TELEGRAM_BOT_ID = 'xx';
-
 const didConfig = {
   graphQLUrl: GRAPHQL_SERVER,
   connectUrl: CONNECT_SERVER,
@@ -115,12 +116,12 @@ const wallets = [
       },
     },
   }),
-]
+];
 
 const config: IConfigProps = {
   didConfig,
   baseConfig,
-  wallets
+  wallets,
 };
 ```
 
@@ -131,7 +132,7 @@ const config: IConfigProps = {
 3. pass the return value `bridgeAPI` to `WebLoginProvider`
 4. use `useConnectWallet` to consume `bridgeAPI`
 
-```TypeScript
+```tsx
 import { WebLoginProvider, init, useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 const App = () => {
@@ -156,89 +157,83 @@ const Demo = () => {
     getWalletSyncIsCompleted,
     getSignature,
     callSendMethod,
-    callViewMethod
+    callViewMethod,
   } = useConnectWallet();
-}
+};
 ```
 
 # API
 
 ## connectWallet
 
-```
-connectWallet: () => Promise<TWalletInfo>
+```ts
+connectWallet: () => Promise<TWalletInfo>;
 ```
 
 > Connect wallet and return walletInfo
 
-```TypeScript
+```tsx
 import { Button } from 'aelf-design';
 
 const Demo = () => {
-    const { connectWallet } = useConnectWallet();
-    const onConnectBtnClickHandler = async() => {
-        try {
-          const rs = await connectWallet();
-        } catch (e: any) {
-          console.log(e.message)
-        }
+  const { connectWallet } = useConnectWallet();
+  const onConnectBtnClickHandler = async () => {
+    try {
+      const rs = await connectWallet();
+    } catch (e: any) {
+      console.log(e.message);
     }
-    return (
-        <Button onClick={onConnectBtnClickHandler}>connect</Button>
-    )
-}
+  };
+  return <Button onClick={onConnectBtnClickHandler}>connect</Button>;
+};
 ```
 
 ## disConnectWallet
 
-```
-disConnectWallet: () => Promise<void>
+```ts
+disConnectWallet: () => Promise<void>;
 ```
 
 > Disconnect wallet
 
-```TypeScript
+```tsx
 import { Button } from 'aelf-design';
 
 const Demo = () => {
-    const { disConnectWallet } = useConnectWallet();
-    const onDisConnectBtnClickHandler = () => {
-        disConnectWallet()
-    }
-    return (
-        <Button onClick={onDisConnectBtnClickHandler}>disConnect</Button>
-    )
-}
+  const { disConnectWallet } = useConnectWallet();
+  const onDisConnectBtnClickHandler = () => {
+    disConnectWallet();
+  };
+  return <Button onClick={onDisConnectBtnClickHandler}>disConnect</Button>;
+};
 ```
 
 ## lock
 
-```
+```ts
 lock: () => void
 ```
 
 > Lock wallet, only portkeyAA wallet take effect
 
-```TypeScript
+```tsx
 import { Button } from 'aelf-design';
 
 const Demo = () => {
-    const { lock } = useConnectWallet();
-    return (
-        <Button onClick={lock}>lock</Button>
-    )
-}
+  const { lock } = useConnectWallet();
+  return <Button onClick={lock}>lock</Button>;
+};
 ```
 
 ## getAccountByChainId
 
-```
-getAccountByChainId: (chainId: TChainId) => Promise<string>
+```ts
+getAccountByChainId: (chainId: TChainId) => Promise<string>;
 ```
 
 > Get account address of designative chainId
 
-```TypeScript
+```tsx
 import { Button } from 'aelf-design';
 
 const Demo = () => {
@@ -261,13 +256,13 @@ const Demo = () => {
 
 ## getWalletSyncIsCompleted
 
-```
-getWalletSyncIsCompleted: (chainId: TChainId) => Promise<string | boolean>
+```ts
+getWalletSyncIsCompleted: (chainId: TChainId) => Promise<string | boolean>;
 ```
 
 > Return account address of designative chainId if sync is competed, otherwise return false
 
-```TypeScript
+```tsx
 import { Button } from 'aelf-design';
 
 const Demo = () => {
@@ -290,13 +285,13 @@ const Demo = () => {
 
 ## getSignature
 
-```
+```ts
 const getSignature: (params: TSignatureParams) => Promise<{ ``    error: number; ``    errorMessage: string; ``    signature: string; ``    from: string; ``} | null>
 ```
 
 > Get signature message
 
-```TypeScript
+```tsx
 import { Button, Input } from 'aelf-design';
 
 type TSignatureParams = {
@@ -336,13 +331,13 @@ const Demo = () => {
 
 ## callSendMethod
 
-```
-callSendMethod: <T, R>(props: ICallContractParams<T>) => Promise<R>
+```ts
+callSendMethod: <T, R>(props: ICallContractParams<T>) => Promise<R>;
 ```
 
 > Call contract's send method
 
-```TypeScript
+```tsx
 import { Button } from 'aelf-design';
 
 interface ICallContractParams<T> {
@@ -354,44 +349,44 @@ interface ICallContractParams<T> {
 }
 
 const Demo = () => {
-    const { callSendMethod } = useConnectWallet();
-    const [result, setResult] = useState({});
+  const { callSendMethod } = useConnectWallet();
+  const [result, setResult] = useState({});
 
-    const onApproveHandler = async() => {
-        const res = await callSendMethod({
-          chainId: 'tDVW',
-          contractAddress: 'JRmBduh4nXWi1aXgdUsj5gJrzeZb2LxmrAbf7W99faZSvoAaE',
-          methodName: 'Approve',
-          args: {
-            symbol: 'ELF',
-            spender: 'JRmBduh4nXWi1aXgdUsj5gJrzeZb2LxmrAbf7W99faZSvoAaE',
-            amount: '100000000',
-          },
-        });
-        setResult(res);
-    }
+  const onApproveHandler = async () => {
+    const res = await callSendMethod({
+      chainId: 'tDVW',
+      contractAddress: 'JRmBduh4nXWi1aXgdUsj5gJrzeZb2LxmrAbf7W99faZSvoAaE',
+      methodName: 'Approve',
+      args: {
+        symbol: 'ELF',
+        spender: 'JRmBduh4nXWi1aXgdUsj5gJrzeZb2LxmrAbf7W99faZSvoAaE',
+        amount: '100000000',
+      },
+    });
+    setResult(res);
+  };
 
-    return (
+  return (
+    <div>
+      <Button onClick={onApproveHandler}>Approve in tDVW</Button>
       <div>
-        <Button onClick={onApproveHandler}>Approve in tDVW</Button>
-        <div>
-          <h4>Result</h4>
-          <pre className="result">{JSON.stringify(result, null, '  ')}</pre>
-        </div>
+        <h4>Result</h4>
+        <pre className="result">{JSON.stringify(result, null, '  ')}</pre>
       </div>
-    )
-}
+    </div>
+  );
+};
 ```
 
 ## callViewMethod
 
-```
-callViewMethod: <T, R>(props: ICallContractParams<T>) => Promise<R>
+```ts
+callViewMethod: <T, R>(props: ICallContractParams<T>) => Promise<R>;
 ```
 
 > Call contract's view method
 
-```TypeScript
+```tsx
 import { Button } from 'aelf-design';
 
 interface ICallContractParams<T> {
@@ -403,43 +398,43 @@ interface ICallContractParams<T> {
 }
 
 const Demo = () => {
-    const { callViewMethod, getAccountByChainId } = useConnectWallet();
-    const [result, setResult] = useState({});
+  const { callViewMethod, getAccountByChainId } = useConnectWallet();
+  const [result, setResult] = useState({});
 
-    const onGetBalanceHandler = async() => {
-        const res = await callViewMethod({
-          chainId: 'tDVW',
-          contractAddress: 'ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx',
-          methodName: 'GetBalance',
-          args: {
-            symbol: 'ELF',
-            owner: await getAccountByChainId('tDVW'),
-          },
-        });
-        setResult(res);
-    }
+  const onGetBalanceHandler = async () => {
+    const res = await callViewMethod({
+      chainId: 'tDVW',
+      contractAddress: 'ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx',
+      methodName: 'GetBalance',
+      args: {
+        symbol: 'ELF',
+        owner: await getAccountByChainId('tDVW'),
+      },
+    });
+    setResult(res);
+  };
 
-    return (
+  return (
+    <div>
+      <Button onClick={onGetBalanceHandler}>GetBalance in tDVW</Button>
       <div>
-        <Button onClick={onGetBalanceHandler}>GetBalance in tDVW</Button>
-        <div>
-          <h4>Result</h4>
-          <pre className="result">{JSON.stringify(result, null, '  ')}</pre>
-        </div>
+        <h4>Result</h4>
+        <pre className="result">{JSON.stringify(result, null, '  ')}</pre>
       </div>
-    )
-}
+    </div>
+  );
+};
 ```
 
 ## walletInfo
 
-```
-const walletInfo: TWalletInfo
+```ts
+const walletInfo: TWalletInfo;
 ```
 
 > Wallet information after connecting wallet, can import `TWalletInfo` from `@aelf-web-login/wallet-adapter-base`
 
-```TypeScript
+```tsx
 type TWalletInfo =
   | {
       name?: string;
@@ -503,13 +498,13 @@ const Demo = () => {
 
 ## walletType
 
-```
-const walletType: WalletTypeEnum
+```ts
+const walletType: WalletTypeEnum;
 ```
 
 > The currently connected wallet type, can import `WalletTypeEnum` from `@aelf-web-login/wallet-adapter-base`
 
-```TypeScript
+```tsx
 enum WalletTypeEnum {
   unknown = 'Unknown',
   elf = 'NightElf',
@@ -518,72 +513,68 @@ enum WalletTypeEnum {
 }
 
 const Demo = () => {
-    const { walletType } = useConnectWallet();
-    console.log(walletType)
-    return null
-}
+  const { walletType } = useConnectWallet();
+  console.log(walletType);
+  return null;
+};
 ```
 
 ## isLocking
 
-```
-const isLocking: boolean
+```ts
+const isLocking: boolean;
 ```
 
 > indicate whether the current state is locked, only portkeyAA wallet take effect, other wallets always return false
 
-```TypeScript
+```tsx
 import { Button } from 'aelf-design';
 
 const Demo = () => {
-    const { isLocking } = useConnectWallet();
+  const { isLocking } = useConnectWallet();
 
-    return (
-      <Button>
-        {isLocking ? 'unlock' : 'connect'}
-      </Button>
-    )
-}
+  return <Button>{isLocking ? 'unlock' : 'connect'}</Button>;
+};
 ```
 
 ## isConnected
 
-```
-const isConnected: boolean
+```ts
+const isConnected: boolean;
 ```
 
 > indicate whether the current state is connected
 
-```TypeScript
+```tsx
 import { Button } from 'aelf-design';
 
 const Demo = () => {
-    const { isConnected } = useConnectWallet();
+  const { isConnected } = useConnectWallet();
 
-    return (
-      <div>
-        <Button disabled={isConnected}>connect</Button>
-        <Button disabled={!isConnected}>disConnect</Button>
-      </div>
-    )
-}
+  return (
+    <div>
+      <Button disabled={isConnected}>connect</Button>
+      <Button disabled={!isConnected}>disConnect</Button>
+    </div>
+  );
+};
 ```
 
 ## loginError
 
-```
-const loginError: TWalletError | null
+```ts
+const loginError: TWalletError | null;
 ```
 
 > indicate are there any errors during the login/logout/unlock process
 
-```TypeScript
+```tsx
 type TWalletError = {
   name: string;
   code: number;
   message: string;
   nativeError?: any;
-}
+};
 
 const Demo = () => {
   const { loginError } = useConnectWallet();
@@ -595,23 +586,23 @@ const Demo = () => {
     console.log(loginError.message);
   }, [loginError]);
 
-  return null
-}
+  return null;
+};
 ```
 
 # Development
 
 1. Install dependencies in the project root directory
 
-```bash
-  pnpm install
+```sh
+pnpm install
 ```
 
 2. cd to demo directory and execute dev command
 
-```bash
-  cd packages/starter
-  pnpm dev
+```sh
+cd packages/starter
+pnpm dev
 ```
 
 # Publish
@@ -619,6 +610,6 @@ const Demo = () => {
 1. Upgrade the version numbers of each sub package
 2. execute release command in the project root directory
 
-```bash
-  pnpm release
+```sh
+pnpm release
 ```
