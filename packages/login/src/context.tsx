@@ -25,6 +25,7 @@ import ExtraWallets from './wallets/extraWallets';
 import clsx from 'clsx';
 import { PortkeyDid, PortkeyDidV1 } from './index';
 import { getStorageVersion } from './utils/getUrl';
+import CommonErrorBoundary from './components/ErrorBoundary';
 
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,
@@ -616,8 +617,10 @@ export default function Provider({ children, ...props }: WebLoginProviderProps) 
   }
 
   return (
-    <AElfReactProvider appName={aelfReactConfig.appName} nodes={aelfReactConfig.nodes}>
-      <WebLoginProvider {...props}>{children}</WebLoginProvider>
-    </AElfReactProvider>
+    <CommonErrorBoundary>
+      <AElfReactProvider appName={aelfReactConfig.appName} nodes={aelfReactConfig.nodes}>
+        <WebLoginProvider {...props}>{children}</WebLoginProvider>
+      </AElfReactProvider>
+    </CommonErrorBoundary>
   );
 }
