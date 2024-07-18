@@ -40,7 +40,10 @@ interface IWebLoginProviderProps {
 }
 
 export const WebLoginProvider: React.FC<IWebLoginProviderProps> = ({ children, bridgeAPI }) => {
-  const { mountApp, unMountApp } = bridgeAPI ?? { mountApp: () => {}, unMountApp: () => {} };
+  const { mountApp, unMountApp } = bridgeAPI ?? {
+    mountApp: () => {},
+    unMountApp: () => {},
+  };
   useEffect(() => {
     mountApp();
     return unMountApp;
@@ -48,7 +51,12 @@ export const WebLoginProvider: React.FC<IWebLoginProviderProps> = ({ children, b
   if (!bridgeAPI) {
     return null;
   }
-  return <WebLoginContext.Provider value={bridgeAPI}>{children}</WebLoginContext.Provider>;
+  return (
+    <WebLoginContext.Provider value={bridgeAPI}>
+      {/* {getSignIn()} */}
+      {children}
+    </WebLoginContext.Provider>
+  );
 };
 
 export function useWebLoginContext(): IBridgeAPI {

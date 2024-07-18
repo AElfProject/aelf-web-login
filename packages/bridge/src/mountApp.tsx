@@ -4,6 +4,7 @@ import SignInModal from './ui';
 import { Bridge } from './bridge';
 import { IBaseConfig } from '.';
 import { PortkeyProvider } from '@portkey/did-ui-react';
+import { useMemo } from 'react';
 
 export function mountApp(
   bridgeInstance: Bridge,
@@ -24,11 +25,26 @@ export function mountApp(
   SignInWrapperDom.setAttribute('id', 'sign-in-wrapper');
   const root = createRoot(SignInWrapperDom);
   root.render(
-    <PortkeyProvider networkType={baseConfig.networkType} theme="dark">
+    <PortkeyProvider {...baseConfig.PortkeyProviderProps} networkType={baseConfig.networkType}>
       <SignInModal bridgeInstance={bridgeInstance} wallets={wallets} baseConfig={baseConfig} />,
     </PortkeyProvider>,
   );
   containerElement.appendChild(SignInWrapperDom);
+}
+
+export function useMountSignIn(
+  bridgeInstance: Bridge,
+  wallets: WalletAdapter[],
+  baseConfig: IBaseConfig,
+) {
+  const SignInNode = useMemo(() => {
+    return (
+      <PortkeyProvider {...baseConfig.PortkeyProviderProps} networkType={baseConfig.networkType}>
+        <SignInModal bridgeInstance={bridgeInstance} wallets={wallets} baseConfig={baseConfig} />,
+      </PortkeyProvider>
+    );
+  }, [baseConfig, bridgeInstance, wallets]);
+  return SignInNode;
 }
 
 export function unMountApp() {
