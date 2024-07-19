@@ -26,7 +26,7 @@ export function mountApp(
   const root = createRoot(SignInWrapperDom);
   root.render(
     <PortkeyProvider {...baseConfig.PortkeyProviderProps} networkType={baseConfig.networkType}>
-      <SignInModal bridgeInstance={bridgeInstance} wallets={wallets} baseConfig={baseConfig} />,
+      <SignInModal bridgeInstance={bridgeInstance} wallets={wallets} baseConfig={baseConfig} />
     </PortkeyProvider>,
   );
   containerElement.appendChild(SignInWrapperDom);
@@ -36,14 +36,16 @@ export function useMountSignIn(
   bridgeInstance: Bridge,
   wallets: WalletAdapter[],
   baseConfig: IBaseConfig,
-) {
+  children: React.ReactNode,
+): React.ReactNode {
   const SignInNode = useMemo(() => {
     return (
       <PortkeyProvider {...baseConfig.PortkeyProviderProps} networkType={baseConfig.networkType}>
-        <SignInModal bridgeInstance={bridgeInstance} wallets={wallets} baseConfig={baseConfig} />,
+        <SignInModal bridgeInstance={bridgeInstance} wallets={wallets} baseConfig={baseConfig} />
+        {children}
       </PortkeyProvider>
     );
-  }, [baseConfig, bridgeInstance, wallets]);
+  }, [baseConfig, bridgeInstance, children, wallets]);
   return SignInNode;
 }
 

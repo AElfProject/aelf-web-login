@@ -5,8 +5,9 @@ import VConsole from 'vconsole';
 
 const HOOK_ERROR_MESSAGE =
   'Must call the provided initialization method`init` method before using hooks.';
-
+// let noCommonBaseModal = false;
 export const init = (options: IConfigProps): IBridgeAPI => {
+  // noCommonBaseModal = options.baseConfig.noCommonBaseModal ?? false;
   if (options.baseConfig.showVconsole) {
     new VConsole();
   }
@@ -40,21 +41,29 @@ interface IWebLoginProviderProps {
 }
 
 export const WebLoginProvider: React.FC<IWebLoginProviderProps> = ({ children, bridgeAPI }) => {
-  const { mountApp, unMountApp } = bridgeAPI ?? {
-    mountApp: () => {},
-    unMountApp: () => {},
+  // const { mountApp, unMountApp, getSignIn } = bridgeAPI ?? {
+  //   mountApp: () => {},
+  //   unMountApp: () => {},
+  //   getSignIn: () => null,
+  // };
+  // useEffect(() => {
+  //   if (noCommonBaseModal) {
+  //     return;
+  //   }
+  //   mountApp();
+  //   return unMountApp;
+  // }, [mountApp, unMountApp]);
+  const { getSignIn } = bridgeAPI ?? {
+    getSignIn: () => null,
   };
-  useEffect(() => {
-    mountApp();
-    return unMountApp;
-  }, [mountApp, unMountApp]);
+
   if (!bridgeAPI) {
     return null;
   }
   return (
     <WebLoginContext.Provider value={bridgeAPI}>
-      {/* {getSignIn()} */}
-      {children}
+      {/* {noCommonBaseModal ? getSignIn(children) : children} */}
+      {getSignIn(children)}
     </WebLoginContext.Provider>
   );
 };

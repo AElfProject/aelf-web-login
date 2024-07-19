@@ -36,10 +36,10 @@ export interface IBridgeAPI {
   store: AppStore;
   mountApp: () => void;
   unMountApp: () => void;
-  getSignIn: () => React.ReactNode;
+  getSignIn: (arg: React.ReactNode) => React.ReactNode;
 }
 export function initBridge({ baseConfig, wallets, didConfig }: IConfigProps): IBridgeAPI {
-  const bridgeInstance = new Bridge(wallets);
+  const bridgeInstance = new Bridge(wallets, baseConfig);
   ConfigProvider.setGlobalConfig(didConfig);
   console.log('init bridge');
 

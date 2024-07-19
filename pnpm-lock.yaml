@@ -230,10 +230,10 @@ importers:
     dependencies:
       '@aelf-web-login/wallet-adapter-base':
         specifier: 0.1.2
-        version: link:../base
+        version: 0.1.2
       '@aelf-web-login/wallet-adapter-react':
         specifier: 0.1.2
-        version: link:../react
+        version: 0.1.2(@types/react@18.3.3)(aelf-sdk@3.4.12)(query-string@7.1.3)
       bignumber.js:
         specifier: ^9.1.2
         version: 9.1.2
@@ -457,6 +457,67 @@ packages:
   /@aelf-react/types@0.1.10:
     resolution: {integrity: sha512-oKEI07EeL8dhUqp8ze50mCXOqAS5psoOpdmCNZaFT2R62/GPoAyvtN8oaZAUb1tycpE+eUdkdv8XDblEsIIiLA==}
     dev: true
+
+  /@aelf-web-login/utils@0.1.2(@types/react@18.3.3)(aelf-sdk@3.4.12)(query-string@7.1.3):
+    resolution: {integrity: sha512-5dyEYSjeHRF6phcokIWVUsziceIFecOBG2Z3Z+5Vc2USkiE2zC0JJvxmCU9iuSydNYVRv+U2iAEVuWddtZsUIQ==}
+    dependencies:
+      '@aelf-web-login/wallet-adapter-base': 0.1.2
+      '@aelf-web-login/wallet-adapter-react': 0.1.2(@types/react@18.3.3)(aelf-sdk@3.4.12)(query-string@7.1.3)
+      bignumber.js: 9.1.2
+      dayjs: 1.11.11
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    transitivePeerDependencies:
+      - '@types/react'
+      - aelf-sdk
+      - bufferutil
+      - graphql-ws
+      - query-string
+      - react-redux
+      - utf-8-validate
+    dev: false
+
+  /@aelf-web-login/wallet-adapter-base@0.1.2:
+    resolution: {integrity: sha512-afZ/auBVJNLw9gJCVRs6fdvfkda6Kx0t+g39ay7o5mbeprARFu9JHqJ6A5EP5ttw3Eyk2PJEnhRn5Cl3URo/Ug==}
+    dependencies:
+      eventemitter3: 5.0.1
+    dev: false
+
+  /@aelf-web-login/wallet-adapter-bridge@0.1.2(@types/react@18.3.3)(aelf-sdk@3.4.12)(query-string@7.1.3):
+    resolution: {integrity: sha512-qQh3u9nwZuHmTuf7yYJvtQvRYbsZ9GhMm0lMDyRhUjCEvbe2a/oGwtaQSARQj0RvITN3fLRDRY0Ufo1ttGA5Bw==}
+    dependencies:
+      '@aelf-web-login/utils': 0.1.2(@types/react@18.3.3)(aelf-sdk@3.4.12)(query-string@7.1.3)
+      '@aelf-web-login/wallet-adapter-base': 0.1.2
+      '@portkey/services': 2.7.1-alpha.0(@types/react@18.3.3)(aelf-sdk@3.4.12)(query-string@7.1.3)(react-dom@18.3.1)(react@18.3.1)
+      '@reduxjs/toolkit': 2.2.6(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    transitivePeerDependencies:
+      - '@types/react'
+      - aelf-sdk
+      - bufferutil
+      - graphql-ws
+      - query-string
+      - react-redux
+      - utf-8-validate
+    dev: false
+
+  /@aelf-web-login/wallet-adapter-react@0.1.2(@types/react@18.3.3)(aelf-sdk@3.4.12)(query-string@7.1.3):
+    resolution: {integrity: sha512-enEH/MRizCguQ4Dx0vUFootLqPAXIwIB1+rzXQ3TlhQ9qbt2QdFFajS/8BDxxoK0qYtl37XzgHKqZW3Nmnn1eA==}
+    dependencies:
+      '@aelf-web-login/wallet-adapter-bridge': 0.1.2(@types/react@18.3.3)(aelf-sdk@3.4.12)(query-string@7.1.3)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      vconsole: 3.15.1
+    transitivePeerDependencies:
+      - '@types/react'
+      - aelf-sdk
+      - bufferutil
+      - graphql-ws
+      - query-string
+      - react-redux
+      - utf-8-validate
+    dev: false
 
   /@aelfqueen/protobufjs@6.8.9:
     resolution: {integrity: sha512-xa8i/rsC/Dj6Wh0DWpgr4eODVu8tVktyTENJU0QGjwmu317PCyp/8p7rEcvplljAteoQ31cFxUCrnzFQ0iLG1g==}

@@ -90,7 +90,7 @@ const wallets = [
   new PortkeyDiscoverWallet({
     networkType: NETWORK_TYPE,
     chainId: CHAIN_ID,
-    autoRequestAccount: true,
+    autoRequestAccount: true, // If set to true, please contact Portkey to add whitelist @Rachel
     autoLogoutOnDisconnected: true,
     autoLogoutOnNetworkMismatch: true,
     autoLogoutOnAccountMismatch: true,
