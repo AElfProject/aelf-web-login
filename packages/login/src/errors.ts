@@ -8,7 +8,7 @@ export const ERR_CODE = {
 export const ERR_CODE_MSG: {
   [key: number]: string;
 } = {
-  10001: 'Discover login eagerly fail',
+  10001: 'Automatic login failed. Please log in manually.',
   10002: 'Unmatched network. Please switch the network through "My" > "Wallet" > "Switch Networks" to continue.',
   10003: 'Synchronising data on the blockchain. Please wait a few seconds.',
   10004: 'User cancel',
