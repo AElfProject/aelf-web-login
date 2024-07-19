@@ -47,12 +47,23 @@ const didConfig = {
   // }
 };
 
+// const SignInProxy = () => {
+//   // console.log('SignInProxy-----------');
+//   // const { isLocking } = useConnectWallet();
+//   // console.log('-----', isLocking);
+//   return <div>111</div>;
+// };
+
 const baseConfig = {
+  // SignInComponent: SignInProxy,
+  PortkeyProviderProps: {
+    theme: 'dark' as any,
+  },
   showVconsole: true,
   networkType: NETWORK_TYPE,
   chainId: CHAIN_ID,
   keyboard: true,
-  noCommonBaseModal: false,
+  // noCommonBaseModal: true,
   design: SignInDesignEnum.CryptoDesign, // "SocialDesign" | "CryptoDesign" | "Web2Design"
   titleForSocialDesign: 'Crypto wallet',
   iconSrcForSocialDesign:
@@ -69,7 +80,7 @@ const wallets = [
   new PortkeyDiscoverWallet({
     networkType: NETWORK_TYPE,
     chainId: CHAIN_ID,
-    autoRequestAccount: true,
+    autoRequestAccount: true, // If set to true, please contact Portkey to add whitelist @Rachel
     autoLogoutOnDisconnected: true,
     autoLogoutOnNetworkMismatch: true,
     autoLogoutOnAccountMismatch: true,

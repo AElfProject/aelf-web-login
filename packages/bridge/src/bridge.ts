@@ -24,6 +24,7 @@ import {
 } from './store';
 import { DIDWalletInfo, TelegramPlatform } from '@portkey/did-ui-react';
 import { isPortkeyApp } from '@aelf-web-login/utils';
+import { IBaseConfig } from '.';
 
 class Bridge {
   private _wallets: WalletAdapter[];
@@ -31,8 +32,10 @@ class Bridge {
   private _loginResolve: (value: TWalletInfo) => void;
   private _loginReject: (error: TWalletError) => void;
   private _eventMap: Record<keyof IWalletAdapterEvents, any> = {} as IWalletAdapterEvents;
+  private _noCommonBaseModal: boolean;
 
-  constructor(wallets: WalletAdapter[]) {
+  constructor(wallets: WalletAdapter[], { noCommonBaseModal = false }: IBaseConfig) {
+    this._noCommonBaseModal = noCommonBaseModal;
     this._wallets = wallets;
     this._activeWallet = undefined;
     this._loginResolve = () => {};
@@ -192,11 +195,13 @@ class Bridge {
 
   onConnectErrorHandler = (err: TWalletError) => {
     console.log('in error event', err, this.activeWallet);
+    if (!this._noCommonBaseModal) {
+      this.closeLoginPanel();
+      this.closeNestedModal();
+    }
     this.unbindEvents();
-    this.closeLoginPanel();
     this.closeLoadingModal();
     this._loginReject(err);
-    this.closeNestedModal();
     dispatch(clearWalletInfo());
     dispatch(clearWalletType());
     dispatch(setLoginError(err));
@@ -250,8 +255,10 @@ class Bridge {
     } catch (e) {
       console.log('onUniqueWalletClick--', e);
     } finally {
-      this.closeLoadingModal();
-      this.closeLoginPanel();
+      if (!this._noCommonBaseModal) {
+        this.closeLoadingModal();
+        this.closeLoginPanel();
+      }
     }
   };
 

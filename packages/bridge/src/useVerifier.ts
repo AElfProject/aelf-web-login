@@ -9,7 +9,27 @@ import {
 import { TChainId } from '@aelf-web-login/wallet-adapter-base';
 import { AccountType, OperationTypeEnum } from '@portkey/services';
 
-const useVerifier = () => {
+interface IUseVerifier {
+  getRecommendationVerifier: (chainId: TChainId) => Promise<IVerifier>;
+  verifySocialToken: ({
+    accountType,
+    token,
+    guardianIdentifier,
+    verifier,
+    chainId,
+    operationType,
+    operationDetails,
+  }: {
+    guardianIdentifier: string;
+    accountType: AccountType;
+    token?: string;
+    verifier: IVerifier;
+    chainId: TChainId;
+    operationType: OperationTypeEnum;
+    operationDetails: string;
+  }) => any;
+}
+const useVerifier: () => IUseVerifier = () => {
   const verifyToken = useVerifyToken();
 
   const socialLogin = useMemo<ISocialLoginConfig | undefined>(

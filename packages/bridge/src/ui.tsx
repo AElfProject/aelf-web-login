@@ -235,7 +235,8 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   );
   const filteredWallets = wallets.filter((ele) => ele.name !== PORTKEYAA);
   const isMobileDevice = isMobile();
-  const { noCommonBaseModal = false } = baseConfig;
+  const { noCommonBaseModal = false, SignInComponent } = baseConfig;
+  const FinalSignInComponent = SignInComponent || SignIn;
   // const isLocking = store.getState().isLocking;
   // console.log('isLocking', isLocking);
 
@@ -425,7 +426,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
           onCloseHandler={onCloseWrapperInternal}
           noCommonBaseModal={noCommonBaseModal}
         >
-          <SignIn
+          <FinalSignInComponent
             pin={TelegramPlatform.isTelegramPlatform() ? DEFAULT_PIN : undefined}
             defaultLifeCycle={currentLifeCircle}
             defaultChainId={baseConfig.chainId}
