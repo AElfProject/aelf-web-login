@@ -55,9 +55,19 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
   get wallet() {
     return this._wallet as TWalletInfo;
   }
+  get appName() {
+    const compatibleAppName = `V2-${this._config.appName}`;
+    if (enhancedLocalStorage.getItem(compatibleAppName)) {
+      return compatibleAppName;
+    } else {
+      return this._config.appName;
+    }
+  }
 
   async autoRequestAccountHandler() {
-    const canLoginEargly = !!enhancedLocalStorage.getItem(this._config.appName);
+    const canLoginEargly =
+      !!enhancedLocalStorage.getItem(this._config.appName) ||
+      !!enhancedLocalStorage.getItem(`V2-${this._config.appName}`);
     if (!canLoginEargly) {
       return;
     }
@@ -86,7 +96,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       const holderInfo = await did.getCAHolderInfo(didWalletInfo.chainId);
       nickName = holderInfo.nickName;
 
-      await did.save(didWalletInfo.pin, this._config.appName);
+      await did.save(didWalletInfo.pin, this.appName);
 
       const portkeyInfo = {
         ...didWalletInfo,
@@ -149,7 +159,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       this._loginState = LoginStateEnum.INITIAL;
       enhancedLocalStorage.removeItem(ConnectedWallet);
       enhancedLocalStorage.removeItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
-      enhancedLocalStorage.removeItem(this._config.appName);
+      enhancedLocalStorage.removeItem(this.appName);
 
       this.emit('disconnected');
     } catch (error) {
@@ -171,13 +181,15 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
 
   async onUnlock(password: string): Promise<TWalletInfo> {
     try {
-      const appName = this._config.appName;
+      const appName = this.appName;
       const chainId = this._config.chainId;
       const isValidPinCode = await this.checkPassword(appName, password);
       if (!isValidPinCode) {
         return;
       }
+
       const localWallet = await did.load(password, appName);
+
       let caInfo = localWallet.didWallet.caInfo[chainId];
       let caHash = caInfo?.caHash;
       if (!caInfo) {

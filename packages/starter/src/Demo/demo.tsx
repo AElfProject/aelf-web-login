@@ -12,9 +12,9 @@ import ContractDemo from './ContractDemo';
 import SignatureDemo from './SignatureDemo';
 import UtilsDemo from './UtilsDemo';
 
-const APP_NAME = 'explorer.aelf.io';
+const APP_NAME = 'forest';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
-const CHAIN_ID = 'AELF' as TChainId;
+const CHAIN_ID = 'tDVW' as TChainId;
 const NETWORK_TYPE = NetworkEnum.TESTNET;
 const RPC_SERVER_AELF = 'https://explorer-test.aelf.io/chain';
 const RPC_SERVER_TDVV = 'https://explorer-test-side02.aelf.io/chain';
@@ -55,6 +55,7 @@ const didConfig = {
 // };
 
 const baseConfig = {
+  // ConfirmLogoutDialog: CustomizedConfirmLogoutDialog,
   // SignInComponent: SignInProxy,
   PortkeyProviderProps: {
     theme: 'dark' as any,

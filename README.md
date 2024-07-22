@@ -125,6 +125,45 @@ const config: IConfigProps = {
 };
 ```
 
+_IConfigProps Clarifications_
+
+```ts
+import { GlobalConfigProps } from '@portkey/did-ui-react/dist/_types/src/components/config-provider/types';
+import { SignInProps, ISignIn, PortkeyProvider } from '@portkey/did-ui-react';
+import { WalletAdapter } from '@aelf-web-login/wallet-adapter-base';
+
+interface IConfirmLogoutDialogProps {
+  title: string;
+  subTitle: string[];
+  okTxt: string;
+  cancelTxt: string;
+  visible: boolean;
+  onOk: () => void;
+  onCancel: () => void;
+  width: number;
+  mobileWidth: number;
+}
+
+interface IConfigProps {
+  didConfig: GlobalConfigProps;
+  baseConfig: IBaseConfig;
+  wallets: WalletAdapter[];
+}
+interface IBaseConfig {
+  networkType: NetworkEnum;
+  chainId: TChainId;
+  keyboard?: boolean;
+  design?: SignInDesignEnum;
+  iconSrcForSocialDesign?: string;
+  titleForSocialDesign?: string;
+  noCommonBaseModal?: boolean;
+  showVconsole?: boolean;
+  SignInComponent?: React.FC<SignInProps & RefAttributes<ISignIn>>;
+  PortkeyProviderProps?: Partial<Omit<React.ComponentProps<typeof PortkeyProvider>, 'children'>>;
+  ConfirmLogoutDialog?: React.FC<Partial<IConfirmLogoutDialogProps>>;
+}
+```
+
 # Usage
 
 1. Import `WebLoginProvider`, `init` and `useConnectWallet`

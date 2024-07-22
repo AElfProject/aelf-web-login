@@ -26,6 +26,7 @@ import { DIDWalletInfo, TelegramPlatform } from '@portkey/did-ui-react';
 import { isPortkeyApp } from '@aelf-web-login/utils';
 import { IBaseConfig } from '.';
 
+let isDisconnectClicked = false;
 class Bridge {
   private _wallets: WalletAdapter[];
   private _activeWallet: WalletAdapter | undefined;
@@ -80,19 +81,24 @@ class Bridge {
     return new Promise((resolve, reject) => {
       this._loginResolve = resolve;
       this._loginReject = reject;
-      console.log('connect');
       this.openLoginPanel();
     });
   };
 
   disConnect = async (isDoubleCheck = false) => {
-    console.log('disconnect', isDoubleCheck, this.isAAWallet);
+    console.log('disconnect, isDoubleCheck: isAAWallet:', isDoubleCheck, this.isAAWallet);
     try {
       if (isDoubleCheck || (this.isAAWallet && this.activeWallet!.noNeedForConfirm)) {
+        if (isDisconnectClicked) {
+          return;
+        }
+        isDisconnectClicked = true;
+
         // only click confirmLogout button/or noNeedForConfirm can enter here
         await this.activeWallet?.logout();
         this.closeConfirmLogoutPanel();
         this.closeLockPanel();
+        isDisconnectClicked = false;
       } else {
         if (this.isAAWallet) {
           this.openConfirmLogoutPanel();
@@ -170,7 +176,6 @@ class Bridge {
   };
 
   onConnectedHandler = (walletInfo: TWalletInfo) => {
-    console.log('xxxxxxxxxxxxx-------');
     dispatch(setWalletInfo(walletInfo));
     dispatch(setWalletType(this.activeWallet?.name));
     dispatch(clearLoginError());
@@ -256,9 +261,9 @@ class Bridge {
       console.log('onUniqueWalletClick--', e);
     } finally {
       if (!this._noCommonBaseModal) {
-        this.closeLoadingModal();
         this.closeLoginPanel();
       }
+      this.closeLoadingModal();
     }
   };
 

@@ -55,12 +55,16 @@ export const store: EnhancedStore<TState> = configureStore({
           'walletInfo.extraInfo.provider',
           'walletInfo.extraInfo.portkeyInfo.walletInfo',
           'walletInfo.extraInfo.nightElfInfo',
+          'loginError.nativeError',
+          'payload.nativeError',
         ],
         // Ignore these paths in the state
         ignoredPaths: [
           'walletInfo.extraInfo.provider',
           'walletInfo.extraInfo.portkeyInfo.walletInfo',
           'walletInfo.extraInfo.nightElfInfo',
+          'loginError.nativeError',
+          'payload.nativeError',
         ],
       },
     }),

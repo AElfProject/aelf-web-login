@@ -21,7 +21,7 @@ import { Modal, Button, Typography, Drawer } from 'antd';
 import useTelegram from './useTelegram';
 import './ui.css';
 
-interface ConfirmLogoutDialogProps {
+export interface IConfirmLogoutDialogProps {
   title: string;
   subTitle: string[];
   okTxt: string;
@@ -49,7 +49,7 @@ const constant = {
   connectWallet: 'Connect Wallet',
 };
 
-const defaultProps: Partial<ConfirmLogoutDialogProps> = {
+const defaultProps: Partial<IConfirmLogoutDialogProps> = {
   title: 'Are you sure you want to exit your wallet?',
   subTitle: [
     'Your current wallet and assets will be removed from this app permanently. This action cannot be undone.',
@@ -71,7 +71,7 @@ interface ISignInModalProps {
 }
 const { isMobile } = utils;
 
-const ConfirmLogoutDialog = (props: Partial<ConfirmLogoutDialogProps>) => {
+const ConfirmLogoutDialog = (props: Partial<IConfirmLogoutDialogProps>) => {
   const { title, subTitle, okTxt, cancelTxt, visible, onOk, onCancel, width, mobileWidth } = {
     ...defaultProps,
     ...props,
@@ -235,8 +235,13 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   );
   const filteredWallets = wallets.filter((ele) => ele.name !== PORTKEYAA);
   const isMobileDevice = isMobile();
-  const { noCommonBaseModal = false, SignInComponent } = baseConfig;
+  const {
+    noCommonBaseModal = false,
+    SignInComponent,
+    ConfirmLogoutDialog: CustomizedConfirmLogoutDialog,
+  } = baseConfig;
   const FinalSignInComponent = SignInComponent || SignIn;
+  const FinalConfirmLogoutDialog = CustomizedConfirmLogoutDialog || ConfirmLogoutDialog;
   // const isLocking = store.getState().isLocking;
   // console.log('isLocking', isLocking);
 
@@ -446,7 +451,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
         </DynamicWrapper>
       )}
 
-      <ConfirmLogoutDialog
+      <FinalConfirmLogoutDialog
         visible={isShowConfirmLogoutPanel}
         onOk={confirmLogoutHandler}
         onCancel={cancelLogoutHandler}
