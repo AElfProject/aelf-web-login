@@ -11,6 +11,7 @@ import { store, AppStore } from './store';
 import { GlobalConfigProps } from '@portkey/did-ui-react/dist/_types/src/components/config-provider/types';
 import { ConfigProvider, SignInProps, ISignIn, PortkeyProvider } from '@portkey/did-ui-react';
 import { RefAttributes } from 'react';
+import { IConfirmLogoutDialogProps } from './ui';
 
 type BaseConfigProviderProps = Omit<React.ComponentProps<typeof PortkeyProvider>, 'children'>;
 
@@ -25,6 +26,7 @@ export interface IBaseConfig {
   showVconsole?: boolean;
   SignInComponent?: React.FC<SignInProps & RefAttributes<ISignIn>>;
   PortkeyProviderProps?: Partial<BaseConfigProviderProps>;
+  ConfirmLogoutDialog?: React.FC<Partial<IConfirmLogoutDialogProps>>;
 }
 export interface IConfigProps {
   didConfig: GlobalConfigProps;
