@@ -58,13 +58,13 @@ const baseConfig = {
   // ConfirmLogoutDialog: CustomizedConfirmLogoutDialog,
   // SignInComponent: SignInProxy,
   PortkeyProviderProps: {
-    theme: 'dark' as any,
+    theme: 'light' as any,
   },
   showVconsole: true,
   networkType: NETWORK_TYPE,
   chainId: CHAIN_ID,
   keyboard: true,
-  // noCommonBaseModal: true,
+  noCommonBaseModal: false,
   design: SignInDesignEnum.CryptoDesign, // "SocialDesign" | "CryptoDesign" | "Web2Design"
   titleForSocialDesign: 'Crypto wallet',
   iconSrcForSocialDesign:

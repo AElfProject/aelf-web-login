@@ -64,6 +64,7 @@
   display: flex;
   height: 20px;
   gap: 12px;
+  justify-content: flex-end;
 }
 .crypto-extra-image-arrow {
   width: 12px;

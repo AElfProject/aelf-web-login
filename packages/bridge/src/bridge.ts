@@ -81,7 +81,12 @@ class Bridge {
     return new Promise((resolve, reject) => {
       this._loginResolve = resolve;
       this._loginReject = reject;
-      this.openLoginPanel();
+      if (isPortkeyApp()) {
+        console.log('begin to execute onUniqueWalletClick in PortkeyApp');
+        this.onUniqueWalletClick('PortkeyDiscover');
+      } else {
+        this.openLoginPanel();
+      }
     });
   };
 
