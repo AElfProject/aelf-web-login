@@ -92,11 +92,18 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       }
 
       let nickName = 'Wallet 01';
+      try {
+        const holderInfo = await did.getCAHolderInfo(didWalletInfo.chainId);
+        nickName = holderInfo.nickName;
+      } catch (error) {
+        console.log('portkeyAA login and execute did.getCAHolderInfo. nickName:', nickName, error);
+      }
 
-      const holderInfo = await did.getCAHolderInfo(didWalletInfo.chainId);
-      nickName = holderInfo.nickName;
-
-      await did.save(didWalletInfo.pin, this.appName);
+      try {
+        await did.save(didWalletInfo.pin, this.appName);
+      } catch (e) {
+        console.log('portkeyAA login and execute did.save.', e);
+      }
 
       const portkeyInfo = {
         ...didWalletInfo,
