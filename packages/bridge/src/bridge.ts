@@ -81,7 +81,9 @@ class Bridge {
     return new Promise((resolve, reject) => {
       this._loginResolve = resolve;
       this._loginReject = reject;
-      if (isPortkeyApp()) {
+      if (TelegramPlatform.isTelegramPlatform()) {
+        this.autoLogin();
+      } else if (isPortkeyApp()) {
         console.log('begin to execute onUniqueWalletClick in PortkeyApp');
         this.onUniqueWalletClick('PortkeyDiscover');
       } else {
@@ -236,6 +238,8 @@ class Bridge {
       this.activeWallet!.off(k as keyof IWalletAdapterEvents, v);
     });
   };
+
+  autoLogin() {}
 
   openLoginPanel() {}
 
