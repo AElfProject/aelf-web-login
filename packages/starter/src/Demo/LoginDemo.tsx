@@ -13,7 +13,7 @@ const LoginDemo: React.FC = () => {
     isConnected,
     loginError,
   } = useConnectWallet();
-  console.log('LoginDemo init----------');
+  console.log('LoginDemo init----------', isConnected);
 
   const onConnectBtnClickHandler = async () => {
     try {
@@ -38,16 +38,17 @@ const LoginDemo: React.FC = () => {
   return (
     <div>
       <Flex gap={'small'}>
-        <Button type="primary" onClick={onConnectBtnClickHandler} disabled={isConnected}>
+        <Button type="primary" onClick={onConnectBtnClickHandler} disabled={!!walletInfo}>
           {isLocking ? 'unlock' : 'connect'}
         </Button>
         <Button type="primary" onClick={lock} disabled={!walletInfo}>
           lock
         </Button>
-        <Button type="primary" onClick={onDisConnectBtnClickHandler} disabled={!isConnected}>
+        <Button type="primary" onClick={onDisConnectBtnClickHandler} disabled={!walletInfo}>
           disconnect
         </Button>
       </Flex>
+      <div>isConnected: {isConnected + ''}</div>
       <div>
         walletInfo:
         <pre style={{ overflow: 'auto', height: '300px' }}>

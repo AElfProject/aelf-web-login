@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { initBridge, IConfigProps, IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
 import VConsole from 'vconsole';
+import {
+  ConnectedWallet,
+  enhancedLocalStorage,
+  PORTKEYAA,
+} from '@aelf-web-login/wallet-adapter-base';
 
 const HOOK_ERROR_MESSAGE =
   'Must call the provided initialization method`init` method before using hooks.';
@@ -113,6 +118,14 @@ export function useConnectWallet() {
   } = instance;
   const [connecting, setConnecting] = useState(false);
 
+  const isConnected = useMemo(() => {
+    if (enhancedLocalStorage.getItem(ConnectedWallet) === PORTKEYAA) {
+      return !!stateFromStore.walletInfo;
+    } else {
+      return !!enhancedLocalStorage.getItem(ConnectedWallet) || !!stateFromStore.walletInfo;
+    }
+  }, [stateFromStore.walletInfo]);
+
   const connectWallet = useCallback(async () => {
     setConnecting(true);
     const rs = await connect();
@@ -131,7 +144,7 @@ export function useConnectWallet() {
     walletInfo: stateFromStore.walletInfo,
     isLocking: stateFromStore.isLocking,
     walletType: stateFromStore.walletType,
-    isConnected: !!stateFromStore.walletInfo,
+    isConnected: isConnected,
     loginError: stateFromStore.loginError,
     lock,
     getAccountByChainId,
