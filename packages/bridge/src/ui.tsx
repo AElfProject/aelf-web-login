@@ -266,6 +266,10 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     autoAuthInTelegram();
   }, [bridgeInstance, handleTelegram]);
 
+  bridgeInstance.autoLogin = () => {
+    handleTelegram();
+  };
+
   bridgeInstance.openLoginPanel = () => {
     setIsShowWrapper(true);
   };
