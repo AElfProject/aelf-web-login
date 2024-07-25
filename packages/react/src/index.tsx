@@ -134,7 +134,8 @@ export function useConnectWallet() {
   }, [connect]);
 
   const disConnectWallet = useCallback(async () => {
-    await disConnect();
+    const rs = await disConnect();
+    return rs;
   }, [disConnect]);
 
   return {

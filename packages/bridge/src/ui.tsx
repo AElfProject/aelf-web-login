@@ -251,7 +251,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     }
     console.log('begin to init and execute handleTelegram', TelegramPlatform.isTelegramPlatform());
     const handleLogout = async () => {
-      await bridgeInstance.disConnect(true);
+      await bridgeInstance.doubleCheckDisconnect();
     };
     TelegramPlatform.initializeTelegramWebApp({ handleLogout });
     async function autoAuthInTelegram() {
@@ -319,7 +319,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   }, []);
 
   const confirmLogoutHandler = useCallback(() => {
-    bridgeInstance.disConnect(true);
+    bridgeInstance.doubleCheckDisconnect();
   }, [bridgeInstance]);
 
   const cancelLogoutHandler = useCallback(() => {
