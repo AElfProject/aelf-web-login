@@ -15,10 +15,14 @@ const LoginDemo: React.FC = () => {
   } = useConnectWallet();
   console.log('LoginDemo init----------', isConnected);
 
+  useEffect(() => {
+    console.log('isConnected-------', isConnected);
+  }, [isConnected]);
+
   const onConnectBtnClickHandler = async () => {
     try {
       const rs = await connectWallet();
-      console.log('rs', rs);
+      console.log('onConnectBtnClickHandler', rs);
     } catch (e: any) {
       // message.error(e.message);
     }
@@ -31,8 +35,9 @@ const LoginDemo: React.FC = () => {
     message.error(loginError.message);
   }, [loginError]);
 
-  const onDisConnectBtnClickHandler = () => {
-    disConnectWallet();
+  const onDisConnectBtnClickHandler = async () => {
+    const rs = await disConnectWallet();
+    console.log('log after execute disConnectWallet', rs);
   };
 
   return (

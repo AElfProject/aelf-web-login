@@ -32,6 +32,8 @@ class Bridge {
   private _activeWallet: WalletAdapter | undefined;
   private _loginResolve: (value: TWalletInfo) => void;
   private _loginReject: (error: TWalletError) => void;
+  private _logoutResolve: (arg: boolean) => void;
+  private _logoutReject: (arg: boolean) => void;
   private _eventMap: Record<keyof IWalletAdapterEvents, any> = {} as IWalletAdapterEvents;
   private _noCommonBaseModal: boolean;
 
@@ -41,6 +43,8 @@ class Bridge {
     this._activeWallet = undefined;
     this._loginResolve = () => {};
     this._loginReject = () => {};
+    this._logoutResolve = () => {};
+    this._logoutReject = () => {};
     this._eventMap = {
       connected: this.onConnectedHandler,
       disconnected: this.onDisConnectedHandler,
@@ -92,30 +96,43 @@ class Bridge {
     });
   };
 
-  disConnect = async (isDoubleCheck = false) => {
-    console.log('disconnect, isDoubleCheck: isAAWallet:', isDoubleCheck, this.isAAWallet);
-    try {
-      if (isDoubleCheck || (this.isAAWallet && this.activeWallet!.noNeedForConfirm)) {
-        if (isDisconnectClicked) {
-          return;
-        }
-        isDisconnectClicked = true;
-
-        // only click confirmLogout button/or noNeedForConfirm can enter here
-        await this.activeWallet?.logout();
-        this.closeConfirmLogoutPanel();
-        this.closeLockPanel();
-        isDisconnectClicked = false;
-      } else {
-        if (this.isAAWallet) {
-          this.openConfirmLogoutPanel();
-        } else {
-          await this.activeWallet?.logout();
-        }
-      }
-    } catch (e) {
-      console.log(e);
+  doubleCheckDisconnect = async () => {
+    if (isDisconnectClicked) {
+      return;
     }
+    isDisconnectClicked = true;
+    await this.activeWallet?.logout();
+    this.closeConfirmLogoutPanel();
+    this.closeLockPanel();
+    isDisconnectClicked = false;
+    this._logoutResolve(true);
+  };
+
+  disConnect = async (): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      this._logoutResolve = resolve;
+      this._logoutReject = reject;
+
+      const disConnectAsync = async () => {
+        console.log('disconnect,isAAWallet:', this.isAAWallet);
+        try {
+          if (this.isAAWallet) {
+            if (this.activeWallet!.noNeedForConfirm) {
+              await this.doubleCheckDisconnect();
+            } else {
+              this.openConfirmLogoutPanel();
+            }
+          } else {
+            await this.activeWallet?.logout();
+            this._logoutResolve(true);
+          }
+        } catch (e) {
+          console.log(e);
+          this._logoutReject(false);
+        }
+      };
+      disConnectAsync();
+    });
   };
 
   getAccountByChainId = async (chainId: TChainId): Promise<string> => {
