@@ -50,3 +50,4 @@ jobs:
         uses: tj-actions/coverage-badge-js@v2
         with:
           report_path: packages/${{ matrix.package }}/coverage/coverage-summary.json
+          output_path: packages/${{ matrix.package }}/coverage/badge.svg
