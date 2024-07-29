@@ -45,8 +45,13 @@ jobs:
           flags: unittests
           name: codecov-umbrella
 
+      # - name: Generate coverage badge
+      #   uses: jaywcjlove/coverage-badges-cli@main
+      #   with:
+      #     source: packages/${{ matrix.package }}/coverage/coverage-summary.json
+      #     output: packages/${{ matrix.package }}/coverage/badge.svg
+
       - name: Generate coverage badge
-        uses: jaywcjlove/coverage-badges-cli@main
-        with:
-          source: packages/${{ matrix.package }}/coverage/coverage-summary.json
-          output: packages/${{ matrix.package }}/coverage/badge.svg
+        run: |
+          npm i coverage-badges-cli -g
+          coverage-badges --source packages/${{ matrix.package }}/coverage/coverage-summary.json --output packages/${{ matrix.package }}/coverage/badge.svg
