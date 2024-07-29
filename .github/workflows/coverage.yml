@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - release/refactor-3.0.0
+      - feature/badge
   pull_request:
     branches:
       - release/refactor-3.0.0
