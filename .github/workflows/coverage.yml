@@ -49,7 +49,6 @@ jobs:
         uses: jaywcjlove/coverage-badges-cli@main
         with:
           source: packages/${{ matrix.package }}/coverage/coverage-summary.json
-          output: packages/${{ matrix.package }}/coverage/badge1.svg
 
       # - name: Generate coverage badge
       #   run: |
