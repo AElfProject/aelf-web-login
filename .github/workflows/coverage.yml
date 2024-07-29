@@ -44,3 +44,6 @@ jobs:
           files: packages/${{ matrix.package }}/coverage/lcov.info
           flags: unittests
           name: codecov-umbrella
+
+      - name: Update Coverage Badge
+        uses: we-cli/coverage-badge-action@main
