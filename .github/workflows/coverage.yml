@@ -37,9 +37,6 @@ jobs:
         run: |
           cd packages/${{ matrix.package }}
           pnpm run test:coverage
-          cp -r coverage ../..
-          cd ..
-          cd ..
 
       - name: Uploada coverage to Codecov
         uses: codecov/codecov-action@v3
@@ -49,5 +46,7 @@ jobs:
           flags: unittests
           name: codecov-umbrella
 
-      - name: Update Coverage Badge
-        uses: we-cli/coverage-badge-action@main
+      - name: Generate coverage badge
+        uses: tj-actions/coverage-badge-js@v2
+        with:
+          report_path: packages/${{ matrix.package }}/coverage/coverage-summary.json
