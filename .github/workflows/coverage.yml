@@ -40,7 +40,7 @@ jobs:
           cd ..
           cd ..
 
-      - name: Upload coverage to Codecov
+      - name: Uploada coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
