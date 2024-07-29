@@ -1,6 +1,13 @@
 name: Unit Test
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches:
+      - release/refactor-3.0.0
+      - feature/badge
+  pull_request:
+    branches:
+      - release/refactor-3.0.0
 
 jobs:
   test:
@@ -44,9 +51,9 @@ jobs:
           source: packages/${{ matrix.package }}/coverage/coverage-summary.json
           output: packages/${{ matrix.package }}/coverage/badge.svg
 
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: packages/${{ matrix.package }}/coverage
-
