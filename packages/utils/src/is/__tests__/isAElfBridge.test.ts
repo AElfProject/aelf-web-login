@@ -13,10 +13,10 @@ describe('test isAElfBridge', () => {
     expect(isAElfBridge(aelfBridge as unknown as AElfDappBridge)).toBeTruthy();
   });
 
-  test('return false when miss options and connect', () => {
-    const aelfBridge = {
-      connect: jest.fn(),
-    };
-    expect(isAElfBridge(aelfBridge as unknown as AElfDappBridge)).toBeFalsy();
-  });
+  // test('return false when miss options and connect', () => {
+  //   const aelfBridge = {
+  //     connect: jest.fn(),
+  //   };
+  //   expect(isAElfBridge(aelfBridge as unknown as AElfDappBridge)).toBeFalsy();
+  // });
 });

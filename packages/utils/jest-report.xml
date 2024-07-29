@@ -1,108 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="89" failures="0" errors="0" time="2.277">
-  <testsuite name="useCheckAllowanceAndApprove allowance is little than amount" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:14" time="0.758" tests="4">
-    <testcase classname="useCheckAllowanceAndApprove allowance is little than amount should correctly call GetAllowance and GetTokenInfo when starting" name="useCheckAllowanceAndApprove allowance is little than amount should correctly call GetAllowance and GetTokenInfo when starting" time="0.013">
+<testsuites name="jest tests" tests="86" failures="0" errors="0" time="2.003">
+  <testsuite name="test isELFAddress" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:33" time="0.361" tests="1">
+    <testcase classname="test isELFAddress return false when params is between /[一-龥]/" name="test isELFAddress return false when params is between /[一-龥]/" time="0.001">
     </testcase>
-    <testcase classname="useCheckAllowanceAndApprove allowance is little than amount should log and return error when an error occurs" name="useCheckAllowanceAndApprove allowance is little than amount should log and return error when an error occurs" time="0.001">
+  </testsuite>
+  <testsuite name="useCheckAllowanceAndApprove allowance is little than amount" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:34" time="0.332" tests="4">
+    <testcase classname="useCheckAllowanceAndApprove allowance is little than amount should correctly call GetAllowance and GetTokenInfo when starting" name="useCheckAllowanceAndApprove allowance is little than amount should correctly call GetAllowance and GetTokenInfo when starting" time="0.03">
     </testcase>
-    <testcase classname="useCheckAllowanceAndApprove allowance is big than amount should correctly call GetAllowance and GetTokenInfo when starting" name="useCheckAllowanceAndApprove allowance is big than amount should correctly call GetAllowance and GetTokenInfo when starting" time="0.023">
+    <testcase classname="useCheckAllowanceAndApprove allowance is little than amount should log and return error when an error occurs" name="useCheckAllowanceAndApprove allowance is little than amount should log and return error when an error occurs" time="0">
+    </testcase>
+    <testcase classname="useCheckAllowanceAndApprove allowance is big than amount should correctly call GetAllowance and GetTokenInfo when starting" name="useCheckAllowanceAndApprove allowance is big than amount should correctly call GetAllowance and GetTokenInfo when starting" time="0.002">
     </testcase>
     <testcase classname="useCheckAllowanceAndApprove error occurs should log and return error when an error occurs" name="useCheckAllowanceAndApprove error occurs should log and return error when an error occurs" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="test getAElf" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:14" time="0.147" tests="4">
-    <testcase classname="test getAElf should create and cache a new AElf instance for a new RPC URL" name="test getAElf should create and cache a new AElf instance for a new RPC URL" time="0.002">
+  <testsuite name="test isAElfBridge" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:34" time="0.034" tests="1">
+    <testcase classname="test isAElfBridge return true when contain options and connect" name="test isAElfBridge return true when contain options and connect" time="0.001">
     </testcase>
-    <testcase classname="test getAElf should return the cached AElf instance for the same RPC URL" name="test getAElf should return the cached AElf instance for the same RPC URL" time="0.001">
+  </testsuite>
+  <testsuite name="test getAElf" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:34" time="0.085" tests="4">
+    <testcase classname="test getAElf should create and cache a new AElf instance for a new RPC URL" name="test getAElf should create and cache a new AElf instance for a new RPC URL" time="0.001">
     </testcase>
-    <testcase classname="test getTxResultRetry returns mined transaction result" name="test getTxResultRetry returns mined transaction result" time="0.001">
+    <testcase classname="test getAElf should return the cached AElf instance for the same RPC URL" name="test getAElf should return the cached AElf instance for the same RPC URL" time="0">
+    </testcase>
+    <testcase classname="test getTxResultRetry returns mined transaction result" name="test getTxResultRetry returns mined transaction result" time="0.005">
     </testcase>
     <testcase classname="test getTxResultRetry throws an error when transaction status is not mined" name="test getTxResultRetry throws an error when transaction status is not mined" time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="Loading class" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:14" time="0.099" tests="3">
-    <testcase classname="Loading class should create container and show loading" name="Loading class should create container and show loading" time="0.017">
+  <testsuite name="Loading class" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:34" time="0.099" tests="3">
+    <testcase classname="Loading class should create container and show loading" name="Loading class should create container and show loading" time="0.013">
     </testcase>
-    <testcase classname="Loading class should hide loading and remove container" name="Loading class should hide loading and remove container" time="0.002">
+    <testcase classname="Loading class should hide loading and remove container" name="Loading class should hide loading and remove container" time="0.001">
     </testcase>
     <testcase classname="Loading class should render with updated content" name="Loading class should render with updated content" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="test isELFAddress" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.069" tests="3">
-    <testcase classname="test isELFAddress return false when params is between /[一-龥]/" name="test isELFAddress return false when params is between /[一-龥]/" time="0">
-    </testcase>
-    <testcase classname="test isELFAddress return false when params is invalid address" name="test isELFAddress return false when params is invalid address" time="0.001">
-    </testcase>
-    <testcase classname="test isELFAddress return true when params is valid address" name="test isELFAddress return true when params is valid address" time="0.001">
+  <testsuite name="useGetBalance" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.06" tests="1">
+    <testcase classname="useGetBalance should fetch balance and set loading state correctly" name="useGetBalance should fetch balance and set loading state correctly" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="useGetBalance" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.066" tests="1">
-    <testcase classname="useGetBalance should fetch balance and set loading state correctly" name="useGetBalance should fetch balance and set loading state correctly" time="0.003">
+  <testsuite name="formatTime" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.036" tests="6">
+    <testcase classname="formatTime formats date string correctly" name="formatTime formats date string correctly" time="0.001">
+    </testcase>
+    <testcase classname="formatTime formats timestamp number correctly" name="formatTime formats timestamp number correctly" time="0">
+    </testcase>
+    <testcase classname="formatTime accepts custom format" name="formatTime accepts custom format" time="0.001">
+    </testcase>
+    <testcase classname="createDuration creates duration from number and unit" name="createDuration creates duration from number and unit" time="0">
+    </testcase>
+    <testcase classname="createDuration creates duration from object" name="createDuration creates duration from object" time="0.001">
+    </testcase>
+    <testcase classname="createDuration creates duration from ISO 8601 string" name="createDuration creates duration from ISO 8601 string" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="getRawTransaction" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.047" tests="5">
-    <testcase classname="getRawTransaction should call getRawTransactionPortkey for WalletTypeEnum.aa and return its result" name="getRawTransaction should call getRawTransactionPortkey for WalletTypeEnum.aa and return its result" time="0.002">
+  <testsuite name="addPrefixSuffix" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.033" tests="5">
+    <testcase classname="addPrefixSuffix should add default prefix and suffix when only string is provided" name="addPrefixSuffix should add default prefix and suffix when only string is provided" time="0.001">
+    </testcase>
+    <testcase classname="addPrefixSuffix should add custom prefix and suffix" name="addPrefixSuffix should add custom prefix and suffix" time="0">
+    </testcase>
+    <testcase classname="addPrefixSuffix should handle empty string input" name="addPrefixSuffix should handle empty string input" time="0">
+    </testcase>
+    <testcase classname="addPrefixSuffix should handle undefined chainId" name="addPrefixSuffix should handle undefined chainId" time="0.001">
+    </testcase>
+    <testcase classname="addPrefixSuffix should ignore null chainId and use default" name="addPrefixSuffix should ignore null chainId and use default" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="getRawTransaction" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.042" tests="5">
+    <testcase classname="getRawTransaction should call getRawTransactionPortkey for WalletTypeEnum.aa and return its result" name="getRawTransaction should call getRawTransactionPortkey for WalletTypeEnum.aa and return its result" time="0.001">
     </testcase>
     <testcase classname="getRawTransaction should call getRawTransactionDiscover for WalletTypeEnum.discover and return its result" name="getRawTransaction should call getRawTransactionDiscover for WalletTypeEnum.discover and return its result" time="0">
     </testcase>
-    <testcase classname="getRawTransaction should call getRawTransactionNight for WalletTypeEnum.elf and return its result" name="getRawTransaction should call getRawTransactionNight for WalletTypeEnum.elf and return its result" time="0">
+    <testcase classname="getRawTransaction should call getRawTransactionNight for WalletTypeEnum.elf and return its result" name="getRawTransaction should call getRawTransactionNight for WalletTypeEnum.elf and return its result" time="0.001">
     </testcase>
-    <testcase classname="getRawTransaction should return null if rpcUrl is not provided" name="getRawTransaction should return null if rpcUrl is not provided" time="0.001">
+    <testcase classname="getRawTransaction should return null if rpcUrl is not provided" name="getRawTransaction should return null if rpcUrl is not provided" time="0">
     </testcase>
-    <testcase classname="getRawTransaction should log and return null when an error occurs" name="getRawTransaction should log and return null when an error occurs" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="divDecimals" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.051" tests="8">
-    <testcase classname="divDecimals handles undefined input" name="divDecimals handles undefined input" time="0">
-    </testcase>
-    <testcase classname="divDecimals handles zero input" name="divDecimals handles zero input" time="0.001">
-    </testcase>
-    <testcase classname="divDecimals correctly divides a number by default decimals (18)" name="divDecimals correctly divides a number by default decimals (18)" time="0">
-    </testcase>
-    <testcase classname="divDecimals handles BigNumber input" name="divDecimals handles BigNumber input" time="0">
-    </testcase>
-    <testcase classname="divDecimals handles string decimals greater than 10" name="divDecimals handles string decimals greater than 10" time="0.001">
-    </testcase>
-    <testcase classname="divDecimals handles decimal input as a number" name="divDecimals handles decimal input as a number" time="0">
-    </testcase>
-    <testcase classname="divDecimals handles invalid decimals input as a string" name="divDecimals handles invalid decimals input as a string" time="0">
-    </testcase>
-    <testcase classname="divDecimals handles NaN input" name="divDecimals handles NaN input" time="0.001">
+    <testcase classname="getRawTransaction should log and return null when an error occurs" name="getRawTransaction should log and return null when an error occurs" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="isMobileDevices" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.032" tests="2">
-    <testcase classname="isMobileDevices returns true for mobile user agent" name="isMobileDevices returns true for mobile user agent" time="0.002">
-    </testcase>
-    <testcase classname="isMobileDevices returns false for desktop user agent" name="isMobileDevices returns false for desktop user agent" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="formatTime" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.042" tests="6">
-    <testcase classname="formatTime formats date string correctly" name="formatTime formats date string correctly" time="0.001">
-    </testcase>
-    <testcase classname="formatTime formats timestamp number correctly" name="formatTime formats timestamp number correctly" time="0.001">
-    </testcase>
-    <testcase classname="formatTime accepts custom format" name="formatTime accepts custom format" time="0.002">
-    </testcase>
-    <testcase classname="createDuration creates duration from number and unit" name="createDuration creates duration from number and unit" time="0.001">
-    </testcase>
-    <testcase classname="createDuration creates duration from object" name="createDuration creates duration from object" time="0">
-    </testcase>
-    <testcase classname="createDuration creates duration from ISO 8601 string" name="createDuration creates duration from ISO 8601 string" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="getRawTransactionPortkey" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.034" tests="2">
-    <testcase classname="getRawTransactionPortkey should return encoded transaction data" name="getRawTransactionPortkey should return encoded transaction data" time="0.001">
-    </testcase>
-    <testcase classname="getRawTransactionPortkey should reject with error when getContractBasic fails" name="getRawTransactionPortkey should reject with error when getContractBasic fails" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="getRawTransactionNight" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.033" tests="2">
+  <testsuite name="getRawTransactionNight" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.04" tests="2">
     <testcase classname="getRawTransactionNight should return encoded transaction data" name="getRawTransactionNight should return encoded transaction data" time="0.001">
     </testcase>
     <testcase classname="getRawTransactionNight should handle errors from getContractBasic" name="getRawTransactionNight should handle errors from getContractBasic" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="formatNumberWithDecimalPlaces" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.032" tests="8">
+  <testsuite name="formatPrice" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.036" tests="8">
+    <testcase classname="formatPrice handles number input with default parameters" name="formatPrice handles number input with default parameters" time="0.001">
+    </testcase>
+    <testcase classname="formatPrice formats BigNumber input with custom decimal places" name="formatPrice formats BigNumber input with custom decimal places" time="0.001">
+    </testcase>
+    <testcase classname="formatPrice uses ROUND_DOWN rounding mode by default" name="formatPrice uses ROUND_DOWN rounding mode by default" time="0">
+    </testcase>
+    <testcase classname="formatPrice applies custom rounding mode" name="formatPrice applies custom rounding mode" time="0">
+    </testcase>
+    <testcase classname="formatPrice handles minValue constraint" name="formatPrice handles minValue constraint" time="0.001">
+    </testcase>
+    <testcase classname="formatPrice returns string representation of original value if it results in NaN" name="formatPrice returns string representation of original value if it results in NaN" time="0">
+    </testcase>
+    <testcase classname="formatPrice handles string input correctly" name="formatPrice handles string input correctly" time="0.001">
+    </testcase>
+    <testcase classname="formatPrice respects all provided formatting options" name="formatPrice respects all provided formatting options" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="formatNumberWithDecimalPlaces" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.033" tests="8">
     <testcase classname="formatNumberWithDecimalPlaces handles zero value" name="formatNumberWithDecimalPlaces handles zero value" time="0.001">
     </testcase>
     <testcase classname="formatNumberWithDecimalPlaces formats a positive number with default decimal places" name="formatNumberWithDecimalPlaces formats a positive number with default decimal places" time="0.001">
@@ -120,7 +120,71 @@
     <testcase classname="formatNumberWithDecimalPlaces handles non-numeric input gracefully" name="formatNumberWithDecimalPlaces handles non-numeric input gracefully" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="timesDecimals" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.032" tests="9">
+  <testsuite name="getRawTransactionPortkey" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.033" tests="2">
+    <testcase classname="getRawTransactionPortkey should return encoded transaction data" name="getRawTransactionPortkey should return encoded transaction data" time="0.001">
+    </testcase>
+    <testcase classname="getRawTransactionPortkey should reject with error when getContractBasic fails" name="getRawTransactionPortkey should reject with error when getContractBasic fails" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="getOriginalAddress" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.034" tests="5">
+    <testcase classname="getOriginalAddress should return &quot;-&quot; when address is undefined or null" name="getOriginalAddress should return &quot;-&quot; when address is undefined or null" time="0.001">
+    </testcase>
+    <testcase classname="getOriginalAddress should return &quot;-&quot; when address is not a string" name="getOriginalAddress should return &quot;-&quot; when address is not a string" time="0">
+    </testcase>
+    <testcase classname="getOriginalAddress should return the original address without prefix and suffix when it starts with &quot;ELF_&quot; and ends with &quot;_&quot; followed by characters" name="getOriginalAddress should return the original address without prefix and suffix when it starts with &quot;ELF_&quot; and ends with &quot;_&quot; followed by characters" time="0.001">
+    </testcase>
+    <testcase classname="getOriginalAddress should return the address as is when it does not start with &quot;ELF_&quot;" name="getOriginalAddress should return the address as is when it does not start with &quot;ELF_&quot;" time="0">
+    </testcase>
+    <testcase classname="getOriginalAddress should return the address without the suffix when it ends with &quot;_&quot; followed by characters but does not start with &quot;ELF_&quot;" name="getOriginalAddress should return the address without the suffix when it ends with &quot;_&quot; followed by characters but does not start with &quot;ELF_&quot;" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="divDecimals" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.033" tests="8">
+    <testcase classname="divDecimals handles undefined input" name="divDecimals handles undefined input" time="0.001">
+    </testcase>
+    <testcase classname="divDecimals handles zero input" name="divDecimals handles zero input" time="0">
+    </testcase>
+    <testcase classname="divDecimals correctly divides a number by default decimals (18)" name="divDecimals correctly divides a number by default decimals (18)" time="0.001">
+    </testcase>
+    <testcase classname="divDecimals handles BigNumber input" name="divDecimals handles BigNumber input" time="0">
+    </testcase>
+    <testcase classname="divDecimals handles string decimals greater than 10" name="divDecimals handles string decimals greater than 10" time="0.001">
+    </testcase>
+    <testcase classname="divDecimals handles decimal input as a number" name="divDecimals handles decimal input as a number" time="0">
+    </testcase>
+    <testcase classname="divDecimals handles invalid decimals input as a string" name="divDecimals handles invalid decimals input as a string" time="0">
+    </testcase>
+    <testcase classname="divDecimals handles NaN input" name="divDecimals handles NaN input" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="decodeAddress" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.033" tests="6">
+    <testcase classname="decodeAddress should return false when address is empty" name="decodeAddress should return false when address is empty" time="0.001">
+    </testcase>
+    <testcase classname="decodeAddress should return false when address contains invalid characters" name="decodeAddress should return false when address contains invalid characters" time="0">
+    </testcase>
+    <testcase classname="decodeAddress should call AElf.utils.decodeAddressRep correctly when address starts with &quot;ELF_&quot;" name="decodeAddress should call AElf.utils.decodeAddressRep correctly when address starts with &quot;ELF_&quot;" time="0.001">
+    </testcase>
+    <testcase classname="decodeAddress should return false when address does not start with &quot;ELF_&quot;" name="decodeAddress should return false when address does not start with &quot;ELF_&quot;" time="0">
+    </testcase>
+    <testcase classname="decodeAddress should call AElf.utils.decodeAddressRep correctly when address is valid and not start with &quot;ELF_&quot;" name="decodeAddress should call AElf.utils.decodeAddressRep correctly when address is valid and not start with &quot;ELF_&quot;" time="0">
+    </testcase>
+    <testcase classname="decodeAddress should return false when AElf.utils.decodeAddressRep throws an error" name="decodeAddress should return false when AElf.utils.decodeAddressRep throws an error" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="test isPrivateKey" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.036" tests="3">
+    <testcase classname="test isPrivateKey returns false when private key is invalid" name="test isPrivateKey returns false when private key is invalid" time="0">
+    </testcase>
+    <testcase classname="test isPrivateKey returns false when private key is empty" name="test isPrivateKey returns false when private key is empty" time="0.001">
+    </testcase>
+    <testcase classname="test isPrivateKey returns false when Buffer.from throw error" name="test isPrivateKey returns false when Buffer.from throw error" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="isMobileDevices" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.033" tests="2">
+    <testcase classname="isMobileDevices returns true for mobile user agent" name="isMobileDevices returns true for mobile user agent" time="0.001">
+    </testcase>
+    <testcase classname="isMobileDevices returns false for desktop user agent" name="isMobileDevices returns false for desktop user agent" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="timesDecimals" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.034" tests="9">
     <testcase classname="timesDecimals handles undefined input" name="timesDecimals handles undefined input" time="0">
     </testcase>
     <testcase classname="timesDecimals handles zero input" name="timesDecimals handles zero input" time="0.001">
@@ -135,89 +199,19 @@
     </testcase>
     <testcase classname="timesDecimals handles invalid decimals input as a string" name="timesDecimals handles invalid decimals input as a string" time="0">
     </testcase>
-    <testcase classname="timesDecimals handles NaN input" name="timesDecimals handles NaN input" time="0.001">
+    <testcase classname="timesDecimals handles NaN input" name="timesDecimals handles NaN input" time="0">
     </testcase>
-    <testcase classname="timesDecimals handles NaN decimals input" name="timesDecimals handles NaN decimals input" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="test isAElfBridge" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.03" tests="2">
-    <testcase classname="test isAElfBridge return true when contain options and connect" name="test isAElfBridge return true when contain options and connect" time="0.001">
-    </testcase>
-    <testcase classname="test isAElfBridge return false when miss options and connect" name="test isAElfBridge return false when miss options and connect" time="0">
+    <testcase classname="timesDecimals handles NaN decimals input" name="timesDecimals handles NaN decimals input" time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="formatPrice" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.035" tests="8">
-    <testcase classname="formatPrice handles number input with default parameters" name="formatPrice handles number input with default parameters" time="0.001">
-    </testcase>
-    <testcase classname="formatPrice formats BigNumber input with custom decimal places" name="formatPrice formats BigNumber input with custom decimal places" time="0">
-    </testcase>
-    <testcase classname="formatPrice uses ROUND_DOWN rounding mode by default" name="formatPrice uses ROUND_DOWN rounding mode by default" time="0.001">
-    </testcase>
-    <testcase classname="formatPrice applies custom rounding mode" name="formatPrice applies custom rounding mode" time="0">
-    </testcase>
-    <testcase classname="formatPrice handles minValue constraint" name="formatPrice handles minValue constraint" time="0">
-    </testcase>
-    <testcase classname="formatPrice returns string representation of original value if it results in NaN" name="formatPrice returns string representation of original value if it results in NaN" time="0">
-    </testcase>
-    <testcase classname="formatPrice handles string input correctly" name="formatPrice handles string input correctly" time="0.001">
-    </testcase>
-    <testcase classname="formatPrice respects all provided formatting options" name="formatPrice respects all provided formatting options" time="0">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.031" tests="1">
+    <testcase classname=" waits 1 second" name=" waits 1 second" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="getOriginalAddress" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.041" tests="5">
-    <testcase classname="getOriginalAddress should return &quot;-&quot; when address is undefined or null" name="getOriginalAddress should return &quot;-&quot; when address is undefined or null" time="0">
-    </testcase>
-    <testcase classname="getOriginalAddress should return &quot;-&quot; when address is not a string" name="getOriginalAddress should return &quot;-&quot; when address is not a string" time="0.001">
-    </testcase>
-    <testcase classname="getOriginalAddress should return the original address without prefix and suffix when it starts with &quot;ELF_&quot; and ends with &quot;_&quot; followed by characters" name="getOriginalAddress should return the original address without prefix and suffix when it starts with &quot;ELF_&quot; and ends with &quot;_&quot; followed by characters" time="0">
-    </testcase>
-    <testcase classname="getOriginalAddress should return the address as is when it does not start with &quot;ELF_&quot;" name="getOriginalAddress should return the address as is when it does not start with &quot;ELF_&quot;" time="0.001">
-    </testcase>
-    <testcase classname="getOriginalAddress should return the address without the suffix when it ends with &quot;_&quot; followed by characters but does not start with &quot;ELF_&quot;" name="getOriginalAddress should return the address without the suffix when it ends with &quot;_&quot; followed by characters but does not start with &quot;ELF_&quot;" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="decodeAddress" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.033" tests="6">
-    <testcase classname="decodeAddress should return false when address is empty" name="decodeAddress should return false when address is empty" time="0.001">
-    </testcase>
-    <testcase classname="decodeAddress should return false when address contains invalid characters" name="decodeAddress should return false when address contains invalid characters" time="0.001">
-    </testcase>
-    <testcase classname="decodeAddress should call AElf.utils.decodeAddressRep correctly when address starts with &quot;ELF_&quot;" name="decodeAddress should call AElf.utils.decodeAddressRep correctly when address starts with &quot;ELF_&quot;" time="0">
-    </testcase>
-    <testcase classname="decodeAddress should return false when address does not start with &quot;ELF_&quot;" name="decodeAddress should return false when address does not start with &quot;ELF_&quot;" time="0">
-    </testcase>
-    <testcase classname="decodeAddress should call AElf.utils.decodeAddressRep correctly when address is valid and not start with &quot;ELF_&quot;" name="decodeAddress should call AElf.utils.decodeAddressRep correctly when address is valid and not start with &quot;ELF_&quot;" time="0.001">
-    </testcase>
-    <testcase classname="decodeAddress should return false when AElf.utils.decodeAddressRep throws an error" name="decodeAddress should return false when AElf.utils.decodeAddressRep throws an error" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="addPrefixSuffix" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.034" tests="5">
-    <testcase classname="addPrefixSuffix should add default prefix and suffix when only string is provided" name="addPrefixSuffix should add default prefix and suffix when only string is provided" time="0">
-    </testcase>
-    <testcase classname="addPrefixSuffix should add custom prefix and suffix" name="addPrefixSuffix should add custom prefix and suffix" time="0">
-    </testcase>
-    <testcase classname="addPrefixSuffix should handle empty string input" name="addPrefixSuffix should handle empty string input" time="0">
-    </testcase>
-    <testcase classname="addPrefixSuffix should handle undefined chainId" name="addPrefixSuffix should handle undefined chainId" time="0">
-    </testcase>
-    <testcase classname="addPrefixSuffix should ignore null chainId and use default" name="addPrefixSuffix should ignore null chainId and use default" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="test isPrivateKey" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.03" tests="3">
-    <testcase classname="test isPrivateKey returns false when private key is invalid" name="test isPrivateKey returns false when private key is invalid" time="0">
-    </testcase>
-    <testcase classname="test isPrivateKey returns false when private key is empty" name="test isPrivateKey returns false when private key is empty" time="0">
-    </testcase>
-    <testcase classname="test isPrivateKey returns false when Buffer.from throw error" name="test isPrivateKey returns false when Buffer.from throw error" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="isPortkey in SSR" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.03" tests="2">
+  <testsuite name="isPortkey in SSR" errors="0" failures="0" skipped="0" timestamp="2024-07-29T13:48:35" time="0.03" tests="2">
     <testcase classname="isPortkey in SSR should return undefined when in SSR" name="isPortkey in SSR should return undefined when in SSR" time="0">
     </testcase>
     <testcase classname="isPortkey in window should return false when not in Portkey environment" name="isPortkey in window should return false when not in Portkey environment" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2024-07-29T09:10:15" time="0.03" tests="1">
-    <testcase classname=" waits 1 second" name=" waits 1 second" time="0.001">
     </testcase>
   </testsuite>
 </testsuites>
