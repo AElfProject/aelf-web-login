@@ -1,13 +1,6 @@
 name: Unit Test
 
-on:
-  push:
-    branches:
-      - release/refactor-3.0.0
-      - feature/badge
-  pull_request:
-    branches:
-      - release/refactor-3.0.0
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   test:
@@ -45,19 +38,9 @@ jobs:
           flags: unittests
           name: codecov-umbrella
 
-      - name: Generate coverage badge
-        uses: jaywcjlove/coverage-badges-cli@main
-        with:
-          source: packages/${{ matrix.package }}/coverage/coverage-summary.json
-          output: packages/${{ matrix.package }}/coverage/badge.svg
+      - name: Update Coverage Badge
+      # GitHub actions: default branch variable
+      # https://stackoverflow.com/questions/64781462/github-actions-default-branch-variable
+        if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+        uses: we-cli/coverage-badge-action@main
 
-      - name: Upload coverage badge
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage-badge-${{ matrix.package }}
-          path: packages/${{ matrix.package }}/coverage/badge.svg
-
-      # - name: Generate coverage badge
-      #   run: |
-      #     npm i coverage-badges-cli -g
-      #     coverage-badges --source packages/${{ matrix.package }}/coverage/coverage-summary.json --output packages/${{ matrix.package }}/coverage/badge.svg
