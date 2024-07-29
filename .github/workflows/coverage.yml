@@ -47,7 +47,7 @@ jobs:
           name: codecov-umbrella
 
       - name: Generate coverage badge
-        uses: tj-actions/coverage-badge-js@v2
+        uses: jaywcjlove/coverage-badges-cli@main
         with:
-          report_path: packages/${{ matrix.package }}/coverage/coverage-summary.json
-          output_path: packages/${{ matrix.package }}/coverage/badge.svg
+          source: packages/${{ matrix.package }}/coverage/coverage-summary.json
+          output: packages/${{ matrix.package }}/coverage/badge.svg
