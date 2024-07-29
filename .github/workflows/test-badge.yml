@@ -34,7 +34,7 @@ jobs:
       - name: Run tests with coverage
         run: |
           cd packages/${{ matrix.package }}
-          pnpm run test:coverage
+          pnpm run test
       - name: Install xmlstarlet
         run: |
           sudo apt-get update
@@ -42,9 +42,9 @@ jobs:
 
       - name: Extract test counts
         run: |
-          echo "TESTS=$(xmlstarlet sel -t -v "testsuites/@tests" "jest-report.xml")" >> $GITHUB_ENV
-          echo "FAILURES=$(xmlstarlet sel -t -v "testsuites/@failures" "jest-report.xml")" >> $GITHUB_ENV
-          echo "ERRORS=$(xmlstarlet sel -t -v "testsuites/@errors" "jest-report.xml")" >> $GITHUB_ENV
+          echo "TESTS=$(xmlstarlet sel -t -v "testsuites/@tests" "packages/${{ matrix.package }}/jest-report.xml")" >> $GITHUB_ENV
+          echo "FAILURES=$(xmlstarlet sel -t -v "testsuites/@failures" "packages/${{ matrix.package }}/jest-report.xml")" >> $GITHUB_ENV
+          echo "ERRORS=$(xmlstarlet sel -t -v "testsuites/@errors" "packages/${{ matrix.package }}/jest-report.xml")" >> $GITHUB_ENV
 
       - name: Set file name
         run: echo "FILENAME=$(echo ${GITHUB_REF#refs/heads/} | tr '/' '-')-test-results.json" >> $GITHUB_ENV
