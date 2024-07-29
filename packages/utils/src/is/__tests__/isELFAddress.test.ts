@@ -5,11 +5,11 @@ describe('test isELFAddress', () => {
     expect(isELFAddress('我')).toBeFalsy();
   });
 
-  // test('return false when params is invalid address', () => {
-  //   expect(isELFAddress('rRZCro3wsAk2mW1s4CvM66wCe8cYgKKBCUFGuBhF6rUtoQNyp')).toBeFalsy();
-  // });
+  test('return false when params is invalid address', () => {
+    expect(isELFAddress('rRZCro3wsAk2mW1s4CvM66wCe8cYgKKBCUFGuBhF6rUtoQNyp')).toBeFalsy();
+  });
 
-  // test('return true when params is valid address', () => {
-  //   expect(isELFAddress('rRZCro3wsAk2mW1s4CvM66wCe8cYgKKBCUFGuBhF6rUtoQNyk')).toBeTruthy();
-  // });
+  test('return true when params is valid address', () => {
+    expect(isELFAddress('rRZCro3wsAk2mW1s4CvM66wCe8cYgKKBCUFGuBhF6rUtoQNyk')).toBeTruthy();
+  });
 });
