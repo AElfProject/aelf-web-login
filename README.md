@@ -4,6 +4,8 @@
 
 **website**: https://aelf-web-login.vercel.app/
 
+![GitHub Workflow Test Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/AElfProject/aelf-web-login/feature/badge-json/feature-badge-test-results.json)
+
 # Install
 
 ```sh
