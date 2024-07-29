@@ -5,7 +5,6 @@ on:
     branches:
       - release/refactor-3.0.0
       - feature/badge
-      - gh-pages
   pull_request:
     branches:
       - release/refactor-3.0.0
