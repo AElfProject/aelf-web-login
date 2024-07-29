@@ -46,6 +46,4 @@ jobs:
           name: codecov-umbrella
 
       - name: Update Coverage Badge
-        uses: we-cli/coverage-badge-action@main
-        with:
-          coverage-summary: packages/${{ matrix.package }}/coverage/coverage-summary.json
+        uses: './.github/actions/badge'
