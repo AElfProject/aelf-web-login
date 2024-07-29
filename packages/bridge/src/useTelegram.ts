@@ -22,6 +22,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { sleep } from '@aelf-web-login/utils';
 import { Bridge } from './bridge';
 import useVerifier from './useVerifier';
+import useLockCallback from './useLockCallback';
 
 export enum SocialLoginType {
   APPLE = 'Apple',
@@ -160,7 +161,7 @@ const useTelegram = (
     [chainId, getRecommendationVerifier, onStep2OfSignUpFinish, verifySocialToken],
   );
 
-  const handleSocialStep1Success = useCallback(
+  const handleSocialStep1Success = useLockCallback(
     async (value: IGuardianIdentifierInfo) => {
       // setDrawerVisible(false);
       // setModalVisible(false);

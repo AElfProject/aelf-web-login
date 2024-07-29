@@ -103,6 +103,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         await did.save(didWalletInfo.pin, this.appName);
       } catch (e) {
         console.log('portkeyAA login and execute did.save.', e);
+        throw e;
       }
 
       const portkeyInfo = {

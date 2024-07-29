@@ -42,6 +42,7 @@ const didConfig = {
       botId: TELEGRAM_BOT_ID,
     },
   },
+  // customNetworkType: NETWORK_TYPE === 'TESTNET' ? 'offline' : 'online',
   // loginConfig: {
   //   loginMethodsOrder: [ "Email",  "Google" , "Apple" ,  "Scan"]
   // }
