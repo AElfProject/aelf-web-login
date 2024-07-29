@@ -51,6 +51,12 @@ jobs:
           source: packages/${{ matrix.package }}/coverage/coverage-summary.json
           output: packages/${{ matrix.package }}/coverage/badge.svg
 
+      - name: Upload coverage badge
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-badge-${{ matrix.package }}
+          path: packages/${{ matrix.package }}/coverage/badge.svg
+
       # - name: Generate coverage badge
       #   run: |
       #     npm i coverage-badges-cli -g
