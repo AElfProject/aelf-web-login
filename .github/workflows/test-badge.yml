@@ -9,6 +9,10 @@ on:
       - dev
       - master
       - feature/badge
+      - release/refactor-3.0.0
+  pull_request:
+    branches:
+      - release/refactor-3.0.0
 
 jobs:
   build-and-test:

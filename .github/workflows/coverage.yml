@@ -37,7 +37,7 @@ jobs:
           cd packages/${{ matrix.package }}
           pnpm run test:coverage
 
-      - name: Uploada coverage to Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
