@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - release/refactor-3.0.0
+      - feature/badge
   pull_request:
     branches:
       - release/refactor-3.0.0
@@ -43,3 +44,16 @@ jobs:
           files: packages/${{ matrix.package }}/coverage/lcov.info
           flags: unittests
           name: codecov-umbrella
+
+      - name: Generate coverage badge
+        uses: jaywcjlove/coverage-badges-cli@main
+        with:
+          source: packages/${{ matrix.package }}/coverage/coverage-summary.json
+          output: packages/${{ matrix.package }}/coverage/badge.svg
+
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: packages/${{ matrix.package }}/coverage

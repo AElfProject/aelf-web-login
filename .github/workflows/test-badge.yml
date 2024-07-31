@@ -1,0 +1,30 @@
+name: Test Badge
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - dev
+      - master
+      - feature/badge
+      - release/refactor-3.0.0
+  pull_request:
+    branches:
+      - release/refactor-3.0.0
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: [utils]
+    steps:
+      - name: Run frontend CI
+        uses: AElfProject/frontend-ci-action@v0.0.2
+        with:
+          commit-token: ${{ secrets.COMMIT_TOKEN }}
+          branch-name: "feature/badge-json"
+          is-monorepo: true
+          package: ${{ matrix.package }}

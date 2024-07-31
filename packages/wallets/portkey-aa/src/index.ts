@@ -375,9 +375,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
           amount,
           symbol,
         },
-        {
-          onMethod: 'transactionHash',
-        },
+        sendOptions,
       );
     } else {
       const params = {

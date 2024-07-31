@@ -4,6 +4,18 @@
 
 **website**: https://aelf-web-login.vercel.app/
 
+<p>
+  <a href="https://nodejs.org/download/">
+    <img alt="Node version" src="https://img.shields.io/node/v/aelf-web-login.svg">
+  </a>
+  <img alt="NPM" src="https://img.shields.io/npm/l/aelf-web-login">
+  <a href="http://commitizen.github.io/cz-cli/"><img alt="Commitizen friendly" src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg"></a>
+</p>
+
+| Branch | GitHub Actions | Tests | Coverage |
+| --- | --- | --- | --- |
+| `feature/badge` | [![coverage](https://github.com/AElfProject/aelf-web-login/actions/workflows/coverage.yml/badge.svg)](https://github.com/AElfProject/aelf-web-login/actions/workflows/coverage.yml) | ![GitHub Workflow Test Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/AElfProject/aelf-web-login/feature/badge-json/feature-badge-utils-test-results.json) | [![Coverage](https://aelfproject.github.io/aelf-web-login/badge.svg)](https://github.com/AElfProject/aelf-web-login/actions) |
+
 # Install
 
 ```sh
