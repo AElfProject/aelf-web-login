@@ -14,7 +14,7 @@
 
 | Branch | GitHub Actions | Tests | Coverage |
 | --- | --- | --- | --- |
-| `release/refactor-3.0.0` | [![coverage](https://github.com/AElfProject/aelf-web-login/actions/workflows/coverage.yml/badge.svg)](https://github.com/AElfProject/aelf-web-login/actions/workflows/coverage.yml) | ![GitHub Workflow Test Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/AElfProject/aelf-web-login/feature/badge-json/feature-release-refactor-3.0.0-utils-test-results.json) | [![Coverage](https://aelfproject.github.io/aelf-web-login/badge.svg)](https://github.com/AElfProject/aelf-web-login/actions) |
+| `release/refactor-3.0.0` | [![coverage](https://github.com/AElfProject/aelf-web-login/actions/workflows/coverage.yml/badge.svg)](https://github.com/AElfProject/aelf-web-login/actions/workflows/coverage.yml) | ![GitHub Workflow Test Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/AElfProject/aelf-web-login/feature/badge-json/release-refactor-3.0.0-utils-test-results.json) | [![Coverage](https://aelfproject.github.io/aelf-web-login/badge.svg)](https://github.com/AElfProject/aelf-web-login/actions) |
 
 # Install
 
