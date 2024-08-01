@@ -6,9 +6,8 @@ permissions:
 on:
   push:
     branches:
-      - dev
-      - master
       - release/refactor-3.0.0
+      - feature/badge-new
   pull_request:
     branches:
       - release/refactor-3.0.0
@@ -18,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: [utils]
+        package: [utils, base]
     steps:
       - name: Run frontend CI
         uses: AElfProject/frontend-ci-action@v0.0.2

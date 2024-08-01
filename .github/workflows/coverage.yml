@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - release/refactor-3.0.0
+      - feature/badge-new
   pull_request:
     branches:
       - release/refactor-3.0.0
@@ -14,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        package: [utils]
+        package: [utils, base]
 
     steps:
       - name: Checkout repository
@@ -48,7 +49,7 @@ jobs:
         uses: jaywcjlove/coverage-badges-cli@main
         with:
           source: packages/${{ matrix.package }}/coverage/coverage-summary.json
-          output: packages/${{ matrix.package }}/coverage/badge.svg
+          output: packages/${{ matrix.package }}/coverage/${{ matrix.package }}-badge.svg
 
 
       - name: Deploy to GitHub Pages

@@ -27,8 +27,8 @@ import { IContract } from '@portkey/types';
 
 import detectDiscoverProvider from './detectProvider';
 import checkSignatureParams from './signatureParams';
-import { zeroFill } from './utils';
-import { isPortkeyApp } from '@aelf-web-login/utils';
+import { zeroFill, openPageInDiscover } from './utils';
+import { isPortkeyApp, isMobileDevices } from '@aelf-web-login/utils';
 
 type TDiscoverEventsKeys = Array<Exclude<DappEvents, 'connected' | 'message' | 'error'>>;
 
@@ -167,6 +167,10 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
   }
 
   async login(): Promise<TWalletInfo> {
+    if (isMobileDevices() && !isPortkeyApp()) {
+      openPageInDiscover(undefined, undefined);
+      return;
+    }
     try {
       if (!this._detectProvider) {
         throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);

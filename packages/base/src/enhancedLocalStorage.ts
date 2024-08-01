@@ -2,6 +2,7 @@ export interface Storage {
   getItem(key: string, ...args: Array<any>): any;
   setItem(key: string, value: any, ...args: Array<any>): any;
   removeItem(key: string, ...args: Array<any>): any;
+  clear(): void;
 }
 
 const localStorageMock = (function () {
@@ -35,8 +36,9 @@ const localStorageMock = (function () {
 
 let enhancedLocalStorage: Storage;
 if (typeof window !== 'undefined') {
-  enhancedLocalStorage = localStorage;
+  console.log('enhancedLocalStorage in window');
+  enhancedLocalStorage = window.localStorage;
 } else {
   enhancedLocalStorage = localStorageMock;
 }
-export { enhancedLocalStorage };
+export { enhancedLocalStorage, localStorageMock };
