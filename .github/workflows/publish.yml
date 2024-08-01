@@ -1,11 +1,10 @@
-name: publish to npm
+name: Publish to npm
 env:
   CI: true
 on:
   push:
     branches:
       - release/refactor-3.0.0
-      - feature/badge-new
     tags:
       - '!*'
   pull_request:
