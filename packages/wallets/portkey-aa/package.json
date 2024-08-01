@@ -27,11 +27,11 @@
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
     "@portkey/contracts": "^2.6.2",
-    "@portkey/did-ui-react": "^2.7.1-alpha.0",
+    "@portkey/did-ui-react": "^2.7.2",
     "@portkey/utils": "^2.4.5"
   },
   "devDependencies": {
-    "@portkey/types": "^2.7.1-alpha.0",
+    "@portkey/types": "^2.7.2",
     "father": "^4.3.8",
     "typescript": "^5.3.3"
   },
