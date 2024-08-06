@@ -18,11 +18,14 @@ const portkeyApiServer = !IS_MAINNET
 
 // did.config.setConfig
 export const connectUrl = !IS_MAINNET
-  ? 'https://auth-portkey-test.portkey.finance'
-  : 'https://auth-portkey.portkey.finance';
+  ? 'https://auth-aa-portkey-test.portkey.finance'
+  : 'https://auth-aa-portkey.portkey.finance';
 
 let portkeyScanUrl = `${graphQLServer}/Portkey_DID/PortKeyIndexerCASchema/graphql`;
 // portkeyScanUrl = '/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql';
+// TODO:
+const TELEGRAM_BOT_ID = '7070902707';
+const SERVICE_SERVER = 'https://aa-portkey-test.portkey.finance';
 
 setGlobalConfig({
   appName: APPNAME,
@@ -53,6 +56,16 @@ setGlobalConfig({
     requestDefaults: {
       baseURL: '/v2',
       timeout: 30000,
+    },
+    serviceUrl: SERVICE_SERVER,
+    socialLogin: {
+      Portkey: {
+        websiteName: APPNAME,
+        websiteIcon: WEBSITE_ICON,
+      },
+      Telegram: {
+        botId: TELEGRAM_BOT_ID,
+      },
     },
   },
   aelfReact: {

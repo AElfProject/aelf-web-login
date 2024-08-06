@@ -16,6 +16,7 @@ import DiscoverPlugin from '../discover/DiscoverPlugin';
 import { DiscoverInterface } from '../discover/useDiscover';
 import NightElfPlugin from '../elf/NightElfPlugin';
 import { PortkeyInterface } from '../portkey/usePortkey';
+import { PortkeyInterface as PortkeyInterfaceV1 } from '../portkey/usePortkey/indexV1';
 import { Button } from 'antd';
 import ConnectModal from './ConnectModal';
 import { ExtraWalletContext, useWebLogin } from '../../context';
@@ -23,7 +24,7 @@ import { ExtraWalletContext, useWebLogin } from '../../context';
 interface IProps {
   headerClassName: string;
   contentClassName: string;
-  portkeyApi: PortkeyInterface;
+  portkeyApi: PortkeyInterface | PortkeyInterfaceV1;
   elfApi: WalletHookInterface;
   discoverApi: DiscoverInterface;
   isBridgeNotExist: boolean;

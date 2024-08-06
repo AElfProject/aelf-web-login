@@ -94,8 +94,20 @@ import {
   WebLoginEvents,
 } from 'aelf-web-login';
 
+const props = {
+	commonConfig:{...},
+	extraWallets:{['discover', 'elf']},
+	nightElf:{...},
+	portkey:{...},
+	discover: {
+		...
+		autoRequestAccount: true, // If set to true, please contact Portkey to add whitelist @Rachel Wei
+		...
+	}
+}
+
 <PortkeyConfigProvider>
-    <WebLoginProvider prop={prop} >
+    <WebLoginProvider {...props} >
         <App>
     </WebLoginProvider>
 </PortkeyConfigProvider>

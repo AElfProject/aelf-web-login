@@ -1,6 +1,16 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { getContractBasic } from '@portkey/contracts';
-import { DIDWalletInfo, did, managerApprove, getChain } from '@portkey/did-ui-react';
+import {
+  DIDWalletInfo,
+  did,
+  managerApprove,
+  getChain,
+  TelegramPlatform,
+  TStep2SignInLifeCycle,
+  TStep1LifeCycle,
+  TStep3LifeCycle,
+  TStep2SignUpLifeCycle,
+} from '@portkey/did-ui-react';
 import { ChainId, SendOptions } from '@portkey/types';
 import { getConfig } from '../../../config';
 import {
@@ -12,7 +22,13 @@ import {
   WalletHookInterface,
 } from '../../../types';
 import { WalletHookParams } from '../../types';
-import { PORTKEY_ORIGIN_CHAIN_ID_KEY, WalletType, WebLoginEvents, WebLoginState } from '../../../constants';
+import {
+  PORTKEY_ORIGIN_CHAIN_ID_KEY,
+  WalletType,
+  WebLoginEvents,
+  WebLoginState,
+  DEFAULT_PIN,
+} from '../../../constants';
 import useAccountInfoSync from '../useAccountInfoSync';
 import checkSignatureParams from '../../../utils/signatureParams';
 import { PortkeyOptions } from 'src/types';
@@ -20,6 +36,8 @@ import { sendAdapter } from '../../../hooks/useCallContract';
 import { message } from 'antd';
 import { addPrefix } from '../../../utils/getDidAndVersion';
 import { aes } from '@portkey/utils';
+import useTelegram from './useTelegram';
+import { NetworkType } from '@portkey/provider-types';
 
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;
@@ -30,6 +48,7 @@ export type PortkeyInterface = WalletHookInterface & {
   onError: (error: any) => void;
   onFinished: (didWalletInfo: DIDWalletInfo) => void;
   onCancel: () => void;
+  currentLifeCircle: TStep2SignInLifeCycle | TStep1LifeCycle | TStep3LifeCycle | TStep2SignUpLifeCycle;
 };
 
 export function usePortkey({
@@ -41,12 +60,15 @@ export function usePortkey({
   setLoginState,
   setModalOpen,
   setLoading,
+  setApproveModalInTG,
 }: WalletHookParams<PortkeyOptions> & {
   setModalOpen: (open: boolean) => void;
+  setApproveModalInTG: (open: boolean) => void;
 }) {
   // diff from V1
   const appName = addPrefix(getConfig().appName);
   const chainId = getConfig().chainId as ChainId;
+  const networkType = getConfig().portkeyV2?.networkType;
 
   const autoUnlockCheckRef = useRef(false);
   const [didWalletInfo, setDidWalletInfo] = useState<PortkeyInfo>();
@@ -199,6 +221,64 @@ export function usePortkey({
     },
     [didWalletInfo],
   );
+  const onFinished = useCallback(
+    async (didWalletInfo: DIDWalletInfo) => {
+      setPreparing(true);
+      setLoading(true);
+      try {
+        localStorage.setItem(PORTKEY_ORIGIN_CHAIN_ID_KEY, didWalletInfo.chainId);
+        try {
+          if (didWalletInfo.chainId !== chainId) {
+            const caInfo = await did.didWallet.getHolderInfoByContract({
+              caHash: didWalletInfo.caInfo?.caHash,
+              chainId: chainId,
+            });
+            didWalletInfo.caInfo.caAddress = caInfo?.caAddress;
+          }
+        } catch (error) {
+          // don't worry about other chainId caAddress
+          message.warning(`Cannot get chain ${chainId} caInfo`);
+        }
+
+        let nickName = 'Wallet 01';
+        try {
+          const holderInfo = await did.getCAHolderInfo(didWalletInfo.chainId);
+          nickName = holderInfo.nickName;
+        } catch (error) {
+          console.error(error);
+        }
+        try {
+          await did.save(didWalletInfo.pin, appName);
+        } catch (error) {
+          console.error(error);
+        }
+        setDidWalletInfo({
+          ...didWalletInfo,
+          accounts: {
+            [chainId]: didWalletInfo.caInfo?.caAddress,
+          },
+          nickName,
+        });
+        setWalletType(WalletType.portkey);
+        setLoginState(WebLoginState.logined);
+        eventEmitter.emit(WebLoginEvents.LOGINED);
+      } catch (error) {
+        setDidWalletInfo(undefined);
+        setWalletType(WalletType.unknown);
+        setLoginError(error);
+        setLoginState(WebLoginState.initial);
+        eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
+      } finally {
+        // debugger;
+        setLoading(false);
+        setPreparing(false);
+        setApproveModalInTG(false);
+      }
+    },
+    [appName, chainId, eventEmitter, setLoading, setLoginError, setLoginState, setApproveModalInTG, setWalletType],
+  );
+
+  const { handleTelegram, currentLifeCircle } = useTelegram(chainId, networkType as NetworkType, onFinished);
 
   useEffect(() => {
     if (autoUnlockCheckRef.current) {
@@ -206,14 +286,24 @@ export function usePortkey({
     }
     autoUnlockCheckRef.current = true;
     const canShowUnlock = isManagerExists;
+    console.log(
+      'if is login successfully and TelegramPlatform.isTelegramPlatform()',
+      canShowUnlock,
+      TelegramPlatform.isTelegramPlatform(),
+    );
     if (canShowUnlock) {
+      console.log('+++++++', canShowUnlock, options.autoShowUnlock, loginState);
       if (options.autoShowUnlock && loginState === WebLoginState.initial) {
         loginEagerly();
       } else {
         setLoginState(WebLoginState.lock);
       }
+    } else if (TelegramPlatform.isTelegramPlatform()) {
+      console.log('isTelegramPlatform and begin to execute handleTelegram()');
+      // setModalOpen(true);
+      handleTelegram();
     }
-  }, [isManagerExists, loginEagerly, setLoginState, loginState, options.autoShowUnlock]);
+  }, [handleTelegram, isManagerExists, loginEagerly, setLoginState, loginState, options.autoShowUnlock]);
 
   const checkPassword = useCallback(async (keyName: string, password: string) => {
     try {
@@ -295,62 +385,6 @@ export function usePortkey({
     [appName, chainId, eventEmitter, setLoading, setLoginError, setLoginState, setWalletType],
   );
 
-  const onFinished = useCallback(
-    async (didWalletInfo: DIDWalletInfo) => {
-      setPreparing(true);
-      setLoading(true);
-      try {
-        localStorage.setItem(PORTKEY_ORIGIN_CHAIN_ID_KEY, didWalletInfo.chainId);
-        try {
-          if (didWalletInfo.chainId !== chainId) {
-            const caInfo = await did.didWallet.getHolderInfoByContract({
-              caHash: didWalletInfo.caInfo?.caHash,
-              chainId: chainId,
-            });
-            didWalletInfo.caInfo.caAddress = caInfo?.caAddress;
-          }
-        } catch (error) {
-          // don't worry about other chainId caAddress
-          message.warning(`Cannot get chain ${chainId} caInfo`);
-        }
-
-        let nickName = 'Wallet 01';
-        try {
-          const holderInfo = await did.getCAHolderInfo(didWalletInfo.chainId);
-          nickName = holderInfo.nickName;
-        } catch (error) {
-          console.error(error);
-        }
-        try {
-          await did.save(didWalletInfo.pin, appName);
-        } catch (error) {
-          console.error(error);
-        }
-        setDidWalletInfo({
-          ...didWalletInfo,
-          accounts: {
-            [chainId]: didWalletInfo.caInfo?.caAddress,
-          },
-          nickName,
-        });
-        setWalletType(WalletType.portkey);
-        setLoginState(WebLoginState.logined);
-        eventEmitter.emit(WebLoginEvents.LOGINED);
-      } catch (error) {
-        setDidWalletInfo(undefined);
-        setWalletType(WalletType.unknown);
-        setLoginError(error);
-        setLoginState(WebLoginState.initial);
-        eventEmitter.emit(WebLoginEvents.LOGIN_ERROR, error);
-      } finally {
-        // debugger;
-        setLoading(false);
-        setPreparing(false);
-      }
-    },
-    [appName, chainId, eventEmitter, setLoading, setLoginError, setLoginState, setWalletType],
-  );
-
   const onError = useCallback(
     (error: any) => {
       eventEmitter.emit(WebLoginEvents.ERROR, error);
@@ -365,6 +399,13 @@ export function usePortkey({
     eventEmitter.emit(WebLoginEvents.USER_CANCEL);
     eventEmitter.emit(WebLoginEvents.MODAL_CANCEL);
   }, [setModalOpen, setLoginState, isManagerExists, setLoginError, eventEmitter]);
+
+  useEffect(() => {
+    if (TelegramPlatform.isTelegramPlatform() && isManagerExists && loginState === WebLoginState.lock) {
+      console.log('isTelegramPlatform and execute unlock()');
+      onUnlock(DEFAULT_PIN);
+    }
+  }, [loginState, onUnlock, isManagerExists]);
 
   return useMemo<PortkeyInterface>(
     () => ({
@@ -391,6 +432,7 @@ export function usePortkey({
       getSignature,
       onError,
       onCancel,
+      currentLifeCircle,
     }),
     [
       isManagerExists,
@@ -410,6 +452,7 @@ export function usePortkey({
       getSignature,
       onError,
       onCancel,
+      currentLifeCircle,
     ],
   );
 }
