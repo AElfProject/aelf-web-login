@@ -25,7 +25,6 @@
     "build": "father build"
   },
   "dependencies": {
-    "@aelf-web-login/utils": "workspace:*",
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
     "@portkey/contracts": "^2.6.2",
     "@portkey/detect-provider": "^2.2.0",

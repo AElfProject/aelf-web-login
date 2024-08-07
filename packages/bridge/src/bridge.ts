@@ -11,6 +11,7 @@ import {
   TSignatureParams,
   enhancedLocalStorage,
   IWalletAdapterEvents,
+  utils,
 } from '@aelf-web-login/wallet-adapter-base';
 import {
   setWalletInfo,
@@ -23,9 +24,9 @@ import {
   clearLoginError,
 } from './store';
 import { DIDWalletInfo, TelegramPlatform } from '@portkey/did-ui-react';
-import { isPortkeyApp } from '@aelf-web-login/utils';
 import { IBaseConfig } from '.';
 
+const { isPortkeyApp } = utils;
 let isDisconnectClicked = false;
 class Bridge {
   private _wallets: WalletAdapter[];

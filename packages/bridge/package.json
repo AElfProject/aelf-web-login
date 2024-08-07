@@ -25,7 +25,6 @@
     "build": "father build"
   },
   "dependencies": {
-    "@aelf-web-login/utils": "workspace:*",
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
     "@portkey/services": "2.7.2",
     "@reduxjs/toolkit": "^2.2.3",
