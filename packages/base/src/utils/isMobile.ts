@@ -3,6 +3,10 @@ const mobileRE =
 const notMobileRE = /CrOS/;
 
 export function isMobile() {
+  if (typeof navigator === 'undefined') {
+    return false;
+  }
+
   const ua = navigator.userAgent;
   if (typeof ua !== 'string') return false;
 

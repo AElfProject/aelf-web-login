@@ -17,12 +17,13 @@ import {
   IVerifyInfo,
   TelegramPlatform,
 } from '@portkey/did-ui-react';
-import { DEFAULT_PIN, TChainId, NetworkEnum } from '@aelf-web-login/wallet-adapter-base';
+import { DEFAULT_PIN, TChainId, NetworkEnum, utils } from '@aelf-web-login/wallet-adapter-base';
 import { useCallback, useMemo, useState } from 'react';
-import { sleep } from '@aelf-web-login/utils';
 import { Bridge } from './bridge';
 import useVerifier from './useVerifier';
 import useLockCallback from './useLockCallback';
+
+const { sleep } = utils;
 
 export enum SocialLoginType {
   APPLE = 'Apple',

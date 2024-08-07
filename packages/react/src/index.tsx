@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
+import React, { useCallback, useMemo, useState, useSyncExternalStore } from 'react';
 import { initBridge, IConfigProps, IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
-import VConsole from 'vconsole';
 import {
   ConnectedWallet,
   enhancedLocalStorage,
@@ -13,10 +12,12 @@ const HOOK_ERROR_MESSAGE =
 // let noCommonBaseModal = false;
 export const init = (options: IConfigProps): IBridgeAPI => {
   // noCommonBaseModal = options.baseConfig.noCommonBaseModal ?? false;
-  if (options.baseConfig.showVconsole) {
+  if (options.baseConfig.showVconsole && typeof window !== 'undefined') {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const VConsole = require('vconsole');
     new VConsole();
   }
-  console.log('aelf-web-login-init..............');
+  console.log('aelf-web-login-init..............30');
   function initScriptAndMountApp() {
     // const HOSTNAME_PREFIX_LIST = ['tg.', 'tg-test.', 'localhost'];
     const TELEGRAM_SRC = 'https://telegram.org/js/telegram-web-app.js';

@@ -43,13 +43,13 @@ const LoginDemo: React.FC = () => {
   return (
     <div>
       <Flex gap={'small'}>
-        <Button type="primary" onClick={onConnectBtnClickHandler} disabled={!!walletInfo}>
+        <Button type="primary" onClick={onConnectBtnClickHandler} disabled={isConnected}>
           {isLocking ? 'unlock' : 'connect'}
         </Button>
-        <Button type="primary" onClick={lock} disabled={!walletInfo}>
+        <Button type="primary" onClick={lock} disabled={!isConnected}>
           lock
         </Button>
-        <Button type="primary" onClick={onDisConnectBtnClickHandler} disabled={!walletInfo}>
+        <Button type="primary" onClick={onDisConnectBtnClickHandler} disabled={!isConnected}>
           disconnect
         </Button>
       </Flex>
