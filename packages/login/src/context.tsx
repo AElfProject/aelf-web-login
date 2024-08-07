@@ -590,32 +590,32 @@ function WebLoginProvider({
 
 export default function Provider({ children, ...props }: WebLoginProviderProps) {
   const aelfReactConfig = getConfig().aelfReact;
-  const TELEGRAM_SRC = 'https://telegram.org/js/telegram-web-app.js';
+  // const TELEGRAM_SRC = 'https://telegram.org/js/telegram-web-app.js';
 
-  const [scriptLoaded, setScriptLoaded] = useState(false);
+  // const [scriptLoaded, setScriptLoaded] = useState(false);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && typeof location !== 'undefined') {
-      const script = document.createElement('script');
-      script.src = TELEGRAM_SRC;
-      script.type = 'text/javascript';
-      script.onload = () => {
-        setScriptLoaded(true);
-      };
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined' && typeof location !== 'undefined') {
+  //     const script = document.createElement('script');
+  //     script.src = TELEGRAM_SRC;
+  //     script.type = 'text/javascript';
+  //     script.onload = () => {
+  //       setScriptLoaded(true);
+  //     };
 
-      script.onerror = () => {
-        console.error('Failed to load the Telegram script');
-        setScriptLoaded(false);
-      };
-      document.head.appendChild(script);
-      return () => {
-        document.head.removeChild(script);
-      };
-    }
-  }, []);
-  if (typeof window !== 'undefined' && !scriptLoaded) {
-    return null;
-  }
+  //     script.onerror = () => {
+  //       console.error('Failed to load the Telegram script');
+  //       setScriptLoaded(false);
+  //     };
+  //     document.head.appendChild(script);
+  //     return () => {
+  //       document.head.removeChild(script);
+  //     };
+  //   }
+  // }, []);
+  // if (typeof window !== 'undefined' && !scriptLoaded) {
+  //   return null;
+  // }
 
   return (
     <CommonErrorBoundary>
