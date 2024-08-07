@@ -22,6 +22,7 @@ import { FetchRequest } from '@portkey-v1/request';
 import { changePortkeyVersion } from '../../../utils/isPortkeyApp';
 import isMobile from '../../../utils/isMobile';
 import { getStorageVersion } from '../../../utils/getUrl';
+import { enhancedLocalStorage as localStorage } from '../../../utils/enhancedLocalStorage';
 
 export default function Portkey({
   open,

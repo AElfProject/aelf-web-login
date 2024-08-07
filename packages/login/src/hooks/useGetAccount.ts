@@ -5,6 +5,7 @@ import { ChainId } from '@portkey/provider-types';
 import { did } from '@portkey/did-ui-react';
 import { did as didV1 } from '@portkey-v1/did-ui-react';
 import { getStorageVersion } from '../utils/getUrl';
+import { enhancedLocalStorage as localStorage } from '../utils/enhancedLocalStorage';
 
 export default function useGetAccount(chainId: string) {
   const WEB_LOGIN_VERSION = getStorageVersion();

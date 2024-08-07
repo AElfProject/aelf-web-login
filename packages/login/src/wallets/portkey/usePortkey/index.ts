@@ -38,6 +38,7 @@ import { addPrefix } from '../../../utils/getDidAndVersion';
 import { aes } from '@portkey/utils';
 import useTelegram from './useTelegram';
 import { NetworkType } from '@portkey/provider-types';
+import { enhancedLocalStorage as localStorage } from '../../../utils/enhancedLocalStorage';
 
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;

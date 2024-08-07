@@ -1,6 +1,7 @@
 import detectProvider from '@portkey/detect-provider';
 import { IPortkeyProvider } from '@portkey/provider-types';
 import { getStorageVersion } from '../../utils/getUrl';
+import { enhancedLocalStorage as localStorage } from '../../utils/enhancedLocalStorage';
 
 export default async function detectDiscoverProvider(version?: string | null): Promise<IPortkeyProvider | null> {
   const WEB_LOGIN_VERSION = getStorageVersion();
