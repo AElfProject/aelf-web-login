@@ -6,6 +6,7 @@ import { GlobalConfigProps as GlobalConfigPropsV1 } from '@portkey-v1/did-ui-rea
 import { GlobalConfigProps } from '@portkey/did-ui-react/dist/_types/src/components/config-provider/types';
 import { EventEmitter } from 'ahooks/lib/useEventEmitter';
 import { PortkeyDidV1, PortkeyDid } from './index';
+import { enhancedLocalStorage as localStorage } from './utils/enhancedLocalStorage';
 
 // copy from @aelf-react/core, cause it's not exported
 export type AelfNode = {

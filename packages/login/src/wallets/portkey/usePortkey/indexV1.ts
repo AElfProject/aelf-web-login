@@ -18,6 +18,7 @@ import checkSignatureParams from '../../../utils/signatureParams';
 import { PortkeyOptions } from 'src/types';
 import { sendAdapter } from '../../../hooks/useCallContract';
 import { message } from 'antd';
+import { enhancedLocalStorage as localStorage } from '../../../utils/enhancedLocalStorage';
 
 export type PortkeyInterface = WalletHookInterface & {
   isManagerExists: boolean;

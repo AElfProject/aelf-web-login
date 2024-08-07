@@ -18,6 +18,7 @@ import { SendOptions } from '@portkey/types';
 import { SendOptions as SendOptionsV1 } from '@portkey-v1/types';
 import useWebLoginEvent from './useWebLoginEvent';
 import { getFaviconUrl, getStorageVersion, getUrl } from '../utils/getUrl';
+import { enhancedLocalStorage as localStorage } from '../utils/enhancedLocalStorage';
 
 const getAElfInstance = (() => {
   const instances = new Map<string, any>();

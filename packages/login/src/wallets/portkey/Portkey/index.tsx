@@ -24,6 +24,7 @@ import { changePortkeyVersion } from '../../../utils/isPortkeyApp';
 import isMobile from '../../../utils/isMobile';
 import { useWebLogin } from '../../../context';
 import { getStorageVersion } from '../../../utils/getUrl';
+import { enhancedLocalStorage as localStorage } from '../../../utils/enhancedLocalStorage';
 
 interface IPortkeyPanelProps {
   open: boolean;

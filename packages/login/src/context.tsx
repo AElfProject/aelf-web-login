@@ -26,6 +26,7 @@ import clsx from 'clsx';
 import { PortkeyDid, PortkeyDidV1 } from './index';
 import { getStorageVersion } from './utils/getUrl';
 import CommonErrorBoundary from './components/ErrorBoundary';
+import { enhancedLocalStorage as localStorage } from './utils/enhancedLocalStorage';
 
 const INITIAL_STATE = {
   loginState: WebLoginState.initial,

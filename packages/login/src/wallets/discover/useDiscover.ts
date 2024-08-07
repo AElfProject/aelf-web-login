@@ -23,6 +23,7 @@ import useWebLoginEvent from '../../hooks/useWebLoginEvent';
 import { removeOtherKey, useWebLogin } from '../../context';
 import isPortkeyApp, { isPortkeyV2 } from '../../utils/isPortkeyApp';
 import { getStorageVersion } from '../../utils/getUrl';
+import { enhancedLocalStorage as localStorage } from '../../utils/enhancedLocalStorage';
 
 export type DiscoverDetectState = 'unknown' | 'detected' | 'not-detected';
 export type DiscoverInterface = WalletHookInterface & {

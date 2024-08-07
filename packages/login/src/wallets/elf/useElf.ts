@@ -9,6 +9,7 @@ import checkSignatureParams from '../../utils/signatureParams';
 import detectNightElf from './detectNightElf';
 import { zeroFill } from '../../utils/zeroFill';
 import { removeOtherKey } from '../../context';
+import { enhancedLocalStorage as localStorage } from '../../utils/enhancedLocalStorage';
 
 export function useElf({
   options,

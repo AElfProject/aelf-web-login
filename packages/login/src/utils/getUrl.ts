@@ -1,5 +1,6 @@
 import { LOGIN_VERSION } from '../constants';
 import { getConfig } from '../config';
+import { enhancedLocalStorage as localStorage } from './enhancedLocalStorage';
 
 export function getUrl() {
   return new URL(location.href);
