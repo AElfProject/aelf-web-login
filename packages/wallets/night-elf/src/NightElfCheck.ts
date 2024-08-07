@@ -24,9 +24,11 @@ export default class NightElfCheck {
         resolveTemp = resolve;
       });
     };
-    document.addEventListener('NightElf', () => {
-      resolveTemp(true);
-    });
+    if (typeof window !== 'undefined') {
+      document.addEventListener('NightElf', () => {
+        resolveTemp(true);
+      });
+    }
   }
   static getInstance() {
     if (nightElfInstance) return nightElfInstance;
