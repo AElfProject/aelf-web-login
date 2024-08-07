@@ -613,7 +613,7 @@ export default function Provider({ children, ...props }: WebLoginProviderProps) 
       };
     }
   }, []);
-  if (!scriptLoaded) {
+  if (typeof window !== 'undefined' && !scriptLoaded) {
     return null;
   }
 
