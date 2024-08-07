@@ -259,7 +259,9 @@ export class NightElfWallet extends BaseWalletAdapter {
     const onNightElfLockWallet = () => {
       this.logout();
     };
-    document.addEventListener('nightElfLockWallet', onNightElfLockWallet);
+    if (typeof window !== 'undefined') {
+      document.addEventListener('nightElfLockWallet', onNightElfLockWallet);
+    }
   }
 
   async getContract(chainId: TChainId, contractAddress: string): Promise<IContract> {

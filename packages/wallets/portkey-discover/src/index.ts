@@ -28,7 +28,8 @@ import { IContract } from '@portkey/types';
 import detectDiscoverProvider from './detectProvider';
 import checkSignatureParams from './signatureParams';
 import { zeroFill, openPageInDiscover } from './utils';
-import { isPortkeyApp, isMobileDevices } from '@aelf-web-login/utils';
+
+const { isPortkeyApp, isMobile } = utils;
 
 type TDiscoverEventsKeys = Array<Exclude<DappEvents, 'connected' | 'message' | 'error'>>;
 
@@ -81,9 +82,11 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     this._chainId = config.chainId;
     this._config = config;
     this._contract = null as any;
-    this.detect().then(() => {
-      this.autoRequestAccountHandler();
-    });
+    if (typeof window !== 'undefined') {
+      this.detect().then(() => {
+        this.autoRequestAccountHandler();
+      });
+    }
   }
 
   get loginState() {
@@ -167,7 +170,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
   }
 
   async login(): Promise<TWalletInfo> {
-    if (isMobileDevices() && !isPortkeyApp()) {
+    if (isMobile() && !isPortkeyApp()) {
       openPageInDiscover(undefined, undefined);
       return;
     }
