@@ -251,6 +251,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     }
     console.log('begin to init and execute handleTelegram', TelegramPlatform.isTelegramPlatform());
     const handleLogout = async () => {
+      await bridgeInstance.onPortkeyAAUnLock(DEFAULT_PIN);
       await bridgeInstance.doubleCheckDisconnect();
     };
     TelegramPlatform.initializeTelegramWebApp({ handleLogout });
