@@ -9,7 +9,7 @@ import Portkey from './wallets/portkey/Portkey';
 import PortkeyV1 from './wallets/portkey/Portkey/indexV1';
 import { useElf } from './wallets/elf/useElf';
 import { getConfig, event$ } from './config';
-import { WalletType, WebLoginState, WebLoginEvents } from './constants';
+import { WalletType, WebLoginState, WebLoginEvents, DEFAULT_PIN } from './constants';
 import { CommonBaseModal, PortkeyLoading, TelegramPlatform } from '@portkey/did-ui-react';
 import { check } from './wallets/elf/utils';
 import isMobile from './utils/isMobile';
@@ -391,10 +391,15 @@ function WebLoginProvider({
       return;
     }
     async function handleSDKLogout() {
+      if (version === 'v1') {
+        await portkeyApiV1.onUnlock(DEFAULT_PIN);
+      } else {
+        await portkeyApi.onUnlock(DEFAULT_PIN);
+      }
       await logout();
     }
     TelegramPlatform.initializeTelegramWebApp({ handleLogout: handleSDKLogout });
-  }, [logout]);
+  }, [logout, portkeyApi, portkeyApiV1, version]);
 
   const ConfirmLogoutDialogComponent = portkeyOpts.ConfirmLogoutDialog || ConfirmLogoutDialog;
 
