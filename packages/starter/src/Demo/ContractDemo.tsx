@@ -3,6 +3,7 @@ import { Button } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import configJson from './contract/config.json';
 import configTdvwJson from './contract/config.tdvw.json';
+import { callViewMethod as callViewMethodOfUtils } from '@aelf-web-login/utils';
 
 function useExampleCall(name: string, func: () => any) {
   const [result, setResult] = useState({});
@@ -55,6 +56,17 @@ const ContractDemo: React.FC = () => {
   console.log('ContractDemo init----------');
 
   const examples = [
+    useExampleCall('call getBalance in callViewMethodOfUtils', async () => {
+      return callViewMethodOfUtils({
+        endPoint: 'https://tdvw-test-node.aelf.io',
+        contractAddress: configTdvwJson.multiToken,
+        methodName: 'GetBalance',
+        args: {
+          symbol: 'ELF',
+          owner: 'rRZCro3wsAk2mW1s4CvM66wCe8cYgKKBCUFGuBhF6rUtoQNyk',
+        },
+      });
+    }),
     useExampleCall('call getBalance', async () => {
       return callViewMethod({
         contractAddress: configJson.multiToken,

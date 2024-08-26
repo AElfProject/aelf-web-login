@@ -7,9 +7,14 @@ export default async function detectDiscoverProvider(): Promise<IPortkeyProvider
     const detectProviderModule = detectProvider as any;
     detectProviderFunc = detectProviderModule.default;
   }
-  const res = await detectProviderFunc({
-    timeout: 6000,
-    providerName: 'Portkey',
-  });
-  return res;
+  try {
+    const res = await detectProviderFunc({
+      timeout: 6000,
+      providerName: 'Portkey',
+    });
+    return res;
+  } catch (e) {
+    console.log('detectDiscoverProvider error', e);
+    return null;
+  }
 }
