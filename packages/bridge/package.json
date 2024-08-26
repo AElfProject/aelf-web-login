@@ -1,14 +1,17 @@
 {
   "name": "@aelf-web-login/wallet-adapter-bridge",
-  "version": "0.1.3-alpha.19",
+  "version": "0.1.3-alpha.21",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
   "typings": "dist/esm/index.d.ts",
   "exports": {
-    "import": "./dist/esm/index.js",
-    "require": "./dist/lib/index.js",
-    "types": "./dist/esm/index.d.ts"
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/lib/index.js",
+      "types": "./dist/esm/index.d.ts"
+    },
+    "./css": "./dist/esm/ui.css"
   },
   "files": [
     "dist",
@@ -38,6 +41,9 @@
     "antd": "4.24.14",
     "father": "^4.3.8",
     "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "@portkey/did-ui-react": "^2.7.2"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
