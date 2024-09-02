@@ -63,12 +63,13 @@ const ContractDemo: React.FC = () => {
         methodName: 'GetBalance',
         args: {
           symbol: 'ELF',
-          owner: 'rRZCro3wsAk2mW1s4CvM66wCe8cYgKKBCUFGuBhF6rUtoQNyk',
+          owner: (walletInfo as any).address,
         },
       });
     }),
     useExampleCall('call getBalance', async () => {
       return callViewMethod({
+        chainId: 'AELF',
         contractAddress: configJson.multiToken,
         methodName: 'GetBalance',
         args: {

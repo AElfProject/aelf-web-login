@@ -24,6 +24,7 @@ export interface IBaseConfig {
   titleForSocialDesign?: string;
   noCommonBaseModal?: boolean;
   showVconsole?: boolean;
+  omitTelegramScript?: boolean;
   SignInComponent?: React.FC<SignInProps & RefAttributes<ISignIn>>;
   PortkeyProviderProps?: Partial<BaseConfigProviderProps>;
   ConfirmLogoutDialog?: React.FC<Partial<IConfirmLogoutDialogProps>>;

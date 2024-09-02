@@ -6,11 +6,11 @@ permissions:
 on:
   push:
     branches:
-      - release/refactor-3.0.0
+      - master
       - feature/badge-new
   pull_request:
     branches:
-      - release/refactor-3.0.0
+      - master
 
 jobs:
   build-and-test:
