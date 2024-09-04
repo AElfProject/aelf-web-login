@@ -3,7 +3,6 @@ import {
   WalletAdapter,
   utils,
   enhancedLocalStorage,
-  DEFAULT_PIN,
   PORTKEYAA,
 } from '@aelf-web-login/wallet-adapter-base';
 import { Bridge } from './bridge';
@@ -228,6 +227,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   const [isShowConfirmLogoutPanel, setIsShowConfirmLogoutPanel] = useState(false);
   const [isShowNestedModal, setIsShowNestedModal] = useState(false);
   const { handleTelegram, currentLifeCircle } = useTelegram(
+    baseConfig.defaultPin,
     baseConfig.chainId,
     baseConfig.networkType,
     bridgeInstance,
@@ -239,6 +239,8 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     noCommonBaseModal = false,
     SignInComponent,
     ConfirmLogoutDialog: CustomizedConfirmLogoutDialog,
+    cancelAutoLoginInTelegram = false,
+    defaultPin = '111111',
   } = baseConfig;
   const FinalSignInComponent = SignInComponent || SignIn;
   const FinalConfirmLogoutDialog = CustomizedConfirmLogoutDialog || ConfirmLogoutDialog;
@@ -246,26 +248,29 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   // console.log('isLocking', isLocking);
 
   useEffect(() => {
+    if (cancelAutoLoginInTelegram) {
+      return;
+    }
     if (!TelegramPlatform.isTelegramPlatform()) {
       return;
     }
     console.log('begin to init and execute handleTelegram', TelegramPlatform.isTelegramPlatform());
     const handleLogout = async () => {
-      await bridgeInstance.onPortkeyAAUnLock(DEFAULT_PIN);
+      await bridgeInstance.onPortkeyAAUnLock(defaultPin);
       await bridgeInstance.doubleCheckDisconnect();
     };
     TelegramPlatform.initializeTelegramWebApp({ handleLogout });
     async function autoAuthInTelegram() {
       console.log('begin to excute autoAuthInTelegram');
       if (enhancedLocalStorage.getItem('connectedWallet') === PORTKEYAA) {
-        await bridgeInstance.onPortkeyAAUnLock(DEFAULT_PIN);
+        await bridgeInstance.onPortkeyAAUnLock(defaultPin);
         return;
       }
       console.log('begin to excute handleTelegram');
       handleTelegram();
     }
     autoAuthInTelegram();
-  }, [bridgeInstance, handleTelegram]);
+  }, [bridgeInstance, cancelAutoLoginInTelegram, defaultPin, handleTelegram]);
 
   bridgeInstance.autoLogin = () => {
     handleTelegram();
@@ -437,7 +442,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
           noCommonBaseModal={noCommonBaseModal}
         >
           <FinalSignInComponent
-            pin={TelegramPlatform.isTelegramPlatform() ? DEFAULT_PIN : undefined}
+            pin={TelegramPlatform.isTelegramPlatform() ? defaultPin : undefined}
             defaultLifeCycle={currentLifeCircle}
             defaultChainId={baseConfig.chainId}
             uiType="Full"
