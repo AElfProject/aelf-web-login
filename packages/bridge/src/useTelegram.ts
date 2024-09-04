@@ -17,7 +17,7 @@ import {
   IVerifyInfo,
   TelegramPlatform,
 } from '@portkey/did-ui-react';
-import { DEFAULT_PIN, TChainId, NetworkEnum, utils } from '@aelf-web-login/wallet-adapter-base';
+import { TChainId, NetworkEnum, utils } from '@aelf-web-login/wallet-adapter-base';
 import { useCallback, useMemo, useState } from 'react';
 import { Bridge } from './bridge';
 import useVerifier from './useVerifier';
@@ -53,6 +53,7 @@ export enum OperationTypeEnum {
 export type TSignUpVerifier = { verifier: TVerifierItem } & IVerifyInfo;
 
 const useTelegram = (
+  DEFAULT_PIN = '111111',
   chainId: TChainId,
   network: NetworkEnum,
   bridgeInstance: Bridge,
@@ -101,7 +102,7 @@ const useTelegram = (
         // }, 500);
       }
     },
-    [bridgeInstance, chainId, createWallet],
+    [DEFAULT_PIN, bridgeInstance, chainId, createWallet],
   );
 
   const onSignUp = useCallback(
@@ -201,7 +202,7 @@ const useTelegram = (
         }
       }
     },
-    [bridgeInstance, createWallet, onSignInHandler, onSignUp, setIsShowWrapper],
+    [bridgeInstance, createWallet, onSignInHandler, onSignUp, setIsShowWrapper, DEFAULT_PIN],
   );
 
   const signHandle = useSignHandler({
