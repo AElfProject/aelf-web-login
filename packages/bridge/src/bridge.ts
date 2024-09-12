@@ -296,6 +296,7 @@ class Bridge {
 
   onPortkeyAAWalletLoginFinished = async (didWalletInfo: DIDWalletInfo) => {
     try {
+      this.closeLoginPanel();
       this.openLoadingModal();
       this._activeWallet = this._wallets.find((item) => item.name === PORTKEYAA);
       this.bindEvents();
@@ -305,7 +306,6 @@ class Bridge {
       console.log('onPortkeyAAWalletLoginFinishedError', error);
     } finally {
       this.closeLoadingModal();
-      this.closeLoginPanel();
     }
   };
 
