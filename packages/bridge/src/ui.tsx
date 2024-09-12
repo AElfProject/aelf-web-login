@@ -256,9 +256,6 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   };
 
   useEffect(() => {
-    if (cancelAutoLoginInTelegram) {
-      return;
-    }
     if (!TelegramPlatform.isTelegramPlatform()) {
       return;
     }
@@ -270,14 +267,16 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
         await bridgeInstance.onPortkeyAAUnLock(defaultPin);
         return;
       }
-      console.log('begin to excute handleTelegram');
-      handleTelegram();
+      if (!cancelAutoLoginInTelegram) {
+        console.log('begin to excute handleTelegram');
+        handleTelegram();
+      }
     }
     autoAuthInTelegram();
   }, [bridgeInstance, cancelAutoLoginInTelegram, defaultPin, handleTelegram]);
 
   bridgeInstance.autoLogin = () => {
-    initializeTelegram();
+    // initializeTelegram();
     handleTelegram();
   };
 
