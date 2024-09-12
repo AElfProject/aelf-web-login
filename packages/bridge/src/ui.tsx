@@ -247,6 +247,14 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   // const isLocking = store.getState().isLocking;
   // console.log('isLocking', isLocking);
 
+  const initializeTelegram = () => {
+    const handleLogout = async () => {
+      await bridgeInstance.onPortkeyAAUnLock(defaultPin);
+      await bridgeInstance.doubleCheckDisconnect();
+    };
+    TelegramPlatform.initializeTelegramWebApp({ handleLogout });
+  };
+
   useEffect(() => {
     if (cancelAutoLoginInTelegram) {
       return;
@@ -255,11 +263,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
       return;
     }
     console.log('begin to init and execute handleTelegram', TelegramPlatform.isTelegramPlatform());
-    const handleLogout = async () => {
-      await bridgeInstance.onPortkeyAAUnLock(defaultPin);
-      await bridgeInstance.doubleCheckDisconnect();
-    };
-    TelegramPlatform.initializeTelegramWebApp({ handleLogout });
+    initializeTelegram();
     async function autoAuthInTelegram() {
       console.log('begin to excute autoAuthInTelegram');
       if (enhancedLocalStorage.getItem('connectedWallet') === PORTKEYAA) {
@@ -273,6 +277,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   }, [bridgeInstance, cancelAutoLoginInTelegram, defaultPin, handleTelegram]);
 
   bridgeInstance.autoLogin = () => {
+    initializeTelegram();
     handleTelegram();
   };
 
