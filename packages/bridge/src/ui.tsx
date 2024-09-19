@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   WalletAdapter,
   utils,
@@ -241,27 +241,38 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     ConfirmLogoutDialog: CustomizedConfirmLogoutDialog,
     cancelAutoLoginInTelegram = false,
     defaultPin = '111111',
+    keyboard,
   } = baseConfig;
   const FinalSignInComponent = SignInComponent || SignIn;
   const FinalConfirmLogoutDialog = CustomizedConfirmLogoutDialog || ConfirmLogoutDialog;
   // const isLocking = store.getState().isLocking;
   // console.log('isLocking', isLocking);
 
-  const initializeTelegram = () => {
-    const handleLogout = async () => {
-      await bridgeInstance.onPortkeyAAUnLock(defaultPin);
-      await bridgeInstance.doubleCheckDisconnect();
-    };
-    TelegramPlatform.initializeTelegramWebApp({ handleLogout });
-  };
+  const isToggleAccountRef = useRef(false);
 
   useEffect(() => {
+    console.log('----------------------2', TelegramPlatform.isTelegramPlatform());
     if (!TelegramPlatform.isTelegramPlatform()) {
       return;
     }
+
+    const initializeTelegram = () => {
+      const handleLogout = async () => {
+        console.log('begin to execute handleLogout......');
+        isToggleAccountRef.current = true;
+        await bridgeInstance.onPortkeyAAUnLock(defaultPin);
+        await bridgeInstance.doubleCheckDisconnect();
+      };
+      TelegramPlatform.initializeTelegramWebApp({ handleLogout });
+    };
+
     console.log('begin to init and execute handleTelegram', TelegramPlatform.isTelegramPlatform());
     initializeTelegram();
     async function autoAuthInTelegram() {
+      console.log('isToggleAccountRef.current:', isToggleAccountRef.current);
+      if (isToggleAccountRef.current) {
+        return;
+      }
       console.log('begin to excute autoAuthInTelegram');
       if (enhancedLocalStorage.getItem('connectedWallet') === PORTKEYAA) {
         await bridgeInstance.onPortkeyAAUnLock(defaultPin);
@@ -276,7 +287,6 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   }, [bridgeInstance, cancelAutoLoginInTelegram, defaultPin, handleTelegram]);
 
   bridgeInstance.autoLogin = () => {
-    // initializeTelegram();
     handleTelegram();
   };
 
@@ -341,7 +351,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
       const success = await bridgeInstance.onPortkeyAAUnLock(pin);
       if (!success) {
         setIsWrongPassword(true);
-        if (isMobileDevice && baseConfig.keyboard) {
+        if (isMobileDevice && keyboard) {
           setPassword('');
         }
       } else {
@@ -349,7 +359,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
         setPassword('');
       }
     },
-    [baseConfig.keyboard, bridgeInstance, isMobileDevice],
+    [keyboard, bridgeInstance, isMobileDevice],
   );
 
   const extraWallets = useMemo(() => {
@@ -435,7 +445,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
           open={true}
           value={password}
           isWrongPassword={isWrongPassword}
-          keyboard={baseConfig.keyboard}
+          keyboard={keyboard}
           onChange={setPassword}
           onCancel={onCloseWrapperInternal}
           onUnlock={onUnlockInternal}
@@ -453,6 +463,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
             design={baseConfig.design}
             isShowScan
             extraElementList={[extraWallets]}
+            keyboard={keyboard}
             onCancel={() => {
               //TODO: seem to not execute
               console.log('onSignInCancel');
