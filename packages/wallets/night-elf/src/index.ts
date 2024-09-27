@@ -277,7 +277,7 @@ export class NightElfWallet extends BaseWalletAdapter {
       contractAddress: contractAddress,
       aelfInstance: bridge,
       account: {
-        address: this._wallet.address,
+        address: this._wallet.address!,
       },
     });
   }
@@ -301,7 +301,7 @@ export class NightElfWallet extends BaseWalletAdapter {
       throw makeError(ERR_CODE.NIGHT_ELF_NOT_CONNECTED);
     }
     const contract = await this.getContract(finalChainId, contractAddress);
-    const rs = contract.callSendMethod(methodName, this._wallet.address, args, sendOptions);
+    const rs = contract.callSendMethod(methodName, this._wallet.address!, args, sendOptions);
     return rs as R;
   }
 

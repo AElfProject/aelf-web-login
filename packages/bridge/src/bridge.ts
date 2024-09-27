@@ -23,7 +23,7 @@ import {
   setLoginError,
   clearLoginError,
 } from './store';
-import { DIDWalletInfo, TelegramPlatform } from '@portkey/did-ui-react';
+import { CreatePendingInfo, DIDWalletInfo, TelegramPlatform } from '@portkey/did-ui-react';
 import { IBaseConfig } from '.';
 
 const { isPortkeyApp } = utils;
@@ -294,6 +294,41 @@ class Bridge {
     }
   };
 
+  onPortkeyAAWalletCreatePending = async (createPendingInfo: CreatePendingInfo) => {
+    try {
+      this.closeLoginPanel();
+      this.openLoadingModal();
+      this._activeWallet = this._wallets.find((item) => item.name === PORTKEYAA);
+      if (
+        !this.activeWallet?.loginWithAcceleration ||
+        typeof this.activeWallet.loginWithAcceleration !== 'function'
+      ) {
+        return;
+      }
+      this.bindEvents();
+      const walletInfo = await this.activeWallet.loginWithAcceleration(createPendingInfo);
+      this._loginResolve(walletInfo);
+    } catch (error) {
+      console.log('onPortkeyAAWalletCreatePending', error);
+    } finally {
+      this.closeLoadingModal();
+    }
+  };
+
+  onPortkeyAAWalletLoginFinishedWithAcceleration = (didWalletInfo: DIDWalletInfo) => {
+    try {
+      if (
+        !this.activeWallet?.loginCompletely ||
+        typeof this.activeWallet.loginCompletely !== 'function'
+      ) {
+        return;
+      }
+      this.activeWallet.loginCompletely(didWalletInfo);
+    } catch (error) {
+      console.log('onPortkeyAAWalletLoginFinishedWithAcceleration', error);
+    }
+  };
+
   onPortkeyAAWalletLoginFinished = async (didWalletInfo: DIDWalletInfo) => {
     try {
       this.closeLoginPanel();
@@ -311,7 +346,9 @@ class Bridge {
 
   onPortkeyAAUnLock = async (pin: string): Promise<TWalletInfo> => {
     try {
-      this.openLoadingModal();
+      setTimeout(() => {
+        this.openLoadingModal();
+      }, 0);
       if (!this.activeWallet?.onUnlock || typeof this.activeWallet.onUnlock !== 'function') {
         return;
       }

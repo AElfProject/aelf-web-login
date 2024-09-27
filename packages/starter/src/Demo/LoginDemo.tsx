@@ -29,6 +29,10 @@ const LoginDemo: React.FC = () => {
   };
 
   useEffect(() => {
+    console.log('walletInfo', walletInfo);
+  }, [walletInfo]);
+
+  useEffect(() => {
     if (!loginError) {
       return;
     }

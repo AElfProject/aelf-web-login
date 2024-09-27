@@ -5,6 +5,7 @@ import { WebLoginProvider, init } from '@aelf-web-login/wallet-adapter-react';
 import { IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
 import { TChainId, SignInDesignEnum, NetworkEnum } from '@aelf-web-login/wallet-adapter-base';
 import { Tabs, TabsProps } from 'antd';
+import './telegram.js';
 
 import LoginDemo from './LoginDemo';
 import AccountDemo from './AccountDemo';
@@ -58,13 +59,14 @@ const didConfig = {
 const baseConfig = {
   // ConfirmLogoutDialog: CustomizedConfirmLogoutDialog,
   // SignInComponent: SignInProxy,
+  defaultPin: '111111',
+  enableAcceleration: true,
   PortkeyProviderProps: {
     theme: 'light' as any,
   },
   showVconsole: true,
-  defaultPin: '111111',
-  omitTelegramScript: true,
-  cancelAutoLoginInTelegram: true,
+  // omitTelegramScript: false,
+  // cancelAutoLoginInTelegram: false,
   networkType: NETWORK_TYPE,
   chainId: CHAIN_ID,
   keyboard: true,

@@ -1,5 +1,5 @@
 import EventEmitter from 'eventemitter3';
-import { DIDWalletInfo } from '@portkey/did-ui-react';
+import { CreatePendingInfo, DIDWalletInfo } from '@portkey/did-ui-react';
 import {
   TWalletError,
   LoginStateEnum,
@@ -46,6 +46,8 @@ export interface IWalletAdapter<Name extends string = string> {
   callViewMethod<T, R>(props: ICallContractParams<T>): Promise<R>;
   onUnlock?: (pin: string) => Promise<TWalletInfo>;
   lock?: () => void;
+  loginWithAcceleration?: (createPendingInfo: CreatePendingInfo) => Promise<TWalletInfo>;
+  loginCompletely?: (arg: DIDWalletInfo) => Promise<void>;
 }
 
 export type WalletAdapter<Name extends string = string> = IWalletAdapter<Name> &

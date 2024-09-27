@@ -20,7 +20,11 @@ export const ERR_CODE = {
   NIGHT_ELF_LOGOUT_FAIL: 10017,
   NIGHT_ELF_NOT_CONNECTED: 10018,
   INVALID_CONTRACT_ADDRESS: 10019,
-  UNKNOWN: 10020,
+  ONFINISH_IS_ERROR: 10020,
+  CANT_CALL_SEND_METHOD: 10021,
+  GET_LOGIN_STATUS_FAIL: 10022,
+  IN_FINISH_BUT_STATUS_IS_NOT_SUCCESS: 10023,
+  UNKNOWN: 10024,
 };
 
 export const ERR_CODE_MSG: {
@@ -48,7 +52,11 @@ export const ERR_CODE_MSG: {
   10017: 'There is something wrong at logout stage with nightElf',
   10018: 'NightElf is not connected',
   10019: 'The contract address is invalid',
-  10020: 'Unknown error',
+  10020: 'The method onCreatePending execute successful, but onFinish execute fail',
+  10021: 'Without log in, send methods cannot be called',
+  10022: 'Call getLoginStatus but the result is not pass',
+  10023: 'Login completed, but the isLoginStatus is not success. Please log in again',
+  10024: 'Unknown error',
 };
 
 export function makeError(code: number, nativeError?: any): TWalletError {
