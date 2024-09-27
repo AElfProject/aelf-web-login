@@ -233,6 +233,13 @@ export default function useCallContract(options?: CallContractHookOptions): Call
     ],
   );
 
+  const sendMultiTransaction = useCallback(async function sendMultiTransactionFunc<T, R>(
+    params: CallContractParams<T>,
+  ): Promise<R> {
+    // return did.sendMultiTransaction()
+  },
+  []);
+
   return {
     contractHookId: `${loginId}_${chainId}_${walletType}}`,
     callViewMethod,
