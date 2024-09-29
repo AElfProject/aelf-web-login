@@ -8,6 +8,8 @@ import {
   CallContractHookInterface,
   CallContractHookOptions,
   CallContractParams,
+  IMultiTransactionParams,
+  IMultiTransactionResult,
   IPortkeySendAdapterProps,
 } from '../types';
 import { getConfig } from '../config';
@@ -233,16 +235,16 @@ export default function useCallContract(options?: CallContractHookOptions): Call
     ],
   );
 
-  const sendMultiTransaction = useCallback(async function sendMultiTransactionFunc<T, R>(
-    params: CallContractParams<T>,
-  ): Promise<R> {
-    // return did.sendMultiTransaction()
-  },
-  []);
+  const sendMultiTransaction = useCallback(async function sendMultiTransactionFunc<T>(
+    params: IMultiTransactionParams<T>,
+  ): Promise<IMultiTransactionResult> {
+    return did.sendMultiTransaction(params);
+  }, []);
 
   return {
     contractHookId: `${loginId}_${chainId}_${walletType}}`,
     callViewMethod,
     callSendMethod,
+    sendMultiTransaction,
   };
 }

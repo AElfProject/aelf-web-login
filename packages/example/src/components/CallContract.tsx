@@ -1,4 +1,11 @@
-import { CallContractParams, WebLoginState, useCallContract, useCurrentChainSync, useWebLogin } from 'aelf-web-login';
+import {
+  CallContractParams,
+  IMultiTransactionParams,
+  WebLoginState,
+  useCallContract,
+  useCurrentChainSync,
+  useWebLogin,
+} from 'aelf-web-login';
 import { useState } from 'react';
 import configJson from '../assets/config.json';
 import configTdvwJson from '../assets/config.tdvw.json';
@@ -67,7 +74,7 @@ export default function CallContract() {
   const { wallet, callContract, version } = useWebLogin();
   const getAccountTDVW = useGetAccount('tDVW');
   const getCurrentChainIdSync = useCurrentChainSync('tDVW');
-  const { callViewMethod, callSendMethod } = useCallContract();
+  const { callViewMethod, callSendMethod, sendMultiTransaction } = useCallContract();
   const { callViewMethod: callViewMethodAELF, callSendMethod: callSendMethodAELF } = useCallContract({
     chainId: 'AELF',
     rpcUrl: 'https://aelf-test-node.aelf.io',
@@ -77,7 +84,46 @@ export default function CallContract() {
     rpcUrl: 'https://tdvw-test-node.aelf.io',
   });
 
+  interface IParmsItem {
+    symbol: string;
+    amount: string;
+    to: string;
+  }
+
+  const paramsForMuti: IMultiTransactionParams<IParmsItem> = {
+    multiChainInfo: {
+      AELF: {
+        chainUrl: 'https://aelf-test-node.aelf.io/',
+        contractAddress: 'JRmBduh4nXWi1aXgdUsj5gJrzeZb2LxmrAbf7W99faZSvoAaE',
+      },
+      tDVW: {
+        chainUrl: 'https://tdvw-test-node.aelf.io/',
+        contractAddress: 'ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx',
+      },
+    },
+    rpcUrl: 'https://tdvw-test-node.aelf.io/',
+    gatewayUrl: 'https://gateway-test.aelf.io',
+    contractAddress: 'ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx',
+    method: 'Transfer',
+    params: {
+      AELF: {
+        symbol: 'ELF',
+        amount: '100000000',
+        to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
+      },
+      tDVW: {
+        symbol: 'ELF',
+        amount: '150000000',
+        to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
+      },
+    },
+  };
+
   const examples = [
+    useExampleCall('test sendMultiTransaction', async () => {
+      return await sendMultiTransaction(paramsForMuti);
+    }),
+
     useExampleCall('call getBalance', async () => {
       return callContractWithLog(callViewMethod, {
         contractAddress: configJson.multiToken,

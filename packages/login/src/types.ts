@@ -75,6 +75,29 @@ export interface CallContractParams<T> {
   };
 }
 
+type MultiChainInfo = Partial<{
+  [x in ChainId]: {
+    chainUrl: string;
+    contractAddress: string;
+  };
+}>;
+
+type MultiParams<T> = Partial<{
+  [x in ChainId]: T;
+}>;
+export interface IMultiTransactionParams<T> {
+  multiChainInfo: MultiChainInfo;
+  rpcUrl: string;
+  gatewayUrl: string;
+  contractAddress: string;
+  method: string;
+  params: MultiParams<T>;
+}
+
+export interface IMultiTransactionResult {
+  string: string[];
+}
+
 export type CallContractFunc<T, R> = (params: CallContractParams<T>) => Promise<R>;
 
 /**
@@ -171,6 +194,7 @@ export type CallContractHookOptions = {
 
 export type CallContractHookInterface = {
   contractHookId: string;
+  sendMultiTransaction<T>(params: IMultiTransactionParams<T>): Promise<IMultiTransactionResult>;
   callViewMethod<T, R>(params: CallContractParams<T>): Promise<R>;
   callSendMethod<T, R>(params: CallContractParams<T>, sendOptions: SendOptions | SendOptionsV1 | undefined): Promise<R>;
 };
