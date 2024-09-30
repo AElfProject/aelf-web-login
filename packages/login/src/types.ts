@@ -83,13 +83,16 @@ type MultiChainInfo = Partial<{
 }>;
 
 type MultiParams<T> = Partial<{
-  [x in ChainId]: T;
+  [x in ChainId]: {
+    method: string;
+    params: T;
+  };
 }>;
+
 export interface IMultiTransactionParams<T> {
   multiChainInfo: MultiChainInfo;
   gatewayUrl: string;
   chainId: ChainId;
-  method: string;
   params: MultiParams<T>;
 }
 

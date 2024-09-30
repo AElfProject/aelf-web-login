@@ -104,19 +104,24 @@ export default function CallContract() {
     },
     gatewayUrl: 'https://gateway-test.aelf.io',
     chainId: 'tDVW',
-    method: 'ManagerTransfer',
     params: {
       AELF: {
-        caHash: wallet.portkeyInfo.caInfo.caHash,
-        symbol: 'ELF',
-        amount: '100000000',
-        to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
+        method: 'ManagerTransfer',
+        params: {
+          caHash: wallet.portkeyInfo.caInfo.caHash,
+          symbol: 'ELF',
+          amount: '10000000',
+          to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
+        },
       },
       tDVW: {
-        caHash: wallet.portkeyInfo.caInfo.caHash,
-        symbol: 'ELF',
-        amount: '150000000',
-        to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
+        method: 'ManagerTransfer',
+        params: {
+          caHash: wallet.portkeyInfo.caInfo.caHash,
+          symbol: 'ELF',
+          amount: '15000000',
+          to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
+        },
       },
     },
   };
