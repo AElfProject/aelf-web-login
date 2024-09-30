@@ -88,11 +88,25 @@ const didConfig = {
       botId: TELEGRAM_BOT_ID,
     },
   },
+  // customNetworkType: NETWORK_TYPE === 'TESTNET' ? 'offline' : 'online',
+  // loginConfig: {
+  //   loginMethodsOrder: [ "Email",  "Google" , "Apple" ,  "Scan"]
+  // }
 };
 
 const baseConfig = {
-  showVconsole: false,
+  // ConfirmLogoutDialog: CustomizedConfirmLogoutDialog,
+  // SignInComponent: SignInProxy,
+  // defaultPin: '111111',
+  // PortkeyProviderProps: {
+  //   theme: 'light' as any,
+  // },
+  // omitTelegramScript: false,
+  // cancelAutoLoginInTelegram: false,
+  enableAcceleration: true,
   networkType: NETWORK_TYPE,
+  chainId: CHAIN_ID,
+  showVconsole: false,
   chainId: CHAIN_ID,
   keyboard: true,
   noCommonBaseModal: false,
@@ -106,6 +120,7 @@ const wallets = [
     appName: APP_NAME,
     chainId: CHAIN_ID,
     autoShowUnlock: true,
+    noNeedForConfirm: false,
   }),
   new PortkeyDiscoverWallet({
     networkType: NETWORK_TYPE,
