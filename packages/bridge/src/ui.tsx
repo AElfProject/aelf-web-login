@@ -13,6 +13,8 @@ import {
   Unlock,
   DIDWalletInfo,
   TelegramPlatform,
+  CreatePendingInfo,
+  setLoading,
 } from '@portkey/did-ui-react';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import { IBaseConfig } from '.';
@@ -220,13 +222,14 @@ const NestedModal = ({
 const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   const { bridgeInstance, wallets, baseConfig } = props;
   const [isShowWrapper, setIsShowWrapper] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [isShowLockPanel, setIsShowLockPanel] = useState(false);
   const [password, setPassword] = useState('');
   const [isWrongPassword, setIsWrongPassword] = useState(false);
   const [isShowConfirmLogoutPanel, setIsShowConfirmLogoutPanel] = useState(false);
   const [isShowNestedModal, setIsShowNestedModal] = useState(false);
   const { handleTelegram, currentLifeCircle } = useTelegram(
+    baseConfig.enableAcceleration,
     baseConfig.defaultPin,
     baseConfig.chainId,
     baseConfig.networkType,
@@ -242,6 +245,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     cancelAutoLoginInTelegram = false,
     defaultPin = '111111',
     keyboard,
+    enableAcceleration,
   } = baseConfig;
   const FinalSignInComponent = SignInComponent || SignIn;
   const FinalConfirmLogoutDialog = CustomizedConfirmLogoutDialog || ConfirmLogoutDialog;
@@ -299,10 +303,12 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   };
 
   bridgeInstance.openLoadingModal = () => {
+    console.log('--------------------------openLoadingModal');
     setLoading(true);
   };
 
   bridgeInstance.closeLoadingModal = () => {
+    console.log('--------------------------closeLoadingModal');
     setLoading(false);
   };
 
@@ -328,9 +334,28 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
 
   const onFinishInternal = useCallback(
     (didWallet: DIDWalletInfo) => {
-      bridgeInstance.onPortkeyAAWalletLoginFinished(didWallet);
+      if (enableAcceleration && didWallet.createType !== 'register') {
+        console.log('onPortkeyAAWalletLoginFinishedWithAcceleration--------');
+        bridgeInstance.onPortkeyAAWalletLoginFinishedWithAcceleration(didWallet);
+      } else {
+        console.log('onPortkeyAAWalletLoginFinished----------');
+        bridgeInstance.onPortkeyAAWalletLoginFinished(didWallet);
+      }
     },
-    [bridgeInstance],
+    [bridgeInstance, enableAcceleration],
+  );
+
+  const onCreatePendingInternal = useCallback(
+    (createPendingInfo: CreatePendingInfo) => {
+      if (!enableAcceleration) {
+        return;
+      }
+      if (createPendingInfo.createType === 'register') {
+        return;
+      }
+      bridgeInstance.onPortkeyAAWalletCreatePending(createPendingInfo);
+    },
+    [bridgeInstance, enableAcceleration],
   );
 
   const onCloseWrapperInternal = useCallback(() => {
@@ -471,6 +496,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
             onError={() => {
               console.log('onSignInInternalError');
             }}
+            onCreatePending={onCreatePendingInternal}
             onFinish={onFinishInternal}
           />
         </DynamicWrapper>
@@ -481,7 +507,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
         onOk={confirmLogoutHandler}
         onCancel={cancelLogoutHandler}
       />
-      <PortkeyLoading loading={loading} />
+      <PortkeyLoading />
     </div>
     // </PortkeyProvider>
   );

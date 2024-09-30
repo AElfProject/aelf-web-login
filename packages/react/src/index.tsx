@@ -17,7 +17,7 @@ export const init = (options: IConfigProps): IBridgeAPI => {
       .then((VConsole) => new VConsole.default())
       .catch((err) => console.log('Error loading VConsole:', err));
   }
-  console.log('aelf-web-login-init..............30');
+  console.log('aelf-web-login-init..............31');
   function initScriptAndMountApp() {
     if (options.baseConfig.omitTelegramScript) {
       return;

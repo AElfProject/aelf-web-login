@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import configJson from './contract/config.json';
@@ -52,6 +52,7 @@ const ContractDemo: React.FC = () => {
     walletInfo,
     getAccountByChainId,
     getWalletSyncIsCompleted,
+    isConnected,
   } = useConnectWallet();
   console.log('ContractDemo init----------');
 
@@ -169,6 +170,26 @@ const ContractDemo: React.FC = () => {
       });
     }),
   ];
+
+  useEffect(() => {
+    if (!isConnected) {
+      return;
+    }
+    console.log(isConnected, 'begin ----');
+    async function func() {
+      await callSendMethod({
+        chainId: 'tDVW',
+        contractAddress: configTdvwJson.multiToken,
+        methodName: 'Approve',
+        args: {
+          symbol: 'ELF',
+          spender: configTdvwJson.multiToken,
+          amount: '100000000',
+        },
+      });
+    }
+    func();
+  }, [callSendMethod, isConnected]);
   return (
     <div>
       {examples.map((example) => {

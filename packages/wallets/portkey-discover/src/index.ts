@@ -406,7 +406,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     }
     const finalChainId = chainId || this._chainId;
     const contract = await this.getContract(finalChainId, contractAddress);
-    const rs = contract.callSendMethod(methodName, this._wallet.address, args, sendOptions);
+    const rs = contract.callSendMethod(methodName, this._wallet.address!, args, sendOptions);
     return rs as R;
   }
 

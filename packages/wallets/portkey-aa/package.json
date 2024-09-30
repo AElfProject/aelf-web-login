@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-portkey-aa",
-  "version": "0.1.11",
+  "version": "0.1.12-alpha.3",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
@@ -26,17 +26,17 @@
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
-    "@portkey/contracts": "^2.6.2",
-    "@portkey/utils": "^2.4.5"
+    "@portkey/contracts": "^2.11.0-alpha.4",
+    "@portkey/utils": "^2.11.0-alpha.4"
   },
   "devDependencies": {
-    "@portkey/did-ui-react": "^2.7.2",
-    "@portkey/types": "^2.7.2",
+    "@portkey/did-ui-react": "^2.11.0-alpha.4",
+    "@portkey/types": "^2.11.0-alpha.4",
     "father": "^4.3.8",
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
-    "@portkey/did-ui-react": "^2.7.2"
+    "@portkey/did-ui-react": "^2.11.0-alpha.4"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

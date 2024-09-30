@@ -16,6 +16,7 @@ import {
   TVerifierItem,
   IVerifyInfo,
   TelegramPlatform,
+  CreatePendingInfo,
 } from '@portkey/did-ui-react';
 import { TChainId, NetworkEnum, utils } from '@aelf-web-login/wallet-adapter-base';
 import { useCallback, useMemo, useState } from 'react';
@@ -53,17 +54,30 @@ export enum OperationTypeEnum {
 export type TSignUpVerifier = { verifier: TVerifierItem } & IVerifyInfo;
 
 const useTelegram = (
+  enableAcceleration = false,
   DEFAULT_PIN = '111111',
   chainId: TChainId,
   network: NetworkEnum,
   bridgeInstance: Bridge,
   setIsShowWrapper: (arg: boolean) => void,
 ) => {
+  const onCreatePendingHandler = useLockCallback(async (createPendingInfo: CreatePendingInfo) => {
+    if (!enableAcceleration) {
+      return;
+    }
+    console.log('createPendingInfo.createType', createPendingInfo.createType);
+    if (createPendingInfo.createType === 'register') {
+      return;
+    }
+    bridgeInstance.onPortkeyAAWalletCreatePending(createPendingInfo);
+  }, []);
   const [currentLifeCircle, setCurrentLifeCircle] = useState<
     TStep2SignInLifeCycle | TStep1LifeCycle | TStep3LifeCycle | TStep2SignUpLifeCycle
   >({});
   const onSignInHandler = useSignInHandler({ isErrorTip: true });
-  const createWallet = useLoginWallet();
+  const createWallet = useLoginWallet({
+    onCreatePending: onCreatePendingHandler,
+  });
   const { getRecommendationVerifier, verifySocialToken } = useVerifier();
 
   const onStep2OfSignUpFinish = useCallback(
@@ -190,7 +204,11 @@ const useTelegram = (
             guardianApprovedList: approvedList,
           };
           const didWallet = await createWallet(params);
-          didWallet && bridgeInstance.onPortkeyAAWalletLoginFinished(didWallet);
+          if (enableAcceleration) {
+            didWallet && bridgeInstance.onPortkeyAAWalletLoginFinishedWithAcceleration(didWallet);
+          } else {
+            didWallet && bridgeInstance.onPortkeyAAWalletLoginFinished(didWallet);
+          }
         } else {
           setLoading(false);
           setCurrentLifeCircle({

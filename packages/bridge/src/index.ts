@@ -27,6 +27,7 @@ export interface IBaseConfig {
   defaultPin?: string;
   omitTelegramScript?: boolean;
   cancelAutoLoginInTelegram?: boolean;
+  enableAcceleration?: boolean;
   SignInComponent?: React.FC<SignInProps & RefAttributes<ISignIn>>;
   PortkeyProviderProps?: Partial<BaseConfigProviderProps>;
   ConfirmLogoutDialog?: React.FC<Partial<IConfirmLogoutDialogProps>>;

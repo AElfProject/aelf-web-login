@@ -20,7 +20,7 @@ export enum LoginStateEnum {
 export type TWalletInfo =
   | {
       name?: string;
-      address: string;
+      address?: string;
       extraInfo?: {
         [key: string]: any;
       };
