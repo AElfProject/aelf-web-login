@@ -253,6 +253,26 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         nickName = holderInfo.nickName;
       }
 
+      if (!localWallet.didWallet.sessionId) {
+        console.log('-----unlock in checkManagerIsExistByGQL');
+        const result = await did.didWallet.checkManagerIsExistByGQL({
+          chainId: originChainId,
+          caHash,
+          managementAddress: localWallet.didWallet.managementAccount?.address ?? '',
+        });
+        if (result) {
+          await did.save(password, this.appName);
+        } else {
+          // logout
+        }
+      }
+
+      console.log(
+        '----unlock after checkManagerIsExistByGQL',
+        caHash,
+        localWallet.didWallet.sessionId,
+      );
+
       const didWalletInfo: DIDWalletInfo = {
         caInfo,
         pin: password,
