@@ -85,6 +85,7 @@ export default function CallContract() {
   });
 
   interface IParmsItem {
+    caHash: string;
     symbol: string;
     amount: string;
     to: string;
@@ -94,24 +95,25 @@ export default function CallContract() {
     multiChainInfo: {
       AELF: {
         chainUrl: 'https://aelf-test-node.aelf.io/',
-        contractAddress: 'JRmBduh4nXWi1aXgdUsj5gJrzeZb2LxmrAbf7W99faZSvoAaE',
+        contractAddress: '238X6iw1j8YKcHvkDYVtYVbuYk2gJnK8UoNpVCtssynSpVC8hb',
       },
       tDVW: {
         chainUrl: 'https://tdvw-test-node.aelf.io/',
-        contractAddress: 'ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx',
+        contractAddress: '238X6iw1j8YKcHvkDYVtYVbuYk2gJnK8UoNpVCtssynSpVC8hb',
       },
     },
-    rpcUrl: 'https://tdvw-test-node.aelf.io/',
     gatewayUrl: 'https://gateway-test.aelf.io',
-    contractAddress: 'ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx',
-    method: 'Transfer',
+    chainId: 'tDVW',
+    method: 'ManagerTransfer',
     params: {
       AELF: {
+        caHash: wallet.portkeyInfo.caInfo.caHash,
         symbol: 'ELF',
         amount: '100000000',
         to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
       },
       tDVW: {
+        caHash: wallet.portkeyInfo.caInfo.caHash,
         symbol: 'ELF',
         amount: '150000000',
         to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',

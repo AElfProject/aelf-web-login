@@ -3435,29 +3435,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@portkey/accounts@npm:^2.10.6-alpha.9":
-  version: 2.10.6-alpha.9
-  resolution: "@portkey/accounts@npm:2.10.6-alpha.9"
+"@portkey/accounts@npm:^2.10.6-alpha.10":
+  version: 2.10.6-alpha.10
+  resolution: "@portkey/accounts@npm:2.10.6-alpha.10"
   dependencies:
-    "@portkey/types": "npm:^2.10.6-alpha.9"
-    "@portkey/utils": "npm:^2.10.6-alpha.9"
-    "@portkey/validator": "npm:^2.10.6-alpha.9"
+    "@portkey/types": "npm:^2.10.6-alpha.10"
+    "@portkey/utils": "npm:^2.10.6-alpha.10"
+    "@portkey/validator": "npm:^2.10.6-alpha.10"
   peerDependencies:
     aelf-sdk: ^3.4.7
-  checksum: 10c0/866632e8ab331597d704afd0ed076abd923b7e7220da3d9db8b340b436ec290d0078a250002bbd204193db75034e085503c15c414241bb412a5541468fed8259
+  checksum: 10c0/bd503b5218e1be9f29fedef1587df2443232f36cd24b789f8771f6542835186b1068d576c2ed6dfdad4da653dc1d3f4fd4e15708c470d75e440194647a48df7a
   languageName: node
   linkType: hard
 
-"@portkey/contracts@npm:^2.10.6-alpha.9":
-  version: 2.10.6-alpha.9
-  resolution: "@portkey/contracts@npm:2.10.6-alpha.9"
+"@portkey/contracts@npm:^2.10.6-alpha.10":
+  version: 2.10.6-alpha.10
+  resolution: "@portkey/contracts@npm:2.10.6-alpha.10"
   dependencies:
     "@portkey/provider-types": "npm:^2.1.0"
-    "@portkey/types": "npm:^2.10.6-alpha.9"
-    "@portkey/utils": "npm:^2.10.6-alpha.9"
+    "@portkey/types": "npm:^2.10.6-alpha.10"
+    "@portkey/utils": "npm:^2.10.6-alpha.10"
   peerDependencies:
     aelf-sdk: ^3.4.7
-  checksum: 10c0/87e746c95c533d967e4338dcb826fd5474e4668c7ad21cad3a5bd80cea21ccecf21c66c45e5b96b3b5fb4a7ef5d1f9e8aa61e2b41e209a75d3daf0a611a7d02c
+  checksum: 10c0/1e7b70a8d245d020b63d80bac06495e73fc460925fe7655fbc574861855377e55e44f25c6e8629c0fbf6ef700763fe5888831fd2b8d5234e539de78a9d0c5d85
   languageName: node
   linkType: hard
 
@@ -3492,23 +3492,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@portkey/did-ui-react@npm:^2.10.6-alpha.9":
-  version: 2.10.6-alpha.9
-  resolution: "@portkey/did-ui-react@npm:2.10.6-alpha.9"
+"@portkey/did-ui-react@npm:^2.10.6-alpha.10":
+  version: 2.10.6-alpha.10
+  resolution: "@portkey/did-ui-react@npm:2.10.6-alpha.10"
   dependencies:
     "@matt-block/react-recaptcha-v2": "npm:^2.0.0"
-    "@portkey/accounts": "npm:^2.10.6-alpha.9"
-    "@portkey/contracts": "npm:^2.10.6-alpha.9"
-    "@portkey/did": "npm:^2.10.6-alpha.9"
-    "@portkey/graphql": "npm:^2.10.6-alpha.9"
-    "@portkey/onboarding": "npm:^2.10.6-alpha.9"
-    "@portkey/ramp": "npm:^2.10.6-alpha.9"
-    "@portkey/request": "npm:^2.10.6-alpha.9"
-    "@portkey/services": "npm:^2.10.6-alpha.9"
-    "@portkey/socket": "npm:^2.10.6-alpha.9"
-    "@portkey/types": "npm:^2.10.6-alpha.9"
-    "@portkey/utils": "npm:^2.10.6-alpha.9"
-    "@portkey/validator": "npm:^2.10.6-alpha.9"
+    "@portkey/accounts": "npm:^2.10.6-alpha.10"
+    "@portkey/contracts": "npm:^2.10.6-alpha.10"
+    "@portkey/did": "npm:^2.10.6-alpha.10"
+    "@portkey/graphql": "npm:^2.10.6-alpha.10"
+    "@portkey/onboarding": "npm:^2.10.6-alpha.10"
+    "@portkey/ramp": "npm:^2.10.6-alpha.10"
+    "@portkey/request": "npm:^2.10.6-alpha.10"
+    "@portkey/services": "npm:^2.10.6-alpha.10"
+    "@portkey/socket": "npm:^2.10.6-alpha.10"
+    "@portkey/types": "npm:^2.10.6-alpha.10"
+    "@portkey/utils": "npm:^2.10.6-alpha.10"
+    "@portkey/validator": "npm:^2.10.6-alpha.10"
     "@rc-component/portal": "npm:1.0.2"
     antd: "npm:4.24.14"
     antd-mobile: "npm:5.33.0"
@@ -3526,25 +3526,25 @@ __metadata:
     aelf-sdk: ^3.4.7
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 10c0/eedb715eef204daed5047ca03b4f17ad4b9331832b0f9f3c46d7203b37ed5cdf3daf1f94a90e7450562c1182bb74846f162bf89d62ca09a029eacfa10b6a523c
+  checksum: 10c0/cc1e48363e77682ba99199d60e28918fa7aebaef0facd08abbdeb90ec327b2f8bc557c83863417a4df47271117383410a59f4e6a3a07ae0736d452c68072359e
   languageName: node
   linkType: hard
 
-"@portkey/did@npm:^2.10.6-alpha.9":
-  version: 2.10.6-alpha.9
-  resolution: "@portkey/did@npm:2.10.6-alpha.9"
+"@portkey/did@npm:^2.10.6-alpha.10":
+  version: 2.10.6-alpha.10
+  resolution: "@portkey/did@npm:2.10.6-alpha.10"
   dependencies:
-    "@portkey/accounts": "npm:^2.10.6-alpha.9"
-    "@portkey/contracts": "npm:^2.10.6-alpha.9"
-    "@portkey/graphql": "npm:^2.10.6-alpha.9"
-    "@portkey/request": "npm:^2.10.6-alpha.9"
-    "@portkey/services": "npm:^2.10.6-alpha.9"
-    "@portkey/types": "npm:^2.10.6-alpha.9"
-    "@portkey/utils": "npm:^2.10.6-alpha.9"
+    "@portkey/accounts": "npm:^2.10.6-alpha.10"
+    "@portkey/contracts": "npm:^2.10.6-alpha.10"
+    "@portkey/graphql": "npm:^2.10.6-alpha.10"
+    "@portkey/request": "npm:^2.10.6-alpha.10"
+    "@portkey/services": "npm:^2.10.6-alpha.10"
+    "@portkey/types": "npm:^2.10.6-alpha.10"
+    "@portkey/utils": "npm:^2.10.6-alpha.10"
   peerDependencies:
     aelf-sdk: ^3.4.7
     react: ^18.2.0
-  checksum: 10c0/77b00b9db8bae6610736b9f8144e856a2249d5f660c8045e5714c697d88d72cfc38d88f242c6c1487cf500c67dd02ceac9d517879b8db94414c4de5267793394
+  checksum: 10c0/094e467e6fc08a71ea6cbacb16a7f5507d8e38d74140c85f5dcbe6dba2a4b529dd526798c12b05d660a9d87e586fe7b5eae2e31f74ff58fc989ab8e82fe4ec1e
   languageName: node
   linkType: hard
 
@@ -3560,28 +3560,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@portkey/graphql@npm:^2.10.6-alpha.9":
-  version: 2.10.6-alpha.9
-  resolution: "@portkey/graphql@npm:2.10.6-alpha.9"
+"@portkey/graphql@npm:^2.10.6-alpha.10":
+  version: 2.10.6-alpha.10
+  resolution: "@portkey/graphql@npm:2.10.6-alpha.10"
   dependencies:
     "@apollo/client": "npm:^3.7.3"
-    "@portkey/types": "npm:^2.10.6-alpha.9"
+    "@portkey/types": "npm:^2.10.6-alpha.10"
     graphql: "npm:^16.6.0"
     subscriptions-transport-ws: "npm:^0.11.0"
-  checksum: 10c0/040d72309034eda16fbeaf3d665572f4a06a0976751dbc239f156ab64406f0f5f929aa7a5668eb9e32319753e2f5d79005bb6533a49e22cb8f9bf2a05ac0eb55
+  checksum: 10c0/4440c5b4e35d92d2e30eea848cbe9be5d735e0529e26bc6e819ffbf49667bce8316f23e059952473bf166d1d57128e736846ff10836b14e025a35faf5a982af0
   languageName: node
   linkType: hard
 
-"@portkey/onboarding@npm:^2.10.6-alpha.9":
-  version: 2.10.6-alpha.9
-  resolution: "@portkey/onboarding@npm:2.10.6-alpha.9"
+"@portkey/onboarding@npm:^2.10.6-alpha.10":
+  version: 2.10.6-alpha.10
+  resolution: "@portkey/onboarding@npm:2.10.6-alpha.10"
   dependencies:
     "@portkey/detect-provider": "npm:^2.0.0-alpha.2"
-    "@portkey/types": "npm:^2.10.6-alpha.9"
-    "@portkey/utils": "npm:^2.10.6-alpha.9"
+    "@portkey/types": "npm:^2.10.6-alpha.10"
+    "@portkey/utils": "npm:^2.10.6-alpha.10"
     bowser: "npm:^2.11.0"
     query-string: "npm:^7.1.1"
-  checksum: 10c0/9facfb5b81c584a2d5123c3a4546364486622b75707038789cfc0081a11c05e7cd67e46c3a11745cc1d500d94216894a9d0fe1a899d025bc090e28aad7cfde9d
+  checksum: 10c0/65e8ef5f41b2fe3d16f2b489534f9ec0563ec8dd8c42c80323a86c6ff38f02c0849a81fd6951f48d0d86461aab67992247b0e40a08469561cfa5f13e3a340514
   languageName: node
   linkType: hard
 
@@ -3615,16 +3615,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@portkey/ramp@npm:^2.10.6-alpha.9":
-  version: 2.10.6-alpha.9
-  resolution: "@portkey/ramp@npm:2.10.6-alpha.9"
+"@portkey/ramp@npm:^2.10.6-alpha.10":
+  version: 2.10.6-alpha.10
+  resolution: "@portkey/ramp@npm:2.10.6-alpha.10"
   dependencies:
-    "@portkey/request": "npm:^2.10.6-alpha.9"
-    "@portkey/socket": "npm:^2.10.6-alpha.9"
-    "@portkey/types": "npm:^2.10.6-alpha.9"
-    "@portkey/utils": "npm:^2.10.6-alpha.9"
+    "@portkey/request": "npm:^2.10.6-alpha.10"
+    "@portkey/socket": "npm:^2.10.6-alpha.10"
+    "@portkey/types": "npm:^2.10.6-alpha.10"
+    "@portkey/utils": "npm:^2.10.6-alpha.10"
     query-string: "npm:^7.1.1"
-  checksum: 10c0/1dbea54d3f6a9674b1b6bd813fb4612388ecb8e48d57cd52d53c42cbba20d0c88060da40e664c1783b02612e8840de3e0a78e976f5f81dc116ea7d1705351825
+  checksum: 10c0/b28f5c562c2af2febfc25321ea7bdc69de1abe0922e7d0803b4ea48a331bb6b347f4bc4a8e06f189a846e8039a1ed7e544a3ef4890979d27604eff098eda7c7e
   languageName: node
   linkType: hard
 
@@ -3638,28 +3638,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@portkey/request@npm:^2.10.6-alpha.9":
-  version: 2.10.6-alpha.9
-  resolution: "@portkey/request@npm:2.10.6-alpha.9"
+"@portkey/request@npm:^2.10.6-alpha.10":
+  version: 2.10.6-alpha.10
+  resolution: "@portkey/request@npm:2.10.6-alpha.10"
   dependencies:
-    "@portkey/types": "npm:^2.10.6-alpha.9"
+    "@portkey/types": "npm:^2.10.6-alpha.10"
     query-string: "npm:^7.1.1"
-  checksum: 10c0/308b44339b02e192091873b6fe31f790bff1ed3feed55d724baacba0a8cb89f76ee7940b5c0602d1c731de65c6ceff4aab2f841408ea796e4526e27d4378d29b
+  checksum: 10c0/b74aa892203b2e8d6e79994a13ab3833723a35cbdee728f5417a5381ddb64aff1cab68386a05b972441321db7631ec0b4dd6dcb27b57a7996405fb89271ab797
   languageName: node
   linkType: hard
 
-"@portkey/services@npm:^2.10.6-alpha.9":
-  version: 2.10.6-alpha.9
-  resolution: "@portkey/services@npm:2.10.6-alpha.9"
+"@portkey/services@npm:^2.10.6-alpha.10":
+  version: 2.10.6-alpha.10
+  resolution: "@portkey/services@npm:2.10.6-alpha.10"
   dependencies:
-    "@portkey/graphql": "npm:^2.10.6-alpha.9"
-    "@portkey/request": "npm:^2.10.6-alpha.9"
-    "@portkey/types": "npm:^2.10.6-alpha.9"
-    "@portkey/utils": "npm:^2.10.6-alpha.9"
+    "@portkey/graphql": "npm:^2.10.6-alpha.10"
+    "@portkey/request": "npm:^2.10.6-alpha.10"
+    "@portkey/types": "npm:^2.10.6-alpha.10"
+    "@portkey/utils": "npm:^2.10.6-alpha.10"
   peerDependencies:
     aelf-sdk: ^3.4.7
     query-string: ^7.1.1
-  checksum: 10c0/15e462109d641c2b7d8b514c7478750082b8d7f092dd2494ecda010af087eae6a601a5782fcac5aa49500bc6877616805f1ca9ed7f06c9677ef20d5315418e61
+  checksum: 10c0/9e992f4ed6548a7e0b6cdee46bce34abd5240f1fbd997748d3f5e51e88788a256830564aae2907c734912251761374cf3d1458ba097bb4e34fb2deab016021a0
   languageName: node
   linkType: hard
 
@@ -3678,13 +3678,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@portkey/socket@npm:^2.10.6-alpha.9":
-  version: 2.10.6-alpha.9
-  resolution: "@portkey/socket@npm:2.10.6-alpha.9"
+"@portkey/socket@npm:^2.10.6-alpha.10":
+  version: 2.10.6-alpha.10
+  resolution: "@portkey/socket@npm:2.10.6-alpha.10"
   dependencies:
     "@abp/signalr": "npm:^7.0.0"
-    "@portkey/utils": "npm:^2.10.6-alpha.9"
-  checksum: 10c0/473fd1d15003cadb514cdd02860c4bb5d3ebdf9f45e7a9ae89b57a072f429428759cb882edbc795f281217a7b8fa2126922f08d2743a27b0926b7e3457e36167
+    "@portkey/utils": "npm:^2.10.6-alpha.10"
+  checksum: 10c0/9ec24124954df34eb51f4d7d0ce8932affd9aaf799b3f10b9160c7991c486b50efa7b5f5359a9f22b463681bf58eb9d6f8b774f45b42a22ed491f835ce5e6a37
   languageName: node
   linkType: hard
 
@@ -3702,10 +3702,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@portkey/types@npm:^2.10.6-alpha.9":
-  version: 2.10.6-alpha.9
-  resolution: "@portkey/types@npm:2.10.6-alpha.9"
-  checksum: 10c0/2e596d5b7cfa33dce886526f54aa340e2c1a01eb92c4b69fbf390cdf1c0b38e707210b6f1740cb9b748c139f62d184c3c5bb5632c2d48982d804782c502abf64
+"@portkey/types@npm:^2.10.6-alpha.10":
+  version: 2.10.6-alpha.10
+  resolution: "@portkey/types@npm:2.10.6-alpha.10"
+  checksum: 10c0/57f63f93e90f1a1a573c9eea8f2cd888d4dc0df3f25112c766e5af28a3776353e64bb10e91dd1b9320515e1a93dc6b0502d08955569690e5bf6a501092dac69c
   languageName: node
   linkType: hard
 
@@ -3722,23 +3722,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@portkey/utils@npm:^2.10.6-alpha.9":
-  version: 2.10.6-alpha.9
-  resolution: "@portkey/utils@npm:2.10.6-alpha.9"
+"@portkey/utils@npm:^2.10.6-alpha.10":
+  version: 2.10.6-alpha.10
+  resolution: "@portkey/utils@npm:2.10.6-alpha.10"
   dependencies:
     node-forge: "npm:^1.3.1"
   peerDependencies:
     "@portkey/request": ^2.6.6
     aelf-sdk: ^3.4.7
     query-string: ^7.1.1
-  checksum: 10c0/587bc1caedea5ab8e97aaeefc90fb11bd4619c918145068198baaa6cfedcf293677a3fb1e567bd2ffbfc4f3402d0d5fa63c13958075e33467e7f0a895869dc59
+  checksum: 10c0/d1fb8e889dea505c41f7e06c9f50dbb9ca4135561931b267c521392afbab537c13d654534b2c627dbaa7ba270ded4093747ff59d4ee115d168570247f36f75d3
   languageName: node
   linkType: hard
 
-"@portkey/validator@npm:^2.10.6-alpha.9":
-  version: 2.10.6-alpha.9
-  resolution: "@portkey/validator@npm:2.10.6-alpha.9"
-  checksum: 10c0/8fd41ced07dd2d03dc182faf7692a4e98cfc9c6cf64a8926cdf290431c6cdf7ce010d3b3f15caf067620782482f045e1579fd1702cfb823f8db6bd9e875bd87a
+"@portkey/validator@npm:^2.10.6-alpha.10":
+  version: 2.10.6-alpha.10
+  resolution: "@portkey/validator@npm:2.10.6-alpha.10"
+  checksum: 10c0/66ad1edbb1f27e9b339e825a1c93a3e05a830a5db0a63bcb47f09229f8c1c62d33e05ac50b226a3063487b831c2e5c7175472f8f092866128a7e6de51f94c399
   languageName: node
   linkType: hard
 
@@ -4679,11 +4679,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 22.7.3
-  resolution: "@types/node@npm:22.7.3"
+  version: 22.7.4
+  resolution: "@types/node@npm:22.7.4"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10c0/0e579813528b0370454337a952f43b792cd12731e10fdca0fdb627158e980c1219bba99e9048c134b6a19325d817016059afe016ccd372326c838a1b85a51574
+  checksum: 10c0/c22bf54515c78ff3170142c1e718b90e2a0003419dc2d55f79c9c9362edd590a6ab1450deb09ff6e1b32d1b4698da407930b16285e8be3a009ea6cd2695cac01
   languageName: node
   linkType: hard
 
@@ -4760,12 +4760,12 @@ __metadata:
   linkType: hard
 
 "@types/react@npm:*, @types/react@npm:^18.2.11":
-  version: 18.3.9
-  resolution: "@types/react@npm:18.3.9"
+  version: 18.3.10
+  resolution: "@types/react@npm:18.3.10"
   dependencies:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10c0/a92b8e061d0c833e096254782c56a802316593f4a907fb834b557cabe848a0829b9eb6056404ea239eb4d5ec5ac7b7724309761516c0a7a277916fa04dd4f805
+  checksum: 10c0/f5be1de1b0331c1fdb33d577f4cf7f1b949d4bded5347b2351a537f03c51dade5be115e21b161dcf1b37061954d320f6a0bdf8d7b70e24eda51071fdd614383d
   languageName: node
   linkType: hard
 
@@ -5456,9 +5456,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aelf-sdk@npm:^3.4.16-alpha.3":
-  version: 3.4.16-alpha.3
-  resolution: "aelf-sdk@npm:3.4.16-alpha.3"
+"aelf-sdk@npm:^3.4.16-alpha.7":
+  version: 3.4.16-alpha.7
+  resolution: "aelf-sdk@npm:3.4.16-alpha.7"
   dependencies:
     "@aelfqueen/protobufjs": "npm:^6.8.9"
     "@aws-crypto/sha256-js": "npm:^5.0.0"
@@ -5489,7 +5489,7 @@ __metadata:
     stream-browserify: "npm:^3.0.0"
     typescript: "npm:^5.0.4"
     xmlhttprequest: "npm:^1.8.0"
-  checksum: 10c0/3b4ee2258f4231f61487d0fe626f0cbfd7ceef992bebdf0a553ae4594b92f83128c9eaff768d94bb207930abc195c5ca14df137c6ab9cdd02d698f3579840d85
+  checksum: 10c0/6a0e6882f77ccd84830fcbd6eed617b2b81274c6e540189e9da00dca9eb3473e45774d4e5fde39ed53b8f630081d4edbe5e8049435dad9359e14fa860d1dda57
   languageName: node
   linkType: hard
 
@@ -5505,7 +5505,7 @@ __metadata:
     "@portkey-v1/types": "npm:1.5.4-alpha.22"
     "@portkey-v1/utils": "npm:1.5.4-alpha.22"
     "@portkey/contracts": "npm:^2.7.1-alpha.0"
-    "@portkey/did-ui-react": "npm:^2.10.6-alpha.9"
+    "@portkey/did-ui-react": "npm:^2.10.6-alpha.10"
     "@portkey/request": "npm:^2.7.1-alpha.0"
     "@portkey/services": "npm:^2.7.1-alpha.0"
     "@portkey/types": "npm:^2.7.1-alpha.0"
@@ -5539,7 +5539,7 @@ __metadata:
     "@portkey-v1/utils": "npm:1.5.4-alpha.22"
     "@portkey/contracts": "npm:^2.7.1-alpha.0"
     "@portkey/detect-provider": "npm:^2.3.5-alpha.2"
-    "@portkey/did-ui-react": "npm:^2.10.6-alpha.9"
+    "@portkey/did-ui-react": "npm:^2.10.6-alpha.10"
     "@portkey/provider-types": "npm:^2.3.5-alpha.2"
     "@portkey/request": "npm:^2.7.1-alpha.0"
     "@portkey/services": "npm:^2.7.1-alpha.0"
@@ -5548,7 +5548,7 @@ __metadata:
     "@types/bn.js": "npm:^5.1.3"
     "@types/uuid": "npm:^8.3.4"
     aelf-bridge: "npm:^0.0.11-alpha.4"
-    aelf-sdk: "npm:^3.4.16-alpha.3"
+    aelf-sdk: "npm:^3.4.16-alpha.7"
     ahooks: "npm:^3.7.7"
     antd: "npm:^4.24.4"
     bn.js: "npm:^5.2.1"
@@ -5567,7 +5567,7 @@ __metadata:
     "@portkey-v1/types": 1.5.4-alpha.22
     "@portkey-v1/utils": 1.5.4-alpha.22
     "@portkey/contracts": ^2.7.1-alpha.0
-    "@portkey/did-ui-react": ^2.10.6-alpha.9
+    "@portkey/did-ui-react": ^2.10.6-alpha.10
     "@portkey/request": ^2.7.1-alpha.0
     "@portkey/services": ^2.7.1-alpha.0
     "@portkey/types": ^2.7.1-alpha.0
@@ -9259,7 +9259,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"escalade@npm:^3.1.1, escalade@npm:^3.1.2":
+"escalade@npm:^3.1.1, escalade@npm:^3.2.0":
   version: 3.2.0
   resolution: "escalade@npm:3.2.0"
   checksum: 10c0/ced4dd3a78e15897ed3be74e635110bbf3b08877b0a41be50dcb325ee0e0b5f65fc2d50e9845194d7c4633f327e2e1c6cce00a71b617c5673df0374201d67f65
@@ -14699,9 +14699,9 @@ __metadata:
   linkType: hard
 
 "nwsapi@npm:^2.2.0, nwsapi@npm:^2.2.2":
-  version: 2.2.12
-  resolution: "nwsapi@npm:2.2.12"
-  checksum: 10c0/95e9623d63df111405503df8c5d800e26f71675d319e2c9c70cddfa31e5ace1d3f8b6d98d354544fc156a1506d920ec291e303fab761e4f99296868e199a466e
+  version: 2.2.13
+  resolution: "nwsapi@npm:2.2.13"
+  checksum: 10c0/9dbd1071bba3570ef0b046c43c03d0584c461063f27539ba39f4185188e9d5c10cb06fd4426cdb300bb83020c3daa2c8f4fa9e8a070299539ac4007433357ac0
   languageName: node
   linkType: hard
 
@@ -19896,8 +19896,8 @@ __metadata:
   linkType: hard
 
 "terser@npm:^5.0.0, terser@npm:^5.10.0, terser@npm:^5.26.0":
-  version: 5.34.0
-  resolution: "terser@npm:5.34.0"
+  version: 5.34.1
+  resolution: "terser@npm:5.34.1"
   dependencies:
     "@jridgewell/source-map": "npm:^0.3.3"
     acorn: "npm:^8.8.2"
@@ -19905,7 +19905,7 @@ __metadata:
     source-map-support: "npm:~0.5.20"
   bin:
     terser: bin/terser
-  checksum: 10c0/74e8ef4e565e5600415cd9377a90eed419b8076465d453c0c76aef4053c45371512d2de76c34d01e004cdd49ea5a749d77eeb343f7e665b2d172158ca08ba23e
+  checksum: 10c0/51c7d704c5c4ae88bf937124112c9972aed4e1fd29d805cc2d86e0f54cd631ecd4e69db5bb3c1e3b450c741c86e2313328bea0fde925329e8a31a07a7941723c
   languageName: node
   linkType: hard
 
@@ -20593,16 +20593,16 @@ __metadata:
   linkType: hard
 
 "update-browserslist-db@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "update-browserslist-db@npm:1.1.0"
+  version: 1.1.1
+  resolution: "update-browserslist-db@npm:1.1.1"
   dependencies:
-    escalade: "npm:^3.1.2"
-    picocolors: "npm:^1.0.1"
+    escalade: "npm:^3.2.0"
+    picocolors: "npm:^1.1.0"
   peerDependencies:
     browserslist: ">= 4.21.0"
   bin:
     update-browserslist-db: cli.js
-  checksum: 10c0/a7452de47785842736fb71547651c5bbe5b4dc1e3722ccf48a704b7b34e4dcf633991eaa8e4a6a517ffb738b3252eede3773bef673ef9021baa26b056d63a5b9
+  checksum: 10c0/536a2979adda2b4be81b07e311bd2f3ad5e978690987956bc5f514130ad50cac87cd22c710b686d79731e00fbee8ef43efe5fcd72baa241045209195d43dcc80
   languageName: node
   linkType: hard
 

@@ -87,9 +87,8 @@ type MultiParams<T> = Partial<{
 }>;
 export interface IMultiTransactionParams<T> {
   multiChainInfo: MultiChainInfo;
-  rpcUrl: string;
   gatewayUrl: string;
-  contractAddress: string;
+  chainId: ChainId;
   method: string;
   params: MultiParams<T>;
 }
