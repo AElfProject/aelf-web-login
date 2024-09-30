@@ -29,13 +29,13 @@
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
-    "@portkey/services": "^2.11.0-alpha.4",
+    "@portkey/services": "^2.11.0-alpha.10",
     "@reduxjs/toolkit": "^2.2.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@portkey/did-ui-react": "^2.11.0-alpha.4",
+    "@portkey/did-ui-react": "^2.11.0-alpha.10",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "antd": "4.24.14",
@@ -43,7 +43,7 @@
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
-    "@portkey/did-ui-react": "^2.11.0-alpha.4"
+    "@portkey/did-ui-react": "^2.11.0-alpha.10"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
