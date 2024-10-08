@@ -268,7 +268,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       }
 
       console.log(
-        '----unlock after checkManagerIsExistByGQL',
+        '----unlock after checkManagerIsExistByGQL, caHash and sessionId: ',
         caHash,
         localWallet.didWallet.sessionId,
       );
