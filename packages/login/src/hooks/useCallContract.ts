@@ -238,7 +238,6 @@ export default function useCallContract(options?: CallContractHookOptions): Call
   const sendMultiTransaction = useCallback(async function sendMultiTransactionFunc<T>(
     params: IMultiTransactionParams<T>,
   ): Promise<IMultiTransactionResult> {
-    console.log('xxxxxxx', params);
     return did.sendMultiTransaction(params);
   }, []);
 
