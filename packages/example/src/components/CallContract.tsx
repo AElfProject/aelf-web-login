@@ -1,4 +1,11 @@
-import { CallContractParams, WebLoginState, useCallContract, useCurrentChainSync, useWebLogin } from 'aelf-web-login';
+import {
+  CallContractParams,
+  IMultiTransactionParams,
+  WebLoginState,
+  useCallContract,
+  useCurrentChainSync,
+  useWebLogin,
+} from 'aelf-web-login';
 import { useState } from 'react';
 import configJson from '../assets/config.json';
 import configTdvwJson from '../assets/config.tdvw.json';
@@ -67,7 +74,7 @@ export default function CallContract() {
   const { wallet, callContract, version } = useWebLogin();
   const getAccountTDVW = useGetAccount('tDVW');
   const getCurrentChainIdSync = useCurrentChainSync('tDVW');
-  const { callViewMethod, callSendMethod } = useCallContract();
+  const { callViewMethod, callSendMethod, sendMultiTransaction } = useCallContract();
   const { callViewMethod: callViewMethodAELF, callSendMethod: callSendMethodAELF } = useCallContract({
     chainId: 'AELF',
     rpcUrl: 'https://aelf-test-node.aelf.io',
@@ -77,7 +84,53 @@ export default function CallContract() {
     rpcUrl: 'https://tdvw-test-node.aelf.io',
   });
 
+  interface IParmsItem {
+    caHash: string;
+    symbol: string;
+    amount: string;
+    to: string;
+  }
+
+  const paramsForMuti: IMultiTransactionParams<IParmsItem> = {
+    multiChainInfo: {
+      AELF: {
+        chainUrl: 'https://aelf-test-node.aelf.io/',
+        contractAddress: '238X6iw1j8YKcHvkDYVtYVbuYk2gJnK8UoNpVCtssynSpVC8hb',
+      },
+      tDVW: {
+        chainUrl: 'https://tdvw-test-node.aelf.io/',
+        contractAddress: '238X6iw1j8YKcHvkDYVtYVbuYk2gJnK8UoNpVCtssynSpVC8hb',
+      },
+    },
+    gatewayUrl: 'https://gateway-test.aelf.io',
+    chainId: 'tDVW',
+    params: {
+      AELF: {
+        method: 'ManagerTransfer',
+        params: {
+          caHash: wallet.portkeyInfo.caInfo.caHash,
+          symbol: 'ELF',
+          amount: '10000000',
+          to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
+        },
+      },
+      tDVW: {
+        method: 'ManagerTransfer',
+        params: {
+          caHash: wallet.portkeyInfo.caInfo.caHash,
+          symbol: 'ELF',
+          amount: '15000000',
+          to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
+        },
+      },
+    },
+  };
+
   const examples = [
+    useExampleCall('test sendMultiTransaction', async () => {
+      return await sendMultiTransaction(paramsForMuti);
+    }),
+
     useExampleCall('call getBalance', async () => {
       return callContractWithLog(callViewMethod, {
         contractAddress: configJson.multiToken,

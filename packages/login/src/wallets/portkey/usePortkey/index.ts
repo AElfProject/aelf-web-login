@@ -227,6 +227,8 @@ export function usePortkey({
       setPreparing(true);
       setLoading(true);
       try {
+        setApproveModalInTG(false);
+        setModalOpen(false);
         localStorage.setItem(PORTKEY_ORIGIN_CHAIN_ID_KEY, didWalletInfo.chainId);
         try {
           if (didWalletInfo.chainId !== chainId) {
@@ -273,7 +275,6 @@ export function usePortkey({
         // debugger;
         setLoading(false);
         setPreparing(false);
-        setApproveModalInTG(false);
       }
     },
     [appName, chainId, eventEmitter, setLoading, setLoginError, setLoginState, setApproveModalInTG, setWalletType],
