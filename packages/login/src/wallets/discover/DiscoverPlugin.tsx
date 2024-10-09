@@ -66,6 +66,6 @@ export default function DiscoverPlugin({
       onClick={onClickButton}
     />
   ) : (
-    <PluginEntry name={'Portkey Wallet'} icon={'discoverV2'} onClick={onClickButton} />
+    <PluginEntry name={'Portkey'} icon={'discoverV2'} onClick={onClickButton} />
   );
 }
