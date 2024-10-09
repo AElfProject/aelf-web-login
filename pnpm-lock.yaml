@@ -332,14 +332,14 @@ importers:
         specifier: ^2.6.2
         version: 2.10.5(@portkey/request@2.10.5)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/detect-provider':
-        specifier: ^2.2.0
-        version: 2.3.4
+        specifier: ^2.3.5-alpha.2
+        version: 2.3.5-alpha.5
       '@portkey/did-ui-react':
         specifier: ^2.7.2
         version: 2.10.5(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@portkey/provider-types':
-        specifier: ^2.2.0
-        version: 2.3.4
+        specifier: ^2.3.5-alpha.2
+        version: 2.3.5-alpha.5
       '@portkey/utils':
         specifier: ^2.4.5
         version: 2.10.5(@portkey/request@2.10.5)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
@@ -454,11 +454,11 @@ importers:
         specifier: ^2.11.0
         version: 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/detect-provider':
-        specifier: ^2.2.0
-        version: 2.3.4
+        specifier: ^2.3.5-alpha.2
+        version: 2.3.5-alpha.5
       '@portkey/provider-types':
-        specifier: ^2.2.0
-        version: 2.3.4
+        specifier: ^2.3.5-alpha.2
+        version: 2.3.5-alpha.5
       '@portkey/utils':
         specifier: ^2.11.0
         version: 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
@@ -2656,6 +2656,9 @@ packages:
   '@portkey/detect-provider@2.3.4':
     resolution: {integrity: sha512-4EyQ0UOUCOxbTwwuNT42J35NHOHmQTiOITr4c1QGXfLf0KDY7u5h/0rabDsnuINA+odbvcNDnQif37H4+MxH2g==}
 
+  '@portkey/detect-provider@2.3.5-alpha.5':
+    resolution: {integrity: sha512-AwAkAT7rPnat7qrRnpZjLjbyKRTuvbr0ShB5vxLycK/Ic7Qa7KUUhM/Ap7X9Bki67+YBv8ma1bLQ9lau/d/MLw==}
+
   '@portkey/did-ui-react@2.10.5':
     resolution: {integrity: sha512-Z+SdCrRYEj45/nyNyplHXnonpZI5p6MupRMPVTGTBdKNBs7SzCIyXgIYcqBZ9tD09D1SR1TTz0na5mvuM4fLWw==}
     peerDependencies:
@@ -2696,6 +2699,9 @@ packages:
 
   '@portkey/provider-types@2.3.4':
     resolution: {integrity: sha512-UJFqj1fEGG42sW91pjNx1azsBdpIEybrYGvyASJE9U8uFeOoMEWF1aX7pgV5X5lEJyWPC7c5dod5mnCqqK9qVg==}
+
+  '@portkey/provider-types@2.3.5-alpha.5':
+    resolution: {integrity: sha512-/osppmJJVwGZcBUc1bjxwfh9aN9N3CLGwFHOOzDWGx+O+soeUZSBrIavvEpvcMQlKotY4ikpAJf4qmPQkOQUmA==}
 
   '@portkey/ramp@2.10.5':
     resolution: {integrity: sha512-M7bznLqzRaRnK8+QJ9Lip0l5rbnuBcyBFWLOAqyIjjADf3TUJYzqiEkkXGvmE4st6aM0jc2ILt5lOQWmbyepLA==}
@@ -13949,6 +13955,10 @@ snapshots:
     dependencies:
       '@portkey/provider-types': 2.3.4
 
+  '@portkey/detect-provider@2.3.5-alpha.5':
+    dependencies:
+      '@portkey/provider-types': 2.3.5-alpha.5
+
   '@portkey/did-ui-react@2.10.5(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@matt-block/react-recaptcha-v2': 2.1.0(react@18.3.1)
@@ -14118,6 +14128,11 @@ snapshots:
       - aelf-sdk
 
   '@portkey/provider-types@2.3.4':
+    dependencies:
+      '@portkey/types': 2.11.0
+      '@types/readable-stream': 2.3.15
+
+  '@portkey/provider-types@2.3.5-alpha.5':
     dependencies:
       '@portkey/types': 2.11.0
       '@types/readable-stream': 2.3.15
@@ -15150,7 +15165,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 22.7.3
 
   '@types/semver@7.5.8': {}
 

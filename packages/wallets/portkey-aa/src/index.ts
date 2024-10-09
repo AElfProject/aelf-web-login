@@ -12,6 +12,8 @@ import {
   ICallContractParams,
   ISendOrViewAdapter,
   enhancedLocalStorage,
+  IMultiTransactionParams,
+  IMultiTransactionResult,
 } from '@aelf-web-login/wallet-adapter-base';
 import {
   did,
@@ -537,5 +539,11 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     const contract = await this.getContract(finalChainId, contractAddress);
     const rs = contract.callViewMethod(methodName, args);
     return rs as R;
+  }
+
+  async sendMultiTransaction<T>(
+    params: IMultiTransactionParams<T>,
+  ): Promise<IMultiTransactionResult> {
+    return did.sendMultiTransaction(params);
   }
 }

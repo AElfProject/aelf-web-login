@@ -75,3 +75,28 @@ export enum NetworkEnum {
   MAINNET = 'MAINNET',
   TESTNET = 'TESTNET',
 }
+
+type MultiChainInfo = Partial<{
+  [x in TChainId]: {
+    chainUrl: string;
+    contractAddress: string;
+  };
+}>;
+
+type MultiParams<T> = Partial<{
+  [x in TChainId]: {
+    method: string;
+    params: T;
+  };
+}>;
+
+export interface IMultiTransactionParams<T> {
+  multiChainInfo: MultiChainInfo;
+  gatewayUrl: string;
+  chainId: TChainId;
+  params: MultiParams<T>;
+}
+
+export interface IMultiTransactionResult {
+  string: string[];
+}

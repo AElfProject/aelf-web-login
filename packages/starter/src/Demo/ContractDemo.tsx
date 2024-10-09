@@ -4,6 +4,7 @@ import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import configJson from './contract/config.json';
 import configTdvwJson from './contract/config.tdvw.json';
 import { callViewMethod as callViewMethodOfUtils } from '@aelf-web-login/utils';
+import { IMultiTransactionParams } from '@aelf-web-login/wallet-adapter-base';
 
 function useExampleCall(name: string, func: () => any) {
   const [result, setResult] = useState({});
@@ -47,6 +48,7 @@ function useExampleCall(name: string, func: () => any) {
 
 const ContractDemo: React.FC = () => {
   const {
+    sendMultiTransaction,
     callSendMethod,
     callViewMethod,
     walletInfo,
@@ -56,7 +58,53 @@ const ContractDemo: React.FC = () => {
   } = useConnectWallet();
   console.log('ContractDemo init----------');
 
+  interface IParmsItem {
+    caHash: string;
+    symbol: string;
+    amount: string;
+    to: string;
+  }
+
+  const paramsForMuti: IMultiTransactionParams<IParmsItem> = {
+    multiChainInfo: {
+      AELF: {
+        chainUrl: 'https://aelf-test-node.aelf.io/',
+        contractAddress: '238X6iw1j8YKcHvkDYVtYVbuYk2gJnK8UoNpVCtssynSpVC8hb',
+      },
+      tDVW: {
+        chainUrl: 'https://tdvw-test-node.aelf.io/',
+        contractAddress: '238X6iw1j8YKcHvkDYVtYVbuYk2gJnK8UoNpVCtssynSpVC8hb',
+      },
+    },
+    gatewayUrl: 'https://gateway-test.aelf.io',
+    chainId: 'tDVW',
+    params: {
+      AELF: {
+        method: 'ManagerTransfer',
+        params: {
+          caHash: walletInfo?.extraInfo?.portkeyInfo.caInfo.caHash,
+          symbol: 'ELF',
+          amount: '10000000',
+          to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
+        },
+      },
+      tDVW: {
+        method: 'ManagerTransfer',
+        params: {
+          caHash: walletInfo?.extraInfo?.portkeyInfo.caInfo.caHash,
+          symbol: 'ELF',
+          amount: '15000000',
+          to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
+        },
+      },
+    },
+  };
+
   const examples = [
+    useExampleCall('test sendMultiTransaction', async () => {
+      return await sendMultiTransaction(paramsForMuti);
+    }),
+
     useExampleCall('call getBalance in callViewMethodOfUtils', async () => {
       return callViewMethodOfUtils({
         endPoint: 'https://tdvw-test-node.aelf.io',
@@ -188,7 +236,7 @@ const ContractDemo: React.FC = () => {
         },
       });
     }
-    func();
+    // func();
   }, [callSendMethod, isConnected]);
   return (
     <div>

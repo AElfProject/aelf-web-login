@@ -8,6 +8,8 @@ import {
   TChainId,
   WalletStateEnum,
   ICallContractParams,
+  IMultiTransactionParams,
+  IMultiTransactionResult,
 } from './types';
 
 export { EventEmitter };
@@ -48,6 +50,7 @@ export interface IWalletAdapter<Name extends string = string> {
   lock?: () => void;
   loginWithAcceleration?: (createPendingInfo: CreatePendingInfo) => Promise<TWalletInfo>;
   loginCompletely?: (arg: DIDWalletInfo) => Promise<void>;
+  sendMultiTransaction?<T>(params: IMultiTransactionParams<T>): Promise<IMultiTransactionResult>;
 }
 
 export type WalletAdapter<Name extends string = string> = IWalletAdapter<Name> &

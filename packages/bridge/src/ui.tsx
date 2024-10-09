@@ -165,7 +165,9 @@ const NestedModal = ({
         onClick={() => bridgeInstance.onUniqueWalletClick(wallet.name)}
       >
         <img src={wallet.icon} />
-        <Typography.Text>{wallet.name}</Typography.Text>
+        <Typography.Text>
+          {wallet.name === 'PortkeyDiscover' ? 'Portkey' : wallet.name}
+        </Typography.Text>
       </div>
     );
   });
