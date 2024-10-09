@@ -82,7 +82,7 @@ const ContractDemo: React.FC = () => {
       AELF: {
         method: 'ManagerTransfer',
         params: {
-          caHash: walletInfo?.extraInfo?.portkeyInfo.caInfo.caHash,
+          caHash: walletInfo?.extraInfo?.portkeyInfo?.caInfo?.caHash,
           symbol: 'ELF',
           amount: '10000000',
           to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
@@ -91,7 +91,7 @@ const ContractDemo: React.FC = () => {
       tDVW: {
         method: 'ManagerTransfer',
         params: {
-          caHash: walletInfo?.extraInfo?.portkeyInfo.caInfo.caHash,
+          caHash: walletInfo?.extraInfo?.portkeyInfo?.caInfo?.caHash,
           symbol: 'ELF',
           amount: '15000000',
           to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',

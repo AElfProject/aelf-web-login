@@ -57,7 +57,8 @@
     "flatted": "^3.3.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "@portkey/did-ui-react": "^2.11.0"
+    "@portkey/did-ui-react": "^2.11.0",
+    "aelf-sdk": "^3.4.16-alpha.7"
   },
   "devDependencies": {
     "@types/react": "^18.3.1",
