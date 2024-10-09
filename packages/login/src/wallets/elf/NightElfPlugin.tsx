@@ -37,5 +37,5 @@ export default function NightElfPlugin({ onClick }: { onClick: () => void }) {
       onClickInternal();
     }
   };
-  return <PluginEntry icon="elf" name="aelf Wallet" onClick={onClickButton} />;
+  return <PluginEntry icon="elf" name="NightElf" onClick={onClickButton} />;
 }

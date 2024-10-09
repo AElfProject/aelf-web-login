@@ -108,7 +108,7 @@ export default function CallContract() {
       AELF: {
         method: 'ManagerTransfer',
         params: {
-          caHash: wallet.portkeyInfo.caInfo.caHash,
+          caHash: wallet?.portkeyInfo?.caInfo?.caHash,
           symbol: 'ELF',
           amount: '10000000',
           to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
@@ -117,7 +117,7 @@ export default function CallContract() {
       tDVW: {
         method: 'ManagerTransfer',
         params: {
-          caHash: wallet.portkeyInfo.caInfo.caHash,
+          caHash: wallet?.portkeyInfo?.caInfo?.caHash,
           symbol: 'ELF',
           amount: '15000000',
           to: 'GyQX6t18kpwaD9XHXe1ToKxfov8mSeTLE9q9NwUAeTE8tULZk',
