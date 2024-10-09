@@ -12,6 +12,8 @@ import {
   enhancedLocalStorage,
   IWalletAdapterEvents,
   utils,
+  IMultiTransactionParams,
+  IMultiTransactionResult,
 } from '@aelf-web-login/wallet-adapter-base';
 import {
   setWalletInfo,
@@ -167,6 +169,19 @@ class Bridge {
     }
     const rs = await this.activeWallet?.callSendMethod(props);
     return rs as R;
+  };
+
+  sendMultiTransaction = async <T>(
+    params: IMultiTransactionParams<T>,
+  ): Promise<IMultiTransactionResult> => {
+    if (
+      !this.activeWallet?.sendMultiTransaction ||
+      typeof this.activeWallet.sendMultiTransaction !== 'function'
+    ) {
+      return null as unknown as IMultiTransactionResult;
+    }
+    const rs = await this.activeWallet?.sendMultiTransaction(params);
+    return rs;
   };
 
   callViewMethod = async <T, R>(props: ICallContractParams<T>): Promise<R> => {

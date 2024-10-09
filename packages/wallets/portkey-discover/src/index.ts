@@ -72,7 +72,6 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
   private _detectProvider: IPortkeyProvider | null;
   private _chainId: TChainId;
   private _config: IPortkeyDiscoverWalletAdapterConfig;
-  private _contract: IContract;
 
   constructor(config: IPortkeyDiscoverWalletAdapterConfig) {
     super();
@@ -81,7 +80,6 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     this._detectProvider = null;
     this._chainId = config.chainId;
     this._config = config;
-    this._contract = null as any;
     if (typeof window !== 'undefined') {
       this.detect().then(() => {
         this.autoRequestAccountHandler();

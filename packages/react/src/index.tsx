@@ -118,6 +118,7 @@ export function useConnectWallet() {
     getWalletSyncIsCompleted,
     callSendMethod,
     callViewMethod,
+    sendMultiTransaction,
     getSignature,
   } = instance;
   const [connecting, setConnecting] = useState(false);
@@ -157,5 +158,6 @@ export function useConnectWallet() {
     callSendMethod,
     callViewMethod,
     getSignature,
+    sendMultiTransaction,
   };
 }

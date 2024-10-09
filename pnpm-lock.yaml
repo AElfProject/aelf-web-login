@@ -95,7 +95,7 @@ importers:
         version: 7.24.7(@babel/core@7.25.2)
       '@portkey/did-ui-react':
         specifier: ^2.11.0
-        version: 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@portkey/types':
         specifier: ^2.11.0
         version: 2.11.0
@@ -128,7 +128,7 @@ importers:
         version: link:../base
       '@portkey/services':
         specifier: ^2.11.0
-        version: 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@reduxjs/toolkit':
         specifier: ^2.2.3
         version: 2.2.7(react@18.3.1)
@@ -141,7 +141,7 @@ importers:
     devDependencies:
       '@portkey/did-ui-react':
         specifier: ^2.11.0
-        version: 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
         specifier: ^18.3.1
         version: 18.3.9
@@ -250,7 +250,10 @@ importers:
         version: link:../react
       '@portkey/did-ui-react':
         specifier: ^2.11.0
-        version: 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      aelf-sdk:
+        specifier: ^3.4.16-alpha.7
+        version: 3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1)
       flatted:
         specifier: ^3.3.1
         version: 3.3.1
@@ -332,14 +335,14 @@ importers:
         specifier: ^2.6.2
         version: 2.10.5(@portkey/request@2.10.5)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/detect-provider':
-        specifier: ^2.2.0
-        version: 2.3.4
+        specifier: ^2.3.5-alpha.2
+        version: 2.3.5-alpha.5
       '@portkey/did-ui-react':
         specifier: ^2.7.2
         version: 2.10.5(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@portkey/provider-types':
-        specifier: ^2.2.0
-        version: 2.3.4
+        specifier: ^2.3.5-alpha.2
+        version: 2.3.5-alpha.5
       '@portkey/utils':
         specifier: ^2.4.5
         version: 2.10.5(@portkey/request@2.10.5)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
@@ -396,7 +399,7 @@ importers:
         version: link:../../base
       '@portkey/contracts':
         specifier: ^2.11.0
-        version: 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        version: 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-bridge:
         specifier: ^0.0.11-alpha.4
         version: 0.0.11-alpha.10
@@ -427,14 +430,14 @@ importers:
         version: link:../../base
       '@portkey/contracts':
         specifier: ^2.11.0
-        version: 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        version: 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/utils':
         specifier: ^2.11.0
-        version: 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        version: 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
     devDependencies:
       '@portkey/did-ui-react':
         specifier: ^2.11.0
-        version: 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@portkey/types':
         specifier: ^2.11.0
         version: 2.11.0
@@ -452,16 +455,16 @@ importers:
         version: link:../../base
       '@portkey/contracts':
         specifier: ^2.11.0
-        version: 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        version: 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/detect-provider':
-        specifier: ^2.2.0
-        version: 2.3.4
+        specifier: ^2.3.5-alpha.2
+        version: 2.3.5-alpha.5
       '@portkey/provider-types':
-        specifier: ^2.2.0
-        version: 2.3.4
+        specifier: ^2.3.5-alpha.2
+        version: 2.3.5-alpha.5
       '@portkey/utils':
         specifier: ^2.11.0
-        version: 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        version: 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       bn.js:
         specifier: ^5.2.1
         version: 5.2.1
@@ -2656,6 +2659,9 @@ packages:
   '@portkey/detect-provider@2.3.4':
     resolution: {integrity: sha512-4EyQ0UOUCOxbTwwuNT42J35NHOHmQTiOITr4c1QGXfLf0KDY7u5h/0rabDsnuINA+odbvcNDnQif37H4+MxH2g==}
 
+  '@portkey/detect-provider@2.3.5-alpha.5':
+    resolution: {integrity: sha512-AwAkAT7rPnat7qrRnpZjLjbyKRTuvbr0ShB5vxLycK/Ic7Qa7KUUhM/Ap7X9Bki67+YBv8ma1bLQ9lau/d/MLw==}
+
   '@portkey/did-ui-react@2.10.5':
     resolution: {integrity: sha512-Z+SdCrRYEj45/nyNyplHXnonpZI5p6MupRMPVTGTBdKNBs7SzCIyXgIYcqBZ9tD09D1SR1TTz0na5mvuM4fLWw==}
     peerDependencies:
@@ -2696,6 +2702,9 @@ packages:
 
   '@portkey/provider-types@2.3.4':
     resolution: {integrity: sha512-UJFqj1fEGG42sW91pjNx1azsBdpIEybrYGvyASJE9U8uFeOoMEWF1aX7pgV5X5lEJyWPC7c5dod5mnCqqK9qVg==}
+
+  '@portkey/provider-types@2.3.5-alpha.5':
+    resolution: {integrity: sha512-/osppmJJVwGZcBUc1bjxwfh9aN9N3CLGwFHOOzDWGx+O+soeUZSBrIavvEpvcMQlKotY4ikpAJf4qmPQkOQUmA==}
 
   '@portkey/ramp@2.10.5':
     resolution: {integrity: sha512-M7bznLqzRaRnK8+QJ9Lip0l5rbnuBcyBFWLOAqyIjjADf3TUJYzqiEkkXGvmE4st6aM0jc2ILt5lOQWmbyepLA==}
@@ -4053,6 +4062,10 @@ packages:
 
   aelf-sdk@3.4.15:
     resolution: {integrity: sha512-pWtuTNkv5HSQsFskqPXcvp4NsUOt3Trfl1n/g3mFGjkP5MrqvPBO9D7AULRSqF7fxZmFNyDyTPGV7kM4rCtTbg==}
+    engines: {node: '>=18.18.0'}
+
+  aelf-sdk@3.4.16-alpha.7:
+    resolution: {integrity: sha512-OkQ4Rvx6VQBqYSosaZgZ1Z/q/ldVRYRLjMRT9A1DrJd23CxLRyXqSyXoOXaXoVnZKTF9Bj5WqFy8XVcZzf/pYg==}
     engines: {node: '>=18.18.0'}
 
   agent-base@4.3.0:
@@ -13905,12 +13918,12 @@ snapshots:
       - '@portkey/request'
       - query-string
 
-  '@portkey/accounts@2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/accounts@2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
       '@portkey/types': 2.11.0
-      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/validator': 2.11.0
-      aelf-sdk: 3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1)
+      aelf-sdk: 3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1)
     transitivePeerDependencies:
       - '@portkey/request'
       - query-string
@@ -13935,12 +13948,12 @@ snapshots:
       - '@portkey/request'
       - query-string
 
-  '@portkey/contracts@2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/contracts@2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
       '@portkey/provider-types': 2.3.4
       '@portkey/types': 2.11.0
-      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      aelf-sdk: 3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1)
+      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      aelf-sdk: 3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1)
     transitivePeerDependencies:
       - '@portkey/request'
       - query-string
@@ -13948,6 +13961,10 @@ snapshots:
   '@portkey/detect-provider@2.3.4':
     dependencies:
       '@portkey/provider-types': 2.3.4
+
+  '@portkey/detect-provider@2.3.5-alpha.5':
+    dependencies:
+      '@portkey/provider-types': 2.3.5-alpha.5
 
   '@portkey/did-ui-react@2.10.5(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -13989,23 +14006,23 @@ snapshots:
       - react-native
       - utf-8-validate
 
-  '@portkey/did-ui-react@2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@portkey/did-ui-react@2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@matt-block/react-recaptcha-v2': 2.1.0(react@18.3.1)
-      '@portkey/accounts': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/contracts': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/did': 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@portkey/accounts': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/did': 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@portkey/graphql': 2.11.0(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@portkey/onboarding': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))
-      '@portkey/ramp': 2.11.0(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)
+      '@portkey/onboarding': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))
+      '@portkey/ramp': 2.11.0(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)
       '@portkey/request': 2.11.0
-      '@portkey/services': 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@portkey/socket': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(query-string@7.1.3)
+      '@portkey/services': 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@portkey/socket': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(query-string@7.1.3)
       '@portkey/types': 2.11.0
-      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/validator': 2.11.0
       '@rc-component/portal': 1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      aelf-sdk: 3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1)
+      aelf-sdk: 3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1)
       antd: 4.24.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       antd-mobile: 5.33.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       bignumber.js: 9.1.2
@@ -14048,16 +14065,16 @@ snapshots:
       - react-dom
       - utf-8-validate
 
-  '@portkey/did@2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@portkey/did@2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@portkey/accounts': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/contracts': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/accounts': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/graphql': 2.11.0(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@portkey/request': 2.11.0
-      '@portkey/services': 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@portkey/services': 2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@portkey/types': 2.11.0
-      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      aelf-sdk: 3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1)
+      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      aelf-sdk: 3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1)
       react: 18.3.1
     transitivePeerDependencies:
       - '@types/react'
@@ -14106,11 +14123,11 @@ snapshots:
       - '@portkey/request'
       - aelf-sdk
 
-  '@portkey/onboarding@2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))':
+  '@portkey/onboarding@2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))':
     dependencies:
       '@portkey/detect-provider': 2.3.4
       '@portkey/types': 2.11.0
-      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       bowser: 2.11.0
       query-string: 7.1.3
     transitivePeerDependencies:
@@ -14118,6 +14135,11 @@ snapshots:
       - aelf-sdk
 
   '@portkey/provider-types@2.3.4':
+    dependencies:
+      '@portkey/types': 2.11.0
+      '@types/readable-stream': 2.3.15
+
+  '@portkey/provider-types@2.3.5-alpha.5':
     dependencies:
       '@portkey/types': 2.11.0
       '@types/readable-stream': 2.3.15
@@ -14135,12 +14157,12 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@portkey/ramp@2.11.0(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)':
+  '@portkey/ramp@2.11.0(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)':
     dependencies:
       '@portkey/request': 2.11.0
-      '@portkey/socket': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(query-string@7.1.3)
+      '@portkey/socket': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(query-string@7.1.3)
       '@portkey/types': 2.11.0
-      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       query-string: 7.1.3
     transitivePeerDependencies:
       - aelf-sdk
@@ -14165,6 +14187,22 @@ snapshots:
       '@portkey/types': 2.11.0
       '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1)
+      query-string: 7.1.3
+    transitivePeerDependencies:
+      - '@types/react'
+      - bufferutil
+      - graphql-ws
+      - react
+      - react-dom
+      - utf-8-validate
+
+  '@portkey/services@2.11.0(@types/react@18.3.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@portkey/graphql': 2.11.0(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@portkey/request': 2.11.0
+      '@portkey/types': 2.11.0
+      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      aelf-sdk: 3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1)
       query-string: 7.1.3
     transitivePeerDependencies:
       - '@types/react'
@@ -14202,10 +14240,10 @@ snapshots:
       - query-string
       - utf-8-validate
 
-  '@portkey/socket@2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(query-string@7.1.3)':
+  '@portkey/socket@2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(query-string@7.1.3)':
     dependencies:
       '@abp/signalr': 7.4.5(encoding@0.1.13)
-      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
     transitivePeerDependencies:
       - '@portkey/request'
       - aelf-sdk
@@ -14234,6 +14272,13 @@ snapshots:
     dependencies:
       '@portkey/request': 2.11.0
       aelf-sdk: 3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1)
+      node-forge: 1.3.1
+      query-string: 7.1.3
+
+  '@portkey/utils@2.11.0(@portkey/request@2.11.0)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+    dependencies:
+      '@portkey/request': 2.11.0
+      aelf-sdk: 3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1)
       node-forge: 1.3.1
       query-string: 7.1.3
 
@@ -15150,7 +15195,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 22.7.3
 
   '@types/semver@7.5.8': {}
 
@@ -16037,6 +16082,43 @@ snapshots:
       - supports-color
 
   aelf-sdk@3.4.15(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1):
+    dependencies:
+      '@aelfqueen/protobufjs': 6.8.9
+      '@aws-crypto/sha256-js': 5.2.0
+      '@babel/plugin-proposal-optional-chaining': 7.21.0(@babel/core@7.25.2)
+      '@babel/runtime': 7.25.6
+      '@typescript-eslint/parser': 5.62.0(eslint@8.57.1)(typescript@5.6.2)
+      assert: 2.1.0
+      babel-plugin-rewire: 1.2.0
+      bignumber.js: 9.1.2
+      bip39: 3.1.0
+      bn.js: 5.2.1
+      browserify-cipher: 1.0.1
+      bs58: 4.0.1
+      buffer: 5.7.1
+      crypto-browserify: 3.12.0
+      crypto-js: 4.2.0
+      elliptic: 6.5.7
+      gbk-string: 0.1.0
+      hdkey: 1.1.2
+      isomorphic-fetch: 3.0.0(encoding@0.1.13)
+      js-sha256: 0.9.0
+      keccak: 3.0.4
+      node-fetch: 2.7.0(encoding@0.1.13)
+      query-string: 5.1.1
+      randombytes: 2.1.0
+      readable-stream: 4.5.2
+      scryptsy: 2.1.0
+      stream-browserify: 3.0.0
+      typescript: 5.6.2
+      xmlhttprequest: 1.8.0
+    transitivePeerDependencies:
+      - '@babel/core'
+      - encoding
+      - eslint
+      - supports-color
+
+  aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1):
     dependencies:
       '@aelfqueen/protobufjs': 6.8.9
       '@aws-crypto/sha256-js': 5.2.0
