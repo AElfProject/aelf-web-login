@@ -105,7 +105,6 @@ const baseConfig = {
   // cancelAutoLoginInTelegram: false,
   enableAcceleration: true,
   networkType: NETWORK_TYPE,
-  chainId: CHAIN_ID,
   showVconsole: false,
   chainId: CHAIN_ID,
   keyboard: true,

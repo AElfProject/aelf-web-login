@@ -13,17 +13,24 @@ export default class AelfBridgeCheck {
         const bridgeInstance = new AElfBridge({
           timeout: 3000,
         });
-        bridgeInstance.connect().then((isConnected: boolean) => {
-          if (timeout) return;
-          if (isConnected) {
-            resolve(true);
-          } else {
-            reject({
-              error: 200001,
-              message: 'timeout, please use AELF Wallet APP or open the page in PC',
-            });
-          }
-        });
+        console.log('bridgeInstance', bridgeInstance);
+        bridgeInstance
+          .connect()
+          .then((isConnected: boolean) => {
+            console.log('bridgeInstance isConnected', isConnected);
+            if (timeout) return;
+            if (isConnected) {
+              resolve(true);
+            } else {
+              reject({
+                error: 200001,
+                message: 'timeout, please use AELF Wallet APP or open the page in PC',
+              });
+            }
+          })
+          .catch((e: any) => {
+            console.log('error in catch:', e);
+          });
         setTimeout(() => {
           timeout = true;
           reject({
@@ -57,7 +64,7 @@ export default class AelfBridgeCheck {
     };
     aelfInstanceByBridge.logout = (_: any, callback: () => void) => {
       accountInfo = null;
-      callback();
+      callback?.();
     };
     return aelfInstanceByBridge;
   }
