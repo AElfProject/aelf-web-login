@@ -8,14 +8,21 @@ export const getBridges = async (nodes: INightElfWalletAdapterConfig['nodes'], a
   const { isMobile } = utils;
   try {
     const isAElfBridge = isMobile() && !(window as any)?.NightElf;
+    console.log('aelf-wallet-debug----------1');
+    console.log(`isMobile(): ${isMobile()}`);
+    console.log(`(window as any)?.NightElf: ${(window as any)?.NightElf}`);
+
     const connector = (
       await (isAElfBridge ? import('./AelfBridgeCheck') : import('./NightElfCheck'))
     ).default;
+    console.log('connector', connector);
     // check connector
     await connector.getInstance().check();
+    console.log('aelf-wallet-debug----------2');
 
     let firstKey = '';
     const bridges: { [key: string]: AElfDappBridge } = {};
+    console.log('nodes:', nodes);
     if (!nodes || Object.keys(nodes).length === 0) {
       throw makeError(ERR_CODE.INIT_BRIDGE_ERROR);
     }
@@ -23,6 +30,7 @@ export const getBridges = async (nodes: INightElfWalletAdapterConfig['nodes'], a
       if (!firstKey) firstKey = k;
       bridges[k] = connector.initAelfInstanceByExtension(v.rpcUrl, appName);
     });
+    console.log('aelf-wallet-debug----------3');
     const node = nodes[firstKey];
     const bridge = bridges[firstKey];
     return { bridge, node, bridges };

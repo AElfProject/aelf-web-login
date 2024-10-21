@@ -60,6 +60,10 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     this.autoRequestAccountHandler();
   }
 
+  setChainId(chainId: TChainId) {
+    this._config.chainId = chainId;
+  }
+
   get loginState() {
     return this._loginState;
   }

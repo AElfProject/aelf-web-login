@@ -268,6 +268,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
         isToggleAccountRef.current = true;
         await bridgeInstance.onPortkeyAAUnLock(defaultPin);
         await bridgeInstance.doubleCheckDisconnect();
+        TelegramPlatform.close();
       };
       TelegramPlatform.initializeTelegramWebApp({ handleLogout });
     };

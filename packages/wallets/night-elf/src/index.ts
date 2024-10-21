@@ -151,7 +151,7 @@ export class NightElfWallet extends BaseWalletAdapter {
       }
 
       const result = await defaultAElfBridge.logout({ address });
-      if (result.error) throw result;
+      if (result?.error) throw result;
 
       this._wallet = null;
       this._loginState = LoginStateEnum.INITIAL;
@@ -277,7 +277,7 @@ export class NightElfWallet extends BaseWalletAdapter {
       contractAddress: contractAddress,
       aelfInstance: bridge,
       account: {
-        address: this._wallet.address!,
+        address: this._wallet.address,
       },
     });
   }
