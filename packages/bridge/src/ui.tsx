@@ -270,7 +270,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
         await bridgeInstance.doubleCheckDisconnect();
         TelegramPlatform.close();
       };
-      TelegramPlatform.initializeTelegramWebApp({ handleLogout });
+      TelegramPlatform.initializeTelegramWebApp({ tgUserChanged: handleLogout });
     };
 
     console.log('begin to init and execute handleTelegram', TelegramPlatform.isTelegramPlatform());
@@ -464,6 +464,26 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     isShowNestedModal,
   ]);
 
+  const onForgetPinHandler = useCallback(async () => {
+    // await bridgeInstance.onPortkeyAAUnLock(defaultPin);
+    await bridgeInstance.disConnect(true);
+    if (TelegramPlatform.isTelegramPlatform()) {
+      TelegramPlatform.close();
+    }
+  }, [bridgeInstance]);
+
+  const forgetPinElement = useMemo(() => {
+    return (
+      <div className="unlock-footer-text">
+        Forgot your PIN? Click
+        <span className="unlock-footer-text-href" onClick={onForgetPinHandler}>
+          here
+        </span>
+        to log back in.
+      </div>
+    );
+  }, [onForgetPinHandler]);
+
   return (
     // <PortkeyProvider networkType={baseConfig.networkType} theme="dark">
     <div>
@@ -477,6 +497,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
           onChange={setPassword}
           onCancel={onCloseWrapperInternal}
           onUnlock={onUnlockInternal}
+          footer={forgetPinElement}
         />
       ) : (
         <DynamicWrapper

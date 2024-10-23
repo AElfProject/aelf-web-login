@@ -152,3 +152,17 @@
   justify-content: space-between;
   align-items: center;
 }
+.unlock-footer-text{
+  color: #55585E;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  line-height: 20px;
+  margin-left: 14px;
+  margin-right: 14px;
+  .unlock-footer-text-href{
+    color: #5D42FF;
+    padding: 0 4px;
+    cursor: pointer;
+  }
+}

@@ -27,20 +27,21 @@
 # Install
 
 ```sh
-yarn add @aelf-web-login/wallet-adapter-night-elf @aelf-web-login/wallet-adapter-portkey-aa @aelf-web-login/wallet-adapter-portkey-discover @aelf-web-login/wallet-adapter-react @aelf-web-login/wallet-adapter-base @aelf-web-login/wallet-adapter-bridge @aelf-web-login/utils
+yarn add @aelf-web-login/wallet-adapter-night-elf @aelf-web-login/wallet-adapter-portkey-aa @aelf-web-login/wallet-adapter-portkey-discover @aelf-web-login/wallet-adapter-react @aelf-web-login/wallet-adapter-base @aelf-web-login/wallet-adapter-bridge @aelf-web-login/utils @portkey/did-ui-react
 ```
 
 Then the `package.json` will be like this
 
 ```json
 "dependencies": {
-    "@aelf-web-login/wallet-adapter-night-elf": "^0.1.0",
-    "@aelf-web-login/wallet-adapter-portkey-aa": "^0.1.0",
-    "@aelf-web-login/wallet-adapter-portkey-discover": "^0.1.0",
-    "@aelf-web-login/wallet-adapter-react": "^0.1.0",
-    "@aelf-web-login/wallet-adapter-base": "^0.1.0",
-    "@aelf-web-login/wallet-adapter-bridge": "^0.1.0",
-    "@aelf-web-login/utils": "^0.1.0",
+    "@aelf-web-login/wallet-adapter-night-elf": "^0.1.7",
+    "@aelf-web-login/wallet-adapter-portkey-aa": "^0.1.7",
+    "@aelf-web-login/wallet-adapter-portkey-discover": "^0.1.7",
+    "@aelf-web-login/wallet-adapter-react": "^0.1.7",
+    "@aelf-web-login/wallet-adapter-base": "^0.1.7",
+    "@aelf-web-login/wallet-adapter-bridge": "^0.1.7",
+    "@aelf-web-login/utils": "^0.1.7",
+    "@portkey/did-ui-react": "^2.13.2",
 }
 ```
 
@@ -67,7 +68,7 @@ const RPC_SERVER_AELF = 'https://aelf-test-node.aelf.io';
 const RPC_SERVER_TDVV = 'https://tdvv-public-node.aelf.io';
 const RPC_SERVER_TDVW = 'https://tdvw-test-node.aelf.io';
 const GRAPHQL_SERVER =
-  'https://dapp-aa-portkey-test.portkey.finance/Portkey_DID/PortKeyIndexerCASchema/graphql';
+  'https://dapp-aa-portkey-test.portkey.finance/aefinder-v2/api/app/graphql/portkey';
 const CONNECT_SERVER = 'https://auth-aa-portkey-test.portkey.finance';
 const SERVICE_SERVER = 'https://aa-portkey-test.portkey.finance';
 const TELEGRAM_BOT_ID = 'xx';
@@ -103,7 +104,7 @@ const baseConfig = {
   // },
   // omitTelegramScript: false,
   // cancelAutoLoginInTelegram: false,
-  enableAcceleration: true,
+  enableAcceleration: false,
   networkType: NETWORK_TYPE,
   showVconsole: false,
   chainId: CHAIN_ID,

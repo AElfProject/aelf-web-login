@@ -99,19 +99,19 @@ class Bridge {
     });
   };
 
-  doubleCheckDisconnect = async () => {
+  doubleCheckDisconnect = async (isForgetPin?: boolean) => {
     if (isDisconnectClicked) {
       return;
     }
     isDisconnectClicked = true;
-    await this.activeWallet?.logout();
+    await this.activeWallet?.logout(isForgetPin);
     this.closeConfirmLogoutPanel();
     this.closeLockPanel();
     isDisconnectClicked = false;
     this._logoutResolve(true);
   };
 
-  disConnect = async (): Promise<boolean> => {
+  disConnect = async (isForgetPin?: boolean): Promise<boolean> => {
     return new Promise((resolve, reject) => {
       this._logoutResolve = resolve;
       this._logoutReject = reject;
@@ -121,7 +121,7 @@ class Bridge {
         try {
           if (this.isAAWallet) {
             if (this.activeWallet!.noNeedForConfirm) {
-              await this.doubleCheckDisconnect();
+              await this.doubleCheckDisconnect(isForgetPin);
             } else {
               this.openConfirmLogoutPanel();
             }
@@ -228,6 +228,7 @@ class Bridge {
     dispatch(clearWalletInfo());
     dispatch(clearWalletType());
     dispatch(clearLoginError());
+    dispatch(setLocking(false));
   };
 
   onLockHandler = () => {

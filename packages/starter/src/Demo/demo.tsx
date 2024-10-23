@@ -21,7 +21,7 @@ const RPC_SERVER_AELF = 'https://explorer-test.aelf.io/chain';
 const RPC_SERVER_TDVV = 'https://explorer-test-side02.aelf.io/chain';
 const RPC_SERVER_TDVW = 'https://explorer-test-side02.aelf.io/chain';
 const GRAPHQL_SERVER =
-  'https://dapp-aa-portkey-test.portkey.finance/Portkey_DID/PortKeyIndexerCASchema/graphql';
+  'https://dapp-aa-portkey-test.portkey.finance/aefinder-v2/api/app/graphql/portkey';
 const CONNECT_SERVER = 'https://auth-aa-portkey-test.portkey.finance';
 const SERVICE_SERVER = 'https://aa-portkey-test.portkey.finance';
 const TELEGRAM_BOT_ID = '7329439364';
@@ -60,7 +60,7 @@ const baseConfig = {
   // ConfirmLogoutDialog: CustomizedConfirmLogoutDialog,
   // SignInComponent: SignInProxy,
   defaultPin: '111111',
-  enableAcceleration: true,
+  enableAcceleration: false,
   PortkeyProviderProps: {
     theme: 'light' as any,
   },
@@ -82,7 +82,7 @@ const wallets = [
     appName: APP_NAME,
     chainId: CHAIN_ID,
     autoShowUnlock: true,
-    noNeedForConfirm: false,
+    noNeedForConfirm: true,
   }),
   new PortkeyDiscoverWallet({
     networkType: NETWORK_TYPE,
