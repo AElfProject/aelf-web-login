@@ -360,7 +360,9 @@ const Demo = () => {
 ## getSignature
 
 ```ts
-const getSignature: (params: TSignatureParams) => Promise<{ ``    error: number; ``    errorMessage: string; ``    signature: string; ``    from: string; ``} | null>
+const getSignature: (
+  params: TSignatureParams,
+) => Promise<{ error: number; errorMessage: string; signature: string; from: string } | null>;
 ```
 
 > Get signature message
