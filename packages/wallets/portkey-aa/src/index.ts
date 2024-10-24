@@ -193,18 +193,21 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     this.emit('disconnected', true);
   }
 
-  async logout() {
+  async logout(isForgetPin = false) {
     try {
       const originChainId = enhancedLocalStorage.getItem(PORTKEY_ORIGIN_CHAIN_ID_KEY);
       if (!originChainId) {
         return;
       }
-      await did.logout(
-        {
-          chainId: originChainId as TChainId,
-        },
-        { onMethod: 'transactionHash' },
-      );
+      console.log('isForgetPin', isForgetPin);
+      if (!isForgetPin) {
+        await did.logout(
+          {
+            chainId: originChainId as TChainId,
+          },
+          { onMethod: 'transactionHash' },
+        );
+      }
 
       this._wallet = null;
       this._loginState = LoginStateEnum.INITIAL;

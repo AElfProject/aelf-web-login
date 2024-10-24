@@ -32,7 +32,7 @@ export interface IWalletAdapter<Name extends string = string> {
   noNeedForConfirm?: boolean;
 
   login(arg?: DIDWalletInfo): Promise<TWalletInfo>;
-  logout(): Promise<void>;
+  logout(isForgetPin?: boolean): Promise<void>;
   loginEagerly(type?: string): Promise<void>;
   // getAccounts(chainId: TChainId): Promise<string>;
   // callContract<T, R>(params: ICallContractParams<T>): Promise<R>;
@@ -67,7 +67,7 @@ export abstract class BaseWalletAdapter<Name extends string = string>
   abstract wallet: TWalletInfo;
 
   abstract login(arg?: DIDWalletInfo): Promise<TWalletInfo>;
-  abstract logout(): Promise<void>;
+  abstract logout(isForgetPin?: boolean): Promise<void>;
   abstract loginEagerly(type?: string): Promise<void>;
   // abstract getAccounts(chainId: TChainId): Promise<string>;
   // abstract callContract<T, R>(params: ICallContractParams<T>): Promise<R>;
