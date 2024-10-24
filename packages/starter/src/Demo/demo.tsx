@@ -60,7 +60,7 @@ const baseConfig = {
   // ConfirmLogoutDialog: CustomizedConfirmLogoutDialog,
   // SignInComponent: SignInProxy,
   defaultPin: '111111',
-  enableAcceleration: false,
+  enableAcceleration: true,
   PortkeyProviderProps: {
     theme: 'light' as any,
   },

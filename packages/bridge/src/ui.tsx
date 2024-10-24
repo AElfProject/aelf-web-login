@@ -337,8 +337,9 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
 
   const onFinishInternal = useCallback(
     (didWallet: DIDWalletInfo) => {
-      if (enableAcceleration && didWallet.createType !== 'register') {
-        console.log('onPortkeyAAWalletLoginFinishedWithAcceleration--------');
+      console.log('didWallet.createType', didWallet.createType);
+      if (enableAcceleration && didWallet.createType === 'recovery') {
+        console.log('onPortkeyAAWalletLoginFinishedWithAcceleration--------1');
         bridgeInstance.onPortkeyAAWalletLoginFinishedWithAcceleration(didWallet);
       } else {
         console.log('onPortkeyAAWalletLoginFinished----------');
