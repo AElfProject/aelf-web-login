@@ -17,9 +17,18 @@ import {
   IVerifyInfo,
   TelegramPlatform,
   CreatePendingInfo,
+  TOnSuccessExtraData,
+  UserGuardianStatus,
+  useMultiVerify,
+  ConfigProvider,
 } from '@portkey/did-ui-react';
-import { TChainId, NetworkEnum, utils } from '@aelf-web-login/wallet-adapter-base';
-import { useCallback, useMemo, useState } from 'react';
+import {
+  TChainId,
+  NetworkEnum,
+  utils,
+  OperationTypeEnum,
+} from '@aelf-web-login/wallet-adapter-base';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { Bridge } from './bridge';
 import useVerifier from './useVerifier';
 import useLockCallback from './useLockCallback';
@@ -32,25 +41,6 @@ export enum SocialLoginType {
   TELEGRAM = 'Telegram',
 }
 
-export enum OperationTypeEnum {
-  // unknown
-  unknown = 0,
-  // register
-  register = 1,
-  // community recovery
-  communityRecovery = 2,
-  // add guardian
-  addGuardian = 3,
-  // delete guardian
-  deleteGuardian = 4,
-  // edit guardian
-  editGuardian = 5,
-  // remove other manager
-  removeOtherManager = 6,
-  // set login account
-  setLoginAccount = 7,
-}
-
 export type TSignUpVerifier = { verifier: TVerifierItem } & IVerifyInfo;
 
 const useTelegram = (
@@ -61,20 +51,54 @@ const useTelegram = (
   bridgeInstance: Bridge,
   setIsShowWrapper: (arg: boolean) => void,
 ) => {
+  const [originChainId, setOriginChainId] = useState<TChainId>(chainId);
+  const [caHash, setCaHash] = useState<string>('');
+  const [approvalVisible, setApprovalVisible] = useState(false);
+  const caInfoRef = useRef<{ caAddress: string; caHash: string }>({ caAddress: '', caHash: '' });
+  const identifierRef = useRef<string>();
+  const [guardianList, setGuardianList] = useState<UserGuardianStatus[]>();
+  const multiVerify = useMultiVerify();
+  const isTelegramPlatform = useMemo(() => {
+    return TelegramPlatform.isTelegramPlatform();
+  }, []);
+
   const onCreatePendingHandler = useLockCallback(async (createPendingInfo: CreatePendingInfo) => {
     if (!enableAcceleration) {
       return;
     }
-    console.log('createPendingInfo.createType', createPendingInfo.createType);
     if (createPendingInfo.createType === 'register') {
       return;
     }
+    console.log('intg-----------onCreatePendingHandler,');
     bridgeInstance.onPortkeyAAWalletCreatePending(createPendingInfo);
   }, []);
   const [currentLifeCircle, setCurrentLifeCircle] = useState<
     TStep2SignInLifeCycle | TStep1LifeCycle | TStep3LifeCycle | TStep2SignUpLifeCycle
   >({});
-  const onSignInHandler = useSignInHandler({ isErrorTip: true });
+
+  const handleFinish = useCallback(async () => {
+    if (!enableAcceleration) {
+      return;
+    }
+    console.log('intg-----------handleFinish');
+    await bridgeInstance.onPortkeyAAWalletCreatePending({
+      pin: DEFAULT_PIN,
+      sessionId: 'tmp_beforeLastGuardianApprove', // ensure this is a sessionId
+      didWallet: {
+        pin: DEFAULT_PIN,
+        chainId: originChainId,
+        caInfo: caInfoRef.current,
+      },
+    } as CreatePendingInfo);
+  }, [DEFAULT_PIN, bridgeInstance, enableAcceleration, originChainId]);
+
+  const beforeLastGuardianApprove = () => {
+    if (isTelegramPlatform) {
+      console.log('intg-----------beforeLastGuardianApprove');
+      handleFinish();
+    }
+  };
+  const onSignInHandler = useSignInHandler({ isErrorTip: true, beforeLastGuardianApprove });
   const createWallet = useLoginWallet({
     onCreatePending: onCreatePendingHandler,
   });
@@ -93,7 +117,7 @@ const useTelegram = (
           signature: res.signature,
         },
       ];
-      if (TelegramPlatform.isTelegramPlatform()) {
+      if (isTelegramPlatform) {
         const params = {
           pin: DEFAULT_PIN,
           type: 'register' as AddManagerType,
@@ -116,7 +140,7 @@ const useTelegram = (
         // }, 500);
       }
     },
-    [DEFAULT_PIN, bridgeInstance, chainId, createWallet],
+    [DEFAULT_PIN, bridgeInstance, chainId, createWallet, isTelegramPlatform],
   );
 
   const onSignUp = useCallback(
@@ -178,17 +202,25 @@ const useTelegram = (
   );
 
   const handleSocialStep1Success = useLockCallback(
-    async (value: IGuardianIdentifierInfo) => {
+    async (value: IGuardianIdentifierInfo, extraData?: TOnSuccessExtraData) => {
       // setDrawerVisible(false);
       // setModalVisible(false);
-      console.log('handleSocialStep1Success');
+      if (extraData) {
+        setOriginChainId(extraData.originChainId);
+        setCaHash(extraData.caHash);
+        caInfoRef.current = {
+          caAddress: extraData.caAddress,
+          caHash: extraData.caHash,
+        };
+      }
       if (!did.didWallet.managementAccount) did.create();
       if (!value.isLoginGuardian) {
         await onSignUp(value as IGuardianIdentifierInfo);
       } else {
         const signResult = await onSignInHandler(value);
         if (!signResult) return;
-        if (signResult.nextStep === 'SetPinAndAddManager') {
+        identifierRef.current = signResult.value.guardianIdentifierInfo?.identifier;
+        if (signResult.nextStep === 'SetPinAndAddManager' && isTelegramPlatform) {
           const guardianIdentifierInfo = signResult.value.guardianIdentifierInfo;
           const approvedList = signResult.value.approvedList;
           if (!approvedList) return;
@@ -204,13 +236,25 @@ const useTelegram = (
             guardianApprovedList: approvedList,
           };
           const didWallet = await createWallet(params);
-          if (enableAcceleration) {
+          if (enableAcceleration && type === 'recovery') {
+            console.log('intg-----------handleSocialStep1Success');
             didWallet && bridgeInstance.onPortkeyAAWalletLoginFinishedWithAcceleration(didWallet);
           } else {
             didWallet && bridgeInstance.onPortkeyAAWalletLoginFinished(didWallet);
           }
         } else {
           setLoading(false);
+          if (isTelegramPlatform) {
+            console.log('intg-----------more guardian', signResult.value.guardianList);
+            setGuardianList(signResult.value.guardianList || []);
+            setTimeout(() => {
+              setApprovalVisible(true);
+              ConfigProvider.setGlobalConfig({
+                globalLoadingHandler: undefined,
+              });
+            }, 500);
+            return;
+          }
           setCurrentLifeCircle({
             [signResult.nextStep as any]: signResult.value,
           });
@@ -246,9 +290,54 @@ const useTelegram = (
     });
   }, [network, signHandle]);
 
+  const onTGSignInApprovalSuccess = useCallback(
+    async (guardian: any) => {
+      ConfigProvider.setGlobalConfig({
+        globalLoadingHandler: {
+          onSetLoading: (loadingInfo) => {
+            console.log(loadingInfo, 'loadingInfo===');
+          },
+        },
+      });
+      setApprovalVisible(false);
+      await handleFinish();
+      const res = await multiVerify(guardian);
+      const params = {
+        pin: DEFAULT_PIN,
+        type: 'recovery' as AddManagerType,
+        chainId: originChainId,
+        accountType: 'Telegram' as any,
+        guardianIdentifier: identifierRef.current || '',
+        guardianApprovedList: res as any[],
+      };
+      console.log('intg-----------onTGSignInApprovalSuccess', params);
+      const didWallet = await createWallet(params);
+
+      didWallet && bridgeInstance.onPortkeyAAWalletLoginFinishedWithAcceleration(didWallet);
+    },
+    [DEFAULT_PIN, bridgeInstance, createWallet, handleFinish, multiVerify, originChainId],
+  );
+
   return useMemo(
-    () => ({ handleTelegram, currentLifeCircle }),
-    [handleTelegram, currentLifeCircle],
+    () => ({
+      handleTelegram,
+      currentLifeCircle,
+      guardianList,
+      approvalVisible,
+      setApprovalVisible,
+      caHash,
+      originChainId,
+      onTGSignInApprovalSuccess,
+    }),
+    [
+      handleTelegram,
+      currentLifeCircle,
+      guardianList,
+      approvalVisible,
+      caHash,
+      originChainId,
+      onTGSignInApprovalSuccess,
+    ],
   );
 };
 

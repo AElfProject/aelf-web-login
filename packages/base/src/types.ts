@@ -1,4 +1,4 @@
-import { SendOptions, IContract } from '@portkey/types';
+import { SendOptions, IContract, LoginStatusEnum } from '@portkey/types';
 
 export enum WalletStateEnum {
   // Wallet plug-in detected
@@ -100,3 +100,21 @@ export interface IMultiTransactionParams<T> {
 export interface IMultiTransactionResult {
   string: string[];
 }
+
+export enum OperationTypeEnum {
+  unknown = 0,
+  register = 1,
+  communityRecovery = 2,
+  addGuardian = 3,
+  deleteGuardian = 4,
+  editGuardian = 5,
+  removeOtherManager = 6,
+  setLoginAccount = 7,
+  managerApprove = 8,
+  modifyTransferLimit = 9,
+  transferApprove = 10,
+  unsetLoginAccount = 11,
+  setupBackupMailbox = 13,
+}
+
+export { LoginStatusEnum };

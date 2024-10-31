@@ -4,6 +4,7 @@ import {
   utils,
   enhancedLocalStorage,
   PORTKEYAA,
+  OperationTypeEnum,
 } from '@aelf-web-login/wallet-adapter-base';
 import { Bridge } from './bridge';
 import {
@@ -15,6 +16,9 @@ import {
   TelegramPlatform,
   CreatePendingInfo,
   setLoading,
+  GuardianApprovalModal,
+  getOperationDetails,
+  ConfigProvider,
 } from '@portkey/did-ui-react';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import { IBaseConfig } from '.';
@@ -230,7 +234,16 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   const [isWrongPassword, setIsWrongPassword] = useState(false);
   const [isShowConfirmLogoutPanel, setIsShowConfirmLogoutPanel] = useState(false);
   const [isShowNestedModal, setIsShowNestedModal] = useState(false);
-  const { handleTelegram, currentLifeCircle } = useTelegram(
+  const {
+    handleTelegram,
+    currentLifeCircle,
+    guardianList,
+    approvalVisible,
+    setApprovalVisible,
+    caHash,
+    originChainId,
+    onTGSignInApprovalSuccess,
+  } = useTelegram(
     baseConfig.enableAcceleration,
     baseConfig.defaultPin,
     baseConfig.chainId,
@@ -282,10 +295,24 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
       }
       console.log('begin to excute autoAuthInTelegram');
       if (enhancedLocalStorage.getItem('connectedWallet') === PORTKEYAA) {
+        ConfigProvider.setGlobalConfig({
+          globalLoadingHandler: {
+            onSetLoading: (loadingInfo) => {
+              console.log(loadingInfo, 'loadingInfo===');
+            },
+          },
+        });
         await bridgeInstance.onPortkeyAAUnLock(defaultPin);
         return;
       }
       if (!cancelAutoLoginInTelegram) {
+        ConfigProvider.setGlobalConfig({
+          globalLoadingHandler: {
+            onSetLoading: (loadingInfo) => {
+              console.log(loadingInfo, 'loadingInfo===');
+            },
+          },
+        });
         console.log('begin to excute handleTelegram');
         handleTelegram();
       }
@@ -525,6 +552,23 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
             onFinish={onFinishInternal}
           />
         </DynamicWrapper>
+      )}
+
+      {guardianList?.length && (
+        <GuardianApprovalModal
+          open={approvalVisible}
+          isAsyncVerify
+          networkType={baseConfig.networkType}
+          caHash={caHash}
+          originChainId={originChainId}
+          targetChainId={baseConfig.chainId}
+          guardianList={guardianList}
+          operationType={OperationTypeEnum.communityRecovery}
+          operationDetails={getOperationDetails(OperationTypeEnum.communityRecovery)}
+          onClose={() => setApprovalVisible(false)}
+          onBack={() => setApprovalVisible(false)}
+          onApprovalSuccess={onTGSignInApprovalSuccess}
+        />
       )}
 
       <FinalConfirmLogoutDialog
