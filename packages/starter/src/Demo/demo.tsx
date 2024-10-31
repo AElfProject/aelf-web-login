@@ -24,7 +24,7 @@ const GRAPHQL_SERVER =
   'https://dapp-aa-portkey-test.portkey.finance/aefinder-v2/api/app/graphql/portkey';
 const CONNECT_SERVER = 'https://auth-aa-portkey-test.portkey.finance';
 const SERVICE_SERVER = 'https://aa-portkey-test.portkey.finance';
-const TELEGRAM_BOT_ID = '7329439364';
+const TELEGRAM_BOT_ID = '7781140664';
 
 const didConfig = {
   graphQLUrl: GRAPHQL_SERVER,
@@ -84,36 +84,36 @@ const wallets = [
     autoShowUnlock: true,
     noNeedForConfirm: true,
   }),
-  new PortkeyDiscoverWallet({
-    networkType: NETWORK_TYPE,
-    chainId: CHAIN_ID,
-    autoRequestAccount: true, // If set to true, please contact Portkey to add whitelist @Rachel
-    autoLogoutOnDisconnected: true,
-    autoLogoutOnNetworkMismatch: true,
-    autoLogoutOnAccountMismatch: true,
-    autoLogoutOnChainMismatch: true,
-  }),
-  new NightElfWallet({
-    chainId: CHAIN_ID,
-    appName: APP_NAME,
-    connectEagerly: true,
-    useMultiChain: false,
-    defaultRpcUrl: RPC_SERVER_AELF,
-    nodes: {
-      AELF: {
-        chainId: 'AELF',
-        rpcUrl: RPC_SERVER_AELF,
-      },
-      tDVW: {
-        chainId: 'tDVW',
-        rpcUrl: RPC_SERVER_TDVW,
-      },
-      tDVV: {
-        chainId: 'tDVV',
-        rpcUrl: RPC_SERVER_TDVV,
-      },
-    },
-  }),
+  // new PortkeyDiscoverWallet({
+  //   networkType: NETWORK_TYPE,
+  //   chainId: CHAIN_ID,
+  //   autoRequestAccount: true, // If set to true, please contact Portkey to add whitelist @Rachel
+  //   autoLogoutOnDisconnected: true,
+  //   autoLogoutOnNetworkMismatch: true,
+  //   autoLogoutOnAccountMismatch: true,
+  //   autoLogoutOnChainMismatch: true,
+  // }),
+  // new NightElfWallet({
+  //   chainId: CHAIN_ID,
+  //   appName: APP_NAME,
+  //   connectEagerly: true,
+  //   useMultiChain: false,
+  //   defaultRpcUrl: RPC_SERVER_AELF,
+  //   nodes: {
+  //     AELF: {
+  //       chainId: 'AELF',
+  //       rpcUrl: RPC_SERVER_AELF,
+  //     },
+  //     tDVW: {
+  //       chainId: 'tDVW',
+  //       rpcUrl: RPC_SERVER_TDVW,
+  //     },
+  //     tDVV: {
+  //       chainId: 'tDVV',
+  //       rpcUrl: RPC_SERVER_TDVV,
+  //     },
+  //   },
+  // }),
 ];
 
 const config: IConfigProps = {

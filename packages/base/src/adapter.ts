@@ -6,10 +6,10 @@ import {
   TSignatureParams,
   TWalletInfo,
   TChainId,
-  WalletStateEnum,
   ICallContractParams,
   IMultiTransactionParams,
   IMultiTransactionResult,
+  LoginStatusEnum,
 } from './types';
 
 export { EventEmitter };
@@ -22,6 +22,7 @@ export interface IWalletAdapterEvents {
   lock(): void;
   // readyStateChange(readyState: WalletStateEnum): void;
   error(error: TWalletError): void;
+  loginOnChainStatusChanged(status: LoginStatusEnum): void;
 }
 export interface IWalletAdapter<Name extends string = string> {
   name: WalletName<Name>;

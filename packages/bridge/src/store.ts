@@ -1,11 +1,13 @@
 import { createSlice, configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import { TWalletInfo, WalletTypeEnum, TWalletError } from '@aelf-web-login/wallet-adapter-base';
+import { LoginStatusEnum } from '@portkey/types';
 
 type TState = {
   walletInfo: TWalletInfo;
   isLocking: boolean;
   walletType: WalletTypeEnum;
   loginError: TWalletError | null;
+  loginOnChainStatus: LoginStatusEnum;
 };
 
 const initialState: TState = {
@@ -13,6 +15,7 @@ const initialState: TState = {
   isLocking: false,
   walletType: WalletTypeEnum.unknown,
   loginError: null,
+  loginOnChainStatus: LoginStatusEnum.INIT,
 };
 
 const aelfWebLoginSlice = createSlice({
@@ -39,6 +42,9 @@ const aelfWebLoginSlice = createSlice({
     },
     clearLoginError: (state) => {
       state.loginError = null;
+    },
+    setLoginOnChainStatus: (state, action) => {
+      state.loginOnChainStatus = action.payload;
     },
   },
 });
@@ -79,6 +85,7 @@ export const {
   clearWalletType,
   setLoginError,
   clearLoginError,
+  setLoginOnChainStatus,
 } = aelfWebLoginSlice.actions;
 
 export type AppDispatch = typeof store.dispatch;

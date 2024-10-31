@@ -14,6 +14,7 @@ import {
   utils,
   IMultiTransactionParams,
   IMultiTransactionResult,
+  LoginStatusEnum,
 } from '@aelf-web-login/wallet-adapter-base';
 import {
   setWalletInfo,
@@ -24,6 +25,7 @@ import {
   dispatch,
   setLoginError,
   clearLoginError,
+  setLoginOnChainStatus,
 } from './store';
 import { CreatePendingInfo, DIDWalletInfo, TelegramPlatform } from '@portkey/did-ui-react';
 import { IBaseConfig } from '.';
@@ -53,6 +55,7 @@ class Bridge {
       disconnected: this.onDisConnectedHandler,
       lock: this.onLockHandler,
       error: this.onConnectErrorHandler,
+      loginOnChainStatusChanged: this.onLoginOnChainStatusChangedHandler,
     };
     this.bindEvents();
   }
@@ -229,6 +232,7 @@ class Bridge {
     dispatch(clearWalletType());
     dispatch(clearLoginError());
     dispatch(setLocking(false));
+    dispatch(setLoginOnChainStatus(LoginStatusEnum.INIT));
   };
 
   onLockHandler = () => {
@@ -251,6 +255,10 @@ class Bridge {
     dispatch(clearWalletInfo());
     dispatch(clearWalletType());
     dispatch(setLoginError(err));
+  };
+
+  onLoginOnChainStatusChangedHandler = (status: LoginStatusEnum) => {
+    dispatch(setLoginOnChainStatus(status));
   };
 
   bindEvents = () => {
@@ -375,6 +383,7 @@ class Bridge {
         dispatch(setLocking(false));
         dispatch(clearLoginError());
       }
+
       return walletInfo;
     } catch (error) {
       console.log('onPortkeyAAUnLockFail----------');

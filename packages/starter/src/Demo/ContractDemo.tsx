@@ -4,7 +4,7 @@ import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import configJson from './contract/config.json';
 import configTdvwJson from './contract/config.tdvw.json';
 import { callViewMethod as callViewMethodOfUtils } from '@aelf-web-login/utils';
-import { IMultiTransactionParams } from '@aelf-web-login/wallet-adapter-base';
+import { IMultiTransactionParams, LoginStatusEnum } from '@aelf-web-login/wallet-adapter-base';
 
 function useExampleCall(name: string, func: () => any) {
   const [result, setResult] = useState({});
@@ -55,6 +55,7 @@ const ContractDemo: React.FC = () => {
     getAccountByChainId,
     getWalletSyncIsCompleted,
     isConnected,
+    loginOnChainStatus,
   } = useConnectWallet();
   console.log('ContractDemo init----------');
 
@@ -223,7 +224,9 @@ const ContractDemo: React.FC = () => {
     if (!isConnected) {
       return;
     }
-    console.log(isConnected, 'begin ----');
+    if (loginOnChainStatus !== LoginStatusEnum.SUCCESS) {
+      return;
+    }
     async function func() {
       await callSendMethod({
         chainId: 'tDVW',
@@ -236,8 +239,8 @@ const ContractDemo: React.FC = () => {
         },
       });
     }
-    // func();
-  }, [callSendMethod, isConnected]);
+    func();
+  }, [callSendMethod, isConnected, loginOnChainStatus]);
   return (
     <div>
       {examples.map((example) => {

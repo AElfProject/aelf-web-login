@@ -14,6 +14,7 @@ import {
   enhancedLocalStorage,
   IMultiTransactionParams,
   IMultiTransactionResult,
+  LoginStatusEnum,
 } from '@aelf-web-login/wallet-adapter-base';
 import {
   did,
@@ -33,7 +34,7 @@ export interface IPortkeyAAWalletAdapterConfig {
   noNeedForConfirm?: boolean;
 }
 
-type TStatus = 'initial' | 'inCreatePending' | 'inFinish';
+type TStatus = 'initial' | 'inBeforeLastGuardianApprove' | 'inCreatePending' | 'inFinish';
 
 export const PortkeyAAName = 'PortkeyAA' as WalletName<'PortkeyAA'>;
 
@@ -102,7 +103,10 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     console.log('createPendingInfo is', createPendingInfo);
     const didWallet = createPendingInfo.didWallet as DIDWalletInfo;
     this._sessionId = createPendingInfo.sessionId;
-    this._status = 'inCreatePending';
+    this._status =
+      createPendingInfo.sessionId === 'tmp_beforeLastGuardianApprove'
+        ? 'inBeforeLastGuardianApprove'
+        : 'inCreatePending';
     this._pin = createPendingInfo.pin;
     return this.login(didWallet);
   }
@@ -111,6 +115,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     try {
       console.log('did.didWallet.isLoginStatus-2', did.didWallet.isLoginStatus);
       this._status = 'inFinish';
+      this.emit('loginOnChainStatusChanged', did.didWallet.isLoginStatus ?? LoginStatusEnum.INIT);
     } catch (error) {
       this.emit('error', makeError(ERR_CODE.ONFINISH_IS_ERROR, error));
     }
@@ -130,11 +135,17 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       }
 
       let nickName = 'Wallet 01';
-      try {
-        const holderInfo = await did.getCAHolderInfo(didWalletInfo.chainId);
-        nickName = holderInfo.nickName;
-      } catch (error) {
-        console.log('portkeyAA login and execute did.getCAHolderInfo. nickName:', nickName, error);
+      if (this._status !== 'inBeforeLastGuardianApprove') {
+        try {
+          const holderInfo = await did.getCAHolderInfo(didWalletInfo.chainId);
+          nickName = holderInfo.nickName;
+        } catch (error) {
+          console.log(
+            'portkeyAA login and execute did.getCAHolderInfo. nickName:',
+            nickName,
+            error,
+          );
+        }
       }
 
       try {
@@ -156,7 +167,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         name: nickName,
         address: didWalletInfo.caInfo?.caAddress,
         extraInfo: {
-          publicKey: didWalletInfo?.walletInfo.keyPair.getPublic('hex') || '',
+          publicKey: didWalletInfo?.walletInfo?.keyPair?.getPublic('hex') || '',
           portkeyInfo: portkeyInfo,
         },
       };
@@ -262,17 +273,28 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         nickName = holderInfo.nickName;
       }
 
-      if (!localWallet.didWallet.sessionId) {
-        console.log('-----unlock in checkManagerIsExistByGQL');
-        const result = await did.didWallet.checkManagerIsExistByGQL({
-          chainId: originChainId,
-          caHash,
-          managementAddress: localWallet.didWallet.managementAccount?.address ?? '',
-        });
-        if (result) {
-          await did.save(password, this.appName);
+      if (did.didWallet.isLoginStatus !== LoginStatusEnum.SUCCESS) {
+        if (!localWallet.didWallet.sessionId) {
+          console.log('-----unlock in checkManagerIsExistByGQL');
+          const result = await did.didWallet.checkManagerIsExistByGQL({
+            chainId: originChainId,
+            caHash,
+            managementAddress: localWallet.didWallet.managementAccount?.address ?? '',
+          });
+          if (result) {
+            await did.save(password, this.appName);
+          } else {
+            // logout
+          }
         } else {
-          // logout
+          const { recoveryStatus } = await did.didWallet.getLoginStatus({
+            sessionId: did.didWallet.sessionId!,
+            chainId: did.didWallet.originChainId!,
+          });
+
+          if (recoveryStatus === 'pass') {
+            await did.save(password, this.appName);
+          }
         }
       }
 
@@ -311,6 +333,8 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       enhancedLocalStorage.setItem(ConnectedWallet, this.name);
       this._status = 'inFinish';
       this.emit('connected', this._wallet);
+      console.log('----fa-sf-as-fsa-f-sa-fsa-df', did.didWallet.isLoginStatus);
+      this.emit('loginOnChainStatusChanged', did.didWallet.isLoginStatus ?? LoginStatusEnum.INIT);
       return this._wallet;
     } catch (error) {
       this._loginState = LoginStateEnum.INITIAL;
@@ -489,7 +513,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     if (!contractAddress) {
       throw makeError(ERR_CODE.INVALID_CONTRACT_ADDRESS);
     }
-    if (this._status === 'initial') {
+    if (this._status === 'initial' || this._status === 'inBeforeLastGuardianApprove') {
       throw makeError(ERR_CODE.CANT_CALL_SEND_METHOD);
     }
     if (this._status === 'inCreatePending') {
@@ -510,7 +534,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         throw makeError(ERR_CODE.GET_LOGIN_STATUS_FAIL);
       }
     }
-    console.log('did.didWallet.isLoginStatus-contract', did.didWallet.isLoginStatus);
+    console.log('...callSendMethod...did.didWallet.isLoginStatus is', did.didWallet.isLoginStatus);
     // if (this._status === 'inFinish' && did.didWallet.isLoginStatus !== 'SUCCESS') {
     //   throw makeError(ERR_CODE.IN_FINISH_BUT_STATUS_IS_NOT_SUCCESS);
     // }
