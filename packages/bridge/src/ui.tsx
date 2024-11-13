@@ -5,6 +5,7 @@ import {
   enhancedLocalStorage,
   PORTKEYAA,
   OperationTypeEnum,
+  // EventEmitter,
 } from '@aelf-web-login/wallet-adapter-base';
 import { Bridge } from './bridge';
 import {
@@ -75,6 +76,8 @@ interface ISignInModalProps {
   baseConfig: IBaseConfig;
 }
 const { isMobile } = utils;
+
+// const EE = new EventEmitter();
 
 const ConfirmLogoutDialog = (props: Partial<IConfirmLogoutDialogProps>) => {
   const { title, subTitle, okTxt, cancelTxt, visible, onOk, onCancel, width, mobileWidth } = {
@@ -295,30 +298,34 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
       }
       console.log('begin to excute autoAuthInTelegram');
       if (enhancedLocalStorage.getItem('connectedWallet') === PORTKEYAA) {
-        ConfigProvider.setGlobalConfig({
-          globalLoadingHandler: {
-            onSetLoading: (loadingInfo) => {
-              console.log(loadingInfo, 'loadingInfo===');
+        if (enableAcceleration) {
+          ConfigProvider.setGlobalConfig({
+            globalLoadingHandler: {
+              onSetLoading: (loadingInfo) => {
+                console.log(loadingInfo, 'loadingInfo===');
+              },
             },
-          },
-        });
+          });
+        }
         await bridgeInstance.onPortkeyAAUnLock(defaultPin);
         return;
       }
       if (!cancelAutoLoginInTelegram) {
-        ConfigProvider.setGlobalConfig({
-          globalLoadingHandler: {
-            onSetLoading: (loadingInfo) => {
-              console.log(loadingInfo, 'loadingInfo===');
+        if (enableAcceleration) {
+          ConfigProvider.setGlobalConfig({
+            globalLoadingHandler: {
+              onSetLoading: (loadingInfo) => {
+                console.log(loadingInfo, 'loadingInfo===');
+              },
             },
-          },
-        });
+          });
+        }
         console.log('begin to excute handleTelegram');
         handleTelegram();
       }
     }
     autoAuthInTelegram();
-  }, [bridgeInstance, cancelAutoLoginInTelegram, defaultPin, handleTelegram]);
+  }, [bridgeInstance, cancelAutoLoginInTelegram, defaultPin, enableAcceleration, handleTelegram]);
 
   bridgeInstance.autoLogin = () => {
     handleTelegram();
@@ -512,6 +519,18 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     );
   }, [onForgetPinHandler]);
 
+  // const [showGuardianApprovalModal, setShowGuardianApprovalModal] = useState(false);
+
+  // useEffect(() => {
+  //   const hander = (args: boolean) => {
+  //     setShowGuardianApprovalModal(args);
+  //   };
+  //   EE.on('SET_GLOBAL_LOADING_1', hander);
+  //   return () => {
+  //     EE.off('SET_GLOBAL_LOADING_1', hander);
+  //   };
+  // }, []);
+
   return (
     // <PortkeyProvider networkType={baseConfig.networkType} theme="dark">
     <div>
@@ -583,3 +602,10 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
 };
 
 export default SignInModal;
+
+// const demoFn = (bool: boolean) => {
+//   console.log('demoFn', EE);
+//   EE.emit('SET_GLOBAL_LOADING_1', bool);
+// };
+
+// export { demoFn };

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Button, message, Divider, Flex } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+// import { demoFn } from '@aelf-web-login/wallet-adapter-bridge';
 
 const LoginDemo: React.FC = () => {
   const {
@@ -47,6 +48,20 @@ const LoginDemo: React.FC = () => {
   return (
     <div>
       <Flex gap={'small'}>
+        {/* <Button
+          onClick={() => {
+            demoFn(true);
+          }}
+        >
+          open
+        </Button>
+        <Button
+          onClick={() => {
+            demoFn(false);
+          }}
+        >
+          close
+        </Button> */}
         <Button type="primary" onClick={onConnectBtnClickHandler} disabled={isConnected}>
           {isLocking ? 'unlock' : 'connect'}
         </Button>

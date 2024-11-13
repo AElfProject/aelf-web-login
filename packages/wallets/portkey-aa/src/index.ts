@@ -32,6 +32,7 @@ export interface IPortkeyAAWalletAdapterConfig {
   chainId: TChainId;
   autoShowUnlock: boolean;
   noNeedForConfirm?: boolean;
+  enableAcceleration?: boolean;
 }
 
 type TStatus = 'initial' | 'inBeforeLastGuardianApprove' | 'inCreatePending' | 'inFinish';
@@ -126,6 +127,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       enhancedLocalStorage.setItem(PORTKEY_ORIGIN_CHAIN_ID_KEY, didWalletInfo.chainId);
       this._loginState = LoginStateEnum.CONNECTING;
       const chainId = this._config.chainId;
+      const enableAcceleration = this._config.enableAcceleration;
       if (didWalletInfo.chainId !== chainId) {
         const caInfo = await did.didWallet.getHolderInfoByContract({
           caHash: didWalletInfo.caInfo?.caHash,
@@ -135,7 +137,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       }
 
       let nickName = 'Wallet 01';
-      if (this._status !== 'inBeforeLastGuardianApprove') {
+      if (enableAcceleration && this._status !== 'inBeforeLastGuardianApprove') {
         try {
           const holderInfo = await did.getCAHolderInfo(didWalletInfo.chainId);
           nickName = holderInfo.nickName;
@@ -177,6 +179,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         this._status = 'inFinish';
       }
       this.emit('connected', this._wallet);
+      this.emit('loginOnChainStatusChanged', did.didWallet.isLoginStatus!);
       console.log('did.didWallet.isLoginStatus-1', did.didWallet.isLoginStatus);
       return this._wallet;
     } catch (error) {
@@ -507,16 +510,20 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     args,
     sendOptions,
   }: ICallContractParams<T>) {
+    const enableAcceleration = this._config.enableAcceleration;
     if (!this._wallet) {
       throw makeError(ERR_CODE.PORTKEY_AA_NOT_CONNECTED);
     }
     if (!contractAddress) {
       throw makeError(ERR_CODE.INVALID_CONTRACT_ADDRESS);
     }
-    if (this._status === 'initial' || this._status === 'inBeforeLastGuardianApprove') {
+    if (
+      enableAcceleration &&
+      (this._status === 'initial' || this._status === 'inBeforeLastGuardianApprove')
+    ) {
       throw makeError(ERR_CODE.CANT_CALL_SEND_METHOD);
     }
-    if (this._status === 'inCreatePending') {
+    if (enableAcceleration && this._status === 'inCreatePending') {
       console.log(
         '----------in callSendMethod and _status is inCreatePending, begin to execute getLoginStatus, sessionId=',
         did.didWallet.sessionId,

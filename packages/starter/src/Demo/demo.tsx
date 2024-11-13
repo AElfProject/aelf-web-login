@@ -83,6 +83,7 @@ const wallets = [
     chainId: CHAIN_ID,
     autoShowUnlock: true,
     noNeedForConfirm: true,
+    enableAcceleration: true,
   }),
   // new PortkeyDiscoverWallet({
   //   networkType: NETWORK_TYPE,
