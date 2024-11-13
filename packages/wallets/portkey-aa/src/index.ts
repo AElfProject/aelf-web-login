@@ -435,6 +435,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     methodName,
     args,
     sendOptions,
+    guardiansApproved = [],
   }: ISendOrViewAdapter<T>) {
     const didWalletInfo = this._wallet!.extraInfo?.portkeyInfo;
 
@@ -473,11 +474,13 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       );
     } else {
       const params = {
+        guardiansApproved: guardiansApproved,
         caHash: didWalletInfo.caInfo?.caHash,
         contractAddress: contractAddress,
         methodName: methodName,
         args: args,
       };
+      console.log('intg----params of sendAdapter', params);
       return caContract.callSendMethod(
         'ManagerForwardCall',
         didWalletInfo.walletInfo.address,
@@ -509,6 +512,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     methodName,
     args,
     sendOptions,
+    guardiansApproved = [],
   }: ICallContractParams<T>) {
     const enableAcceleration = this._config.enableAcceleration;
     if (!this._wallet) {
@@ -549,6 +553,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     const finalChainId = chainId || this._config.chainId;
     const contract = await this.getContract(finalChainId);
     const adapterProps = {
+      guardiansApproved,
       caContract: contract,
       chainId: finalChainId,
       contractAddress,

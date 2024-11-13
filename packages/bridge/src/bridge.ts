@@ -26,9 +26,19 @@ import {
   setLoginError,
   clearLoginError,
   setLoginOnChainStatus,
+  store,
+  IsManagerReadOnlyStatusEnum,
+  setIsManagerReadOnlyStatus,
 } from './store';
 import { CreatePendingInfo, DIDWalletInfo, TelegramPlatform } from '@portkey/did-ui-react';
 import { IBaseConfig } from '.';
+import {
+  clearManagerReadonlyStatusInMainChain,
+  clearManagerReadonlyStatusInSideChain,
+  EE,
+  SET_GUARDIAN_APPROVAL_MODAL,
+  SET_GUARDIAN_LIST,
+} from './utils';
 
 const { isPortkeyApp } = utils;
 let isDisconnectClicked = false;
@@ -41,9 +51,11 @@ class Bridge {
   private _logoutReject: (arg: boolean) => void;
   private _eventMap: Record<keyof IWalletAdapterEvents, any> = {} as IWalletAdapterEvents;
   private _noCommonBaseModal: boolean;
+  private _sideChainId: TChainId;
 
-  constructor(wallets: WalletAdapter[], { noCommonBaseModal = false }: IBaseConfig) {
+  constructor(wallets: WalletAdapter[], { sideChainId, noCommonBaseModal = false }: IBaseConfig) {
     this._noCommonBaseModal = noCommonBaseModal;
+    this._sideChainId = sideChainId;
     this._wallets = wallets;
     this._activeWallet = undefined;
     this._loginResolve = () => {};
@@ -170,8 +182,43 @@ class Bridge {
     ) {
       return null as R;
     }
-    const rs = await this.activeWallet?.callSendMethod(props);
-    return rs as R;
+    const { isManagerReadOnlyStatus } = store.getState();
+    if (
+      this.isAAWallet &&
+      isManagerReadOnlyStatus === IsManagerReadOnlyStatusEnum.TRUE &&
+      props.methodName !== 'Approve'
+    ) {
+      EE.emit(SET_GUARDIAN_APPROVAL_MODAL, true);
+      const { guardians, caHash, caAddress } = await this.getGuardianListFromGuardianApproveModal();
+      console.log('intg----getGuardianListFromGuardianApproveModal', guardians, caHash, caAddress);
+      const rs = await this.activeWallet?.callSendMethod({
+        ...props,
+        guardiansApproved: guardians,
+      });
+      console.log('intg---rs of callSendMethod', rs);
+      dispatch(setIsManagerReadOnlyStatus(false));
+      if (props.chainId === 'AELF') {
+        clearManagerReadonlyStatusInSideChain(this._sideChainId, caAddress, caHash, guardians);
+      } else {
+        clearManagerReadonlyStatusInMainChain(caAddress, caHash, guardians);
+      }
+      return rs as R;
+    } else {
+      const rs = await this.activeWallet?.callSendMethod(props);
+      return rs as R;
+    }
+  };
+
+  getGuardianListFromGuardianApproveModal = async (): Promise<{
+    guardians: any[];
+    caHash: string;
+    caAddress: string;
+  }> => {
+    return new Promise((resolve) => {
+      EE.once(SET_GUARDIAN_LIST, (result) => {
+        resolve(result);
+      });
+    });
   };
 
   sendMultiTransaction = async <T>(

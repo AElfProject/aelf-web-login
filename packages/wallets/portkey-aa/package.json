@@ -26,17 +26,17 @@
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
-    "@portkey/contracts": "^2.14.0-alpha.6",
-    "@portkey/utils": "^2.14.0-alpha.6"
+    "@portkey/contracts": "^2.15.9",
+    "@portkey/utils": "^2.15.9"
   },
   "devDependencies": {
-    "@portkey/did-ui-react": "^2.14.0-alpha.6",
-    "@portkey/types": "^2.14.0-alpha.6",
+    "@portkey/did-ui-react": "^2.15.9",
+    "@portkey/types": "^2.15.9",
     "father": "^4.3.8",
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
-    "@portkey/did-ui-react": "^2.14.0-alpha.6"
+    "@portkey/did-ui-react": "^2.15.9"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

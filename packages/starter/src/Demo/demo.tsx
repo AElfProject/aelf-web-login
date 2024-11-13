@@ -69,6 +69,7 @@ const baseConfig = {
   // cancelAutoLoginInTelegram: false,
   networkType: NETWORK_TYPE,
   chainId: CHAIN_ID,
+  sideChainId: CHAIN_ID,
   keyboard: true,
   noCommonBaseModal: false,
   design: SignInDesignEnum.CryptoDesign, // "SocialDesign" | "CryptoDesign" | "Web2Design"

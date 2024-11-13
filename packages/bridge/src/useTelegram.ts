@@ -19,19 +19,21 @@ import {
   CreatePendingInfo,
   TOnSuccessExtraData,
   UserGuardianStatus,
-  useMultiVerify,
-  ConfigProvider,
 } from '@portkey/did-ui-react';
 import {
   TChainId,
   NetworkEnum,
   utils,
   OperationTypeEnum,
+  EventEmitter,
 } from '@aelf-web-login/wallet-adapter-base';
+import { AccountType } from '@portkey/services';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { Bridge } from './bridge';
 import useVerifier from './useVerifier';
 import useLockCallback from './useLockCallback';
+import { dispatch, setApproveGuardians, setIsManagerReadOnlyStatus } from './store';
+import { getIsManagerReadOnly, SET_GUARDIAN_APPROVAL_MODAL, SET_GUARDIAN_LIST } from './utils';
 
 const { sleep } = utils;
 
@@ -50,14 +52,14 @@ const useTelegram = (
   network: NetworkEnum,
   bridgeInstance: Bridge,
   setIsShowWrapper: (arg: boolean) => void,
+  EE: EventEmitter<string | symbol, any>,
 ) => {
   const [originChainId, setOriginChainId] = useState<TChainId>(chainId);
-  const [caHash, setCaHash] = useState<string>('');
-  const [approvalVisible, setApprovalVisible] = useState(false);
+  const [caHash, setCaHash] = useState('');
+  const caAddressRef = useRef('');
   const caInfoRef = useRef<{ caAddress: string; caHash: string }>({ caAddress: '', caHash: '' });
   const identifierRef = useRef<string>();
   const [guardianList, setGuardianList] = useState<UserGuardianStatus[]>();
-  const multiVerify = useMultiVerify();
   const isTelegramPlatform = useMemo(() => {
     return TelegramPlatform.isTelegramPlatform();
   }, []);
@@ -70,6 +72,14 @@ const useTelegram = (
       return;
     }
     console.log('intg-----------onCreatePendingHandler,');
+    //TODO: only muti-guardian need to execute 76-82
+    const isManagerReadOnly = await getIsManagerReadOnly(
+      chainId,
+      createPendingInfo.didWallet?.caInfo.caHash,
+      createPendingInfo.walletInfo.address,
+    );
+    caAddressRef.current = createPendingInfo.didWallet?.caInfo.caAddress ?? '';
+    dispatch(setIsManagerReadOnlyStatus(isManagerReadOnly));
     bridgeInstance.onPortkeyAAWalletCreatePending(createPendingInfo);
   }, []);
   const [currentLifeCircle, setCurrentLifeCircle] = useState<
@@ -245,14 +255,42 @@ const useTelegram = (
         } else {
           setLoading(false);
           if (isTelegramPlatform && enableAcceleration) {
-            console.log('intg-----------more guardian', signResult.value.guardianList);
-            setGuardianList(signResult.value.guardianList || []);
-            setTimeout(() => {
-              setApprovalVisible(true);
-              ConfigProvider.setGlobalConfig({
-                globalLoadingHandler: undefined,
-              });
-            }, 500);
+            // console.log('intg-----------more guardian', signResult.value.guardianList);
+            // setGuardianList(signResult.value.guardianList || []);
+            // setTimeout(() => {
+            //   setApprovalVisible(true);
+            //   ConfigProvider.setGlobalConfig({
+            //     globalLoadingHandler: undefined,
+            //   });
+            // }, 500);
+
+            const guardianListFromSignResult = signResult.value.guardianList ?? [];
+            const resetGuardianList = guardianListFromSignResult.map((ele: any) => {
+              return {
+                ...ele,
+                status: null,
+              };
+            });
+            console.log('intg--resetGuardianList', resetGuardianList);
+            setGuardianList(resetGuardianList as unknown as UserGuardianStatus[]);
+
+            const params = {
+              pin: DEFAULT_PIN,
+              type: 'recovery' as AddManagerType,
+              chainId: extraData?.originChainId as TChainId,
+              accountType: 'Telegram' as AccountType,
+              guardianIdentifier: identifierRef.current || '',
+              guardianApprovedList: signResult.value.approvedList ?? [],
+              source: 5,
+            };
+            const didWallet = await createWallet(params);
+            console.log(
+              'intg--didWallet',
+              didWallet,
+              did.didWallet.managementAccount?.address,
+              chainId,
+            );
+            didWallet && bridgeInstance.onPortkeyAAWalletLoginFinishedWithAcceleration(didWallet);
             return;
           }
           setCurrentLifeCircle({
@@ -295,31 +333,12 @@ const useTelegram = (
   }, [network, signHandle]);
 
   const onTGSignInApprovalSuccess = useCallback(
-    async (guardian: any) => {
-      ConfigProvider.setGlobalConfig({
-        globalLoadingHandler: {
-          onSetLoading: (loadingInfo) => {
-            console.log(loadingInfo, 'loadingInfo===');
-          },
-        },
-      });
-      setApprovalVisible(false);
-      await handleFinish();
-      const res = await multiVerify(guardian);
-      const params = {
-        pin: DEFAULT_PIN,
-        type: 'recovery' as AddManagerType,
-        chainId: originChainId,
-        accountType: 'Telegram' as any,
-        guardianIdentifier: identifierRef.current || '',
-        guardianApprovedList: res as any[],
-      };
-      console.log('intg-----------onTGSignInApprovalSuccess', params);
-      const didWallet = await createWallet(params);
-
-      didWallet && bridgeInstance.onPortkeyAAWalletLoginFinishedWithAcceleration(didWallet);
+    async (guardians: any[]) => {
+      EE.emit(SET_GUARDIAN_APPROVAL_MODAL, false);
+      EE.emit(SET_GUARDIAN_LIST, { guardians, caHash, caAddress: caAddressRef.current });
+      dispatch(setApproveGuardians(guardians));
     },
-    [DEFAULT_PIN, bridgeInstance, createWallet, handleFinish, multiVerify, originChainId],
+    [EE, caHash],
   );
 
   return useMemo(
@@ -327,8 +346,6 @@ const useTelegram = (
       handleTelegram,
       currentLifeCircle,
       guardianList,
-      approvalVisible,
-      setApprovalVisible,
       caHash,
       originChainId,
       onTGSignInApprovalSuccess,
@@ -337,7 +354,6 @@ const useTelegram = (
       handleTelegram,
       currentLifeCircle,
       guardianList,
-      approvalVisible,
       caHash,
       originChainId,
       onTGSignInApprovalSuccess,
