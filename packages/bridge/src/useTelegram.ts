@@ -205,7 +205,7 @@ const useTelegram = (
     async (value: IGuardianIdentifierInfo, extraData?: TOnSuccessExtraData) => {
       // setDrawerVisible(false);
       // setModalVisible(false);
-      if (extraData) {
+      if (enableAcceleration && extraData) {
         setOriginChainId(extraData.originChainId);
         setCaHash(extraData.caHash);
         caInfoRef.current = {
@@ -244,7 +244,7 @@ const useTelegram = (
           }
         } else {
           setLoading(false);
-          if (isTelegramPlatform) {
+          if (isTelegramPlatform && enableAcceleration) {
             console.log('intg-----------more guardian', signResult.value.guardianList);
             setGuardianList(signResult.value.guardianList || []);
             setTimeout(() => {
@@ -277,17 +277,21 @@ const useTelegram = (
   });
 
   const handleTelegram = useCallback(async () => {
-    const res = await socialLoginAuth({
-      type: SocialLoginType.TELEGRAM,
-      network: network,
-    });
+    try {
+      const res = await socialLoginAuth({
+        type: SocialLoginType.TELEGRAM,
+        network: network,
+      });
 
-    console.log('socialLoginAuth', res);
+      console.log('socialLoginAuth', res);
 
-    signHandle.onSocialFinish({
-      type: res!.provider,
-      data: { accessToken: res!.token },
-    });
+      signHandle.onSocialFinish({
+        type: res!.provider,
+        data: { accessToken: res!.token },
+      });
+    } catch (e) {
+      console.log('execute await socialLoginAuth error', e);
+    }
   }, [network, signHandle]);
 
   const onTGSignInApprovalSuccess = useCallback(
