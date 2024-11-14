@@ -112,7 +112,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     return this.login(didWallet);
   }
 
-  async loginCompletely(): Promise<void> {
+  async onLoginComplete(): Promise<void> {
     try {
       console.log('did.didWallet.isLoginStatus-2', did.didWallet.isLoginStatus);
       this._status = 'inFinish';
@@ -121,6 +121,10 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       this.emit('error', makeError(ERR_CODE.ONFINISH_IS_ERROR, error));
     }
   }
+  /**
+   * @deprecated use .onLoginComplete
+   */
+  loginCompletely = this.onLoginComplete;
 
   async login(didWalletInfo: DIDWalletInfo): Promise<TWalletInfo> {
     try {
@@ -435,6 +439,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     methodName,
     args,
     sendOptions,
+    approvedGuardians = [],
   }: ISendOrViewAdapter<T>) {
     const didWalletInfo = this._wallet!.extraInfo?.portkeyInfo;
 
@@ -448,7 +453,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       const originChainId = didWalletInfo.chainId;
       // use amount from result of managerApprove not from params
       // dapp user may change amount at pop-up
-      const { amount, guardiansApproved, symbol } = (await managerApprove({
+      const { amount, approvedGuardians, symbol } = (await managerApprove({
         originChainId,
         targetChainId: chainId,
         caHash: didWalletInfo.caInfo?.caHash,
@@ -465,7 +470,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         {
           caHash: didWalletInfo.caInfo?.caHash,
           ...args,
-          guardiansApproved,
+          approvedGuardians,
           amount,
           symbol,
         },
@@ -473,11 +478,13 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       );
     } else {
       const params = {
+        approvedGuardians: approvedGuardians,
         caHash: didWalletInfo.caInfo?.caHash,
         contractAddress: contractAddress,
         methodName: methodName,
         args: args,
       };
+      console.log('intg----params of sendAdapter', params);
       return caContract.callSendMethod(
         'ManagerForwardCall',
         didWalletInfo.walletInfo.address,
@@ -509,6 +516,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     methodName,
     args,
     sendOptions,
+    approvedGuardians = [],
   }: ICallContractParams<T>) {
     const enableAcceleration = this._config.enableAcceleration;
     if (!this._wallet) {
@@ -549,6 +557,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     const finalChainId = chainId || this._config.chainId;
     const contract = await this.getContract(finalChainId);
     const adapterProps = {
+      approvedGuardians,
       caContract: contract,
       chainId: finalChainId,
       contractAddress,

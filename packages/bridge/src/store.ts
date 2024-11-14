@@ -1,6 +1,13 @@
-import { createSlice, configureStore, EnhancedStore } from '@reduxjs/toolkit';
-import { TWalletInfo, WalletTypeEnum, TWalletError } from '@aelf-web-login/wallet-adapter-base';
+import { TWalletError, TWalletInfo, WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
+import { BaseGuardianItem } from '@portkey/did-ui-react';
 import { LoginStatusEnum } from '@portkey/types';
+import { configureStore, createSlice, EnhancedStore } from '@reduxjs/toolkit';
+
+export enum IsManagerReadOnlyStatusEnum {
+  INIT = 'INIT',
+  TRUE = 'TRUE',
+  FALSE = 'FALSE',
+}
 
 type TState = {
   walletInfo: TWalletInfo;
@@ -8,6 +15,8 @@ type TState = {
   walletType: WalletTypeEnum;
   loginError: TWalletError | null;
   loginOnChainStatus: LoginStatusEnum;
+  approvedGuardians: BaseGuardianItem[];
+  isManagerReadOnlyStatus: IsManagerReadOnlyStatusEnum;
 };
 
 const initialState: TState = {
@@ -16,6 +25,8 @@ const initialState: TState = {
   walletType: WalletTypeEnum.unknown,
   loginError: null,
   loginOnChainStatus: LoginStatusEnum.INIT,
+  approvedGuardians: [],
+  isManagerReadOnlyStatus: IsManagerReadOnlyStatusEnum.INIT,
 };
 
 const aelfWebLoginSlice = createSlice({
@@ -45,6 +56,14 @@ const aelfWebLoginSlice = createSlice({
     },
     setLoginOnChainStatus: (state, action) => {
       state.loginOnChainStatus = action.payload;
+    },
+    setApprovedGuardians: (state, action) => {
+      state.approvedGuardians = action.payload;
+    },
+    setIsManagerReadOnlyStatus: (state, action) => {
+      state.isManagerReadOnlyStatus = action.payload
+        ? IsManagerReadOnlyStatusEnum.TRUE
+        : IsManagerReadOnlyStatusEnum.FALSE;
     },
   },
 });
@@ -86,6 +105,8 @@ export const {
   setLoginError,
   clearLoginError,
   setLoginOnChainStatus,
+  setApprovedGuardians,
+  setIsManagerReadOnlyStatus,
 } = aelfWebLoginSlice.actions;
 
 export type AppDispatch = typeof store.dispatch;

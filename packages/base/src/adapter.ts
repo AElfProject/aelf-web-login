@@ -50,7 +50,7 @@ export interface IWalletAdapter<Name extends string = string> {
   onUnlock?: (pin: string) => Promise<TWalletInfo>;
   lock?: () => void;
   loginWithAcceleration?: (createPendingInfo: CreatePendingInfo) => Promise<TWalletInfo>;
-  loginCompletely?: (arg: DIDWalletInfo) => Promise<void>;
+  onLoginComplete?: (arg: DIDWalletInfo) => Promise<void>;
   sendMultiTransaction?<T>(params: IMultiTransactionParams<T>): Promise<IMultiTransactionResult>;
 }
 

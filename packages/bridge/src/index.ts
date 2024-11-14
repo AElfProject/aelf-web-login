@@ -18,6 +18,7 @@ type BaseConfigProviderProps = Omit<React.ComponentProps<typeof PortkeyProvider>
 export interface IBaseConfig {
   networkType: NetworkEnum;
   chainId: TChainId;
+  sideChainId: TChainId;
   keyboard?: boolean;
   design?: SignInDesignEnum;
   iconSrcForSocialDesign?: string;

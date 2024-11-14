@@ -5,7 +5,6 @@ import {
   enhancedLocalStorage,
   PORTKEYAA,
   OperationTypeEnum,
-  // EventEmitter,
 } from '@aelf-web-login/wallet-adapter-base';
 import { Bridge } from './bridge';
 import {
@@ -26,6 +25,7 @@ import { IBaseConfig } from '.';
 import { Modal, Button, Typography, Drawer } from 'antd';
 import useTelegram from './useTelegram';
 import './ui.css';
+import { EE, SET_GUARDIAN_APPROVAL_MODAL } from './utils';
 
 export interface IConfirmLogoutDialogProps {
   title: string;
@@ -76,8 +76,6 @@ interface ISignInModalProps {
   baseConfig: IBaseConfig;
 }
 const { isMobile } = utils;
-
-// const EE = new EventEmitter();
 
 const ConfirmLogoutDialog = (props: Partial<IConfirmLogoutDialogProps>) => {
   const { title, subTitle, okTxt, cancelTxt, visible, onOk, onCancel, width, mobileWidth } = {
@@ -241,8 +239,6 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     handleTelegram,
     currentLifeCircle,
     guardianList,
-    approvalVisible,
-    setApprovalVisible,
     caHash,
     originChainId,
     onTGSignInApprovalSuccess,
@@ -253,6 +249,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     baseConfig.networkType,
     bridgeInstance,
     setIsShowWrapper,
+    EE,
   );
   const filteredWallets = wallets.filter((ele) => ele.name !== PORTKEYAA);
   const isMobileDevice = isMobile();
@@ -273,7 +270,10 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   const isToggleAccountRef = useRef(false);
 
   useEffect(() => {
-    console.log('----------------------2', TelegramPlatform.isTelegramPlatform());
+    console.log(
+      '----------------------the current environment is telegram:',
+      TelegramPlatform.isTelegramPlatform(),
+    );
     if (!TelegramPlatform.isTelegramPlatform()) {
       return;
     }
@@ -301,7 +301,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
         if (enableAcceleration) {
           ConfigProvider.setGlobalConfig({
             globalLoadingHandler: {
-              onSetLoading: (loadingInfo) => {
+              onSetLoading: (loadingInfo: any) => {
                 console.log(loadingInfo, 'loadingInfo===');
               },
             },
@@ -314,7 +314,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
         if (enableAcceleration) {
           ConfigProvider.setGlobalConfig({
             globalLoadingHandler: {
-              onSetLoading: (loadingInfo) => {
+              onSetLoading: (loadingInfo: any) => {
                 console.log(loadingInfo, 'loadingInfo===');
               },
             },
@@ -373,8 +373,8 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     (didWallet: DIDWalletInfo) => {
       console.log('didWallet.createType', didWallet.createType);
       if (enableAcceleration && didWallet.createType === 'recovery') {
-        console.log('onPortkeyAAWalletLoginFinishedWithAcceleration--------1');
-        bridgeInstance.onPortkeyAAWalletLoginFinishedWithAcceleration(didWallet);
+        console.log('onPortkeyAAWalletLoginWithAccelerationFinished--------1');
+        bridgeInstance.onPortkeyAAWalletLoginWithAccelerationFinished(didWallet);
       } else {
         console.log('onPortkeyAAWalletLoginFinished----------');
         bridgeInstance.onPortkeyAAWalletLoginFinished(didWallet);
@@ -519,17 +519,14 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     );
   }, [onForgetPinHandler]);
 
-  // const [showGuardianApprovalModal, setShowGuardianApprovalModal] = useState(false);
+  const [showGuardianApprovalModal, setShowGuardianApprovalModal] = useState(false);
 
-  // useEffect(() => {
-  //   const hander = (args: boolean) => {
-  //     setShowGuardianApprovalModal(args);
-  //   };
-  //   EE.on('SET_GLOBAL_LOADING_1', hander);
-  //   return () => {
-  //     EE.off('SET_GLOBAL_LOADING_1', hander);
-  //   };
-  // }, []);
+  useEffect(() => {
+    EE.on(SET_GUARDIAN_APPROVAL_MODAL, setShowGuardianApprovalModal);
+    return () => {
+      EE.off(SET_GUARDIAN_APPROVAL_MODAL, setShowGuardianApprovalModal);
+    };
+  }, []);
 
   return (
     // <PortkeyProvider networkType={baseConfig.networkType} theme="dark">
@@ -575,8 +572,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
 
       {guardianList?.length && (
         <GuardianApprovalModal
-          open={approvalVisible}
-          isAsyncVerify
+          open={showGuardianApprovalModal}
           networkType={baseConfig.networkType}
           caHash={caHash}
           originChainId={originChainId}
@@ -584,8 +580,8 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
           guardianList={guardianList}
           operationType={OperationTypeEnum.communityRecovery}
           operationDetails={getOperationDetails(OperationTypeEnum.communityRecovery)}
-          onClose={() => setApprovalVisible(false)}
-          onBack={() => setApprovalVisible(false)}
+          onClose={() => EE.emit(SET_GUARDIAN_APPROVAL_MODAL, false)}
+          onBack={() => EE.emit(SET_GUARDIAN_APPROVAL_MODAL, false)}
           onApprovalSuccess={onTGSignInApprovalSuccess}
         />
       )}

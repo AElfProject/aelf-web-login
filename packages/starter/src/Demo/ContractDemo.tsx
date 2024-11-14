@@ -56,6 +56,7 @@ const ContractDemo: React.FC = () => {
     getWalletSyncIsCompleted,
     isConnected,
     loginOnChainStatus,
+    approvedGuardians,
   } = useConnectWallet();
   console.log('ContractDemo init----------');
 
@@ -221,6 +222,10 @@ const ContractDemo: React.FC = () => {
   ];
 
   useEffect(() => {
+    console.log('approvedGuardians in demo', approvedGuardians);
+  }, [approvedGuardians]);
+
+  useEffect(() => {
     if (!isConnected) {
       return;
     }
@@ -239,7 +244,7 @@ const ContractDemo: React.FC = () => {
         },
       });
     }
-    func();
+    // func();
   }, [callSendMethod, isConnected, loginOnChainStatus]);
   return (
     <div>

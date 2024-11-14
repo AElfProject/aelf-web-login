@@ -24,7 +24,7 @@ const GRAPHQL_SERVER =
   'https://dapp-aa-portkey-test.portkey.finance/aefinder-v2/api/app/graphql/portkey';
 const CONNECT_SERVER = 'https://auth-aa-portkey-test.portkey.finance';
 const SERVICE_SERVER = 'https://aa-portkey-test.portkey.finance';
-const TELEGRAM_BOT_ID = '7781140664';
+const TELEGRAM_BOT_ID = '8158866605';
 
 const didConfig = {
   graphQLUrl: GRAPHQL_SERVER,
@@ -69,6 +69,7 @@ const baseConfig = {
   // cancelAutoLoginInTelegram: false,
   networkType: NETWORK_TYPE,
   chainId: CHAIN_ID,
+  sideChainId: CHAIN_ID,
   keyboard: true,
   noCommonBaseModal: false,
   design: SignInDesignEnum.CryptoDesign, // "SocialDesign" | "CryptoDesign" | "Web2Design"
