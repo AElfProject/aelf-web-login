@@ -2,7 +2,7 @@
 
 **aelf-web-login**: Modular React wallet collection and components for aelf applications.
 
-**website**: https://aelf-web-login.vercel.app/
+**website**: <https://aelf-web-login.vercel.app/>
 
 <p>
   <a href="https://nodejs.org/download/">
@@ -680,6 +680,8 @@ pnpm install
 cd packages/starter
 pnpm dev
 ```
+
+OR directly filter workspace package `pnpm --filter "@aelf-web-login/doc-site" dev`
 
 # Publish
 

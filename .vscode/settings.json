@@ -1,4 +1,5 @@
 {
   "conventionalCommits.scopes": ["workspace", "web3", "icons", "common"],
-  "cSpell.words": ["Hevlvetica"]
+  "cSpell.words": ["Hevlvetica"],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
