@@ -151,7 +151,6 @@ const App: React.FC = () => {
   const bridgeAPI = init(config);
   return (
     <WebLoginProvider bridgeAPI={bridgeAPI}>
-      123
       <LoginDemo />
       <Tabs defaultActiveKey="AccountDemo" items={items} />
     </WebLoginProvider>
