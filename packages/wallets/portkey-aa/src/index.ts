@@ -435,7 +435,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     methodName,
     args,
     sendOptions,
-    guardiansApproved = [],
+    approvedGuardians = [],
   }: ISendOrViewAdapter<T>) {
     const didWalletInfo = this._wallet!.extraInfo?.portkeyInfo;
 
@@ -449,7 +449,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       const originChainId = didWalletInfo.chainId;
       // use amount from result of managerApprove not from params
       // dapp user may change amount at pop-up
-      const { amount, guardiansApproved, symbol } = (await managerApprove({
+      const { amount, approvedGuardians, symbol } = (await managerApprove({
         originChainId,
         targetChainId: chainId,
         caHash: didWalletInfo.caInfo?.caHash,
@@ -466,7 +466,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         {
           caHash: didWalletInfo.caInfo?.caHash,
           ...args,
-          guardiansApproved,
+          approvedGuardians,
           amount,
           symbol,
         },
@@ -474,7 +474,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       );
     } else {
       const params = {
-        guardiansApproved: guardiansApproved,
+        approvedGuardians: approvedGuardians,
         caHash: didWalletInfo.caInfo?.caHash,
         contractAddress: contractAddress,
         methodName: methodName,
@@ -512,7 +512,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     methodName,
     args,
     sendOptions,
-    guardiansApproved = [],
+    approvedGuardians = [],
   }: ICallContractParams<T>) {
     const enableAcceleration = this._config.enableAcceleration;
     if (!this._wallet) {
@@ -553,7 +553,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     const finalChainId = chainId || this._config.chainId;
     const contract = await this.getContract(finalChainId);
     const adapterProps = {
-      guardiansApproved,
+      approvedGuardians,
       caContract: contract,
       chainId: finalChainId,
       contractAddress,

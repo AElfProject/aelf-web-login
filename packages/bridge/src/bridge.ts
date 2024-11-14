@@ -37,7 +37,7 @@ import {
   clearManagerReadonlyStatusInSideChain,
   EE,
   SET_GUARDIAN_APPROVAL_MODAL,
-  SET_GUARDIAN_LIST,
+  SET_GUARDIAN_APPROVAL_PAYLOAD,
 } from './utils';
 
 const { isPortkeyApp } = utils;
@@ -189,11 +189,11 @@ class Bridge {
       props.methodName !== 'Approve'
     ) {
       EE.emit(SET_GUARDIAN_APPROVAL_MODAL, true);
-      const { guardians, caHash, caAddress } = await this.getGuardianListFromGuardianApproveModal();
-      console.log('intg----getGuardianListFromGuardianApproveModal', guardians, caHash, caAddress);
+      const { guardians, caHash, caAddress } = await this.getApprovalModalGuardians();
+      console.log('intg----getApprovalModalGuardians', guardians, caHash, caAddress);
       const rs = await this.activeWallet?.callSendMethod({
         ...props,
-        guardiansApproved: guardians,
+        approvedGuardians: guardians,
       });
       console.log('intg---rs of callSendMethod', rs);
       dispatch(setIsManagerReadOnlyStatus(false));
@@ -209,13 +209,13 @@ class Bridge {
     }
   };
 
-  getGuardianListFromGuardianApproveModal = async (): Promise<{
+  getApprovalModalGuardians = async (): Promise<{
     guardians: any[];
     caHash: string;
     caAddress: string;
   }> => {
     return new Promise((resolve) => {
-      EE.once(SET_GUARDIAN_LIST, (result) => {
+      EE.once(SET_GUARDIAN_APPROVAL_PAYLOAD, (result) => {
         resolve(result);
       });
     });

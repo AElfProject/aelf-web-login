@@ -73,13 +73,15 @@ const useTelegram = (
     }
     console.log('intg-----------onCreatePendingHandler,');
     //TODO: only muti-guardian need to execute 76-82
-    const isManagerReadOnly = await getIsManagerReadOnly(
-      chainId,
-      createPendingInfo.didWallet?.caInfo.caHash,
-      createPendingInfo.walletInfo.address,
-    );
-    caAddressRef.current = createPendingInfo.didWallet?.caInfo.caAddress ?? '';
-    dispatch(setIsManagerReadOnlyStatus(isManagerReadOnly));
+    if (guardianList?.length && guardianList.length > 1) {
+      const isManagerReadOnly = await getIsManagerReadOnly(
+        chainId,
+        createPendingInfo.didWallet?.caInfo.caHash,
+        createPendingInfo.walletInfo.address,
+      );
+      caAddressRef.current = createPendingInfo.didWallet?.caInfo.caAddress ?? '';
+      dispatch(setIsManagerReadOnlyStatus(isManagerReadOnly));
+    }
     bridgeInstance.onPortkeyAAWalletCreatePending(createPendingInfo);
   }, []);
   const [currentLifeCircle, setCurrentLifeCircle] = useState<
@@ -255,17 +257,7 @@ const useTelegram = (
         } else {
           setLoading(false);
           if (isTelegramPlatform && enableAcceleration) {
-            // console.log('intg-----------more guardian', signResult.value.guardianList);
-            // setGuardianList(signResult.value.guardianList || []);
-            // setTimeout(() => {
-            //   setApprovalVisible(true);
-            //   ConfigProvider.setGlobalConfig({
-            //     globalLoadingHandler: undefined,
-            //   });
-            // }, 500);
-
-            const guardianListFromSignResult = signResult.value.guardianList ?? [];
-            const resetGuardianList = guardianListFromSignResult.map((ele: any) => {
+            const resetGuardianList = (signResult.value.guardianList ?? []).map((ele: any) => {
               return {
                 ...ele,
                 status: null,
@@ -335,8 +327,12 @@ const useTelegram = (
   const onTGSignInApprovalSuccess = useCallback(
     async (guardians: any[]) => {
       EE.emit(SET_GUARDIAN_APPROVAL_MODAL, false);
-      EE.emit(SET_GUARDIAN_LIST, { guardians, caHash, caAddress: caAddressRef.current });
-      dispatch(setApproveGuardians(guardians));
+      EE.emit(SET_GUARDIAN_APPROVAL_PAYLOAD, {
+        guardians,
+        caHash,
+        caAddress: caAddressRef.current,
+      });
+      dispatch(setApprovedGuardians(guardians));
     },
     [EE, caHash],
   );

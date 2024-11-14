@@ -1,4 +1,5 @@
-import { SendOptions, IContract, LoginStatusEnum } from '@portkey/types';
+import { BaseGuardianItem } from '@portkey/did-ui-react';
+import { IContract, LoginStatusEnum, SendOptions } from '@portkey/types';
 
 export enum WalletStateEnum {
   // Wallet plug-in detected
@@ -52,12 +53,12 @@ export interface ICallContractParams<T> {
   args: T;
   chainId?: TChainId;
   sendOptions?: SendOptions;
-  guardiansApproved?: any[];
+  approvedGuardians?: BaseGuardianItem[];
 }
 
 export interface ISendOrViewAdapter<T> extends ICallContractParams<T> {
   caContract: IContract;
-  guardiansApproved: any[];
+  approvedGuardians: ICallContractParams<T>['approvedGuardians'];
   type?: string;
 }
 

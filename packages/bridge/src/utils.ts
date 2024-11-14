@@ -5,7 +5,7 @@ import { TChainId, EventEmitter } from '@aelf-web-login/wallet-adapter-base';
 
 export const EE = new EventEmitter();
 export const SET_GUARDIAN_APPROVAL_MODAL = 'SET_GUARDIAN_APPROVAL_MODAL';
-export const SET_GUARDIAN_LIST = 'SET_GUARDIAN_LIST';
+export const SET_GUARDIAN_APPROVAL_PAYLOAD = 'SET_GUARDIAN_APPROVAL_PAYLOAD';
 
 const getCaContractBase = async (chainId: TChainId) => {
   const chainInfo = await getChainInfo(chainId);
@@ -24,21 +24,21 @@ const getCaContractBase = async (chainId: TChainId) => {
 const clearManagerReadonlyStatusInMainChain = async (
   caAddress = '',
   caHash = '',
-  guardiansApproved?: any[],
+  approvedGuardians?: any[],
 ) => {
   console.log(
     'intg-----clearManagerReadonlyStatusInMainChain',
     caAddress,
     caHash,
-    guardiansApproved,
+    approvedGuardians,
   );
-  if (!guardiansApproved || guardiansApproved.length === 0) {
+  if (!approvedGuardians || approvedGuardians.length === 0) {
     return;
   }
   const ca = await getCaContractBase('AELF');
   await ca.callSendMethod('RemoveReadOnlyManager', caAddress, {
     caHash,
-    guardiansApproved: guardiansApproved,
+    approvedGuardians: approvedGuardians,
   });
 };
 
@@ -46,22 +46,22 @@ const clearManagerReadonlyStatusInSideChain = async (
   chainId: TChainId,
   caAddress = '',
   caHash = '',
-  guardiansApproved?: any[],
+  approvedGuardians?: any[],
 ) => {
   console.log(
     'intg-----clearManagerReadonlyStatusInSideChain',
     chainId,
     caAddress,
     caHash,
-    guardiansApproved,
+    approvedGuardians,
   );
-  if (!guardiansApproved || guardiansApproved.length === 0) {
+  if (!approvedGuardians || approvedGuardians.length === 0) {
     return;
   }
   const ca = await getCaContractBase(chainId);
   await ca.callSendMethod('RemoveReadOnlyManager', caAddress, {
     caHash,
-    guardiansApproved: guardiansApproved,
+    approvedGuardians: approvedGuardians,
   });
 };
 

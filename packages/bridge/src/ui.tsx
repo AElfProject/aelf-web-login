@@ -522,12 +522,9 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   const [showGuardianApprovalModal, setShowGuardianApprovalModal] = useState(false);
 
   useEffect(() => {
-    const hander = (isShow: boolean) => {
-      setShowGuardianApprovalModal(isShow);
-    };
-    EE.on(SET_GUARDIAN_APPROVAL_MODAL, hander);
+    EE.on(SET_GUARDIAN_APPROVAL_MODAL, setShowGuardianApprovalModal);
     return () => {
-      EE.off(SET_GUARDIAN_APPROVAL_MODAL, hander);
+      EE.off(SET_GUARDIAN_APPROVAL_MODAL, setShowGuardianApprovalModal);
     };
   }, []);
 
