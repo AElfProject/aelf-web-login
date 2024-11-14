@@ -250,7 +250,7 @@ const useTelegram = (
           const didWallet = await createWallet(params);
           if (enableAcceleration && type === 'recovery') {
             console.log('intg-----------handleSocialStep1Success');
-            didWallet && bridgeInstance.onPortkeyAAWalletLoginFinishedWithAcceleration(didWallet);
+            didWallet && bridgeInstance.onPortkeyAAWalletLoginWithAccelerationFinished(didWallet);
           } else {
             didWallet && bridgeInstance.onPortkeyAAWalletLoginFinished(didWallet);
           }
@@ -282,7 +282,7 @@ const useTelegram = (
               did.didWallet.managementAccount?.address,
               chainId,
             );
-            didWallet && bridgeInstance.onPortkeyAAWalletLoginFinishedWithAcceleration(didWallet);
+            didWallet && bridgeInstance.onPortkeyAAWalletLoginWithAccelerationFinished(didWallet);
             return;
           }
           setCurrentLifeCircle({

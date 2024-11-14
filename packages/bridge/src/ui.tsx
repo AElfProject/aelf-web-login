@@ -373,8 +373,8 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     (didWallet: DIDWalletInfo) => {
       console.log('didWallet.createType', didWallet.createType);
       if (enableAcceleration && didWallet.createType === 'recovery') {
-        console.log('onPortkeyAAWalletLoginFinishedWithAcceleration--------1');
-        bridgeInstance.onPortkeyAAWalletLoginFinishedWithAcceleration(didWallet);
+        console.log('onPortkeyAAWalletLoginWithAccelerationFinished--------1');
+        bridgeInstance.onPortkeyAAWalletLoginWithAccelerationFinished(didWallet);
       } else {
         console.log('onPortkeyAAWalletLoginFinished----------');
         bridgeInstance.onPortkeyAAWalletLoginFinished(didWallet);

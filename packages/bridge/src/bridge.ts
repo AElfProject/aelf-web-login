@@ -386,19 +386,25 @@ class Bridge {
     }
   };
 
-  onPortkeyAAWalletLoginFinishedWithAcceleration = (didWalletInfo: DIDWalletInfo) => {
+  onPortkeyAAWalletLoginWithAccelerationFinished = (didWalletInfo: DIDWalletInfo) => {
     try {
       if (
-        !this.activeWallet?.loginCompletely ||
-        typeof this.activeWallet.loginCompletely !== 'function'
+        !this.activeWallet?.onLoginComplete ||
+        typeof this.activeWallet.onLoginComplete !== 'function'
       ) {
         return;
       }
-      this.activeWallet.loginCompletely(didWalletInfo);
+      this.activeWallet.onLoginComplete(didWalletInfo);
     } catch (error) {
-      console.log('onPortkeyAAWalletLoginFinishedWithAcceleration', error);
+      console.log('onPortkeyAAWalletLoginWithAccelerationFinished', error);
     }
   };
+
+  /**
+   * @deprecated use onPortkeyAAWalletLoginWithAccelerationFinished
+   */
+  onPortkeyAAWalletLoginFinishedWithAcceleration =
+    this.onPortkeyAAWalletLoginWithAccelerationFinished;
 
   onPortkeyAAWalletLoginFinished = async (didWalletInfo: DIDWalletInfo) => {
     try {

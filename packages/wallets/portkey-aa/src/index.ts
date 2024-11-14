@@ -112,7 +112,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     return this.login(didWallet);
   }
 
-  async loginCompletely(): Promise<void> {
+  async onLoginComplete(): Promise<void> {
     try {
       console.log('did.didWallet.isLoginStatus-2', did.didWallet.isLoginStatus);
       this._status = 'inFinish';
@@ -121,6 +121,10 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       this.emit('error', makeError(ERR_CODE.ONFINISH_IS_ERROR, error));
     }
   }
+  /**
+   * @deprecated use .onLoginComplete
+   */
+  loginCompletely = this.onLoginComplete;
 
   async login(didWalletInfo: DIDWalletInfo): Promise<TWalletInfo> {
     try {
