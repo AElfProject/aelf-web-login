@@ -51,7 +51,10 @@ class Bridge {
   private _noCommonBaseModal: boolean;
   private _sideChainId: TChainId;
 
-  constructor(wallets: WalletAdapter[], { sideChainId, noCommonBaseModal = false }: IBaseConfig) {
+  constructor(
+    wallets: WalletAdapter[],
+    { sideChainId = 'tDVV', noCommonBaseModal = false }: IBaseConfig,
+  ) {
     this._noCommonBaseModal = noCommonBaseModal;
     this._sideChainId = sideChainId;
     this._wallets = wallets;

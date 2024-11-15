@@ -60,6 +60,7 @@ export function initBridge({ baseConfig, wallets, didConfig }: IConfigProps): IB
   };
 }
 
+export * as PortkeyDid from '@portkey/did-ui-react';
 export { GuardianApprovedItem } from '@portkey/did-ui-react';
 
 // export { demoFn } from './ui';
