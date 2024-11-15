@@ -18,7 +18,6 @@ import {
   TelegramPlatform,
   CreatePendingInfo,
   TOnSuccessExtraData,
-  UserGuardianStatus,
 } from '@portkey/did-ui-react';
 import {
   TChainId,
@@ -26,14 +25,21 @@ import {
   utils,
   OperationTypeEnum,
   EventEmitter,
+  enhancedLocalStorage,
+  IS_MANAGER_READONLY,
+  GUARDIAN_LIST_FOR_LOGIN,
 } from '@aelf-web-login/wallet-adapter-base';
 import { AccountType } from '@portkey/services';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { Bridge } from './bridge';
 import useVerifier from './useVerifier';
 import useLockCallback from './useLockCallback';
-import { dispatch, setApproveGuardians, setIsManagerReadOnlyStatus } from './store';
-import { getIsManagerReadOnly, SET_GUARDIAN_APPROVAL_MODAL, SET_GUARDIAN_LIST } from './utils';
+import { dispatch, setApprovedGuardians } from './store';
+import {
+  getIsManagerReadOnly,
+  SET_GUARDIAN_APPROVAL_MODAL,
+  SET_GUARDIAN_APPROVAL_PAYLOAD,
+} from './utils';
 
 const { sleep } = utils;
 
@@ -56,10 +62,8 @@ const useTelegram = (
 ) => {
   const [originChainId, setOriginChainId] = useState<TChainId>(chainId);
   const [caHash, setCaHash] = useState('');
-  const caAddressRef = useRef('');
   const caInfoRef = useRef<{ caAddress: string; caHash: string }>({ caAddress: '', caHash: '' });
   const identifierRef = useRef<string>();
-  const [guardianList, setGuardianList] = useState<UserGuardianStatus[]>();
   const isTelegramPlatform = useMemo(() => {
     return TelegramPlatform.isTelegramPlatform();
   }, []);
@@ -71,17 +75,7 @@ const useTelegram = (
     if (createPendingInfo.createType === 'register') {
       return;
     }
-    console.log('intg-----------onCreatePendingHandler,');
-    //TODO: only muti-guardian need to execute 76-82
-    if (guardianList?.length && guardianList.length > 1) {
-      const isManagerReadOnly = await getIsManagerReadOnly(
-        chainId,
-        createPendingInfo.didWallet?.caInfo.caHash,
-        createPendingInfo.walletInfo.address,
-      );
-      caAddressRef.current = createPendingInfo.didWallet?.caInfo.caAddress ?? '';
-      dispatch(setIsManagerReadOnlyStatus(isManagerReadOnly));
-    }
+    console.log('intg-----------onCreatePendingHandler');
     bridgeInstance.onPortkeyAAWalletCreatePending(createPendingInfo);
   }, []);
   const [currentLifeCircle, setCurrentLifeCircle] = useState<
@@ -264,8 +258,11 @@ const useTelegram = (
               };
             });
             console.log('intg--resetGuardianList', resetGuardianList);
-            setGuardianList(resetGuardianList as unknown as UserGuardianStatus[]);
-
+            // use localStorage instead of setState, if reopen(close->open) will execute unlock logic, won't execute here
+            enhancedLocalStorage.setItem(
+              GUARDIAN_LIST_FOR_LOGIN,
+              JSON.stringify(resetGuardianList),
+            );
             const params = {
               pin: DEFAULT_PIN,
               type: 'recovery' as AddManagerType,
@@ -282,7 +279,16 @@ const useTelegram = (
               did.didWallet.managementAccount?.address,
               chainId,
             );
+            if (signResult.value.guardianList.length && signResult.value.guardianList.length > 1) {
+              const isManagerReadOnly = await getIsManagerReadOnly(
+                chainId,
+                didWallet?.caInfo.caHash,
+                didWallet?.walletInfo.address,
+              );
+              enhancedLocalStorage.setItem(IS_MANAGER_READONLY, isManagerReadOnly);
+            }
             didWallet && bridgeInstance.onPortkeyAAWalletLoginWithAccelerationFinished(didWallet);
+
             return;
           }
           setCurrentLifeCircle({
@@ -329,31 +335,21 @@ const useTelegram = (
       EE.emit(SET_GUARDIAN_APPROVAL_MODAL, false);
       EE.emit(SET_GUARDIAN_APPROVAL_PAYLOAD, {
         guardians,
-        caHash,
-        caAddress: caAddressRef.current,
       });
       dispatch(setApprovedGuardians(guardians));
     },
-    [EE, caHash],
+    [EE],
   );
 
   return useMemo(
     () => ({
       handleTelegram,
       currentLifeCircle,
-      guardianList,
       caHash,
       originChainId,
       onTGSignInApprovalSuccess,
     }),
-    [
-      handleTelegram,
-      currentLifeCircle,
-      guardianList,
-      caHash,
-      originChainId,
-      onTGSignInApprovalSuccess,
-    ],
+    [handleTelegram, currentLifeCircle, caHash, originChainId, onTGSignInApprovalSuccess],
   );
 };
 

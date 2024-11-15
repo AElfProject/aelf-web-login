@@ -439,7 +439,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     methodName,
     args,
     sendOptions,
-    approvedGuardians = [],
+    guardiansApproved = [],
   }: ISendOrViewAdapter<T>) {
     const didWalletInfo = this._wallet!.extraInfo?.portkeyInfo;
 
@@ -453,7 +453,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       const originChainId = didWalletInfo.chainId;
       // use amount from result of managerApprove not from params
       // dapp user may change amount at pop-up
-      const { amount, approvedGuardians, symbol } = (await managerApprove({
+      const { amount, guardiansApproved, symbol } = (await managerApprove({
         originChainId,
         targetChainId: chainId,
         caHash: didWalletInfo.caInfo?.caHash,
@@ -470,7 +470,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
         {
           caHash: didWalletInfo.caInfo?.caHash,
           ...args,
-          approvedGuardians,
+          guardiansApproved,
           amount,
           symbol,
         },
@@ -478,7 +478,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
       );
     } else {
       const params = {
-        approvedGuardians: approvedGuardians,
+        guardiansApproved: guardiansApproved,
         caHash: didWalletInfo.caInfo?.caHash,
         contractAddress: contractAddress,
         methodName: methodName,
@@ -516,7 +516,7 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
     methodName,
     args,
     sendOptions,
-    approvedGuardians = [],
+    guardiansApproved = [],
   }: ICallContractParams<T>) {
     const enableAcceleration = this._config.enableAcceleration;
     if (!this._wallet) {
@@ -556,16 +556,31 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
 
     const finalChainId = chainId || this._config.chainId;
     const contract = await this.getContract(finalChainId);
-    const adapterProps = {
-      approvedGuardians,
-      caContract: contract,
-      chainId: finalChainId,
-      contractAddress,
-      methodName,
-      args,
-      sendOptions,
-    };
-    const rs = await this.sendAdapter(adapterProps);
+    let rs;
+    if (methodName === 'RemoveReadOnlyManager') {
+      const didWalletInfo = this._wallet!.extraInfo?.portkeyInfo;
+      console.log(
+        'intg--execute RemoveReadOnlyManager,caAddress and args',
+        didWalletInfo.caInfo?.caAddress,
+        args,
+      );
+      rs = await contract.callSendMethod(
+        'RemoveReadOnlyManager',
+        didWalletInfo.caInfo?.caAddress,
+        args,
+      );
+    } else {
+      const adapterProps = {
+        guardiansApproved,
+        caContract: contract,
+        chainId: finalChainId,
+        contractAddress,
+        methodName,
+        args,
+        sendOptions,
+      };
+      rs = await this.sendAdapter(adapterProps);
+    }
     return rs as R;
   }
 

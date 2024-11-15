@@ -15,6 +15,7 @@ import {
   IMultiTransactionParams,
   IMultiTransactionResult,
   LoginStatusEnum,
+  IS_MANAGER_READONLY,
 } from '@aelf-web-login/wallet-adapter-base';
 import {
   setWalletInfo,
@@ -27,18 +28,15 @@ import {
   clearLoginError,
   setLoginOnChainStatus,
   store,
-  IsManagerReadOnlyStatusEnum,
-  setIsManagerReadOnlyStatus,
 } from './store';
-import { CreatePendingInfo, DIDWalletInfo, TelegramPlatform } from '@portkey/did-ui-react';
-import { IBaseConfig } from '.';
 import {
-  clearManagerReadonlyStatusInMainChain,
-  clearManagerReadonlyStatusInSideChain,
-  EE,
-  SET_GUARDIAN_APPROVAL_MODAL,
-  SET_GUARDIAN_APPROVAL_PAYLOAD,
-} from './utils';
+  CreatePendingInfo,
+  DIDWalletInfo,
+  getChainInfo,
+  TelegramPlatform,
+} from '@portkey/did-ui-react';
+import { IBaseConfig } from '.';
+import { EE, SET_GUARDIAN_APPROVAL_MODAL, SET_GUARDIAN_APPROVAL_PAYLOAD } from './utils';
 
 const { isPortkeyApp } = utils;
 let isDisconnectClicked = false;
@@ -175,6 +173,49 @@ class Bridge {
     return account;
   };
 
+  clearManagerReadonlyStatus = async ({
+    chainIdList,
+    caHash,
+    guardiansApproved,
+  }: {
+    chainIdList: TChainId[];
+    caHash: string;
+    guardiansApproved?: any[];
+  }) => {
+    const isManagerReadOnly = enhancedLocalStorage.getItem(IS_MANAGER_READONLY) === 'true';
+    if ((!guardiansApproved || guardiansApproved.length === 0) && !isManagerReadOnly) {
+      console.log(
+        'intg---clearManagerReadonlyStatus invoked by outer,isManagerReadOnly',
+        isManagerReadOnly,
+      );
+      return;
+    }
+
+    try {
+      await Promise.all(
+        chainIdList.map(async (chainId) => {
+          const chainInfo = await getChainInfo(chainId);
+          const rs = await this.callSendMethod({
+            chainId,
+            contractAddress: chainInfo.caContractAddress,
+            methodName: 'RemoveReadOnlyManager',
+            args: {
+              caHash,
+              guardiansApproved,
+            },
+          });
+          console.log(
+            'intg---clearManagerReadonlyStatus invoked by self(callSendMethod)',
+            rs,
+            chainId,
+          );
+        }),
+      );
+    } catch (error) {
+      console.log('intg---execute Promise.all to clearManagerReadonlyStatus error', error);
+    }
+  };
+
   callSendMethod = async <T, R>(props: ICallContractParams<T>): Promise<R> => {
     if (
       !this.activeWallet?.callSendMethod ||
@@ -182,26 +223,59 @@ class Bridge {
     ) {
       return null as R;
     }
-    const { isManagerReadOnlyStatus } = store.getState();
-    if (
-      this.isAAWallet &&
-      isManagerReadOnlyStatus === IsManagerReadOnlyStatusEnum.TRUE &&
-      props.methodName !== 'Approve'
-    ) {
+    const isManagerReadOnly = enhancedLocalStorage.getItem(IS_MANAGER_READONLY) === 'true';
+    console.log(this.isAAWallet, isManagerReadOnly, props.methodName);
+    if (this.isAAWallet && isManagerReadOnly && props.methodName !== 'Approve') {
       EE.emit(SET_GUARDIAN_APPROVAL_MODAL, true);
-      const { guardians, caHash, caAddress } = await this.getApprovalModalGuardians();
-      console.log('intg----getApprovalModalGuardians', guardians, caHash, caAddress);
-      const rs = await this.activeWallet?.callSendMethod({
-        ...props,
-        approvedGuardians: guardians,
-      });
+      const { guardians } = await this.getApprovalModalGuardians();
+      const { methodName } = props;
+      const isRemoveReadOnlyManagerMethod = methodName === 'RemoveReadOnlyManager';
+
+      const finalProps = isRemoveReadOnlyManagerMethod
+        ? {
+            ...props,
+            args: {
+              ...props.args,
+              guardiansApproved: guardians,
+            },
+          }
+        : props;
+
+      console.log('intg---finalProps', finalProps);
+
+      const rs = (await this.activeWallet?.callSendMethod({
+        ...finalProps,
+        guardiansApproved: isRemoveReadOnlyManagerMethod ? [] : guardians,
+      })) as { error?: any; [key: string]: any };
       console.log('intg---rs of callSendMethod', rs);
-      dispatch(setIsManagerReadOnlyStatus(false));
-      if (props.chainId === 'AELF') {
-        clearManagerReadonlyStatusInSideChain(this._sideChainId, caAddress, caHash, guardians);
-      } else {
-        clearManagerReadonlyStatusInMainChain(caAddress, caHash, guardians);
+
+      if (!rs.error) {
+        enhancedLocalStorage.setItem(IS_MANAGER_READONLY, false);
+        if (isRemoveReadOnlyManagerMethod) {
+          return rs as R;
+        }
+        const { walletInfo } = store.getState();
+        console.log(
+          'intg----getApprovalModalGuardians',
+          guardians,
+          walletInfo?.extraInfo?.portkeyInfo?.caInfo?.caAddress,
+          walletInfo?.extraInfo?.portkeyInfo?.caInfo?.caHash,
+        );
+        if (props.chainId === 'AELF') {
+          this.clearManagerReadonlyStatus({
+            chainIdList: [this._sideChainId],
+            caHash: walletInfo?.extraInfo?.portkeyInfo?.caInfo?.caHash,
+            guardiansApproved: guardians,
+          });
+        } else {
+          this.clearManagerReadonlyStatus({
+            chainIdList: ['AELF'],
+            caHash: walletInfo?.extraInfo?.portkeyInfo?.caInfo?.caHash,
+            guardiansApproved: guardians,
+          });
+        }
       }
+
       return rs as R;
     } else {
       const rs = await this.activeWallet?.callSendMethod(props);
@@ -211,8 +285,6 @@ class Bridge {
 
   getApprovalModalGuardians = async (): Promise<{
     guardians: any[];
-    caHash: string;
-    caAddress: string;
   }> => {
     return new Promise((resolve) => {
       EE.once(SET_GUARDIAN_APPROVAL_PAYLOAD, (result) => {

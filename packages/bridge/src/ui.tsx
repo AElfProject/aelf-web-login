@@ -5,6 +5,7 @@ import {
   enhancedLocalStorage,
   PORTKEYAA,
   OperationTypeEnum,
+  GUARDIAN_LIST_FOR_LOGIN,
 } from '@aelf-web-login/wallet-adapter-base';
 import { Bridge } from './bridge';
 import {
@@ -235,22 +236,19 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   const [isWrongPassword, setIsWrongPassword] = useState(false);
   const [isShowConfirmLogoutPanel, setIsShowConfirmLogoutPanel] = useState(false);
   const [isShowNestedModal, setIsShowNestedModal] = useState(false);
-  const {
-    handleTelegram,
-    currentLifeCircle,
-    guardianList,
-    caHash,
-    originChainId,
-    onTGSignInApprovalSuccess,
-  } = useTelegram(
-    baseConfig.enableAcceleration,
-    baseConfig.defaultPin,
-    baseConfig.chainId,
-    baseConfig.networkType,
-    bridgeInstance,
-    setIsShowWrapper,
-    EE,
-  );
+  const { handleTelegram, currentLifeCircle, caHash, originChainId, onTGSignInApprovalSuccess } =
+    useTelegram(
+      baseConfig.enableAcceleration,
+      baseConfig.defaultPin,
+      baseConfig.chainId,
+      baseConfig.networkType,
+      bridgeInstance,
+      setIsShowWrapper,
+      EE,
+    );
+
+  const guardianList = JSON.parse(enhancedLocalStorage.getItem(GUARDIAN_LIST_FOR_LOGIN) || '[]');
+
   const filteredWallets = wallets.filter((ele) => ele.name !== PORTKEYAA);
   const isMobileDevice = isMobile();
   const {
