@@ -264,9 +264,10 @@ const ContractDemo: React.FC = () => {
 
   const onTestAssetHandler = async () => {
     const rs = await clearManagerReadonlyStatus({
-      chainId: 'tDVW',
+      chainIdList: ['AELF', 'tDVW'],
       caHash: '4e67446a97d758467dc73eccce02fe13d185f0c3b8f3ea9258838cd6c1165db5',
     });
+
     console.log('rs in onTestAssetHandler', rs);
   };
 

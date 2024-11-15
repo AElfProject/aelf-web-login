@@ -174,11 +174,11 @@ class Bridge {
   };
 
   clearManagerReadonlyStatus = async ({
-    chainId,
+    chainIdList,
     caHash,
     guardiansApproved,
   }: {
-    chainId: TChainId;
+    chainIdList: TChainId[];
     caHash: string;
     guardiansApproved?: any[];
   }) => {
@@ -190,18 +190,30 @@ class Bridge {
       );
       return;
     }
-    // invoked by self(callSendMethod)
-    const chainInfo = await getChainInfo(chainId);
-    const rs = await this.callSendMethod({
-      chainId,
-      contractAddress: chainInfo.caContractAddress,
-      methodName: 'RemoveReadOnlyManager',
-      args: {
-        caHash,
-        guardiansApproved,
-      },
-    });
-    console.log('intg---clearManagerReadonlyStatus invoked by self(callSendMethod)', rs);
+
+    try {
+      await Promise.all(
+        chainIdList.map(async (chainId) => {
+          const chainInfo = await getChainInfo(chainId);
+          const rs = await this.callSendMethod({
+            chainId,
+            contractAddress: chainInfo.caContractAddress,
+            methodName: 'RemoveReadOnlyManager',
+            args: {
+              caHash,
+              guardiansApproved,
+            },
+          });
+          console.log(
+            'intg---clearManagerReadonlyStatus invoked by self(callSendMethod)',
+            rs,
+            chainId,
+          );
+        }),
+      );
+    } catch (error) {
+      console.log('intg---execute Promise.all to clearManagerReadonlyStatus error', error);
+    }
   };
 
   callSendMethod = async <T, R>(props: ICallContractParams<T>): Promise<R> => {
@@ -251,13 +263,13 @@ class Bridge {
         );
         if (props.chainId === 'AELF') {
           this.clearManagerReadonlyStatus({
-            chainId: this._sideChainId,
+            chainIdList: [this._sideChainId],
             caHash: walletInfo?.extraInfo?.portkeyInfo?.caInfo?.caHash,
             guardiansApproved: guardians,
           });
         } else {
           this.clearManagerReadonlyStatus({
-            chainId: 'AELF',
+            chainIdList: ['AELF'],
             caHash: walletInfo?.extraInfo?.portkeyInfo?.caInfo?.caHash,
             guardiansApproved: guardians,
           });

@@ -1,4 +1,4 @@
-import { BaseGuardianItem } from '@portkey/did-ui-react';
+import { GuardianApprovedItem } from '@portkey/did-ui-react';
 import { IContract, LoginStatusEnum, SendOptions } from '@portkey/types';
 
 export enum WalletStateEnum {
@@ -53,7 +53,7 @@ export interface ICallContractParams<T> {
   args: T;
   chainId?: TChainId;
   sendOptions?: SendOptions;
-  guardiansApproved?: BaseGuardianItem[];
+  guardiansApproved?: GuardianApprovedItem[];
 }
 
 export interface ISendOrViewAdapter<T> extends ICallContractParams<T> {

@@ -1,5 +1,5 @@
 import { TWalletError, TWalletInfo, WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
-import { BaseGuardianItem } from '@portkey/did-ui-react';
+import { GuardianApprovedItem } from '@portkey/did-ui-react';
 import { LoginStatusEnum } from '@portkey/types';
 import { configureStore, createSlice, EnhancedStore } from '@reduxjs/toolkit';
 
@@ -9,7 +9,7 @@ type TState = {
   walletType: WalletTypeEnum;
   loginError: TWalletError | null;
   loginOnChainStatus: LoginStatusEnum;
-  approvedGuardians: BaseGuardianItem[];
+  approvedGuardians: GuardianApprovedItem[];
 };
 
 const initialState: TState = {

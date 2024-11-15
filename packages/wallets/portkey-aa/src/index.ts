@@ -556,16 +556,31 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
 
     const finalChainId = chainId || this._config.chainId;
     const contract = await this.getContract(finalChainId);
-    const adapterProps = {
-      guardiansApproved,
-      caContract: contract,
-      chainId: finalChainId,
-      contractAddress,
-      methodName,
-      args,
-      sendOptions,
-    };
-    const rs = await this.sendAdapter(adapterProps);
+    let rs;
+    if (methodName === 'RemoveReadOnlyManager') {
+      const didWalletInfo = this._wallet!.extraInfo?.portkeyInfo;
+      console.log(
+        'intg--execute RemoveReadOnlyManager,caAddress and args',
+        didWalletInfo.caInfo?.caAddress,
+        args,
+      );
+      rs = await contract.callSendMethod(
+        'RemoveReadOnlyManager',
+        didWalletInfo.caInfo?.caAddress,
+        args,
+      );
+    } else {
+      const adapterProps = {
+        guardiansApproved,
+        caContract: contract,
+        chainId: finalChainId,
+        contractAddress,
+        methodName,
+        args,
+        sendOptions,
+      };
+      rs = await this.sendAdapter(adapterProps);
+    }
     return rs as R;
   }
 
