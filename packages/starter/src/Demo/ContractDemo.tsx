@@ -57,6 +57,7 @@ const ContractDemo: React.FC = () => {
     isConnected,
     loginOnChainStatus,
     approvedGuardians,
+    clearManagerReadonlyStatus,
   } = useConnectWallet();
   console.log('ContractDemo init----------');
 
@@ -105,6 +106,19 @@ const ContractDemo: React.FC = () => {
   const examples = [
     useExampleCall('test sendMultiTransaction', async () => {
       return await sendMultiTransaction(paramsForMuti);
+    }),
+
+    useExampleCall('test multi guardian', async () => {
+      return callSendMethod({
+        chainId: 'tDVW',
+        contractAddress: 'm39bMdjpA74Pv7pyA4zn8w6mhz182KpcrtFAnwWCiFmcihNYE',
+        methodName: 'Play',
+        args: {
+          resetStart: false,
+          diceCount: 1,
+          executeBingo: true,
+        },
+      });
     }),
 
     useExampleCall('call getBalance in callViewMethodOfUtils', async () => {
@@ -229,6 +243,7 @@ const ContractDemo: React.FC = () => {
     if (!isConnected) {
       return;
     }
+    console.log('func', loginOnChainStatus);
     if (loginOnChainStatus !== LoginStatusEnum.SUCCESS) {
       return;
     }
@@ -236,7 +251,7 @@ const ContractDemo: React.FC = () => {
       await callSendMethod({
         chainId: 'tDVW',
         contractAddress: configTdvwJson.multiToken,
-        methodName: 'Approve',
+        methodName: 'UnApprove',
         args: {
           symbol: 'ELF',
           spender: configTdvwJson.multiToken,
@@ -246,8 +261,18 @@ const ContractDemo: React.FC = () => {
     }
     // func();
   }, [callSendMethod, isConnected, loginOnChainStatus]);
+
+  const onTestAssetHandler = async () => {
+    const rs = await clearManagerReadonlyStatus({
+      chainId: 'tDVW',
+      caHash: '4e67446a97d758467dc73eccce02fe13d185f0c3b8f3ea9258838cd6c1165db5',
+    });
+    console.log('rs in onTestAssetHandler', rs);
+  };
+
   return (
     <div>
+      <Button onClick={onTestAssetHandler}>test to Asset</Button>
       {examples.map((example) => {
         return <div key={example.name}>{example.render()}</div>;
       })}

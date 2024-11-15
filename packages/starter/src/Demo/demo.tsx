@@ -24,7 +24,7 @@ const GRAPHQL_SERVER =
   'https://dapp-aa-portkey-test.portkey.finance/aefinder-v2/api/app/graphql/portkey';
 const CONNECT_SERVER = 'https://auth-aa-portkey-test.portkey.finance';
 const SERVICE_SERVER = 'https://aa-portkey-test.portkey.finance';
-const TELEGRAM_BOT_ID = '8158866605';
+const TELEGRAM_BOT_ID = '7781140664';
 
 const didConfig = {
   graphQLUrl: GRAPHQL_SERVER,
@@ -152,7 +152,7 @@ const App: React.FC = () => {
   return (
     <WebLoginProvider bridgeAPI={bridgeAPI}>
       <LoginDemo />
-      <Tabs defaultActiveKey="AccountDemo" items={items} />
+      <Tabs defaultActiveKey="ContractDemo" items={items} />
     </WebLoginProvider>
   );
 };

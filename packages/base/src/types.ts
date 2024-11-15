@@ -53,12 +53,12 @@ export interface ICallContractParams<T> {
   args: T;
   chainId?: TChainId;
   sendOptions?: SendOptions;
-  approvedGuardians?: BaseGuardianItem[];
+  guardiansApproved?: BaseGuardianItem[];
 }
 
 export interface ISendOrViewAdapter<T> extends ICallContractParams<T> {
   caContract: IContract;
-  approvedGuardians: ICallContractParams<T>['approvedGuardians'];
+  guardiansApproved: ICallContractParams<T>['guardiansApproved'];
   type?: string;
 }
 
