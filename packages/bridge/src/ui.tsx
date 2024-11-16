@@ -568,7 +568,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
         </DynamicWrapper>
       )}
 
-      {guardianList?.length && (
+      {guardianList?.length > 0 && (
         <GuardianApprovalModal
           open={showGuardianApprovalModal}
           networkType={baseConfig.networkType}
