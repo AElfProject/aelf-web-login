@@ -121,6 +121,7 @@ export function useConnectWallet() {
     sendMultiTransaction,
     getSignature,
     clearManagerReadonlyStatus,
+    checkLoginStatus,
   } = instance;
   const [connecting, setConnecting] = useState(false);
 
@@ -163,5 +164,6 @@ export function useConnectWallet() {
     getSignature,
     sendMultiTransaction,
     clearManagerReadonlyStatus,
+    checkLoginStatus,
   };
 }

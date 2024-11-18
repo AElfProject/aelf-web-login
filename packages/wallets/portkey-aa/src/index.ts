@@ -167,6 +167,8 @@ export class PortkeyAAWallet extends BaseWalletAdapter {
           [chainId]: didWalletInfo.caInfo?.caAddress,
         },
         nickName,
+        pin: this._pin,
+        appName: this.appName,
       };
 
       this._wallet = {
