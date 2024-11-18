@@ -34,6 +34,7 @@ import {
   DIDWalletInfo,
   getChainInfo,
   TelegramPlatform,
+  did,
 } from '@portkey/did-ui-react';
 import { IBaseConfig } from '.';
 import { EE, SET_GUARDIAN_APPROVAL_MODAL, SET_GUARDIAN_APPROVAL_PAYLOAD } from './utils';
@@ -363,6 +364,23 @@ class Bridge {
     }
     this.openLockPanel();
     dispatch(setLocking(true));
+  };
+
+  checkLoginStatus = async () => {
+    if (!this.isAAWallet) {
+      return;
+    }
+    if (did.didWallet.isLoginStatus === LoginStatusEnum.INIT) {
+      const { walletInfo } = store.getState();
+      await did.didWallet.getLoginStatus({
+        sessionId: did.didWallet.sessionId!,
+        chainId: did.didWallet.originChainId!,
+      });
+      did.save(
+        walletInfo?.extraInfo?.portkeyInfo?.pin,
+        walletInfo?.extraInfo?.portkeyInfo?.appName,
+      );
+    }
   };
 
   onConnectErrorHandler = (err: TWalletError) => {
