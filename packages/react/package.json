@@ -23,8 +23,8 @@
   "scripts": {
     "dev": "father dev",
     "build": "father build",
-    "test": "jest --config=jest.config.ts  --detectOpenHandles",
-    "test:coverage": "jest --config=jest.config.ts --coverage --detectOpenHandles"
+    "test": "NODE_OPTIONS='$NODE_OPTIONS --experimental-vm-modules' jest --config=jest.config.ts  --detectOpenHandles",
+    "test:coverage": "pnpm test -- --coverage"
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
