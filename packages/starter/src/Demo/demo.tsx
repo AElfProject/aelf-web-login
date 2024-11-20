@@ -1,7 +1,7 @@
 import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-discover';
 import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
 import { NightElfWallet } from '@aelf-web-login/wallet-adapter-night-elf';
-import { WebLoginProvider, init } from '@aelf-web-login/wallet-adapter-react';
+import { WebLoginProvider } from '@aelf-web-login/wallet-adapter-react';
 import { IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
 import { TChainId, SignInDesignEnum, NetworkEnum } from '@aelf-web-login/wallet-adapter-base';
 import { Tabs, TabsProps } from 'antd';
@@ -148,9 +148,9 @@ const items: TabsProps['items'] = [
 ];
 
 const App: React.FC = () => {
-  const bridgeAPI = init(config);
+  // const bridgeAPI = init(config);
   return (
-    <WebLoginProvider bridgeAPI={bridgeAPI}>
+    <WebLoginProvider config={config}>
       <LoginDemo />
       <Tabs defaultActiveKey="ContractDemo" items={items} />
     </WebLoginProvider>

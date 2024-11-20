@@ -1,5 +1,6 @@
-import { IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
-import React from 'react';
+import { IBridgeAPI, IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
+import React, { useMemo } from 'react';
+import init from './init';
 
 const HOOK_ERROR_MESSAGE =
   'Must call the provided initialization method`init` method before using hooks.';
@@ -22,18 +23,28 @@ export function useWebLoginContext(): IBridgeAPI {
 
 export interface IWebLoginProviderProps {
   children: React.ReactNode;
-  bridgeAPI: IBridgeAPI;
+  bridgeAPI?: IBridgeAPI;
+  config?: IConfigProps;
 }
 
-export const WebLoginProvider: React.FC<IWebLoginProviderProps> = ({ children, bridgeAPI }) => {
-  const { getSignIn } = bridgeAPI ?? {
-    getSignIn: () => null,
-  };
+export const WebLoginProvider: React.FC<IWebLoginProviderProps> = ({
+  children,
+  bridgeAPI,
+  config,
+}) => {
+  const finalBridgeAPI: IBridgeAPI | undefined = useMemo(
+    () => bridgeAPI || (config ? init(config) : undefined),
+    [bridgeAPI, config],
+  );
 
-  if (!bridgeAPI) {
+  if (!finalBridgeAPI) {
     return null;
   }
+  const { getSignIn } = finalBridgeAPI;
+
   return (
-    <WebLoginContext.Provider value={bridgeAPI}>{getSignIn(children)}</WebLoginContext.Provider>
+    <WebLoginContext.Provider value={finalBridgeAPI}>
+      {getSignIn(children)}
+    </WebLoginContext.Provider>
   );
 };
