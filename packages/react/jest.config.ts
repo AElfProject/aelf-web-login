@@ -3,9 +3,24 @@
  * https://jestjs.io/docs/configuration
  */
 
-import type { Config } from 'jest';
+import {
+  createDefaultEsmPreset,
+  pathsToModuleNameMapper,
+  type JestConfigWithTsJest,
+  type TsJestTransformerOptions,
+} from 'ts-jest';
+import { compilerOptions } from '../../tsconfig.base.json';
 
-const config: Config = {
+const presetConfig = createDefaultEsmPreset({
+  tsconfig: compilerOptions as TsJestTransformerOptions['tsconfig'],
+  diagnostics: false, // important - to make ts-jest ignore type-checking. must set here
+  isolatedModules: true, // perf
+});
+
+console.log(Object.values(presetConfig.transform)[0][1].tsconfig);
+
+const config: JestConfigWithTsJest = {
+  ...presetConfig,
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -117,7 +132,7 @@ const config: Config = {
   // restoreMocks: false,
 
   // The root directory that Jest should scan for tests and modules within
-  // rootDir: undefined,
+  // rootDir: './',
 
   // A list of paths to directories that Jest should use to search for files in
   // roots: [
@@ -167,10 +182,14 @@ const config: Config = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
+    ...presetConfig.transform,
+    '^.+\\.(js|jsx)$': 'babel-jest',
   },
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  // transformIgnorePatterns: [],
+  // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
+  transformIgnorePatterns: [
+    '.pnpm/node_modules/(?!((jest-)?react-native(-.*)?|@react-native(-community)?|victory(-.*)?|uuid)|react-navigation|@shopify/react-native-skia|@react-navigation/.*/)',
+  ],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
@@ -183,6 +202,11 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+  roots: ['<rootDir>'],
+  modulePaths: ['./', compilerOptions.baseUrl],
+  moduleDirectories: ['node_modules', 'src'],
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>../../' }),
+  preset: 'ts-jest',
 };
 
 export default config;
