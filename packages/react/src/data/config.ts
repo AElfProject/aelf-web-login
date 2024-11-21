@@ -1,25 +1,13 @@
-import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-discover';
+/* istanbul ignore file */
+
 import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
-import { NightElfWallet } from '@aelf-web-login/wallet-adapter-night-elf';
-import { WebLoginProvider } from '@aelf-web-login/wallet-adapter-react';
 import { IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
 import { TChainId, SignInDesignEnum, NetworkEnum } from '@aelf-web-login/wallet-adapter-base';
-import { Tabs, TabsProps } from 'antd';
-import './telegram.js';
-
-import LoginDemo from './LoginDemo';
-import AccountDemo from './AccountDemo';
-import ContractDemo from './ContractDemo';
-import SignatureDemo from './SignatureDemo';
-import UtilsDemo from './UtilsDemo';
 
 const APP_NAME = 'forest';
 const WEBSITE_ICON = 'https://explorer.aelf.io/favicon.main.ico';
 const CHAIN_ID = 'tDVW' as TChainId;
 const NETWORK_TYPE = NetworkEnum.TESTNET;
-const RPC_SERVER_AELF = 'https://explorer-test.aelf.io/chain';
-const RPC_SERVER_TDVV = 'https://explorer-test-side02.aelf.io/chain';
-const RPC_SERVER_TDVW = 'https://explorer-test-side02.aelf.io/chain';
 const GRAPHQL_SERVER =
   'https://dapp-aa-portkey-test.portkey.finance/aefinder-v2/api/app/graphql/portkey';
 const CONNECT_SERVER = 'https://auth-aa-portkey-test.portkey.finance';
@@ -124,37 +112,4 @@ const config: IConfigProps = {
   wallets,
 };
 
-const items: TabsProps['items'] = [
-  {
-    key: 'AccountDemo',
-    label: 'AccountDemo',
-    children: <AccountDemo />,
-  },
-  {
-    key: 'ContractDemo',
-    label: 'ContractDemo',
-    children: <ContractDemo />,
-  },
-  {
-    key: 'SignatureDemo',
-    label: 'SignatureDemo',
-    children: <SignatureDemo />,
-  },
-  {
-    key: 'UtilsDemo',
-    label: 'UtilsDemo',
-    children: <UtilsDemo />,
-  },
-];
-
-const App: React.FC = () => {
-  // const bridgeAPI = init(config);
-  return (
-    <WebLoginProvider config={config}>
-      <LoginDemo />
-      <Tabs defaultActiveKey="ContractDemo" items={items} />
-    </WebLoginProvider>
-  );
-};
-
-export default App;
+export default config;

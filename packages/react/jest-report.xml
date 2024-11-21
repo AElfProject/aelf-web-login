@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="7" failures="0" errors="0" time="1.605">
-  <testsuite name="useConnectWallet" errors="0" failures="0" skipped="0" timestamp="2024-11-20T04:06:56" time="0.55" tests="1">
-    <testcase classname="useConnectWallet should render hook" name="useConnectWallet should render hook" time="0.006">
-    </testcase>
-  </testsuite>
-  <testsuite name="WebLoginProvider" errors="0" failures="0" skipped="0" timestamp="2024-11-20T04:06:57" time="0.172" tests="2">
-    <testcase classname="WebLoginProvider should render children with provided bridgeAPI" name="WebLoginProvider should render children with provided bridgeAPI" time="0.012">
-    </testcase>
-    <testcase classname="WebLoginProvider should return null if no bridgeAPI is provided" name="WebLoginProvider should return null if no bridgeAPI is provided" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="init" errors="0" failures="0" skipped="0" timestamp="2024-11-20T04:06:57" time="0.163" tests="3">
-    <testcase classname="init should initialize VConsole if showVconsole is true" name="init should initialize VConsole if showVconsole is true" time="0.054">
+<testsuites name="jest tests" tests="8" failures="0" errors="0" time="2.001">
+  <testsuite name="init" errors="0" failures="0" skipped="0" timestamp="2024-11-21T05:47:44" time="0.861" tests="3">
+    <testcase classname="init should initialize VConsole if showVconsole is true" name="init should initialize VConsole if showVconsole is true" time="0.154">
     </testcase>
     <testcase classname="init should not initialize VConsole if showVconsole is false" name="init should not initialize VConsole if showVconsole is false" time="0.001">
     </testcase>
     <testcase classname="init should call initBridge with the given options" name="init should call initBridge with the given options" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="useExternalStore" errors="0" failures="0" skipped="0" timestamp="2024-11-20T04:06:57" time="0.15" tests="1">
-    <testcase classname="useExternalStore should render hook" name="useExternalStore should render hook" time="0.005">
+  <testsuite name="useExternalStore" errors="0" failures="0" skipped="0" timestamp="2024-11-21T05:47:44" time="0.929" tests="1">
+    <testcase classname="useExternalStore should render hook" name="useExternalStore should render hook" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="useConnectWallet" errors="0" failures="0" skipped="0" timestamp="2024-11-21T05:47:44" time="0.944" tests="1">
+    <testcase classname="useConnectWallet should render hook" name="useConnectWallet should render hook" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="WebLoginProvider" errors="0" failures="0" skipped="0" timestamp="2024-11-21T05:47:44" time="1.275" tests="3">
+    <testcase classname="WebLoginProvider should render children with provided bridgeAPI" name="WebLoginProvider should render children with provided bridgeAPI" time="0.015">
+    </testcase>
+    <testcase classname="WebLoginProvider should render children with provided config" name="WebLoginProvider should render children with provided config" time="0.323">
+    </testcase>
+    <testcase classname="WebLoginProvider should return null if no bridgeAPI nor config" name="WebLoginProvider should return null if no bridgeAPI nor config" time="0">
     </testcase>
   </testsuite>
 </testsuites>

@@ -1,6 +1,6 @@
 // import { initBridge, IConfigProps, IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
 import { init } from '../index';
-
+import { initBridge } from '@aelf-web-login/wallet-adapter-bridge';
 jest.mock('vconsole');
 jest.mock('@aelf-web-login/wallet-adapter-bridge', () => ({
   initBridge: jest.fn(),
@@ -22,7 +22,7 @@ describe('init', () => {
 
   it('should call initBridge with the given options', async () => {
     const options = { baseConfig: { showVconsole: false } };
-    const { initBridge } = await import('@aelf-web-login/wallet-adapter-bridge');
+    // const { initBridge } = await import('@aelf-web-login/wallet-adapter-bridge');
     init(options as any);
     expect(initBridge).toHaveBeenCalledWith(options);
   });
