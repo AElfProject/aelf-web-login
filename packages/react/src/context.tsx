@@ -23,8 +23,11 @@ export function useWebLoginContext(): IBridgeAPI {
 
 export interface IWebLoginProviderProps {
   children: React.ReactNode;
+  /**
+   * @deprecated use config instead
+   */
   bridgeAPI?: IBridgeAPI;
-  config?: IConfigProps;
+  config: IConfigProps;
 }
 
 export const WebLoginProvider: React.FC<IWebLoginProviderProps> = ({
