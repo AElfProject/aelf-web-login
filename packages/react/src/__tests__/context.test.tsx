@@ -1,5 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { WebLoginProvider } from '../context';
+jest.mock('@aelf-web-login/wallet-adapter-bridge', () => ({
+  initBridge: jest.fn(),
+}));
 
 const mockBridgeAPI = {
   getSignIn: jest.fn((children) => children),

@@ -205,7 +205,12 @@ const config: JestConfigWithTsJest = {
   roots: ['<rootDir>'],
   modulePaths: ['./', compilerOptions.baseUrl],
   moduleDirectories: ['node_modules', 'src'],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>../../' }),
+  moduleNameMapper: {
+    ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>../../' }),
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+      '<rootDir>/empty.js',
+    '\\.(css|less|scss|sass)$': '<rootDir>/empty.js',
+  },
   preset: 'ts-jest',
 };
 

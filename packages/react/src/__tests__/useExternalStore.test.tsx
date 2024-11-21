@@ -3,6 +3,10 @@ import useExternalStore from '../useExternalStore';
 import { WebLoginProvider } from '../context';
 import { IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
 
+jest.mock('@aelf-web-login/wallet-adapter-bridge', () => ({
+  initBridge: jest.fn(),
+}));
+
 const mockBridgeAPI: Partial<IBridgeAPI> = {
   getSignIn: jest.fn((children) => children),
   store: {
