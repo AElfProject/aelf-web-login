@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="1" failures="0" errors="0" time="0.914">
+  <testsuite name="getCaContractBase()" errors="0" failures="0" skipped="0" timestamp="2024-11-22T09:23:05" time="0.605" tests="1">
+    <testcase classname="getCaContractBase() should throw error if no chainId" name="getCaContractBase() should throw error if no chainId" time="0.003">
+    </testcase>
+  </testsuite>
+</testsuites>

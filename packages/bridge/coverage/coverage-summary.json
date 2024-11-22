@@ -1,0 +1,3 @@
+{"total": {"lines":{"total":22,"covered":12,"skipped":0,"pct":54.54},"statements":{"total":27,"covered":13,"skipped":0,"pct":48.14},"functions":{"total":2,"covered":1,"skipped":0,"pct":50},"branches":{"total":5,"covered":1,"skipped":0,"pct":20},"branchesTrue":{"total":0,"covered":0,"skipped":0,"pct":"Unknown"}}
+,"/Users/aelf/Documents/Projects/aelf/aelf-web-login/packages/bridge/src/utils.ts": {"lines":{"total":22,"covered":12,"skipped":0,"pct":54.54},"functions":{"total":2,"covered":1,"skipped":0,"pct":50},"statements":{"total":27,"covered":13,"skipped":0,"pct":48.14},"branches":{"total":5,"covered":1,"skipped":0,"pct":20}}
+}
