@@ -7,7 +7,7 @@ export const EE = new EventEmitter();
 export const SET_GUARDIAN_APPROVAL_MODAL = 'SET_GUARDIAN_APPROVAL_MODAL';
 export const SET_GUARDIAN_APPROVAL_PAYLOAD = 'SET_GUARDIAN_APPROVAL_PAYLOAD';
 
-const getCaContractBase = async (chainId: TChainId) => {
+export const getCaContractBase = async (chainId: TChainId) => {
   const chainInfo = await getChainInfo(chainId);
   if (!chainInfo) {
     throw new Error(`Chain is not running: ${chainId}`);
@@ -21,7 +21,7 @@ const getCaContractBase = async (chainId: TChainId) => {
   return caContract;
 };
 
-const getIsManagerReadOnly = async (chainId: TChainId, caHash = '', manager = '') => {
+export const getIsManagerReadOnly = async (chainId: TChainId, caHash = '', manager = '') => {
   const caIns = await getCaContractBase(chainId);
   try {
     const rs = await caIns.callViewMethod('IsManagerReadOnly', {
@@ -35,5 +35,3 @@ const getIsManagerReadOnly = async (chainId: TChainId, caHash = '', manager = ''
     return false;
   }
 };
-
-export { getIsManagerReadOnly };
