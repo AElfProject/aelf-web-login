@@ -6,9 +6,9 @@ import { IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
 const mockBridgeAPI: IBridgeAPI = {
   getSignIn: jest.fn((children) => children),
   store: {
-    getState: () => null,
-    subscribe: () => null,
-  },
+    getState: () => null as unknown as ReturnType<IBridgeAPI['store']['getState']>,
+    subscribe: () => null as unknown as ReturnType<IBridgeAPI['store']['subscribe']>,
+  } as unknown as IBridgeAPI['store'],
   instance: {} as IBridgeAPI['instance'],
   mountApp: () => null,
   unMountApp: () => null,
