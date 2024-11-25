@@ -19,6 +19,7 @@
 | --- | --- | --- |
 | @aelf-web-login/utils | ![GitHub Workflow Test Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/AElfProject/aelf-web-login/feature/badge-json/master-utils-test-results.json) | [![Coverage](https://aelfproject.github.io/aelf-web-login/coverage-utils/badge.svg)](https://github.com/AElfProject/aelf-web-login/actions) |
 | @aelf-web-login/base | ![GitHub Workflow Test Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/AElfProject/aelf-web-login/feature/badge-json/master-base-test-results.json) | [![Coverage](https://aelfproject.github.io/aelf-web-login/coverage-base/badge.svg)](https://github.com/AElfProject/aelf-web-login/actions) |
+| @aelf-web-login/bridge | ![GitHub Workflow Test Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/AElfProject/aelf-web-login/feature/badge-json/master-bridge-test-results.json) | [![Coverage](https://aelfproject.github.io/aelf-web-login/coverage-bridge/badge.svg)](https://github.com/AElfProject/aelf-web-login/actions) |
 | @aelf-web-login/react | ![GitHub Workflow Test Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/AElfProject/aelf-web-login/feature/badge-json/master-react-test-results.json) | [![Coverage](https://aelfproject.github.io/aelf-web-login/coverage-react/badge.svg)](https://github.com/AElfProject/aelf-web-login/actions) |
 
 # Install
