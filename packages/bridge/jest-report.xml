@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="4" failures="0" errors="0" time="0.919">
-  <testsuite name="getCaContractBase()" errors="0" failures="0" skipped="0" timestamp="2024-11-25T04:09:22" time="0.576" tests="4">
-    <testcase classname="getCaContractBase() should throw error about chain is not running" name="getCaContractBase() should throw error about chain is not running" time="0.002">
+<testsuites name="jest tests" tests="17" failures="0" errors="0" time="2.076">
+  <testsuite name="useLockCallback Hook" errors="0" failures="0" skipped="0" timestamp="2024-11-25T10:44:44" time="0.907" tests="4">
+    <testcase classname="useLockCallback Hook should execute function and lock" name="useLockCallback Hook should execute function and lock" time="0.108">
     </testcase>
-    <testcase classname="getCaContractBase() should get back contract base" name="getCaContractBase() should get back contract base" time="0.001">
+    <testcase classname="useLockCallback Hook should prevent concurrent execution" name="useLockCallback Hook should prevent concurrent execution" time="0.102">
+    </testcase>
+    <testcase classname="useLockCallback Hook should allow another execution after previous is finished" name="useLockCallback Hook should allow another execution after previous is finished" time="0.202">
+    </testcase>
+    <testcase classname="useLockCallback Hook should release the lock if the callback throws an error" name="useLockCallback Hook should release the lock if the callback throws an error" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="useMountSignIn" errors="0" failures="0" skipped="0" timestamp="2024-11-25T10:44:45" time="0.298" tests="2">
+    <testcase classname="useMountSignIn should render the SignInModal and children wrapped in PortkeyProvider" name="useMountSignIn should render the SignInModal and children wrapped in PortkeyProvider" time="0.039">
+    </testcase>
+    <testcase classname="useMountSignIn should memoize the rendered component" name="useMountSignIn should memoize the rendered component" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="getCaContractBase()" errors="0" failures="0" skipped="0" timestamp="2024-11-25T10:44:46" time="0.263" tests="4">
+    <testcase classname="getCaContractBase() should throw error about chain is not running" name="getCaContractBase() should throw error about chain is not running" time="0.001">
+    </testcase>
+    <testcase classname="getCaContractBase() should get back contract base" name="getCaContractBase() should get back contract base" time="0">
     </testcase>
     <testcase classname="getIsManagerReadOnly() should throw error about chain is not running" name="getIsManagerReadOnly() should throw error about chain is not running" time="0">
     </testcase>
     <testcase classname="getIsManagerReadOnly() should return false" name="getIsManagerReadOnly() should return false" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="useVerifier" errors="0" failures="0" skipped="0" timestamp="2024-11-25T10:44:46" time="0.056" tests="7">
+    <testcase classname="useVerifier should return getRecommendationVerifier and verifySocialToken functions" name="useVerifier should return getRecommendationVerifier and verifySocialToken functions" time="0.001">
+    </testcase>
+    <testcase classname="useVerifier should call getRecommendationVerifier with correct chainId" name="useVerifier should call getRecommendationVerifier with correct chainId" time="0.001">
+    </testcase>
+    <testcase classname="useVerifier should handle Apple account type correctly" name="useVerifier should handle Apple account type correctly" time="0">
+    </testcase>
+    <testcase classname="useVerifier should handle Google account type correctly" name="useVerifier should handle Google account type correctly" time="0.001">
+    </testcase>
+    <testcase classname="useVerifier should handle Telegram account type correctly" name="useVerifier should handle Telegram account type correctly" time="0.001">
+    </testcase>
+    <testcase classname="useVerifier should throw error for unsupported account type" name="useVerifier should throw error for unsupported account type" time="0.001">
+    </testcase>
+    <testcase classname="useVerifier should throw error if verifier is missing" name="useVerifier should throw error if verifier is missing" time="0.003">
     </testcase>
   </testsuite>
 </testsuites>

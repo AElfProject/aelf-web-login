@@ -10,8 +10,6 @@ const mockBridgeAPI: IBridgeAPI = {
     subscribe: () => null as unknown as ReturnType<IBridgeAPI['store']['subscribe']>,
   } as unknown as IBridgeAPI['store'],
   instance: {} as IBridgeAPI['instance'],
-  mountApp: () => null,
-  unMountApp: () => null,
 };
 
 describe('WebLoginProvider', () => {
