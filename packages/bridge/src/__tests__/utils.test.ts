@@ -1,12 +1,13 @@
 import { type TChainId } from '@aelf-web-login/wallet-adapter-base';
 import { getCaContractBase, getIsManagerReadOnly } from '../utils';
 import { getContractBasic } from '@portkey/contracts';
+import { type Mock } from 'vitest';
 
 afterEach(() => {
-  jest.unmock('@portkey/contracts');
+  vi.unmock('@portkey/contracts');
 });
-jest.mock('@portkey/contracts', () => ({
-  getContractBasic: jest.fn(),
+vi.mock('@portkey/contracts', () => ({
+  getContractBasic: vi.fn(),
 }));
 
 describe('getCaContractBase()', () => {
@@ -25,7 +26,7 @@ describe('getCaContractBase()', () => {
       chainId,
       address: '',
     };
-    (getContractBasic as jest.Mock).mockImplementation(() => mockContractBase);
+    (getContractBasic as Mock).mockImplementation(() => mockContractBase);
     const contractBase = await getCaContractBase(chainId);
     expect(contractBase).toMatchObject(mockContractBase);
   });

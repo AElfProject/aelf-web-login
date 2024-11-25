@@ -26,7 +26,7 @@
   "scripts": {
     "dev": "father dev",
     "build": "father build",
-    "test": "NODE_OPTIONS='$NODE_OPTIONS --experimental-vm-modules' jest",
+    "test": "vitest",
     "test:dev": "pnpm test -- --watch",
     "test:coverage": "pnpm test -- --coverage",
     "test:debug": "pnpm test -- --detectOpenHandles"
