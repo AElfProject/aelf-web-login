@@ -33,24 +33,24 @@
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
-    "@portkey/services": "^2.15.9",
     "@portkey/contracts": "^2.15.9",
+    "@portkey/services": "^2.15.9",
     "@reduxjs/toolkit": "^2.2.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@portkey/types": "^2.15.9",
     "@portkey/did-ui-react": "^2.15.9",
+    "@portkey/types": "^2.15.9",
     "@portkey/utils": "^2.15.9",
+    "@swc/core": "^1.9.3",
+    "@swc/jest": "^0.2.37",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "antd": "4.24.14",
     "father": "^4.3.8",
-    "typescript": "^5.3.3",
-    "@swc/core": "^1.9.3",
-    "@swc/jest": "^0.2.37",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "typescript": "^5.3.3"
   },
   "peerDependencies": {
     "@portkey/did-ui-react": "^2.15.9"

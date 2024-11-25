@@ -1,10 +1,10 @@
-// In your own jest-setup.js (or any other name)
+import { type TChainId } from '@aelf-web-login/wallet-adapter-base';
 import '@testing-library/jest-dom';
 jest.mock('@aelf-web-login/wallet-adapter-portkey-aa', () => ({
   PortkeyAAWallet: jest.fn(),
 }));
 jest.mock('@portkey/did-ui-react', () => ({
-  getChainInfo: () => null,
+  getChainInfo: (c: TChainId) => (!c ? null : {}),
   did: {
     didWallet: {
       managementAccount: {
@@ -13,4 +13,11 @@ jest.mock('@portkey/did-ui-react', () => ({
     },
   },
 }));
+jest.mock('lottie-web');
+jest.mock('@portkey/utils');
+import 'jest-canvas-mock';
 global.fetch = require('node-fetch');
+import { TextEncoder, TextDecoder } from 'util';
+global.TextEncoder = TextEncoder;
+// @ts-expect-error TextDecoder
+global.TextDecoder = TextDecoder;

@@ -170,7 +170,6 @@ const config = {
     '^.+\\.(t|j)sx?$': '@swc/jest',
   },
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: [
     '.pnpm/node_modules/(?!((jest-)?react-native(-.*)?|@react-native(-community)?|victory(-.*)?|uuid)|react-navigation|@shopify/react-native-skia|@react-navigation/.*/)',
   ],
@@ -192,6 +191,8 @@ const config = {
   modulePaths: ['./', compilerOptions.baseUrl],
   moduleDirectories: ['node_modules', 'src'],
   moduleNameMapper: {
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|css|less|scss|sass)$':
+      'jest-transform-stub',
     ...Object.keys(compilerOptions.paths).reduce(
       (prev, k) => ({
         ...prev,
@@ -199,9 +200,6 @@ const config = {
       }),
       {},
     ),
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-      '<rootDir>/empty.js',
-    '\\.(css|less|scss|sass)$': '<rootDir>/empty.js',
   },
 };
 

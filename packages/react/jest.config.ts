@@ -17,8 +17,6 @@ const presetConfig = createDefaultEsmPreset({
   isolatedModules: true, // perf
 });
 
-console.log(Object.values(presetConfig.transform)[0][1].tsconfig);
-
 const config: JestConfigWithTsJest = {
   ...presetConfig,
   // All imported modules in your tests should be mocked automatically
@@ -207,9 +205,8 @@ const config: JestConfigWithTsJest = {
   moduleDirectories: ['node_modules', 'src'],
   moduleNameMapper: {
     ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>../../' }),
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-      '<rootDir>/empty.js',
-    '\\.(css|less|scss|sass)$': '<rootDir>/empty.js',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|css|less|scss|sass)$':
+      'jest-transform-stub',
   },
   preset: 'ts-jest',
 };
