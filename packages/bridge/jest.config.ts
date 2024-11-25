@@ -166,9 +166,8 @@ const config = {
   // testRunner: "jest-circus/runner",
 
   // A map from regular expressions to paths to transformers
-  transform: {
-    '^.+\\.(t|j)sx?$': '@swc/jest',
-  },
+  transform: { '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest', '^.+\\.js$': 'babel-jest' },
+
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: [
     '.pnpm/node_modules/(?!((jest-)?react-native(-.*)?|@react-native(-community)?|victory(-.*)?|uuid)|react-navigation|@shopify/react-native-skia|@react-navigation/.*/)',
