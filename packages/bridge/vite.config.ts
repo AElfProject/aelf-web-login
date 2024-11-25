@@ -25,7 +25,7 @@ export default defineConfig({
     globals: true,
     watch: false,
     environment: 'happy-dom',
-    setupFiles: ['./vitest.setup.ts'],
+    setupFiles: ['./vitest.setup'],
     include: ['./src/**/*(*.)?{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     name: 'bridge',
     exclude,

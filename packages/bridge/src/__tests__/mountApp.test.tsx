@@ -4,12 +4,13 @@ import { useMountSignIn } from '../mountApp';
 import { Bridge } from '../bridge';
 import { NetworkEnum, WalletAdapter } from '@aelf-web-login/wallet-adapter-base';
 import { IBaseConfig } from '../index';
-import '@testing-library/jest-dom';
 
 // Mock components and dependencies
-jest.mock('../ui', () => jest.fn(() => <div>SignInModal Component</div>));
+vi.mock('../ui', () => ({
+  default: () => <div>SignInModal Component</div>,
+}));
 
-jest.mock('@portkey/did-ui-react', () => ({
+vi.mock('@portkey/did-ui-react', () => ({
   PortkeyProvider: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
