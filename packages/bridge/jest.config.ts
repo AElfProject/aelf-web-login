@@ -1,24 +1,13 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck skip tsc for jest
 /**
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
  */
 
-import {
-  createDefaultEsmPreset,
-  pathsToModuleNameMapper,
-  type JestConfigWithTsJest,
-  type TsJestTransformerOptions,
-} from 'ts-jest';
 import { compilerOptions } from '../../tsconfig.base.json';
-
-const presetConfig = createDefaultEsmPreset({
-  tsconfig: compilerOptions as TsJestTransformerOptions['tsconfig'],
-  diagnostics: false, // important - to make ts-jest ignore type-checking. must set here
-  isolatedModules: true, // perf
-});
-
-const config: JestConfigWithTsJest = {
-  ...presetConfig,
+import path from 'path';
+const config = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -144,7 +133,6 @@ const config: JestConfigWithTsJest = {
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
@@ -153,7 +141,6 @@ const config: JestConfigWithTsJest = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: 'jsdom',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -180,10 +167,8 @@ const config: JestConfigWithTsJest = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    ...presetConfig.transform,
-    '^.+\\.(js|jsx)$': 'babel-jest',
+    '^.+\\.(t|j)sx?$': '@swc/jest',
   },
-  // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: [
     '.pnpm/node_modules/(?!((jest-)?react-native(-.*)?|@react-native(-community)?|victory(-.*)?|uuid)|react-navigation|@shopify/react-native-skia|@react-navigation/.*/)',
@@ -201,14 +186,21 @@ const config: JestConfigWithTsJest = {
   // Whether to use watchman for file crawling
   // watchman: true,
   roots: ['<rootDir>'],
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   modulePaths: ['./', compilerOptions.baseUrl],
   moduleDirectories: ['node_modules', 'src'],
   moduleNameMapper: {
-    ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>../../' }),
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|css|less|scss|sass)$':
       'jest-transform-stub',
+    ...Object.keys(compilerOptions.paths).reduce(
+      (prev, k) => ({
+        ...prev,
+        [k]: path.resolve(__dirname, `../../${compilerOptions.paths[k][0]}`),
+      }),
+      {},
+    ),
   },
-  preset: 'ts-jest',
 };
 
 export default config;

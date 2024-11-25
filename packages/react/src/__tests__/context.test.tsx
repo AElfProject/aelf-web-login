@@ -6,27 +6,18 @@ import { IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
 const mockBridgeAPI: IBridgeAPI = {
   getSignIn: jest.fn((children) => children),
   store: {
-    getState: () => null,
-    subscribe: () => null,
-  },
+    getState: () => null as unknown as ReturnType<IBridgeAPI['store']['getState']>,
+    subscribe: () => null as unknown as ReturnType<IBridgeAPI['store']['subscribe']>,
+  } as unknown as IBridgeAPI['store'],
   instance: {} as IBridgeAPI['instance'],
   mountApp: () => null,
   unMountApp: () => null,
 };
 
-jest.mock('@aelf-web-login/wallet-adapter-bridge', () => ({
-  initBridge: jest.fn().mockReturnValue({
-    getSignIn: jest.fn((children) => children),
-  }),
-}));
-
-jest.mock('@aelf-web-login/wallet-adapter-portkey-aa', () => ({
-  PortkeyAAWallet: jest.fn(),
-}));
-
 describe('WebLoginProvider', () => {
   it('should render children with provided bridgeAPI', () => {
     render(
+      // @ts-expect-error passing invalid props on purpose
       <WebLoginProvider bridgeAPI={mockBridgeAPI}>
         <div>Test Child</div>
       </WebLoginProvider>,
@@ -47,6 +38,7 @@ describe('WebLoginProvider', () => {
 
   it('should return null if no bridgeAPI nor config', () => {
     const { container } = render(
+      // @ts-expect-error passing invalid props on purpose
       <WebLoginProvider>
         <div>Test Child</div>
       </WebLoginProvider>,

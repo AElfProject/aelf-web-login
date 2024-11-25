@@ -1,22 +1,18 @@
 import { render } from '@testing-library/react';
 import useConnectWallet from '../useConnectWallet';
 import { WebLoginProvider } from '../context';
-import { IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
+import config from '../data/config';
 
-jest.mock('@aelf-web-login/wallet-adapter-bridge', () => ({
-  initBridge: jest.fn(),
-}));
-
-const mockBridgeAPI: IBridgeAPI = {
-  getSignIn: jest.fn((children) => children),
+jest.mock('../useExternalStore', () => () => ({
   store: {
     getState: () => null,
     subscribe: () => null,
   },
-  instance: {
-    connect: () => null,
-  },
-};
+}));
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
 const Comp = () => {
   useConnectWallet();
@@ -25,7 +21,7 @@ const Comp = () => {
 describe('useConnectWallet', () => {
   it('should render hook', () => {
     render(
-      <WebLoginProvider bridgeAPI={mockBridgeAPI}>
+      <WebLoginProvider config={config}>
         <Comp />
       </WebLoginProvider>,
     );

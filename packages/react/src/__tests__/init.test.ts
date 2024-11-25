@@ -1,10 +1,5 @@
-// import { initBridge, IConfigProps, IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
 import { init } from '../index';
 import { initBridge } from '@aelf-web-login/wallet-adapter-bridge';
-jest.mock('vconsole');
-jest.mock('@aelf-web-login/wallet-adapter-bridge', () => ({
-  initBridge: jest.fn(),
-}));
 
 describe('init', () => {
   it('should initialize VConsole if showVconsole is true', async () => {

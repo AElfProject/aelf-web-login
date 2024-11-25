@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: [utils, base, react]
+        package: [utils, base, react, bridge]
     steps:
       - name: Run frontend CI
         uses: AElfProject/frontend-ci-action@v0.0.2

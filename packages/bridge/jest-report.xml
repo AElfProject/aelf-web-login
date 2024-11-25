@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="4" failures="0" errors="0" time="0.919">
+  <testsuite name="getCaContractBase()" errors="0" failures="0" skipped="0" timestamp="2024-11-25T04:09:22" time="0.576" tests="4">
+    <testcase classname="getCaContractBase() should throw error about chain is not running" name="getCaContractBase() should throw error about chain is not running" time="0.002">
+    </testcase>
+    <testcase classname="getCaContractBase() should get back contract base" name="getCaContractBase() should get back contract base" time="0.001">
+    </testcase>
+    <testcase classname="getIsManagerReadOnly() should throw error about chain is not running" name="getIsManagerReadOnly() should throw error about chain is not running" time="0">
+    </testcase>
+    <testcase classname="getIsManagerReadOnly() should return false" name="getIsManagerReadOnly() should return false" time="0.004">
+    </testcase>
+  </testsuite>
+</testsuites>
