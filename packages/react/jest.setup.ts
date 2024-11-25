@@ -11,8 +11,6 @@ jest.mock('@aelf-web-login/wallet-adapter-bridge', () => ({
       subscribe: () => null,
     },
     instance: {} as IBridgeAPI['instance'],
-    mountApp: () => null,
-    unMountApp: () => null,
   }),
 }));
 
