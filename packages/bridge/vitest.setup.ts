@@ -1,4 +1,24 @@
 import '@testing-library/jest-dom';
+import { cleanup } from '@testing-library/react';
+import { afterEach, beforeAll, vi } from 'vitest';
+
+beforeAll(() => {
+  global.ResizeObserver = class ResizeObserver {
+    observe() {
+      // do nothing
+    }
+    unobserve() {
+      // do nothing
+    }
+    disconnect() {
+      // do nothing
+    }
+  };
+});
+
+afterEach(() => {
+  cleanup();
+});
 
 // https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
 if (typeof window !== 'undefined') {
@@ -19,7 +39,7 @@ if (typeof window !== 'undefined') {
 
 import { type TChainId } from '@aelf-web-login/wallet-adapter-base';
 vi.mock('@aelf-web-login/wallet-adapter-portkey-aa', () => ({
-  PortkeyAAWallet: jest.fn(),
+  PortkeyAAWallet: vi.fn(),
 }));
 vi.mock('@portkey/did-ui-react', () => ({
   getChainInfo: (c: TChainId) => (!c ? null : {}),
