@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        package: [utils, base, react]
+        package: [utils, base, react, bridge]
 
     steps:
       - name: Checkout repository
