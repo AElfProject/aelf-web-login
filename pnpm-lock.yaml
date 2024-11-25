@@ -12,9 +12,21 @@ importers:
 
   .:
     devDependencies:
+      '@babel/core':
+        specifier: ^7.0.0
+        version: 7.25.2
       '@babel/parser':
         specifier: ^7.24.0
         version: 7.25.6
+      '@babel/preset-env':
+        specifier: ^7.24.7
+        version: 7.25.4(@babel/core@7.25.2)
+      '@babel/preset-react':
+        specifier: ^7.24.7
+        version: 7.24.7(@babel/core@7.25.2)
+      '@babel/preset-typescript':
+        specifier: ^7.24.7
+        version: 7.24.7(@babel/core@7.25.2)
       '@biomejs/biome':
         specifier: ^1.9.2
         version: 1.9.2
@@ -36,6 +48,9 @@ importers:
       '@testing-library/react':
         specifier: ^16.0.1
         version: 16.0.1(@testing-library/dom@10.4.0)(@types/react-dom@18.3.0)(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@testing-library/react-hooks':
+        specifier: ^8.0.1
+        version: 8.0.1(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/jest':
         specifier: ^29.5.12
         version: 29.5.13
@@ -176,18 +191,6 @@ importers:
         specifier: ^18.0.0
         version: 18.3.1(react@18.3.1)
     devDependencies:
-      '@babel/core':
-        specifier: ^7.0.0
-        version: 7.25.2
-      '@babel/preset-env':
-        specifier: ^7.24.7
-        version: 7.25.4(@babel/core@7.25.2)
-      '@babel/preset-react':
-        specifier: ^7.24.7
-        version: 7.24.7(@babel/core@7.25.2)
-      '@babel/preset-typescript':
-        specifier: ^7.24.7
-        version: 7.24.7(@babel/core@7.25.2)
       '@portkey/did-ui-react':
         specifier: ^2.15.9
         version: 2.15.9(@types/react@18.3.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.25.2)(encoding@0.1.13)(eslint@8.57.1))(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3441,6 +3444,22 @@ packages:
     resolution: {integrity: sha512-IteBhl4XqYNkM54f4ejhLRJiZNqcSCoXUOG2CPK7qbD322KjQozM4kHQOfkG2oln9b9HTYqs+Sae8vBATubxxA==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
 
+  '@testing-library/react-hooks@8.0.1':
+    resolution: {integrity: sha512-Aqhl2IVmLt8IovEVarNDFuJDVWVvhnr9/GCU6UUnrYXwgDFF9h2L2o2P9KBni1AST5sT6riAyoukFLyjQUgD/g==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      '@types/react': ^16.9.0 || ^17.0.0
+      react: ^16.9.0 || ^17.0.0
+      react-dom: ^16.9.0 || ^17.0.0
+      react-test-renderer: ^16.9.0 || ^17.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react-dom:
+        optional: true
+      react-test-renderer:
+        optional: true
+
   '@testing-library/react@16.0.1':
     resolution: {integrity: sha512-dSmwJVtJXmku+iocRhWOUFbrERC76TX2Mnf0ATODz8brzAZrMBbzLwQixlBSanZxR6LddK3eiwpSFZgDET1URg==}
     engines: {node: '>=18'}
@@ -3541,9 +3560,6 @@ packages:
 
   '@types/jest@29.5.13':
     resolution: {integrity: sha512-wd+MVEZCHt23V0/L642O5APvspWply/rGY5BcW4SUETo2UzPU3Z26qr8jC2qxpimI2jjx9h7+2cj2FwIr01bXg==}
-
-  '@types/jest@29.5.14':
-    resolution: {integrity: sha512-ZN+4sdnLUbo8EVvVc2ao0GFW6oVrQRPn4K2lglySj7APvSrgzxHiNNK99us4WDMi57xxA2yggblIAMNhXOotLQ==}
 
   '@types/js-cookie@2.2.7':
     resolution: {integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==}
@@ -15233,22 +15249,32 @@ snapshots:
       '@types/react': 18.3.9
       react-dom: 18.3.1(react@18.3.1)
 
-  '@testing-library/react@14.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.25.6
-      '@testing-library/dom': 10.4.0
-      '@types/react-dom': 18.3.0
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
-
   '@testing-library/react@16.0.1(@testing-library/dom@10.4.0)(@types/react-dom@18.3.0)(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.25.6
       '@testing-library/dom': 10.4.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      
+    optionalDependencies:
+      '@types/react': 18.3.9
+      '@types/react-dom': 18.3.0
+
+  '@tootallnate/once@2.0.0': {}
+
+  '@trysound/sax@0.2.0': {}
+
+  '@tsconfig/node10@1.0.11':
+    optional: true
+
+  '@tsconfig/node12@1.0.11':
+    optional: true
+
+  '@tsconfig/node14@1.0.3':
+    optional: true
+
+  '@tsconfig/node16@1.0.4':
+    optional: true
+
   '@types/argparse@1.0.38': {}
 
   '@types/aria-query@5.0.4': {}
@@ -15328,11 +15354,6 @@ snapshots:
       '@types/istanbul-lib-report': 3.0.3
 
   '@types/jest@29.5.13':
-    dependencies:
-      expect: 29.7.0
-      pretty-format: 29.7.0
-
-  '@types/jest@29.5.14':
     dependencies:
       expect: 29.7.0
       pretty-format: 29.7.0
