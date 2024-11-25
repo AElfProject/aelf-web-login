@@ -1,4 +1,3 @@
-// export * from './mountApp'
 import {
   TChainId,
   SignInDesignEnum,
@@ -6,7 +5,7 @@ import {
   WalletAdapter,
 } from '@aelf-web-login/wallet-adapter-base';
 import { Bridge } from './bridge';
-import { mountApp, unMountApp, useMountSignIn } from './mountApp';
+import { useMountSignIn } from './mountApp';
 import { store, AppStore } from './store';
 import { GlobalConfigProps } from '@portkey/did-ui-react/dist/_types/src/components/config-provider/types';
 import { ConfigProvider, SignInProps, ISignIn, PortkeyProvider } from '@portkey/did-ui-react';
@@ -41,8 +40,6 @@ export interface IConfigProps {
 export interface IBridgeAPI {
   instance: Bridge;
   store: AppStore;
-  mountApp: () => void;
-  unMountApp: () => void;
   getSignIn: (arg: React.ReactNode) => React.ReactNode;
 }
 export function initBridge({ baseConfig, wallets, didConfig }: IConfigProps): IBridgeAPI {
@@ -50,12 +47,9 @@ export function initBridge({ baseConfig, wallets, didConfig }: IConfigProps): IB
   ConfigProvider.setGlobalConfig(didConfig);
   console.log('init bridge');
 
-  // mountApp(bridgeInstance, wallets, baseConfig);
   return {
     instance: bridgeInstance,
     store,
-    mountApp: mountApp.bind(null, bridgeInstance, wallets, baseConfig),
-    unMountApp,
     getSignIn: useMountSignIn.bind(null, bridgeInstance, wallets, baseConfig),
   };
 }
