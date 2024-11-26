@@ -172,6 +172,9 @@ importers:
 
   packages/bridge:
     dependencies:
+      '@aelf-web-login/tools':
+        specifier: workspace:*
+        version: link:../tools
       '@aelf-web-login/wallet-adapter-base':
         specifier: workspace:*
         version: link:../base
@@ -328,6 +331,8 @@ importers:
       stylelint:
         specifier: ^14.9.1
         version: 14.16.1
+
+  packages/tools: {}
 
   packages/utils:
     dependencies:

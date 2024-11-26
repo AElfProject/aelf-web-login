@@ -5,3 +5,4 @@ packages:
   - 'packages/react'
   - 'packages/utils'
   - 'packages/wallets/*'
+  - 'packages/tools'
