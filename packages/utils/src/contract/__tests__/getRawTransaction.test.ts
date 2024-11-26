@@ -3,23 +3,24 @@ import getRawTransactionDiscover from '../getRawTransactionDiscover';
 import getRawTransactionPortkey from '../getRawTransactionPortkey';
 import { getRawTransaction } from '../getRawTransaction';
 import { WalletTypeEnum, TWalletInfo } from '@aelf-web-login/wallet-adapter-base';
+import { type Mock } from 'vitest';
 
-jest.mock('../getRawTransactionNight', () => ({
+vi.mock('../getRawTransactionNight', () => ({
   __esModule: true,
-  default: jest.fn().mockResolvedValue('encodedDataMock1'),
+  default: vi.fn().mockResolvedValue('encodedDataMock1'),
 }));
-jest.mock('../getRawTransactionDiscover', () => ({
+vi.mock('../getRawTransactionDiscover', () => ({
   __esModule: true,
-  default: jest.fn().mockResolvedValue('encodedDataMock2'),
+  default: vi.fn().mockResolvedValue('encodedDataMock2'),
 }));
-jest.mock('../getRawTransactionPortkey', () => ({
+vi.mock('../getRawTransactionPortkey', () => ({
   __esModule: true,
-  default: jest.fn().mockResolvedValue('encodedDataMock3'),
+  default: vi.fn().mockResolvedValue('encodedDataMock3'),
 }));
 
 describe('getRawTransaction', () => {
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should call getRawTransactionPortkey for WalletTypeEnum.aa and return its result', async () => {
@@ -100,9 +101,9 @@ describe('getRawTransaction', () => {
   it('should log and return null when an error occurs', async () => {
     const walletInfo: TWalletInfo = { address: 'mockAddress' };
 
-    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+    const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation();
 
-    (getRawTransactionDiscover as jest.Mock).mockImplementation(() => {
+    (getRawTransactionDiscover as Mock).mockImplementation(() => {
       throw new Error('Decoding failed');
     });
 

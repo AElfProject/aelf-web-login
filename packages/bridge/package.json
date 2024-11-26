@@ -41,7 +41,6 @@
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "babel-jest": "^29.7.0",
     "@portkey/did-ui-react": "^2.15.9",
     "@portkey/types": "^2.15.9",
     "@portkey/utils": "^2.15.9",

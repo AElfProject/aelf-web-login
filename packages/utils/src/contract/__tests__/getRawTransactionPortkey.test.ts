@@ -3,29 +3,30 @@ import getRawTransactionPortkey, {
 } from '../getRawTransactionPortkey';
 import { getContractBasic } from '@portkey/contracts';
 import { aelf } from '@portkey/utils';
+import { type Mock } from 'vitest';
 
-jest.mock('@portkey/contracts', () => ({
-  getContractBasic: jest.fn(),
+vi.mock('@portkey/contracts', () => ({
+  getContractBasic: vi.fn(),
 }));
 
-jest.mock('@portkey/utils', () => ({
+vi.mock('@portkey/utils', () => ({
   aelf: {
-    getWallet: jest.fn(),
+    getWallet: vi.fn(),
   },
 }));
 
 describe('getRawTransactionPortkey', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should return encoded transaction data', async () => {
     const mockContract = {
-      encodedTx: jest.fn().mockResolvedValue({ data: 'encodedDataMock' }),
+      encodedTx: vi.fn().mockResolvedValue({ data: 'encodedDataMock' }),
     };
-    (getContractBasic as jest.Mock).mockResolvedValue(mockContract);
+    (getContractBasic as Mock).mockResolvedValue(mockContract);
 
-    (aelf.getWallet as jest.Mock).mockReturnValue({
+    (aelf.getWallet as Mock).mockReturnValue({
       address: 'testAddress',
     });
 
@@ -57,7 +58,7 @@ describe('getRawTransactionPortkey', () => {
   });
 
   it('should reject with error when getContractBasic fails', async () => {
-    (getContractBasic as jest.Mock).mockRejectedValue(new Error('Failed to get contract'));
+    (getContractBasic as Mock).mockRejectedValue(new Error('Failed to get contract'));
 
     const params: IRowTransactionPortkeyParams = {
       caHash: '0xExampleCaHash',

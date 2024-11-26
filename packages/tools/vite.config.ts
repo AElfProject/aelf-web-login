@@ -20,6 +20,7 @@ export default defineConfig({
       optimizer: {
         web: {
           enabled: true,
+          include: [],
         },
       },
     },

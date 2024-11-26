@@ -30,6 +30,6 @@
       "@aelf-web-login/tools": ["./packages/tools"],
       "~/*": ["./*"]
     },
-    "types": ["node", "jest", "@testing-library/jest-dom", "vitest/globals"]
+    "types": ["node", "@testing-library/jest-dom", "vitest/globals"]
   }
 }

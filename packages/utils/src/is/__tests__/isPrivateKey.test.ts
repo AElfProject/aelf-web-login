@@ -10,7 +10,7 @@ describe('test isPrivateKey', () => {
 
   test('returns false when Buffer.from throw error', () => {
     const originalFrom = Buffer.from;
-    jest.spyOn(Buffer, 'from').mockImplementationOnce(() => {
+    vi.spyOn(Buffer, 'from').mockImplementationOnce(() => {
       throw new Error('Mocked buffer error');
     });
 

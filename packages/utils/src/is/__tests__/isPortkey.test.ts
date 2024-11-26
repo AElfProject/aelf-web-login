@@ -12,8 +12,8 @@ describe('isPortkey in window', () => {
     (global as any).window = {
       document: {
         body: {},
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
       },
       navigator: {
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
@@ -21,8 +21,8 @@ describe('isPortkey in window', () => {
       },
       location: {
         href: '',
-        reload: jest.fn(),
-        replace: jest.fn(),
+        reload: vi.fn(),
+        replace: vi.fn(),
       },
     };
   });

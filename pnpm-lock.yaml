@@ -215,9 +215,6 @@ importers:
       antd:
         specifier: 4.24.14
         version: 4.24.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      babel-jest:
-        specifier: ^29.7.0
-        version: 29.7.0(@babel/core@7.25.2)
       father:
         specifier: ^4.3.8
         version: 4.5.0(@babel/core@7.25.2)(@types/node@22.9.3)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0(@swc/core@1.9.3(@swc/helpers@0.5.1)))
@@ -252,9 +249,6 @@ importers:
       '@babel/preset-typescript':
         specifier: ^7.24.7
         version: 7.24.7(@babel/core@7.25.2)
-      '@types/jest':
-        specifier: ^29.5.13
-        version: 29.5.13
       '@types/react':
         specifier: ^18.3.1
         version: 18.3.9

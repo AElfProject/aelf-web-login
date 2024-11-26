@@ -187,5 +187,6 @@ export function isMobile(param?: IsMobileParameter): isMobileResult {
 
 export function isMobileDevices() {
   const isM = isMobile();
+  console.log('---', navigator.userAgent, '---', isM, '---', happyDOM.settings.navigator);
   return isM.apple.device || isM.android.device;
 }

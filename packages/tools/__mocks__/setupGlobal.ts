@@ -36,6 +36,32 @@ if (typeof window !== 'undefined') {
     })),
   });
 }
+// https://github.com/wobsoriano/vitest-canvas-mock/issues/16
+if (typeof HTMLCanvasElement !== 'undefined') {
+  HTMLCanvasElement.prototype.getContext = vi.fn().mockReturnValue({
+    fillRect: vi.fn(),
+    clearRect: vi.fn(),
+    getImageData: vi.fn().mockReturnValue({ data: [] }),
+    putImageData: vi.fn(),
+    createImageData: vi.fn().mockReturnValue([]),
+    setTransform: vi.fn(),
+    drawImage: vi.fn(),
+    save: vi.fn(),
+    fillText: vi.fn(),
+    restore: vi.fn(),
+    beginPath: vi.fn(),
+    moveTo: vi.fn(),
+    lineTo: vi.fn(),
+    closePath: vi.fn(),
+    stroke: vi.fn(),
+    translate: vi.fn(),
+    scale: vi.fn(),
+    rotate: vi.fn(),
+    arc: vi.fn(),
+    fill: vi.fn(),
+    measureText: vi.fn().mockReturnValue({ width: 0 }),
+  });
+}
 
 import { TextEncoder, TextDecoder } from 'util';
 global.TextEncoder = TextEncoder;

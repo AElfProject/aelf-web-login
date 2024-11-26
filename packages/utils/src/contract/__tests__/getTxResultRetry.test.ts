@@ -1,24 +1,25 @@
+import { type Mock } from 'vitest';
 import { getAElf, getTxResultRetry } from '../getTxResultRetry';
 import { getTxResult } from '@portkey/contracts';
 
-jest.mock('@portkey/contracts', () => ({
-  getTxResult: jest.fn(),
+vi.mock('@portkey/contracts', () => ({
+  getTxResult: vi.fn(),
 }));
 
 describe('test getAElf', () => {
   beforeEach(() => {
-    const mockConstructor = jest.fn((param1) => {
+    const mockConstructor = vi.fn((param1) => {
       return {
         param1,
       };
     });
 
-    const mockProviders = jest.fn().mockImplementation(() => {
+    const mockProviders = vi.fn().mockImplementation(() => {
       return {
-        HttpProvider: jest.fn().mockReturnValueOnce({}),
+        HttpProvider: vi.fn().mockReturnValueOnce({}),
       };
     });
-    jest.doMock('aelf-sdk', () => ({
+    vi.doMock('aelf-sdk', () => ({
       __esModule: true,
       default: mockConstructor,
       providers: mockProviders,
@@ -48,7 +49,7 @@ describe('test getAElf', () => {
 
 describe('test getTxResultRetry', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('returns mined transaction result', async () => {
@@ -56,7 +57,7 @@ describe('test getTxResultRetry', () => {
       Status: 'MINED',
     };
 
-    (getTxResult as jest.Mock).mockResolvedValue(mockTxResult);
+    (getTxResult as Mock).mockResolvedValue(mockTxResult);
 
     const TransactionId = 'some-transaction-id';
     const rpcUrl = 'https://example-rpc.com';
@@ -70,7 +71,7 @@ describe('test getTxResultRetry', () => {
     const mockTxResult = {
       Status: 'FAILED',
     };
-    (getTxResult as jest.Mock).mockResolvedValue(mockTxResult);
+    (getTxResult as Mock).mockResolvedValue(mockTxResult);
 
     const TransactionId = 'another-transaction-id';
     const rpcUrl = 'https://example-rpc.com';
