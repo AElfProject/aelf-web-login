@@ -9,6 +9,24 @@ afterEach(() => {
 vi.mock('@portkey/contracts', () => ({
   getContractBasic: vi.fn(),
 }));
+vi.mock('@portkey/did-ui-react', () => ({
+  getChainInfo: (c: TChainId) => (!c ? null : {}),
+  did: {
+    didWallet: {
+      managementAccount: {
+        privateKey: '',
+      },
+    },
+  },
+  PortkeyProvider: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+vi.mock('aelf-sdk', () => ({
+  default: {
+    getWallet: () => ({
+      address: '',
+    }),
+  },
+}));
 
 describe('getCaContractBase()', () => {
   it('should throw error about chain is not running', async () => {
