@@ -19,10 +19,6 @@ vi.mock('../getRawTransactionPortkey', () => ({
 }));
 
 describe('getRawTransaction', () => {
-  afterEach(() => {
-    vi.clearAllMocks();
-  });
-
   it('should call getRawTransactionPortkey for WalletTypeEnum.aa and return its result', async () => {
     // Arrange
     const walletInfo = {

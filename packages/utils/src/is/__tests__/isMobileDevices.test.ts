@@ -1,3 +1,4 @@
+// @environment happy-dom
 import { isMobileDevices } from '../isMobileDevices';
 import type DetachedWindowAPI from 'happy-dom/lib/window/DetachedWindowAPI.js';
 
@@ -7,10 +8,7 @@ declare global {
 const originalNavigator = happyDOM.settings.navigator;
 
 beforeEach(() => {
-  // global.navigator = {
-  //   userAgent:
-  //     'Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148',
-  // } as Navigator;
+  // nothing to do here, happyDOM is already set up
 });
 
 afterEach(() => {

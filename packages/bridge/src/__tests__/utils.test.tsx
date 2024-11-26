@@ -6,9 +6,11 @@ import { type Mock } from 'vitest';
 afterEach(() => {
   vi.unmock('@portkey/contracts');
 });
+
 vi.mock('@portkey/contracts', () => ({
   getContractBasic: vi.fn(),
 }));
+
 vi.mock('@portkey/did-ui-react', () => ({
   getChainInfo: (c: TChainId) => (!c ? null : {}),
   did: {
@@ -20,11 +22,10 @@ vi.mock('@portkey/did-ui-react', () => ({
   },
   PortkeyProvider: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
-vi.mock('aelf-sdk', () => ({
-  default: {
-    getWallet: () => ({
-      address: '',
-    }),
+
+vi.mock('@portkey/utils', () => ({
+  aelf: {
+    getWallet: vi.fn(),
   },
 }));
 

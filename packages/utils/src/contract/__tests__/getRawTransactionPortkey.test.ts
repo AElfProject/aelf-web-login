@@ -16,10 +16,6 @@ vi.mock('@portkey/utils', () => ({
 }));
 
 describe('getRawTransactionPortkey', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
   it('should return encoded transaction data', async () => {
     const mockContract = {
       encodedTx: vi.fn().mockResolvedValue({ data: 'encodedDataMock' }),

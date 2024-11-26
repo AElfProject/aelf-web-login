@@ -18,6 +18,7 @@ beforeAll(() => {
 
 afterEach(() => {
   cleanup();
+  vi.clearAllMocks();
 });
 
 // https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom

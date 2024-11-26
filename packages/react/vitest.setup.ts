@@ -1,4 +1,4 @@
-import { vi } from 'vitest';
+import { vi, afterEach } from 'vitest';
 import '../tools/__mocks__/setupGlobal';
 import '../tools/__mocks__/setupLocal';
 import { type IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
@@ -19,7 +19,3 @@ vi.mock('@aelf-web-login/wallet-adapter-portkey-aa', () => ({
 }));
 
 vi.mock('vconsole');
-
-afterEach(() => {
-  vi.clearAllMocks();
-});
