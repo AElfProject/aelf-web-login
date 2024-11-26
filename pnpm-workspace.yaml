@@ -1,3 +1,4 @@
+# https://github.com/vitest-dev/vscode/issues/110#issuecomment-1730788166
 packages:
   - 'packages/base'
   - 'packages/starter'
