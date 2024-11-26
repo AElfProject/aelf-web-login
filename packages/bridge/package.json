@@ -29,7 +29,7 @@
     "test": "vitest",
     "test:dev": "pnpm test -- --watch",
     "test:coverage": "pnpm test -- --coverage",
-    "test:debug": "pnpm test -- --detectOpenHandles"
+    "test:ui": "pnpm test:dev --ui"
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
