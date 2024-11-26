@@ -2,7 +2,7 @@ const originalConsoleLog = console.log;
 
 describe('localStorageMock in window', () => {
   beforeEach(() => {
-    console.log = jest.fn();
+    console.log = vi.fn();
     (global as any).window = {};
   });
   afterEach(() => {

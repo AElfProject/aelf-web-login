@@ -23,8 +23,10 @@
   "scripts": {
     "dev": "father dev",
     "build": "father build",
-    "test": "jest --config=jest.config.ts  --detectOpenHandles",
-    "test:coverage": "jest --config=jest.config.ts --coverage --detectOpenHandles"
+    "test": "vitest",
+    "test:dev": "pnpm test -- --watch",
+    "test:coverage": "pnpm test -- --coverage",
+    "test:debug": "pnpm test -- --detectOpenHandles"
   },
   "dependencies": {
     "eventemitter3": "^5.0.1"
