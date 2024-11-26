@@ -34,14 +34,7 @@
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
     "@portkey/did-ui-react": "^2.15.9",
-    "@portkey/types": "^2.15.9",
-    "@types/jest": "^29.5.12",
-    "babel-jest": "^29.7.0",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "jest-junit": "^16.0.0",
-    "jsdom": "^23.0.1",
-    "typescript": "^5.3.3"
+    "@portkey/types": "^2.15.9"
   },
   "peerDependencies": {
     "@portkey/did-ui-react": "^2.15.9"

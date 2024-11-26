@@ -27,6 +27,6 @@
       ],
       "@aelf-web-login/wallet-adapter-night-elf": ["./packages/wallets/night-elf/src"]
     },
-    "types": ["node", "jest", "@testing-library/jest-dom"]
+    "types": ["node", "jest", "@testing-library/jest-dom", "vitest/globals"]
   }
 }

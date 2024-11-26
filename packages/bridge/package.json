@@ -26,7 +26,7 @@
   "scripts": {
     "dev": "father dev",
     "build": "father build",
-    "test": "NODE_OPTIONS='$NODE_OPTIONS --experimental-vm-modules' jest",
+    "test": "vitest",
     "test:dev": "pnpm test -- --watch",
     "test:coverage": "pnpm test -- --coverage",
     "test:debug": "pnpm test -- --detectOpenHandles"
@@ -44,22 +44,10 @@
     "@portkey/did-ui-react": "^2.15.9",
     "@portkey/types": "^2.15.9",
     "@portkey/utils": "^2.15.9",
-    "@babel/core": "^7.24.7",
-    "@babel/preset-env": "^7.24.7",
-    "@babel/preset-react": "^7.24.7",
-    "@babel/preset-typescript": "^7.24.7",
-    "@swc/core": "^1.9.3",
-    "@swc/jest": "^0.2.37",
-    "@testing-library/jest-dom": "^6.5.0",
-    "@testing-library/react": "^16.0.1",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@types/jest": "^29.5.14",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "antd": "4.24.14",
-    "father": "^4.3.8",
-    "jest": "^29.7.0",
-    "typescript": "^5.3.3"
+    "father": "^4.3.8"
   },
   "peerDependencies": {
     "@portkey/did-ui-react": "^2.15.9"

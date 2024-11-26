@@ -1,45 +1,59 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="17" failures="0" errors="0" time="2.076">
-  <testsuite name="useLockCallback Hook" errors="0" failures="0" skipped="0" timestamp="2024-11-25T10:44:44" time="0.907" tests="4">
-    <testcase classname="useLockCallback Hook should execute function and lock" name="useLockCallback Hook should execute function and lock" time="0.108">
-    </testcase>
-    <testcase classname="useLockCallback Hook should prevent concurrent execution" name="useLockCallback Hook should prevent concurrent execution" time="0.102">
-    </testcase>
-    <testcase classname="useLockCallback Hook should allow another execution after previous is finished" name="useLockCallback Hook should allow another execution after previous is finished" time="0.202">
-    </testcase>
-    <testcase classname="useLockCallback Hook should release the lock if the callback throws an error" name="useLockCallback Hook should release the lock if the callback throws an error" time="0.006">
-    </testcase>
-  </testsuite>
-  <testsuite name="useMountSignIn" errors="0" failures="0" skipped="0" timestamp="2024-11-25T10:44:45" time="0.298" tests="2">
-    <testcase classname="useMountSignIn should render the SignInModal and children wrapped in PortkeyProvider" name="useMountSignIn should render the SignInModal and children wrapped in PortkeyProvider" time="0.039">
-    </testcase>
-    <testcase classname="useMountSignIn should memoize the rendered component" name="useMountSignIn should memoize the rendered component" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="getCaContractBase()" errors="0" failures="0" skipped="0" timestamp="2024-11-25T10:44:46" time="0.263" tests="4">
-    <testcase classname="getCaContractBase() should throw error about chain is not running" name="getCaContractBase() should throw error about chain is not running" time="0.001">
-    </testcase>
-    <testcase classname="getCaContractBase() should get back contract base" name="getCaContractBase() should get back contract base" time="0">
-    </testcase>
-    <testcase classname="getIsManagerReadOnly() should throw error about chain is not running" name="getIsManagerReadOnly() should throw error about chain is not running" time="0">
-    </testcase>
-    <testcase classname="getIsManagerReadOnly() should return false" name="getIsManagerReadOnly() should return false" time="0.004">
-    </testcase>
-  </testsuite>
-  <testsuite name="useVerifier" errors="0" failures="0" skipped="0" timestamp="2024-11-25T10:44:46" time="0.056" tests="7">
-    <testcase classname="useVerifier should return getRecommendationVerifier and verifySocialToken functions" name="useVerifier should return getRecommendationVerifier and verifySocialToken functions" time="0.001">
-    </testcase>
-    <testcase classname="useVerifier should call getRecommendationVerifier with correct chainId" name="useVerifier should call getRecommendationVerifier with correct chainId" time="0.001">
-    </testcase>
-    <testcase classname="useVerifier should handle Apple account type correctly" name="useVerifier should handle Apple account type correctly" time="0">
-    </testcase>
-    <testcase classname="useVerifier should handle Google account type correctly" name="useVerifier should handle Google account type correctly" time="0.001">
-    </testcase>
-    <testcase classname="useVerifier should handle Telegram account type correctly" name="useVerifier should handle Telegram account type correctly" time="0.001">
-    </testcase>
-    <testcase classname="useVerifier should throw error for unsupported account type" name="useVerifier should throw error for unsupported account type" time="0.001">
-    </testcase>
-    <testcase classname="useVerifier should throw error if verifier is missing" name="useVerifier should throw error if verifier is missing" time="0.003">
-    </testcase>
-  </testsuite>
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="17" failures="0" errors="0" time="259.781">
+    <testsuite name="src/__tests__/mountApp.test.tsx" timestamp="2024-11-25T15:59:45.425Z" hostname="codespaces-005822" tests="2" failures="0" errors="0" skipped="0" time="0.052664635">
+        <testcase classname="src/__tests__/mountApp.test.tsx" name="useMountSignIn &gt; should render the SignInModal and children wrapped in PortkeyProvider" time="0.041294184">
+        </testcase>
+        <testcase classname="src/__tests__/mountApp.test.tsx" name="useMountSignIn &gt; should memoize the rendered component" time="0.009163869">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/__tests__/useLockCallback.test.ts" timestamp="2024-11-25T15:59:45.434Z" hostname="codespaces-005822" tests="4" failures="0" errors="0" skipped="0" time="0.423559953">
+        <testcase classname="src/__tests__/useLockCallback.test.ts" name="useLockCallback Hook &gt; should execute function and lock" time="0.114030467">
+        </testcase>
+        <testcase classname="src/__tests__/useLockCallback.test.ts" name="useLockCallback Hook &gt; should prevent concurrent execution" time="0.101615411">
+        </testcase>
+        <testcase classname="src/__tests__/useLockCallback.test.ts" name="useLockCallback Hook &gt; should allow another execution after previous is finished" time="0.202202457">
+        </testcase>
+        <testcase classname="src/__tests__/useLockCallback.test.ts" name="useLockCallback Hook &gt; should release the lock if the callback throws an error" time="0.003921104">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/__tests__/useVerifier.test.ts" timestamp="2024-11-25T15:59:45.442Z" hostname="codespaces-005822" tests="7" failures="0" errors="0" skipped="0" time="0.024991089">
+        <testcase classname="src/__tests__/useVerifier.test.ts" name="useVerifier &gt; should return getRecommendationVerifier and verifySocialToken functions" time="0.01251499">
+        </testcase>
+        <testcase classname="src/__tests__/useVerifier.test.ts" name="useVerifier &gt; should call getRecommendationVerifier with correct chainId" time="0.002938669">
+        </testcase>
+        <testcase classname="src/__tests__/useVerifier.test.ts" name="useVerifier &gt; should handle Apple account type correctly" time="0.00210914">
+        </testcase>
+        <testcase classname="src/__tests__/useVerifier.test.ts" name="useVerifier &gt; should handle Google account type correctly" time="0.001019364">
+        </testcase>
+        <testcase classname="src/__tests__/useVerifier.test.ts" name="useVerifier &gt; should handle Telegram account type correctly" time="0.001107559">
+        </testcase>
+        <testcase classname="src/__tests__/useVerifier.test.ts" name="useVerifier &gt; should throw error for unsupported account type" time="0.000851991">
+        </testcase>
+        <testcase classname="src/__tests__/useVerifier.test.ts" name="useVerifier &gt; should throw error if verifier is missing" time="0.000660174">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/__tests__/utils.test.ts" timestamp="2024-11-25T15:59:45.452Z" hostname="codespaces-005822" tests="4" failures="0" errors="0" skipped="0" time="0.01120921">
+        <testcase classname="src/__tests__/utils.test.ts" name="getCaContractBase() &gt; should throw error about chain is not running" time="0.00307823">
+        </testcase>
+        <testcase classname="src/__tests__/utils.test.ts" name="getCaContractBase() &gt; should get back contract base" time="0.001708872">
+        </testcase>
+        <testcase classname="src/__tests__/utils.test.ts" name="getIsManagerReadOnly() &gt; should throw error about chain is not running" time="0.000440193">
+        </testcase>
+        <testcase classname="src/__tests__/utils.test.ts" name="getIsManagerReadOnly() &gt; should return false" time="0.004061136">
+            <system-out>
+intg----getIsManagerReadOnly is fail TypeError: caIns.callViewMethod is not a function
+    at Module.getIsManagerReadOnly [90m(/workspaces/aelf-web-login/packages/bridge/[39msrc/utils.ts:27:28[90m)[39m
+    at [90m/workspaces/aelf-web-login/packages/bridge/[39msrc/__tests__/utils.test.ts:46:15
+    at file:///workspaces/aelf-web-login/node_modules/[4m.pnpm[24m/@vitest+runner@2.1.5/node_modules/[4m@vitest[24m/runner/dist/index.js:533:5
+    at runTest (file:///workspaces/aelf-web-login/node_modules/[4m.pnpm[24m/@vitest+runner@2.1.5/node_modules/[4m@vitest[24m/runner/dist/index.js:1056:11)
+    at runSuite (file:///workspaces/aelf-web-login/node_modules/[4m.pnpm[24m/@vitest+runner@2.1.5/node_modules/[4m@vitest[24m/runner/dist/index.js:1205:15)
+    at runSuite (file:///workspaces/aelf-web-login/node_modules/[4m.pnpm[24m/@vitest+runner@2.1.5/node_modules/[4m@vitest[24m/runner/dist/index.js:1205:15)
+    at runFiles (file:///workspaces/aelf-web-login/node_modules/[4m.pnpm[24m/@vitest+runner@2.1.5/node_modules/[4m@vitest[24m/runner/dist/index.js:1262:5)
+    at startTests (file:///workspaces/aelf-web-login/node_modules/[4m.pnpm[24m/@vitest+runner@2.1.5/node_modules/[4m@vitest[24m/runner/dist/index.js:1271:3)
+    at run (file:///workspaces/aelf-web-login/node_modules/[4m.pnpm[24m/vitest@2.1.5_@types+node@22.9.3_happy-dom@15.11.6_jsdom@23.2.0_less@4.2.0_lightningcss@1.22.1_sass@1.79.3_terser@5.34.0/node_modules/[4mvitest[24m/dist/workers/runVmTests.js:79:7)
+    at runVmTests (file:///workspaces/aelf-web-login/node_modules/[4m.pnpm[24m/vitest@2.1.5_@types+node@22.9.3_happy-dom@15.11.6_jsdom@23.2.0_less@4.2.0_lightningcss@1.22.1_sass@1.79.3_terser@5.34.0/node_modules/[4mvitest[24m/dist/chunks/vm.Zr4qWzDJ.js:834:5)
+
+            </system-out>
+        </testcase>
+    </testsuite>
 </testsuites>
