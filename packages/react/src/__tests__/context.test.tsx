@@ -4,7 +4,7 @@ import config from '../data/config';
 import { IBridgeAPI } from '@aelf-web-login/wallet-adapter-bridge';
 
 const mockBridgeAPI: IBridgeAPI = {
-  getSignIn: jest.fn((children) => children),
+  getSignIn: vi.fn((children) => children),
   store: {
     getState: () => null as unknown as ReturnType<IBridgeAPI['store']['getState']>,
     subscribe: () => null as unknown as ReturnType<IBridgeAPI['store']['subscribe']>,
@@ -14,24 +14,24 @@ const mockBridgeAPI: IBridgeAPI = {
 
 describe('WebLoginProvider', () => {
   it('should render children with provided bridgeAPI', () => {
-    render(
+    const a = render(
       // @ts-expect-error passing invalid props on purpose
       <WebLoginProvider bridgeAPI={mockBridgeAPI}>
-        <div>Test Child</div>
+        <div>with provided bridgeAPI</div>
       </WebLoginProvider>,
     );
-
-    expect(screen.getByText('Test Child')).toBeInTheDocument();
+    a.debug();
+    expect(screen.getByText('with provided bridgeAPI')).toBeInTheDocument();
   });
 
   it('should render children with provided config', () => {
     render(
       <WebLoginProvider config={config}>
-        <div>Test Child</div>
+        <div>with provided config</div>
       </WebLoginProvider>,
     );
 
-    expect(screen.getByText('Test Child')).toBeInTheDocument();
+    expect(screen.getByText('with provided config')).toBeInTheDocument();
   });
 
   it('should return null if no bridgeAPI nor config', () => {

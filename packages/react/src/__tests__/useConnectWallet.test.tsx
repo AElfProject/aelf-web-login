@@ -3,16 +3,14 @@ import useConnectWallet from '../useConnectWallet';
 import { WebLoginProvider } from '../context';
 import config from '../data/config';
 
-jest.mock('../useExternalStore', () => () => ({
-  store: {
-    getState: () => null,
-    subscribe: () => null,
-  },
+vi.mock('../useExternalStore', () => ({
+  default: () => ({
+    store: {
+      getState: () => null,
+      subscribe: () => null,
+    },
+  }),
 }));
-
-beforeEach(() => {
-  jest.clearAllMocks();
-});
 
 const Comp = () => {
   useConnectWallet();
