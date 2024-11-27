@@ -44,7 +44,7 @@ export default defineConfig({
       provider: 'v8',
       exclude: [...exclude, '**/__tests__/*.*'],
       reportsDirectory: './coverage',
-      reporter: [['json', { file: 'coverage-summary.json' }], ['text']],
+      reporter: [['json-summary', { file: 'coverage-summary.json' }], ['text']],
     },
   },
 });
