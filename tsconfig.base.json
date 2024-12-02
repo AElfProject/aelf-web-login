@@ -3,7 +3,8 @@
     "baseUrl": "./",
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
+    "downlevelIteration": true,
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -25,8 +26,10 @@
       "@aelf-web-login/wallet-adapter-portkey-discover": [
         "./packages/wallets/portkey-discover/src"
       ],
-      "@aelf-web-login/wallet-adapter-night-elf": ["./packages/wallets/night-elf/src"]
+      "@aelf-web-login/wallet-adapter-night-elf": ["./packages/wallets/night-elf/src"],
+      "@aelf-web-login/tools": ["./packages/tools"],
+      "~/*": ["./*"]
     },
-    "types": ["node", "jest", "@testing-library/jest-dom"]
+    "types": ["node", "@testing-library/jest-dom", "vitest/globals"]
   }
 }

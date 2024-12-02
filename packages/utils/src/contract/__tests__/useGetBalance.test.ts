@@ -1,16 +1,13 @@
-/** @jest-environment jsdom */
 import { renderHook, act } from '@testing-library/react';
 import { useGetBalance } from '../useGetBalance';
-import { setupJestCanvasMock } from 'jest-canvas-mock';
 
 beforeEach(() => {
-  jest.clearAllMocks();
-  setupJestCanvasMock();
+  vi.clearAllMocks();
 });
 
-jest.mock('@aelf-web-login/wallet-adapter-react', () => ({
-  useConnectWallet: jest.fn(() => ({
-    callViewMethod: jest.fn(),
+vi.mock('@aelf-web-login/wallet-adapter-react', () => ({
+  useConnectWallet: vi.fn(() => ({
+    callViewMethod: vi.fn(),
   })),
 }));
 

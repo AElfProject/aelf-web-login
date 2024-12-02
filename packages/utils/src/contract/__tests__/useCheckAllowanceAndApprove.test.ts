@@ -1,21 +1,20 @@
-/** @jest-environment jsdom */
-
 import { renderHook, act } from '@testing-library/react';
 import { useCheckAllowanceAndApprove } from '../useCheckAllowanceAndApprove';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
-import { TChainId } from '@aelf-web-login/wallet-adapter-base';
+import { type TChainId } from '@aelf-web-login/wallet-adapter-base';
+import { type Mock } from 'vitest';
 
-jest.mock('@aelf-web-login/wallet-adapter-react', () => ({
-  // ...jest.requireActual('@aelf-web-login/wallet-adapter-react'),
-  useConnectWallet: jest.fn(),
+vi.mock('@aelf-web-login/wallet-adapter-react', () => ({
+  // ...vi.requireActual('@aelf-web-login/wallet-adapter-react'),
+  useConnectWallet: vi.fn(),
 }));
 
 describe('useCheckAllowanceAndApprove allowance is little than amount', () => {
-  let mockCallViewMethod: jest.Mock;
-  let mockCallSendMethod: jest.Mock;
+  let mockCallViewMethod: Mock;
+  let mockCallSendMethod: Mock;
 
   beforeEach(() => {
-    mockCallViewMethod = jest.fn((params) => {
+    mockCallViewMethod = vi.fn((params) => {
       switch (params.methodName) {
         case 'GetAllowance':
           return Promise.resolve({
@@ -29,15 +28,15 @@ describe('useCheckAllowanceAndApprove allowance is little than amount', () => {
           return Promise.reject(new Error('Unsupported method'));
       }
     });
-    mockCallSendMethod = jest.fn();
-    (useConnectWallet as jest.Mock).mockReturnValue({
+    mockCallSendMethod = vi.fn();
+    (useConnectWallet as Mock).mockReturnValue({
       callViewMethod: mockCallViewMethod,
       callSendMethod: mockCallSendMethod,
     });
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should correctly call GetAllowance and GetTokenInfo when starting', async () => {
@@ -82,18 +81,18 @@ describe('useCheckAllowanceAndApprove allowance is little than amount', () => {
   });
 
   it('should log and return error when an error occurs', async () => {
-    (mockCallViewMethod as jest.Mock).mockImplementation(() => {
+    (mockCallViewMethod as Mock).mockImplementation(() => {
       throw new Error('failed');
     });
   });
 });
 
 describe('useCheckAllowanceAndApprove allowance is big than amount', () => {
-  let mockCallViewMethod: jest.Mock;
-  let mockCallSendMethod: jest.Mock;
+  let mockCallViewMethod: Mock;
+  let mockCallSendMethod: Mock;
 
   beforeEach(() => {
-    mockCallViewMethod = jest.fn((params) => {
+    mockCallViewMethod = vi.fn((params) => {
       switch (params.methodName) {
         case 'GetAllowance':
           return Promise.resolve({
@@ -111,15 +110,15 @@ describe('useCheckAllowanceAndApprove allowance is big than amount', () => {
           return Promise.reject(new Error('Unsupported method'));
       }
     });
-    mockCallSendMethod = jest.fn();
-    (useConnectWallet as jest.Mock).mockReturnValue({
+    mockCallSendMethod = vi.fn();
+    (useConnectWallet as Mock).mockReturnValue({
       callViewMethod: mockCallViewMethod,
       callSendMethod: mockCallSendMethod,
     });
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should correctly call GetAllowance and GetTokenInfo when starting', async () => {
@@ -152,20 +151,20 @@ describe('useCheckAllowanceAndApprove allowance is big than amount', () => {
 });
 
 describe('useCheckAllowanceAndApprove error occurs', () => {
-  let mockCallViewMethod: jest.Mock;
-  let mockCallSendMethod: jest.Mock;
+  let mockCallViewMethod: Mock;
+  let mockCallSendMethod: Mock;
 
   beforeEach(() => {
-    mockCallViewMethod = jest.fn();
-    mockCallSendMethod = jest.fn();
-    (useConnectWallet as jest.Mock).mockReturnValue({
+    mockCallViewMethod = vi.fn();
+    mockCallSendMethod = vi.fn();
+    (useConnectWallet as Mock).mockReturnValue({
       callViewMethod: mockCallViewMethod,
       callSendMethod: mockCallSendMethod,
     });
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should log and return error when an error occurs', async () => {
@@ -186,7 +185,7 @@ describe('useCheckAllowanceAndApprove error occurs', () => {
         chainId,
       }),
     );
-    (mockCallViewMethod as jest.Mock).mockImplementation(() => {
+    (mockCallViewMethod as Mock).mockImplementation(() => {
       throw new Error('failed');
     });
 

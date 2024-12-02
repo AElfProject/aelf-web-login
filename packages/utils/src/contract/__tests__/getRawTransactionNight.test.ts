@@ -1,20 +1,21 @@
 import { getContractBasic } from '@portkey/contracts';
 import getRawTransactionNight, { CreateTransactionParamsOfNight } from '../getRawTransactionNight';
+import { type Mock } from 'vitest';
 
-jest.mock('@portkey/contracts', () => ({
-  getContractBasic: jest.fn(),
+vi.mock('@portkey/contracts', () => ({
+  getContractBasic: vi.fn(),
 }));
 
 describe('getRawTransactionNight', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should return encoded transaction data', async () => {
     const mockContract = {
-      encodedTx: jest.fn().mockResolvedValue({ data: 'encodedDataMock' }),
+      encodedTx: vi.fn().mockResolvedValue({ data: 'encodedDataMock' }),
     };
-    (getContractBasic as jest.Mock).mockResolvedValue(mockContract);
+    (getContractBasic as Mock).mockResolvedValue(mockContract);
 
     const params: CreateTransactionParamsOfNight = {
       contractAddress: '0xExampleAddress',
@@ -39,7 +40,7 @@ describe('getRawTransactionNight', () => {
   });
 
   it('should handle errors from getContractBasic', async () => {
-    (getContractBasic as jest.Mock).mockRejectedValue(new Error('Failed to get contract'));
+    (getContractBasic as Mock).mockRejectedValue(new Error('Failed to get contract'));
 
     try {
       await getRawTransactionNight({

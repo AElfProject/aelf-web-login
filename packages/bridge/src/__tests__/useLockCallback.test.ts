@@ -3,7 +3,7 @@ import useLockCallback from '../useLockCallback';
 
 describe('useLockCallback Hook', () => {
   it('should execute function and lock', async () => {
-    const mockFn = jest.fn(async () => {
+    const mockFn = vi.fn(async () => {
       await new Promise((res) => setTimeout(res, 100));
       return 'result';
     });
@@ -21,7 +21,7 @@ describe('useLockCallback Hook', () => {
   });
 
   it('should prevent concurrent execution', async () => {
-    const mockFn = jest.fn(async () => {
+    const mockFn = vi.fn(async () => {
       await new Promise((res) => setTimeout(res, 100));
     });
 
@@ -40,7 +40,7 @@ describe('useLockCallback Hook', () => {
   });
 
   it('should allow another execution after previous is finished', async () => {
-    const mockFn = jest.fn(async () => {
+    const mockFn = vi.fn(async () => {
       await new Promise((res) => setTimeout(res, 100));
       return 'success';
     });
@@ -66,7 +66,7 @@ describe('useLockCallback Hook', () => {
   });
 
   it('should release the lock if the callback throws an error', async () => {
-    const mockFn = jest.fn(async () => {
+    const mockFn = vi.fn(async () => {
       throw new Error('Test error');
     });
 

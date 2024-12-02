@@ -4,25 +4,25 @@ import { did, ConfigProvider, useVerifyToken, IVerifier } from '@portkey/did-ui-
 import { TChainId } from '@aelf-web-login/wallet-adapter-base';
 import { OperationTypeEnum } from '@portkey/services';
 
-jest.mock('@portkey/did-ui-react', () => ({
+vi.mock('@portkey/did-ui-react', () => ({
   did: {
     services: {
-      getRecommendationVerifier: jest.fn(),
+      getRecommendationVerifier: vi.fn(),
     },
   },
   ConfigProvider: {
-    getSocialLoginConfig: jest.fn(),
+    getSocialLoginConfig: vi.fn(),
   },
-  useVerifyToken: jest.fn(),
+  useVerifyToken: vi.fn(),
 }));
 
-jest.mock('@aelf-web-login/wallet-adapter-base', () => ({
+vi.mock('@aelf-web-login/wallet-adapter-base', () => ({
   TChainId: {
     AELF: 'AELF',
   },
 }));
 
-jest.mock('@portkey/services', () => ({
+vi.mock('@portkey/services', () => ({
   AccountType: {
     Apple: 'Apple',
     Google: 'Google',
@@ -34,29 +34,29 @@ jest.mock('@portkey/services', () => ({
 }));
 
 describe('useVerifier', () => {
-  const mockVerifyToken = jest.fn();
-  const mockGetRecommendationVerifier = jest.fn();
+  const mockVerifyToken = vi.fn();
+  const mockGetRecommendationVerifier = vi.fn();
   const mockSocialLoginConfig = {
     Apple: {
       clientId: 'apple-client-id',
       redirectURI: 'apple-redirect-uri',
-      customLoginHandler: jest.fn(),
+      customLoginHandler: vi.fn(),
     },
     Google: {
       clientId: 'google-client-id',
-      customLoginHandler: jest.fn(),
+      customLoginHandler: vi.fn(),
     },
     Telegram: {
-      customLoginHandler: jest.fn(),
+      customLoginHandler: vi.fn(),
     },
   };
 
   beforeEach(() => {
-    (did.services.getRecommendationVerifier as jest.Mock).mockReturnValue(
+    (did.services.getRecommendationVerifier as vi.Mock).mockReturnValue(
       mockGetRecommendationVerifier,
     );
-    (ConfigProvider.getSocialLoginConfig as jest.Mock).mockReturnValue(mockSocialLoginConfig);
-    (useVerifyToken as jest.Mock).mockReturnValue(mockVerifyToken);
+    (ConfigProvider.getSocialLoginConfig as vi.Mock).mockReturnValue(mockSocialLoginConfig);
+    (useVerifyToken as vi.Mock).mockReturnValue(mockVerifyToken);
   });
 
   it('should return getRecommendationVerifier and verifySocialToken functions', () => {

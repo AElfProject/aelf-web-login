@@ -23,10 +23,10 @@
   "scripts": {
     "dev": "father dev",
     "build": "father build",
-    "test": "NODE_OPTIONS='$NODE_OPTIONS --experimental-vm-modules' jest",
+    "test": "vitest",
     "test:dev": "pnpm test -- --watch",
     "test:coverage": "pnpm test -- --coverage",
-    "test:debug": "pnpm test -- --detectOpenHandles"
+    "test:ui": "pnpm test:dev --ui"
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
@@ -40,19 +40,9 @@
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
-    "@testing-library/jest-dom": "^6.4.6",
-    "@testing-library/react": "^16.0.0",
-    "@types/jest": "^29.5.13",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
-    "babel-jest": "^29.7.0",
-    "father": "^4.3.8",
-    "jest": "^29.7.0",
-    "jest-junit": "^16.0.0",
-    "node-fetch": "^3.3.2",
-    "react-test-renderer": "^18.3.1",
-    "ts-jest": "^29.2.5",
-    "typescript": "^5.3.3"
+    "father": "^4.3.8"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

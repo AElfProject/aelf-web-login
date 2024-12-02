@@ -1,18 +1,21 @@
+import { type Mock } from 'vitest';
 import { decodeAddress } from '../decodeAddress';
 import AElf from 'aelf-sdk';
 
 // Mock AElf.utils.decodeAddressRep to avoid actual decoding during tests
-jest.mock('aelf-sdk', () => {
+vi.mock('aelf-sdk', () => {
   return {
-    utils: {
-      decodeAddressRep: jest.fn(),
+    default: {
+      utils: {
+        decodeAddressRep: vi.fn(),
+      },
     },
   };
 });
 
 describe('decodeAddress', () => {
   beforeEach(() => {
-    (AElf.utils.decodeAddressRep as jest.Mock).mockClear();
+    (AElf.utils.decodeAddressRep as Mock).mockClear();
   });
 
   it('should return false when address is empty', () => {
@@ -38,7 +41,7 @@ describe('decodeAddress', () => {
   });
 
   it('should return false when AElf.utils.decodeAddressRep throws an error', () => {
-    (AElf.utils.decodeAddressRep as jest.Mock).mockImplementation(() => {
+    (AElf.utils.decodeAddressRep as Mock).mockImplementation(() => {
       throw new Error('Decoding failed');
     });
     expect(decodeAddress('validAddress')).toBe(false);

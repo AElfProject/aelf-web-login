@@ -1,6 +1,4 @@
-/** @jest-environment jsdom */
 import { screen, waitFor, act } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { Loading } from '../Loading';
 
 describe('Loading class', () => {
@@ -11,7 +9,7 @@ describe('Loading class', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     document.body.innerHTML = '';
   });
 
