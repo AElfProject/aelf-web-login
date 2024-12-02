@@ -29,7 +29,7 @@ import detectDiscoverProvider from './detectProvider';
 import checkSignatureParams from './signatureParams';
 import { zeroFill, openPageInDiscover } from './utils';
 
-const { isPortkeyApp, isMobile } = utils;
+const { isPortkeyApp, isMobileDevices } = utils;
 
 type TDiscoverEventsKeys = Array<Exclude<DappEvents, 'connected' | 'message' | 'error'>>;
 
@@ -168,7 +168,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
   }
 
   async login(): Promise<TWalletInfo> {
-    if (isMobile() && !isPortkeyApp()) {
+    if (isMobileDevices() && !isPortkeyApp()) {
       openPageInDiscover(undefined, undefined);
       return;
     }

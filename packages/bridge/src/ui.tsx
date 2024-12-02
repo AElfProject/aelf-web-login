@@ -76,14 +76,14 @@ interface ISignInModalProps {
   wallets: WalletAdapter[];
   baseConfig: IBaseConfig;
 }
-const { isMobile } = utils;
+const { isMobileDevices } = utils;
 
 const ConfirmLogoutDialog = (props: Partial<IConfirmLogoutDialogProps>) => {
   const { title, subTitle, okTxt, cancelTxt, visible, onOk, onCancel, width, mobileWidth } = {
     ...defaultProps,
     ...props,
   };
-  const isMobileDevice = isMobile();
+  const isMobileDevice = isMobileDevices();
 
   return (
     <Modal
@@ -160,7 +160,7 @@ const NestedModal = ({
   design,
   bridgeInstance,
 }: INestedModalProps) => {
-  const isMobileDevice = isMobile();
+  const isMobileDevice = isMobileDevices();
   const isWeb2Design = design === 'Web2Design';
 
   const validWalletList = validWallets.map((wallet) => {
@@ -250,7 +250,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   const guardianList = JSON.parse(enhancedLocalStorage.getItem(GUARDIAN_LIST_FOR_LOGIN) || '[]');
 
   const filteredWallets = wallets.filter((ele) => ele.name !== PORTKEYAA);
-  const isMobileDevice = isMobile();
+  const isMobileDevice = isMobileDevices();
   const {
     noCommonBaseModal = false,
     SignInComponent,

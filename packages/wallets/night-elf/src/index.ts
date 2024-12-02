@@ -79,7 +79,7 @@ export class NightElfWallet extends BaseWalletAdapter {
   }
 
   async login(): Promise<TWalletInfo> {
-    const { isMobile } = utils;
+    const { isMobileDevices } = utils;
     try {
       this._loginState = LoginStateEnum.CONNECTING;
       const nodes = this._config.nodes;
@@ -91,7 +91,7 @@ export class NightElfWallet extends BaseWalletAdapter {
       const result = await bridge.login({ chainId: node.chainId, payload: { method: 'LOGIN' } });
       if (result.error) throw result.errorMessage || result;
 
-      if (isMobile()) {
+      if (isMobileDevices()) {
         bridge?.connect!();
       } else {
         await Promise.all(Object.values(bridges).map((i) => i.chain.getChainStatus()));

@@ -5,11 +5,11 @@ import AelfBridgeCheck from './AelfBridgeCheck';
 import NightElfCheck from './NightElfCheck';
 
 export const getBridges = async (nodes: INightElfWalletAdapterConfig['nodes'], appName: string) => {
-  const { isMobile } = utils;
+  const { isMobileDevices } = utils;
   try {
-    const isAElfBridge = isMobile() && !(window as any)?.NightElf;
+    const isAElfBridge = isMobileDevices() && !(window as any)?.NightElf;
     console.log('aelf-wallet-debug----------1');
-    console.log(`isMobile(): ${isMobile()}`);
+    console.log(`isMobileDevices(): ${isMobileDevices()}`);
     console.log(`(window as any)?.NightElf: ${(window as any)?.NightElf}`);
 
     const connector = (
