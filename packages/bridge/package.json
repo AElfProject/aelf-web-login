@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
-    "@aelf-web-login/tools": "workspace:*",
     "@portkey/contracts": "^2.15.9",
     "@portkey/services": "^2.15.9",
     "@reduxjs/toolkit": "^2.2.3",

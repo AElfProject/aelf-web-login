@@ -3,6 +3,7 @@ import useVerifier from '../useVerifier';
 import { did, ConfigProvider, useVerifyToken, IVerifier } from '@portkey/did-ui-react';
 import { TChainId } from '@aelf-web-login/wallet-adapter-base';
 import { OperationTypeEnum } from '@portkey/services';
+import type { Mock } from 'vitest';
 
 vi.mock('@portkey/did-ui-react', () => ({
   did: {
@@ -52,11 +53,9 @@ describe('useVerifier', () => {
   };
 
   beforeEach(() => {
-    (did.services.getRecommendationVerifier as vi.Mock).mockReturnValue(
-      mockGetRecommendationVerifier,
-    );
-    (ConfigProvider.getSocialLoginConfig as vi.Mock).mockReturnValue(mockSocialLoginConfig);
-    (useVerifyToken as vi.Mock).mockReturnValue(mockVerifyToken);
+    (did.services.getRecommendationVerifier as Mock).mockReturnValue(mockGetRecommendationVerifier);
+    (ConfigProvider.getSocialLoginConfig as Mock).mockReturnValue(mockSocialLoginConfig);
+    (useVerifyToken as Mock).mockReturnValue(mockVerifyToken);
   });
 
   it('should return getRecommendationVerifier and verifySocialToken functions', () => {
