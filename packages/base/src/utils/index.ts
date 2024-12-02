@@ -1,9 +1,9 @@
-import { isMobile } from './isMobile';
+import { isMobileDevices } from './isMobile';
 import { getOriginalAddress } from './getOriginalAddress';
 import { isPortkeyApp } from './isPortkeyApp';
 import { sleep } from './sleep';
 export default {
-  isMobile,
+  isMobileDevices,
   getOriginalAddress,
   isPortkeyApp,
   sleep,
