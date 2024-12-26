@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, message, Divider, Flex } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 // import { demoFn } from '@aelf-web-login/wallet-adapter-bridge';
@@ -45,6 +45,8 @@ const LoginDemo: React.FC = () => {
     console.log('log after execute disConnectWallet', rs);
   };
 
+  const [showAssets, setShowAssets] = useState<boolean>();
+
   return (
     <div>
       <Flex gap={'small'}>
@@ -81,6 +83,7 @@ const LoginDemo: React.FC = () => {
       </div>
       <div>walletType:{walletType}</div>
       <Divider />
+      <Button onClick={() => setShowAssets(true)}>show Assets</Button>
     </div>
   );
 };

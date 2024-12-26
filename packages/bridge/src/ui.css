@@ -2,17 +2,21 @@
   margin: 40px 0 12px 0;
 }
 .aelf-web-logout-dialog-title {
-  text-align: center;
+  text-align: left;
   font-size: 24px;
   line-height: 32px;
   font-weight: bold;
+  color: var(--sds-color-text-default-default);
+}
+.aelf-web-extra-wallets-wrapper-social .aelf-web-logout-dialog-title {
+  text-align: center;
 }
 .aelf-web-logout-dialog-sub-title {
   text-align: center;
   font-size: 16px;
   line-height: 24px;
 }
-.aelf-web-logout-dialog-mt-12{
+.aelf-web-logout-dialog-mt-12 {
   margin-top: 12px;
 }
 .aelf-web-logout-dialog-btn-wrap {
@@ -23,7 +27,7 @@
 .aelf-web-logout-dialog-btn-wrap button:first-child {
   margin-bottom: 12px;
 }
-.aelf-web-logout-dialog-btn-wrap button{
+.aelf-web-logout-dialog-btn-wrap button {
   height: 40px;
 }
 
@@ -50,15 +54,18 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 24px;
-  border: 1px solid #c5cbd5;
-  background: #fff;
+  font-size: 16px;
+  border: 1.5px solid var(--sds-color-border-neutral-secondary) !important;
+  background: transparent;
   cursor: pointer;
 }
 .web2-extra-wallets {
-  border-radius: 4px;
+  border-radius: 24px;
 }
 .crypto-extra-wallets-left {
-  color: #515a62;
+  color: var(--sds-color-text-default-default);
+  line-height: 100%;
+  font-weight: 600;
 }
 .crypto-extra-image {
   display: flex;
@@ -86,7 +93,7 @@
   user-select: none;
   border-radius: 4px;
   border: 1px solid #c5cbd5;
-  background: #fff;
+  background: transparent;
 }
 .social-design-wallets {
   display: flex;
@@ -105,11 +112,17 @@
   height: 100%;
 }
 .nested-title {
-  text-align: center;
+  text-align: left;
 }
 .nested-title-12 {
   padding: 12px;
   text-align: center;
+}
+.nested-header {
+  margin-bottom: 16px;
+}
+.aelf-web-logout-dialog-title {
+  padding-bottom: 8px;
 }
 .nested-left-icon {
   cursor: pointer;
@@ -124,45 +137,84 @@
   cursor: pointer;
 }
 .nested-entry-wrapper {
-  display: flex;
-  gap: 24px;
-  justify-content: center;
-  padding: 36px 60px;
+  display: grid;
+  grid-template-columns: repeat(1fr);
+  gap: 16px;
+  padding: 16px 0;
 }
 .nested-entry-wrapper-mobile {
   padding-top: 24px;
 }
+.social-design-wallet-wrapper,
 .nested-wallet-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 8px;
-  flex: 1;
   cursor: pointer;
+  display: flex;
+  padding: 16px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: var(--sds-size-space-200);
+  align-self: stretch;
+  border-radius: 28px;
+  border: var(--Stroke-Border-Medium, 1.5px) solid var(--sds-color-border-neutral-secondary);
 }
 .nested-wallet-wrapper:hover > span {
   color: #5b8ef4;
 }
+.social-design-wallet-wrapper > img,
 .nested-wallet-wrapper > img {
-  width: 48px;
-  height: 48px;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
 }
 .nested-drawer-title-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.unlock-footer-text{
-  color: #55585E;
+.unlock-footer-text {
+  color: #55585e;
   font-size: 14px;
   font-weight: 400;
   text-align: center;
   line-height: 20px;
   margin-left: 14px;
   margin-right: 14px;
-  .unlock-footer-text-href{
-    color: #5D42FF;
-    padding: 0 4px;
-    cursor: pointer;
-  }
+}
+
+.unlock-footer-text .unlock-footer-text-href {
+  color: #5d42ff;
+  padding: 0 4px;
+  cursor: pointer;
+}
+
+.nested-connect-modal .portkey-ant-modal-content {
+  padding: 16px;
+}
+
+.nested-connect-modal.portkey-ant-modal-wrap .portkey-ant-modal-header {
+  margin: 0;
+}
+
+.nested-wallet-connect-text {
+  color: var(--sds-color-text-default-default);
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+.nested-wallet-connect-text:hover {
+  color: var(--portkey-ant-primary-color-hover);
+}
+
+.aelf-web-conntect-drawer {
+  padding: 0 16px;
+}
+
+.aelf-web-conntect-drawer .portkey-ant-drawer-header {
+  /* display: none; */
+  padding: 6px 0;
+  height: 15px;
+  border: none;
 }

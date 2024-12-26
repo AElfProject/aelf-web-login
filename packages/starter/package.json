@@ -54,7 +54,7 @@
     "@aelf-web-login/wallet-adapter-portkey-aa": "workspace:*",
     "@aelf-web-login/wallet-adapter-portkey-discover": "workspace:*",
     "@aelf-web-login/wallet-adapter-react": "workspace:*",
-    "@portkey/did-ui-react": "^2.15.9",
+    "@portkey/did-ui-react": "^2.17.1",
     "aelf-sdk": "^3.4.16-alpha.7",
     "flatted": "^3.3.1",
     "react": "^18.0.0",

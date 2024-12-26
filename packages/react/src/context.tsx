@@ -1,6 +1,7 @@
 import { IBridgeAPI, IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
 import React, { useMemo } from 'react';
 import init from './init';
+import { ETRANSFER_CONFIG } from './constants/config';
 
 const HOOK_ERROR_MESSAGE =
   'Must call the provided initialization method`init` method before using hooks.';
@@ -35,9 +36,17 @@ export const WebLoginProvider: React.FC<IWebLoginProviderProps> = ({
   bridgeAPI,
   config,
 }) => {
+  const networkType = config.baseConfig.networkType || 'MAINNET';
+  const _config = useMemo(
+    () => ({
+      ...ETRANSFER_CONFIG[networkType],
+      ...config,
+    }),
+    [config, networkType],
+  );
   const finalBridgeAPI: IBridgeAPI | undefined = useMemo(
-    () => bridgeAPI || (config ? init(config) : undefined),
-    [bridgeAPI, config],
+    () => bridgeAPI || init(_config),
+    [_config, bridgeAPI],
   );
 
   if (!finalBridgeAPI) {
