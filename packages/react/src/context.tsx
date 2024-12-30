@@ -2,6 +2,7 @@ import { IBridgeAPI, IConfigProps } from '@aelf-web-login/wallet-adapter-bridge'
 import React, { useMemo } from 'react';
 import init from './init';
 import { ETRANSFER_CONFIG } from './constants/config';
+import Updater from './hooks/Updater';
 
 const HOOK_ERROR_MESSAGE =
   'Must call the provided initialization method`init` method before using hooks.';
@@ -56,6 +57,7 @@ export const WebLoginProvider: React.FC<IWebLoginProviderProps> = ({
 
   return (
     <WebLoginContext.Provider value={finalBridgeAPI}>
+      <Updater />
       {getSignIn(children)}
     </WebLoginContext.Provider>
   );

@@ -1,9 +1,9 @@
 .aelf-web-logout-dialog-title-wrap {
-  margin: 40px 0 12px 0;
+  margin: 12px 0;
 }
 .aelf-web-logout-dialog-title {
   text-align: left;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 32px;
   font-weight: bold;
   color: var(--sds-color-text-default-default);
@@ -12,23 +12,54 @@
   text-align: center;
 }
 .aelf-web-logout-dialog-sub-title {
-  text-align: center;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 140%;
+  color: var(--sds-color-text-default-default);
 }
 .aelf-web-logout-dialog-mt-12 {
   margin-top: 12px;
 }
 .aelf-web-logout-dialog-btn-wrap {
   display: flex;
-  flex-direction: column;
-  padding: 24px 0;
+  padding: 8px 0 0;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
 }
-.aelf-web-logout-dialog-btn-wrap button:first-child {
-  margin-bottom: 12px;
-}
+
 .aelf-web-logout-dialog-btn-wrap button {
-  height: 40px;
+  height: 48px;
+  flex: 1;
+  border-radius: 999px;
+  font-size: 16px;
+}
+
+.aelf-web-logout-dialog-btn-wrap button:first-child {
+  border: 1.5px solid var(--sds-color-border-neutral-secondary);
+}
+
+.aelf-web-logout-dialog-btn-wrap button:first-child:hover,
+.aelf-web-logout-dialog-btn-wrap button:first-child:active {
+  color: var(--sds-color-text-brand-on-brand);
+  border-color: var(--sds-color-border-neutral-secondary) !important;
+}
+
+.aelf-web-logout-dialog-btn-wrap button:last-child {
+  border: none;
+  background: var(--sds-color-background-danger-default) !important;
+  color: var(--sds-color-text-danger-on-danger) !important;
+}
+
+.aelf-web-logout-dialog-btn-wrap button:last-child span {
+  color: var(--sds-color-text-danger-on-danger) !important;
+}
+
+.aelf-web-logout-dialog-btn-wrap button:last-child:hover,
+.aelf-web-logout-dialog-btn-wrap button:last-child:active {
+  background: var(--sds-color-background-danger-hover) !important;
+}
+.aelf-web-logout-dialog-btn-wrap button span {
+  color: var(--sds-color-text-default-default);
 }
 
 .aelf-web-extra-wallets-wrapper-crypto {
@@ -69,7 +100,8 @@
 }
 .crypto-extra-image {
   display: flex;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   gap: 12px;
   justify-content: flex-end;
 }
@@ -123,6 +155,9 @@
 }
 .aelf-web-logout-dialog-title {
   padding-bottom: 8px;
+}
+.aelf-web-logout-dialog-title.aelf-web-logout-dialog-title-text {
+  padding: 0;
 }
 .nested-left-icon {
   cursor: pointer;
@@ -217,4 +252,39 @@
   padding: 6px 0;
   height: 15px;
   border: none;
+}
+
+.portkey-ui-common-modals.sign-out-confirm-modal .portkey-ant-modal-content {
+  padding: 16px;
+}
+
+.portkey-ui-common-modals.sign-out-confirm-modal .portkey-ui-close-icon {
+  display: none;
+}
+
+.portkey-ui-common-modals.sign-out-confirm-modal .confirm-tip-icon svg path {
+  fill: var(--sds-color-icon-default-default);
+}
+
+.portkey-ui-common-modals.sign-out-confirm-modal .portkey-ant-drawer-body {
+  padding: 16px;
+}
+
+.portkey-ui-common-modals.sign-out-confirm-modal .portkey-ant-drawer-content {
+  border-radius: 0;
+}
+
+.portkey-ui-common-modals.sign-out-confirm-modal
+  .portkey-ant-drawer-content
+  .aelf-web-logout-dialog-btn-wrap {
+  padding-top: 24px;
+  padding-bottom: 32px;
+}
+
+.aelf-web-logout-dialog-header .light-close.close-icon svg path {
+  stroke: var(--sds-color-icon-default-default);
+}
+
+.aelf-web-logout-dialog-header .dark-close.close-icon svg path {
+  stroke: var(--sds-color-icon-default-default);
 }

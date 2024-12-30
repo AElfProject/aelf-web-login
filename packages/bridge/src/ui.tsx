@@ -21,10 +21,12 @@ import {
   getOperationDetails,
   ConfigProvider,
   Theme,
+  CommonModal,
+  CustomSvg,
 } from '@portkey/did-ui-react';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import { IBaseConfig } from '.';
-import { Modal, Button, Typography, Drawer } from 'antd';
+import { Modal, Button, Drawer, theme } from 'antd';
 import useTelegram from './useTelegram';
 import './ui.css';
 import { EE, SET_GUARDIAN_APPROVAL_MODAL } from './utils';
@@ -32,6 +34,8 @@ import { EE, SET_GUARDIAN_APPROVAL_MODAL } from './utils';
 export interface IConfirmLogoutDialogProps {
   title: string;
   subTitle: string[];
+  tipIcon?: string;
+  sdkTheme: Theme;
   okTxt: string;
   cancelTxt: string;
   visible: boolean;
@@ -74,18 +78,22 @@ const getWalletName = (name: string) => {
   }
 };
 
+const darkTipIcon =
+  'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTE2IDIyLjY2N2MuMzc4IDAgLjY5NC0uMTI4Ljk1LS4zODNhMS4yOSAxLjI5IDAgMCAwIC4zODMtLjk1IDEuMjkgMS4yOSAwIDAgMC0uMzgzLS45NUExLjI5IDEuMjkgMCAwIDAgMTYgMjBhMS4yOSAxLjI5IDAgMCAwLS45NS4zODQgMS4yOSAxLjI5IDAgMCAwLS4zODQuOTVjMCAuMzc3LjEyOC42OTQuMzg0Ljk1LjI1NS4yNTUuNTcyLjM4My45NS4zODNabTAtNS4zMzNjLjM3OCAwIC42OTQtLjEyOC45NS0uMzg0YTEuMjkgMS4yOSAwIDAgMCAuMzgzLS45NXYtNS4zMzNhMS4yOSAxLjI5IDAgMCAwLS4zODMtLjk1IDEuMjkgMS4yOSAwIDAgMC0uOTUtLjM4MyAxLjI5IDEuMjkgMCAwIDAtLjk1LjM4MyAxLjI5IDEuMjkgMCAwIDAtLjM4NC45NVYxNmMwIC4zNzguMTI4LjY5NS4zODQuOTUuMjU1LjI1Ni41NzIuMzg0Ljk1LjM4NFptMCAxMmMtMS44NDUgMC0zLjU3OC0uMzUtNS4yLTEuMDVhMTMuNDY1IDEzLjQ2NSAwIDAgMS00LjIzNC0yLjg1Yy0xLjItMS4yLTIuMTUtMi42MTEtMi44NS00LjIzNC0uNy0xLjYyMi0xLjA1LTMuMzU1LTEuMDUtNS4yIDAtMS44NDQuMzUtMy41NzggMS4wNS01LjIuNy0xLjYyMiAxLjY1LTMuMDMzIDIuODUtNC4yMzMgMS4yLTEuMiAyLjYxMi0yLjE1IDQuMjM0LTIuODUgMS42MjItLjcgMy4zNTUtMS4wNSA1LjItMS4wNSAxLjg0NCAwIDMuNTc4LjM1IDUuMiAxLjA1IDEuNjIyLjcgMy4wMzMgMS42NSA0LjIzMyAyLjg1IDEuMiAxLjIgMi4xNSAyLjYxMSAyLjg1IDQuMjMzLjcgMS42MjIgMS4wNSAzLjM1NiAxLjA1IDUuMiAwIDEuODQ1LS4zNSAzLjU3OC0xLjA1IDUuMmExMy40NjUgMTMuNDY1IDAgMCAxLTIuODUgNC4yMzRjLTEuMiAxLjItMi42MSAyLjE1LTQuMjMzIDIuODUtMS42MjIuNy0zLjM1NiAxLjA1LTUuMiAxLjA1WiIvPjwvc3ZnPg==';
+const lightTipIcon =
+  'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iIzFGMUYyMSIgZD0iTTE2IDIyLjY2N2MuMzc4IDAgLjY5NS0uMTI4Ljk1LS4zODRhMS4yOSAxLjI5IDAgMCAwIC4zODMtLjk1IDEuMjkgMS4yOSAwIDAgMC0uMzgzLS45NUExLjI5IDEuMjkgMCAwIDAgMTYgMjBhMS4yOSAxLjI5IDAgMCAwLS45NS4zODMgMS4yOSAxLjI5IDAgMCAwLS4zODMuOTVjMCAuMzc4LjEyNy42OTUuMzgzLjk1LjI1Ni4yNTYuNTcyLjM4NC45NS4zODRabTAtNS4zMzRjLjM3OCAwIC42OTUtLjEyNy45NS0uMzgzYTEuMjkgMS4yOSAwIDAgMCAuMzgzLS45NXYtNS4zMzNhMS4yOSAxLjI5IDAgMCAwLS4zODMtLjk1IDEuMjkgMS4yOSAwIDAgMC0uOTUtLjM4NCAxLjI5IDEuMjkgMCAwIDAtLjk1LjM4NCAxLjI5IDEuMjkgMCAwIDAtLjM4My45NVYxNmMwIC4zNzguMTI3LjY5NS4zODMuOTUuMjU2LjI1Ni41NzIuMzgzLjk1LjM4M1ptMCAxMmMtMS44NDQgMC0zLjU3OC0uMzUtNS4yLTEuMDVhMTMuNDY1IDEzLjQ2NSAwIDAgMS00LjIzMy0yLjg1Yy0xLjItMS4yLTIuMTUtMi42MS0yLjg1LTQuMjMzLS43LTEuNjIyLTEuMDUtMy4zNTYtMS4wNS01LjIgMC0xLjg0NC4zNS0zLjU3OCAxLjA1LTUuMi43LTEuNjIyIDEuNjUtMy4wMzMgMi44NS00LjIzMyAxLjItMS4yIDIuNjEtMi4xNSA0LjIzMy0yLjg1IDEuNjIyLS43IDMuMzU2LTEuMDUgNS4yLTEuMDUgMS44NDUgMCAzLjU3OC4zNSA1LjIgMS4wNSAxLjYyMi43IDMuMDMzIDEuNjUgNC4yMzMgMi44NSAxLjIgMS4yIDIuMTUgMi42MSAyLjg1IDQuMjMzLjcgMS42MjIgMS4wNSAzLjM1NiAxLjA1IDUuMiAwIDEuODQ0LS4zNSAzLjU3OC0xLjA1IDUuMmExMy40NjUgMTMuNDY1IDAgMCAxLTIuODUgNC4yMzNjLTEuMiAxLjItMi42MSAyLjE1LTQuMjMzIDIuODUtMS42MjIuNy0zLjM1NSAxLjA1LTUuMiAxLjA1WiIvPjwvc3ZnPg==';
+
 const defaultProps: Partial<IConfirmLogoutDialogProps> = {
-  title: 'Are you sure you want to exit your wallet?',
+  title: 'Confirm sign out',
   subTitle: [
-    'Your current wallet and assets will be removed from this app permanently. This action cannot be undone.',
-    'You can ONLY recover this wallet with your guardians.',
+    'Your assets will remain safe in your account and accessible next time you log in via social recovery.',
   ],
-  okTxt: 'I Understand, Confirm Exit',
+  okTxt: 'Sign out',
   cancelTxt: 'Cancel',
   visible: false,
   onOk: () => void 0,
   onCancel: () => void 0,
-  width: 430,
+  width: 400,
   mobileWidth: 343,
 };
 
@@ -97,46 +105,57 @@ interface ISignInModalProps {
 const { isMobileDevices } = utils;
 
 const ConfirmLogoutDialog = (props: Partial<IConfirmLogoutDialogProps>) => {
-  const { title, subTitle, okTxt, cancelTxt, visible, onOk, onCancel, width, mobileWidth } = {
+  const { title, subTitle, okTxt, cancelTxt, visible, onOk, onCancel, width, tipIcon, sdkTheme } = {
     ...defaultProps,
     ...props,
   };
-  const isMobileDevice = isMobileDevices();
-
   return (
-    <Modal
+    <CommonModal
+      className="sign-out-confirm-modal"
       footer={null}
       open={visible}
-      width={isMobileDevice ? mobileWidth : width}
-      onCancel={onCancel}
+      zIndex={10011}
+      width={width}
+      closable={false}
+      onClose={onCancel}
     >
       <>
         <div>
+          <div className="aelf-web-logout-dialog-header portkey-ui-flex portkey-ui-flex-between-center">
+            {tipIcon && <img src={tipIcon} />}
+            {!tipIcon && <img src={sdkTheme === 'dark' ? darkTipIcon : lightTipIcon} />}
+
+            <CustomSvg
+              type="Close"
+              className={sdkTheme === 'dark' ? 'dark-close' : 'light-close'}
+              style={{ width: 20, height: 20 }}
+              onClick={onCancel}
+            />
+          </div>
           <div className="aelf-web-logout-dialog-title-wrap">
-            <div className="aelf-web-logout-dialog-title">{title}</div>
+            <div className="aelf-web-logout-dialog-title aelf-web-logout-dialog-title-text">
+              {title}
+            </div>
           </div>
 
           <div>
             {subTitle?.map((t) => (
-              <div
-                key={t}
-                className="aelf-web-logout-dialog-sub-title aelf-web-logout-dialog-mt-12"
-              >
+              <div key={t} className="aelf-web-logout-dialog-sub-title">
                 {t}
               </div>
             ))}
           </div>
         </div>
         <div className="aelf-web-logout-dialog-btn-wrap">
-          <Button type="primary" danger onClick={onOk}>
-            {okTxt}
-          </Button>
           <Button type="primary" ghost onClick={onCancel}>
             {cancelTxt}
           </Button>
+          <Button type="primary" danger onClick={onOk}>
+            {okTxt}
+          </Button>
         </div>
       </>
-    </Modal>
+    </CommonModal>
   );
 };
 
@@ -495,16 +514,14 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
       return (
         <>
           <div className="aelf-web-extra-wallets-wrapper-crypto">
-            {/* <Typography.Text className="crypto-wallets-title">Crypto wallet</Typography.Text> */}
+            {/* <div className="crypto-wallets-title">Crypto wallet</div> */}
             <div
               className={`crypto-extra-wallets ${baseConfig.design === 'Web2Design' && 'web2-extra-wallets'}`}
               onClick={() => {
                 setIsShowNestedModal(true);
               }}
             >
-              <Typography.Text className="crypto-extra-wallets-left">
-                {constant.connectWallet}
-              </Typography.Text>
+              <div className="crypto-extra-wallets-left">{constant.connectWallet}</div>
               <div className="crypto-extra-image">
                 {filteredWallets.map((item) => (
                   <img
@@ -627,6 +644,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
       )}
 
       <FinalConfirmLogoutDialog
+        sdkTheme={PortkeyProviderProps?.theme}
         visible={isShowConfirmLogoutPanel}
         onOk={confirmLogoutHandler}
         onCancel={cancelLogoutHandler}

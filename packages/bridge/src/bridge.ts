@@ -368,7 +368,7 @@ class Bridge {
 
   checkLoginStatus = async () => {
     if (!this.isAAWallet) {
-      return;
+      return LoginStatusEnum.SUCCESS;
     }
     if (did.didWallet.isLoginStatus === LoginStatusEnum.INIT) {
       const { walletInfo } = store.getState();
@@ -381,6 +381,7 @@ class Bridge {
         walletInfo?.extraInfo?.portkeyInfo?.appName,
       );
     }
+    return did.didWallet.isLoginStatus;
   };
 
   onConnectErrorHandler = (err: TWalletError) => {
