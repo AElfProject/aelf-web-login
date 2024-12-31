@@ -567,11 +567,10 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   const forgetPinElement = useMemo(() => {
     return (
       <div className="unlock-footer-text">
-        Forgot your PIN? Click
+        Forget PIN?
         <span className="unlock-footer-text-href" onClick={onForgetPinHandler}>
-          here
+          Log back in
         </span>
-        to log back in.
       </div>
     );
   }, [onForgetPinHandler]);

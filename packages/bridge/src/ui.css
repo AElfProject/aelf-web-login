@@ -208,7 +208,7 @@
   align-items: center;
 }
 .unlock-footer-text {
-  color: #55585e;
+  color: var(--sds-color-text-default-secondary);
   font-size: 14px;
   font-weight: 400;
   text-align: center;
@@ -218,7 +218,7 @@
 }
 
 .unlock-footer-text .unlock-footer-text-href {
-  color: #5d42ff;
+  color: var(--sds-color-text-brand-default);
   padding: 0 4px;
   cursor: pointer;
 }
