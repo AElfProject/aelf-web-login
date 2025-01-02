@@ -368,7 +368,7 @@ class Bridge {
 
   checkLoginStatus = async () => {
     if (!this.isAAWallet) {
-      return;
+      return LoginStatusEnum.SUCCESS;
     }
     if (did.didWallet.isLoginStatus === LoginStatusEnum.INIT) {
       const { walletInfo } = store.getState();
@@ -381,6 +381,7 @@ class Bridge {
         walletInfo?.extraInfo?.portkeyInfo?.appName,
       );
     }
+    return did.didWallet.isLoginStatus;
   };
 
   onConnectErrorHandler = (err: TWalletError) => {
@@ -516,7 +517,8 @@ class Bridge {
 
   onPortkeyAAUnLock = async (pin: string): Promise<TWalletInfo> => {
     try {
-      setTimeout(() => {
+      const ids = setTimeout(() => {
+        clearTimeout(ids);
         this.openLoadingModal();
       }, 0);
       if (!this.activeWallet?.onUnlock || typeof this.activeWallet.onUnlock !== 'function') {
@@ -532,10 +534,13 @@ class Bridge {
 
       return walletInfo;
     } catch (error) {
-      console.log('onPortkeyAAUnLockFail----------');
+      console.log('onPortkeyAAUnLockFail----------', error);
       return;
     } finally {
-      this.closeLoadingModal();
+      const ids = setTimeout(() => {
+        clearTimeout(ids);
+        this.closeLoadingModal();
+      }, 0);
     }
   };
 

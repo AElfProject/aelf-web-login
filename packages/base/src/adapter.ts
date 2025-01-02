@@ -27,6 +27,7 @@ export interface IWalletAdapterEvents {
 export interface IWalletAdapter<Name extends string = string> {
   name: WalletName<Name>;
   icon: string;
+  darkIcon: string;
   // readyState: WalletStateEnum;
   loginState: LoginStateEnum;
   wallet: TWalletInfo;
@@ -63,6 +64,7 @@ export abstract class BaseWalletAdapter<Name extends string = string>
 {
   abstract name: WalletName<Name>;
   abstract icon: string;
+  abstract darkIcon: string;
   // abstract readyState: WalletStateEnum;
   abstract loginState: LoginStateEnum;
   abstract wallet: TWalletInfo;

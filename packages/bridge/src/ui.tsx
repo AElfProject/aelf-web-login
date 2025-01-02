@@ -20,10 +20,13 @@ import {
   GuardianApprovalModal,
   getOperationDetails,
   ConfigProvider,
+  Theme,
+  CommonModal,
+  CustomSvg,
 } from '@portkey/did-ui-react';
 import '@portkey/did-ui-react/dist/assets/index.css';
 import { IBaseConfig } from '.';
-import { Modal, Button, Typography, Drawer } from 'antd';
+import { Modal, Button, Drawer, theme } from 'antd';
 import useTelegram from './useTelegram';
 import './ui.css';
 import { EE, SET_GUARDIAN_APPROVAL_MODAL } from './utils';
@@ -31,6 +34,8 @@ import { EE, SET_GUARDIAN_APPROVAL_MODAL } from './utils';
 export interface IConfirmLogoutDialogProps {
   title: string;
   subTitle: string[];
+  tipIcon?: string;
+  sdkTheme: Theme;
   okTxt: string;
   cancelTxt: string;
   visible: boolean;
@@ -52,22 +57,43 @@ const constant = {
   rightImg:
     'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9Ikljb24gLyBMaW5lIC8gTGVmdCYjMjI5OyYjMTY0OyYjMTM1OyYjMjI4OyYjMTg3OyYjMTg5OyI+CjxwYXRoIGlkPSJTaGFwZSIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zIDExLjEzOThWMTAuMTAzNkMzIDEwLjAzMzIgMy4wMjkzIDkuOTY2ODQgMy4wNzczNCA5LjkyNTM5TDcuNjY2NDEgNi4wMDAyNkwzLjA3NzM0IDIuMDc1MTNDMy4wMjkzIDIuMDMzNjggMyAxLjk2NzM3IDMgMS44OTY5VjAuODYwNzAzQzMgMC43NzA4OTkgMy4wODY3MiAwLjcxODM5OCAzLjE0ODgzIDAuNzcwODk5TDguODQ1MzEgNS42NDI0M0M5LjA1MTU2IDUuODE5MjcgOS4wNTE1NiA2LjE4MTI1IDguODQ1MzEgNi4zNTY3MkwzLjE0ODgzIDExLjIyODJDMy4wODY3MiAxMS4yODIxIDMgMTEuMjI5NiAzIDExLjEzOThaIiBmaWxsPSIjNTE1QTYyIi8+CjwvZz4KPC9zdmc+Cg==',
   closeImg:
-    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9InN1Z2dlc3QvY2xvc2UiPgo8ZyBpZD0iVW5pb24iPgo8cGF0aCBkPSJNNC42MDgwNyAxNi42Mjg0QzQuNTEwNDQgMTYuNzI2IDQuMzUyMTUgMTYuNzI2IDQuMjU0NTIgMTYuNjI4NEwzLjM3MDY0IDE1Ljc0NDVDMy4yNzMwMSAxNS42NDY4IDMuMjczMDEgMTUuNDg4NSAzLjM3MDY0IDE1LjM5MDlMOC43NjIyOSA5Ljk5OTI2TDMuMzcwNTkgNC42MDc1NkMzLjI3Mjk2IDQuNTA5OTMgMy4yNzI5NiA0LjM1MTY0IDMuMzcwNTkgNC4yNTQwMUw0LjI1NDQ3IDMuMzcwMTJDNC4zNTIxIDMuMjcyNDkgNC41MTAzOSAzLjI3MjQ5IDQuNjA4MDIgMy4zNzAxMkw5Ljk5OTczIDguNzYxODNMMTUuMzkxNSAzLjM3MDFDMTUuNDg5MSAzLjI3MjQ3IDE1LjY0NzQgMy4yNzI0NyAxNS43NDUgMy4zNzAxTDE2LjYyODkgNC4yNTM5OEMxNi43MjY1IDQuMzUxNjEgMTYuNzI2NSA0LjUwOTkgMTYuNjI4OSA0LjYwNzU0TDExLjIzNzIgOS45OTkyNkwxNi42Mjg4IDE1LjM5MDlDMTYuNzI2NSAxNS40ODg2IDE2LjcyNjUgMTUuNjQ2OSAxNi42Mjg4IDE1Ljc0NDVMMTUuNzQ1IDE2LjYyODRDMTUuNjQ3MyAxNi43MjYgMTUuNDg5IDE2LjcyNiAxNS4zOTE0IDE2LjYyODRMOS45OTk3MyAxMS4yMzY3TDQuNjA4MDcgMTYuNjI4NFoiIGZpbGw9IiM1MTVBNjIiLz4KPC9nPgo8L2c+Cjwvc3ZnPgo=',
-  connectWallet: 'Connect Wallet',
+    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE1IDVMNSAxNU01IDVMMTUgMTUiIHN0cm9rZT0iIzFGMUYyMSIgc3Ryb2tlLXdpZHRoPSIxLjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4=',
+  connectWallet: 'Connect a Wallet',
+  backImg:
+    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iIzFGMUYyMSIgZD0iTTEwLjYgMy4zIDIuMiA5LjZDMS40IDEwLjIgMSAxMS4xIDEgMTJjMCAuOS40IDEuOCAxLjIgMi40bDguNCA2LjNjLjMuMi42LjMgMSAuMy44IDAgMS41LS42IDEuNi0xLjVsLjMtMy41IDYuNS0uN2MuMyAwIC40IDAgLjUtLjEgMS4zLS4zIDIuMy0xLjQgMi40LTIuN3YtMWMtLjEtMS4zLTEuMS0yLjUtMi40LTIuNy0uMSAwLS4zIDAtLjUtLjFMMTMuNSA4bC0uNC0zLjVDMTMgMy43IDEyLjMgMyAxMS41IDNjLS4zIDAtLjcuMS0uOS4zWiIvPjwvc3ZnPg==',
+  darkBackImg:
+    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNSIgaGVpZ2h0PSIyNSIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI2ZmZiIgZD0ibTExLjEgMy44LTguNCA2LjNjLS44LjYtMS4yIDEuNS0xLjIgMi40IDAgLjkuNCAxLjggMS4yIDIuNGw4LjQgNi4zYy4zLjIuNi4zIDEgLjMuOCAwIDEuNS0uNiAxLjYtMS41bC4zLTMuNSA2LjUtLjdjLjMgMCAuNCAwIC41LS4xIDEuMy0uMyAyLjMtMS40IDIuNC0yLjd2LTFjLS4xLTEuMy0xLjEtMi41LTIuNC0yLjctLjEgMC0uMyAwLS41LS4xTDE0IDguNSAxMy42IDVjLS4xLS44LS44LTEuNS0xLjYtMS41LS4zIDAtLjcuMS0uOS4zWiIvPjwvc3ZnPg==',
+  closeDarkImg:
+    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgZmlsbD0ibm9uZSI+PHBhdGggc3Ryb2tlPSIjZmZmIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS42IiBkPSJtMTUuNSA1LjUtMTAgMTBtMC0xMCAxMCAxMCIvPjwvc3ZnPg==',
 };
 
+const getWalletName = (name: string) => {
+  switch (name) {
+    case 'PortkeyDiscover':
+      return 'Portkey';
+    case 'NightElf':
+      return 'Night Elf';
+    default:
+      return name;
+  }
+};
+
+const darkTipIcon =
+  'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTE2IDIyLjY2N2MuMzc4IDAgLjY5NC0uMTI4Ljk1LS4zODNhMS4yOSAxLjI5IDAgMCAwIC4zODMtLjk1IDEuMjkgMS4yOSAwIDAgMC0uMzgzLS45NUExLjI5IDEuMjkgMCAwIDAgMTYgMjBhMS4yOSAxLjI5IDAgMCAwLS45NS4zODQgMS4yOSAxLjI5IDAgMCAwLS4zODQuOTVjMCAuMzc3LjEyOC42OTQuMzg0Ljk1LjI1NS4yNTUuNTcyLjM4My45NS4zODNabTAtNS4zMzNjLjM3OCAwIC42OTQtLjEyOC45NS0uMzg0YTEuMjkgMS4yOSAwIDAgMCAuMzgzLS45NXYtNS4zMzNhMS4yOSAxLjI5IDAgMCAwLS4zODMtLjk1IDEuMjkgMS4yOSAwIDAgMC0uOTUtLjM4MyAxLjI5IDEuMjkgMCAwIDAtLjk1LjM4MyAxLjI5IDEuMjkgMCAwIDAtLjM4NC45NVYxNmMwIC4zNzguMTI4LjY5NS4zODQuOTUuMjU1LjI1Ni41NzIuMzg0Ljk1LjM4NFptMCAxMmMtMS44NDUgMC0zLjU3OC0uMzUtNS4yLTEuMDVhMTMuNDY1IDEzLjQ2NSAwIDAgMS00LjIzNC0yLjg1Yy0xLjItMS4yLTIuMTUtMi42MTEtMi44NS00LjIzNC0uNy0xLjYyMi0xLjA1LTMuMzU1LTEuMDUtNS4yIDAtMS44NDQuMzUtMy41NzggMS4wNS01LjIuNy0xLjYyMiAxLjY1LTMuMDMzIDIuODUtNC4yMzMgMS4yLTEuMiAyLjYxMi0yLjE1IDQuMjM0LTIuODUgMS42MjItLjcgMy4zNTUtMS4wNSA1LjItMS4wNSAxLjg0NCAwIDMuNTc4LjM1IDUuMiAxLjA1IDEuNjIyLjcgMy4wMzMgMS42NSA0LjIzMyAyLjg1IDEuMiAxLjIgMi4xNSAyLjYxMSAyLjg1IDQuMjMzLjcgMS42MjIgMS4wNSAzLjM1NiAxLjA1IDUuMiAwIDEuODQ1LS4zNSAzLjU3OC0xLjA1IDUuMmExMy40NjUgMTMuNDY1IDAgMCAxLTIuODUgNC4yMzRjLTEuMiAxLjItMi42MSAyLjE1LTQuMjMzIDIuODUtMS42MjIuNy0zLjM1NiAxLjA1LTUuMiAxLjA1WiIvPjwvc3ZnPg==';
+const lightTipIcon =
+  'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iIzFGMUYyMSIgZD0iTTE2IDIyLjY2N2MuMzc4IDAgLjY5NS0uMTI4Ljk1LS4zODRhMS4yOSAxLjI5IDAgMCAwIC4zODMtLjk1IDEuMjkgMS4yOSAwIDAgMC0uMzgzLS45NUExLjI5IDEuMjkgMCAwIDAgMTYgMjBhMS4yOSAxLjI5IDAgMCAwLS45NS4zODMgMS4yOSAxLjI5IDAgMCAwLS4zODMuOTVjMCAuMzc4LjEyNy42OTUuMzgzLjk1LjI1Ni4yNTYuNTcyLjM4NC45NS4zODRabTAtNS4zMzRjLjM3OCAwIC42OTUtLjEyNy45NS0uMzgzYTEuMjkgMS4yOSAwIDAgMCAuMzgzLS45NXYtNS4zMzNhMS4yOSAxLjI5IDAgMCAwLS4zODMtLjk1IDEuMjkgMS4yOSAwIDAgMC0uOTUtLjM4NCAxLjI5IDEuMjkgMCAwIDAtLjk1LjM4NCAxLjI5IDEuMjkgMCAwIDAtLjM4My45NVYxNmMwIC4zNzguMTI3LjY5NS4zODMuOTUuMjU2LjI1Ni41NzIuMzgzLjk1LjM4M1ptMCAxMmMtMS44NDQgMC0zLjU3OC0uMzUtNS4yLTEuMDVhMTMuNDY1IDEzLjQ2NSAwIDAgMS00LjIzMy0yLjg1Yy0xLjItMS4yLTIuMTUtMi42MS0yLjg1LTQuMjMzLS43LTEuNjIyLTEuMDUtMy4zNTYtMS4wNS01LjIgMC0xLjg0NC4zNS0zLjU3OCAxLjA1LTUuMi43LTEuNjIyIDEuNjUtMy4wMzMgMi44NS00LjIzMyAxLjItMS4yIDIuNjEtMi4xNSA0LjIzMy0yLjg1IDEuNjIyLS43IDMuMzU2LTEuMDUgNS4yLTEuMDUgMS44NDUgMCAzLjU3OC4zNSA1LjIgMS4wNSAxLjYyMi43IDMuMDMzIDEuNjUgNC4yMzMgMi44NSAxLjIgMS4yIDIuMTUgMi42MSAyLjg1IDQuMjMzLjcgMS42MjIgMS4wNSAzLjM1NiAxLjA1IDUuMiAwIDEuODQ0LS4zNSAzLjU3OC0xLjA1IDUuMmExMy40NjUgMTMuNDY1IDAgMCAxLTIuODUgNC4yMzNjLTEuMiAxLjItMi42MSAyLjE1LTQuMjMzIDIuODUtMS42MjIuNy0zLjM1NSAxLjA1LTUuMiAxLjA1WiIvPjwvc3ZnPg==';
+
 const defaultProps: Partial<IConfirmLogoutDialogProps> = {
-  title: 'Are you sure you want to exit your wallet?',
+  title: 'Confirm sign out',
   subTitle: [
-    'Your current wallet and assets will be removed from this app permanently. This action cannot be undone.',
-    'You can ONLY recover this wallet with your guardians.',
+    'Your assets will remain safe in your account and accessible next time you log in via social recovery.',
   ],
-  okTxt: 'I Understand, Confirm Exit',
+  okTxt: 'Sign out',
   cancelTxt: 'Cancel',
   visible: false,
   onOk: () => void 0,
   onCancel: () => void 0,
-  width: 430,
+  width: 400,
   mobileWidth: 343,
 };
 
@@ -79,46 +105,57 @@ interface ISignInModalProps {
 const { isMobileDevices } = utils;
 
 const ConfirmLogoutDialog = (props: Partial<IConfirmLogoutDialogProps>) => {
-  const { title, subTitle, okTxt, cancelTxt, visible, onOk, onCancel, width, mobileWidth } = {
+  const { title, subTitle, okTxt, cancelTxt, visible, onOk, onCancel, width, tipIcon, sdkTheme } = {
     ...defaultProps,
     ...props,
   };
-  const isMobileDevice = isMobileDevices();
-
   return (
-    <Modal
+    <CommonModal
+      className="sign-out-confirm-modal"
       footer={null}
       open={visible}
-      width={isMobileDevice ? mobileWidth : width}
-      onCancel={onCancel}
+      zIndex={10011}
+      width={width}
+      closable={false}
+      onClose={onCancel}
     >
       <>
         <div>
+          <div className="aelf-web-logout-dialog-header portkey-ui-flex portkey-ui-flex-between-center">
+            {tipIcon && <img src={tipIcon} />}
+            {!tipIcon && <img src={sdkTheme === 'dark' ? darkTipIcon : lightTipIcon} />}
+
+            <CustomSvg
+              type="Close"
+              className={sdkTheme === 'dark' ? 'dark-close' : 'light-close'}
+              style={{ width: 20, height: 20 }}
+              onClick={onCancel}
+            />
+          </div>
           <div className="aelf-web-logout-dialog-title-wrap">
-            <div className="aelf-web-logout-dialog-title">{title}</div>
+            <div className="aelf-web-logout-dialog-title aelf-web-logout-dialog-title-text">
+              {title}
+            </div>
           </div>
 
           <div>
             {subTitle?.map((t) => (
-              <div
-                key={t}
-                className="aelf-web-logout-dialog-sub-title aelf-web-logout-dialog-mt-12"
-              >
+              <div key={t} className="aelf-web-logout-dialog-sub-title">
                 {t}
               </div>
             ))}
           </div>
         </div>
         <div className="aelf-web-logout-dialog-btn-wrap">
-          <Button type="primary" danger onClick={onOk}>
-            {okTxt}
-          </Button>
           <Button type="primary" ghost onClick={onCancel}>
             {cancelTxt}
           </Button>
+          <Button type="primary" danger onClick={onOk}>
+            {okTxt}
+          </Button>
         </div>
       </>
-    </Modal>
+    </CommonModal>
   );
 };
 
@@ -148,6 +185,7 @@ const DynamicWrapper = ({
 
 interface INestedModalProps {
   open: boolean;
+  theme?: Theme;
   onClose: () => void;
   bridgeInstance: Bridge;
   design?: string;
@@ -155,6 +193,7 @@ interface INestedModalProps {
 }
 const NestedModal = ({
   open,
+  theme,
   onClose,
   validWallets,
   design,
@@ -167,13 +206,11 @@ const NestedModal = ({
     return (
       <div
         key={wallet.name}
-        className="nested-wallet-wrapper"
+        className="nested-wallet-wrapper portkey-ui-flex-center"
         onClick={() => bridgeInstance.onUniqueWalletClick(wallet.name)}
       >
-        <img src={wallet.icon} />
-        <Typography.Text>
-          {wallet.name === 'PortkeyDiscover' ? 'Portkey' : wallet.name}
-        </Typography.Text>
+        <img src={theme === 'dark' ? wallet.darkIcon : wallet.icon} />
+        <div className="nested-wallet-connect-text">{`Connect ${getWalletName(wallet.name)} wallet`}</div>
       </div>
     );
   });
@@ -181,38 +218,37 @@ const NestedModal = ({
   return isMobileDevice ? (
     <Drawer
       className="aelf-web-conntect-drawer"
-      title={
-        <div className="nested-drawer-title-wrapper">
-          <span className="title">Connect Wallet</span>
-          <img src={constant.closeImg} onClick={onClose}></img>
-        </div>
-      }
+      title={<></>}
       getContainer={false}
       closeIcon={null}
       onClose={onClose}
+      height={272}
       prefixCls="portkey-ant-drawer"
       open={open}
       placement={'bottom'}
     >
+      <div className="portkey-ui-flex-between-center nested-header">
+        <img
+          className="nested-close-back portkey-ui-cursor-pointer"
+          src={theme === 'dark' ? constant.darkBackImg : constant.backImg}
+          onClick={onClose}
+        ></img>
+        <img
+          className="nested-left-close portkey-ui-cursor-pointer"
+          src={theme === 'dark' ? constant.closeDarkImg : constant.closeImg}
+          onClick={onClose}
+        ></img>
+      </div>
+      <div
+        className={`aelf-web-logout-dialog-title ${isWeb2Design ? 'nested-title-12' : 'nested-title'}`}
+      >
+        {constant.connectWallet}
+      </div>
       <div className="nested-entry-wrapper nested-entry-wrapper-mobile">{validWalletList}</div>
     </Drawer>
   ) : (
     <Modal
-      title={
-        <>
-          <div
-            className={`aelf-web-logout-dialog-title ${isWeb2Design ? 'nested-title-12' : 'nested-title'}`}
-          >
-            {constant.connectWallet}
-          </div>
-
-          {isWeb2Design ? (
-            <img className="nested-close-icon" src={constant.closeImg} onClick={onClose}></img>
-          ) : (
-            <img className="nested-left-icon" src={constant.leftImg} onClick={onClose}></img>
-          )}
-        </>
-      }
+      title={<></>}
       getContainer={false}
       open={open}
       closable={false}
@@ -222,6 +258,25 @@ const NestedModal = ({
       prefixCls="portkey-ant-modal"
       width={430}
     >
+      <div className="portkey-ui-flex-between-center nested-header">
+        <img
+          className="nested-close-back portkey-ui-cursor-pointer"
+          src={theme === 'dark' ? constant.darkBackImg : constant.backImg}
+          onClick={onClose}
+        ></img>
+        <img
+          className="nested-left-close portkey-ui-cursor-pointer"
+          src={theme === 'dark' ? constant.closeDarkImg : constant.closeImg}
+          onClick={onClose}
+        ></img>
+      </div>
+
+      <div
+        className={`aelf-web-logout-dialog-title ${isWeb2Design ? 'nested-title-12' : 'nested-title'}`}
+      >
+        {constant.connectWallet}
+      </div>
+
       <div className="nested-entry-wrapper">{validWalletList}</div>
     </Modal>
   );
@@ -259,6 +314,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
     defaultPin = '111111',
     keyboard,
     enableAcceleration,
+    PortkeyProviderProps,
   } = baseConfig;
   const FinalSignInComponent = SignInComponent || SignIn;
   const FinalConfirmLogoutDialog = CustomizedConfirmLogoutDialog || ConfirmLogoutDialog;
@@ -436,7 +492,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
                 }
               ></img>
             </div>
-            <div className="aelf-web-logout-dialog-title">
+            <div className="aelf-web-logout-dialog-title portkey-ui-text-center">
               {baseConfig?.titleForSocialDesign || defaultPropsForSocialDesign.titleForSocialDesign}
             </div>
           </div>
@@ -447,8 +503,8 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
                 onClick={() => bridgeInstance.onUniqueWalletClick(item.name)}
                 key={item.name}
               >
-                <img src={item.icon} />
-                <div className="aelf-web-logout-dialog-sub-title">{item.name}</div>
+                <img src={PortkeyProviderProps?.theme === 'dark' ? item.darkIcon : item.icon} />
+                <div className="nested-wallet-connect-text">{`Connect ${getWalletName(item.name)} wallet`}</div>
               </div>
             ))}
           </div>
@@ -458,26 +514,28 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
       return (
         <>
           <div className="aelf-web-extra-wallets-wrapper-crypto">
-            <Typography.Text className="crypto-wallets-title">Crypto wallet</Typography.Text>
+            {/* <div className="crypto-wallets-title">Crypto wallet</div> */}
             <div
               className={`crypto-extra-wallets ${baseConfig.design === 'Web2Design' && 'web2-extra-wallets'}`}
               onClick={() => {
                 setIsShowNestedModal(true);
               }}
             >
-              <Typography.Text className="crypto-extra-wallets-left">
-                {constant.connectWallet}
-              </Typography.Text>
+              <div className="crypto-extra-wallets-left">{constant.connectWallet}</div>
               <div className="crypto-extra-image">
                 {filteredWallets.map((item) => (
-                  <img key={item.name} src={item.icon} />
+                  <img
+                    key={item.name}
+                    src={PortkeyProviderProps?.theme === 'dark' ? item.darkIcon : item.icon}
+                  />
                 ))}
-                <img className="crypto-extra-image-arrow" src={constant.rightImg} />
+                {/* <img className="crypto-extra-image-arrow" src={constant.rightImg} /> */}
               </div>
             </div>
           </div>
           <NestedModal
             open={isShowNestedModal}
+            theme={PortkeyProviderProps?.theme}
             onClose={() => {
               setIsShowNestedModal(false);
             }}
@@ -489,6 +547,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
       );
     }
   }, [
+    PortkeyProviderProps?.theme,
     baseConfig.design,
     baseConfig?.iconSrcForSocialDesign,
     baseConfig?.titleForSocialDesign,
@@ -508,11 +567,10 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
   const forgetPinElement = useMemo(() => {
     return (
       <div className="unlock-footer-text">
-        Forgot your PIN? Click
+        Forget PIN?
         <span className="unlock-footer-text-href" onClick={onForgetPinHandler}>
-          here
+          Log back in
         </span>
-        to log back in.
       </div>
     );
   }, [onForgetPinHandler]);
@@ -559,8 +617,8 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
               //TODO: seem to not execute
               console.log('onSignInCancel');
             }}
-            onError={() => {
-              console.log('onSignInInternalError');
+            onError={(error) => {
+              console.error('onSignInInternalError', error);
             }}
             onCreatePending={onCreatePendingInternal}
             onFinish={onFinishInternal}
@@ -585,6 +643,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
       )}
 
       <FinalConfirmLogoutDialog
+        sdkTheme={PortkeyProviderProps?.theme}
         visible={isShowConfirmLogoutPanel}
         onOk={confirmLogoutHandler}
         onCancel={cancelLogoutHandler}
