@@ -516,32 +516,46 @@ class Bridge {
   };
 
   onPortkeyAAUnLock = async (pin: string): Promise<TWalletInfo> => {
+    const ids: NodeJS.Timeout[] = [];
+    let openTimeout: NodeJS.Timeout;
+    let closeTimeout: NodeJS.Timeout;
+    const _clear = () => {
+      let t = ids.pop();
+      while (t) {
+        clearTimeout(t);
+        t = ids.pop();
+      }
+    };
+    _clear();
+    let walletInfo: TWalletInfo;
     try {
-      const ids = setTimeout(() => {
-        clearTimeout(ids);
+      openTimeout = setTimeout(() => {
         this.openLoadingModal();
-      }, 0);
+      }, 1);
+      ids.push(openTimeout);
       if (!this.activeWallet?.onUnlock || typeof this.activeWallet.onUnlock !== 'function') {
+        _clear();
         return;
       }
-      const walletInfo = await this.activeWallet?.onUnlock(pin);
+      walletInfo = await this.activeWallet?.onUnlock(pin);
       console.log('onPortkeyAAUnLockSuccess----------', walletInfo);
       if (walletInfo) {
         this.closeLoginPanel();
         dispatch(setLocking(false));
         dispatch(clearLoginError());
       }
-
-      return walletInfo;
     } catch (error) {
       console.log('onPortkeyAAUnLockFail----------', error);
       return;
     } finally {
-      const ids = setTimeout(() => {
-        clearTimeout(ids);
+      closeTimeout = setTimeout(() => {
         this.closeLoadingModal();
-      }, 0);
+      }, 1);
+      ids.push(closeTimeout);
     }
+
+    _clear();
+    return walletInfo;
   };
 
   lock = () => {

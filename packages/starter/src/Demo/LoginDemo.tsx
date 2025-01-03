@@ -64,7 +64,6 @@ const LoginDemo: React.FC = () => {
         >
           close
         </Button> */}
-        222
         <Button type="primary" onClick={onConnectBtnClickHandler} disabled={isConnected}>
           {isLocking ? 'unlock' : 'connect'}
         </Button>

@@ -32,9 +32,8 @@ function useConnectWallet() {
   const isConnected = useMemo(() => {
     if (enhancedLocalStorage.getItem(ConnectedWallet) === PORTKEYAA) {
       return !!walletInfo;
-    } else {
-      return !!enhancedLocalStorage.getItem(ConnectedWallet) || !!walletInfo;
     }
+    return !!enhancedLocalStorage.getItem(ConnectedWallet) || !!walletInfo;
   }, [walletInfo]);
 
   const connectWallet = useCallback(async () => {
