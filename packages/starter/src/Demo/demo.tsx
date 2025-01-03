@@ -63,6 +63,9 @@ const didConfig = {
 // };
 
 const baseConfig = {
+  PortkeyProviderProps: {
+    theme: 'dark',
+  },
   // ConfirmLogoutDialog: CustomizedConfirmLogoutDialog,
   // SignInComponent: SignInProxy,
   defaultPin: '111111',
@@ -89,7 +92,7 @@ const wallets = [
     appName: APP_NAME,
     chainId: CHAIN_ID,
     autoShowUnlock: true,
-    noNeedForConfirm: true,
+    noNeedForConfirm: false,
     enableAcceleration: true,
   }),
   new PortkeyDiscoverWallet({
@@ -157,7 +160,7 @@ const items: TabsProps['items'] = [
     children: <AssetsDemo />,
   },
 ];
-
+console.log(config);
 const App: React.FC = () => {
   // const bridgeAPI = init(config);
   return (

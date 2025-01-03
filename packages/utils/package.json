@@ -32,27 +32,27 @@
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
     "@aelf-web-login/wallet-adapter-react": "workspace:*",
     "bignumber.js": "^9.1.2",
-    "dayjs": "^1.11.11",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "dayjs": "^1.11.13",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@aelf-react/types": "^0.1.10",
-    "@babel/core": "^7.24.7",
-    "@babel/preset-env": "^7.24.7",
-    "@babel/preset-react": "^7.24.7",
-    "@babel/preset-typescript": "^7.24.7",
-    "@portkey/contracts": "^2.17.4",
-    "@portkey/detect-provider": "^2.3.5-alpha.2",
-    "@portkey/did-ui-react": "^2.17.4",
-    "@portkey/provider-types": "^2.3.5-alpha.2",
-    "@portkey/utils": "^2.17.4",
-    "aelf-sdk": "^3.4.12",
-    "father": "^4.3.8",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
+    "@portkey/contracts": "^2.17.5",
+    "@portkey/detect-provider": "^2.3.5",
+    "@portkey/did-ui-react": "^2.17.5",
+    "@portkey/provider-types": "^2.3.5",
+    "@portkey/utils": "^2.17.5",
+    "aelf-sdk": "^3.4.15",
+    "father": "^4.5.1",
     "identity-obj-proxy": "^3.0.0"
   },
   "peerDependencies": {
-    "@portkey/did-ui-react": "^2.17.4"
+    "@portkey/did-ui-react": "^2.17.5"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

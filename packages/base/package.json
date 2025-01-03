@@ -32,14 +32,14 @@
     "eventemitter3": "^5.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.7",
-    "@babel/preset-env": "^7.24.7",
-    "@babel/preset-typescript": "^7.24.7",
-    "@portkey/did-ui-react": "^2.17.4",
-    "@portkey/types": "^2.17.4"
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-typescript": "^7.26.0",
+    "@portkey/did-ui-react": "^2.17.5",
+    "@portkey/types": "^2.17.5"
   },
   "peerDependencies": {
-    "@portkey/did-ui-react": "^2.17.4"
+    "@portkey/did-ui-react": "^2.17.5"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
