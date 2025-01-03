@@ -1,6 +1,10 @@
-import { IBridgeAPI, IConfigProps, initBridge } from '@aelf-web-login/wallet-adapter-bridge';
+import {
+  type IBridgeAPI,
+  type IConfigProps,
+  initBridge,
+} from '@aelf-web-login/wallet-adapter-bridge';
 
-// let noCommonBaseModal = false;
+let isTGScriptInjected = false;
 const init = (options: IConfigProps): IBridgeAPI => {
   // noCommonBaseModal = options.baseConfig.noCommonBaseModal ?? false;
   if (options.baseConfig.showVconsole && typeof window !== 'undefined') {
@@ -10,7 +14,7 @@ const init = (options: IConfigProps): IBridgeAPI => {
   }
   console.log('aelf-web-login-init..............31');
   function initScriptAndMountApp() {
-    if (options.baseConfig.omitTelegramScript) {
+    if (isTGScriptInjected || options.baseConfig.omitTelegramScript) {
       return;
     }
     // const HOSTNAME_PREFIX_LIST = ['tg.', 'tg-test.', 'localhost'];
@@ -22,6 +26,7 @@ const init = (options: IConfigProps): IBridgeAPI => {
       script.async = false;
       document.head.appendChild(script);
       console.log('initScriptAndMountApp');
+      isTGScriptInjected = true;
       // }
     }
   }

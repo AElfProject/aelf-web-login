@@ -11,7 +11,6 @@ import {
 import type { Bridge } from './bridge';
 import {
   CommonBaseModal,
-  PortkeyLoading,
   SignIn,
   Unlock,
   type DIDWalletInfo,
@@ -466,6 +465,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
 
   const onUnlockInternal = useCallback(
     async (pin: string) => {
+      console.log('---onUnlockInternal', pin);
       const success = await bridgeInstance.onPortkeyAAUnLock(pin);
       if (!success) {
         setIsWrongPassword(true);
@@ -649,7 +649,6 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
         onOk={confirmLogoutHandler}
         onCancel={cancelLogoutHandler}
       />
-      <PortkeyLoading />
     </div>
     // </PortkeyProvider>
   );

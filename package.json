@@ -22,7 +22,7 @@
     "changeset": "changeset",
     "release:prepare": "npm run build",
     "release": "pnpm run release:prepare && changeset version && changeset publish",
-    "release:alpha": "changeset version --snapshot alpha && changeset publish --tag alpha",
+    "release:alpha": "pnpm run release:prepare && changeset version --snapshot alpha && changeset publish --tag alpha",
     "release:beta": "pnpm run release:prepare && changeset version --snapshot beta && changeset publish --tag beta",
     "ci": "npm run build && npm run lint && npm run test:ci",
     "test": "vitest",
