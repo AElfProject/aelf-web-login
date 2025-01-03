@@ -2,9 +2,9 @@ import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-di
 import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
 import { NightElfWallet } from '@aelf-web-login/wallet-adapter-night-elf';
 import { WebLoginProvider } from '@aelf-web-login/wallet-adapter-react';
-import { IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
-import { TChainId, SignInDesignEnum, NetworkEnum } from '@aelf-web-login/wallet-adapter-base';
-import { Tabs, TabsProps } from 'antd';
+import type { IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
+import { type TChainId, SignInDesignEnum, NetworkEnum } from '@aelf-web-login/wallet-adapter-base';
+import { Tabs, type TabsProps } from 'antd';
 import './telegram.js';
 
 import LoginDemo from './LoginDemo';
@@ -62,7 +62,7 @@ const didConfig = {
 //   return <div>111</div>;
 // };
 
-const baseConfig = {
+const baseConfig: IConfigProps['baseConfig'] = {
   PortkeyProviderProps: {
     theme: 'dark',
   },
