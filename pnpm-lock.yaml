@@ -13,7 +13,7 @@ importers:
   .:
     devDependencies:
       '@babel/core':
-        specifier: ^7.26.0
+        specifier: ^7.0.0
         version: 7.26.0
       '@babel/parser':
         specifier: ^7.26.3
@@ -128,7 +128,7 @@ importers:
         version: 5.0.1
     devDependencies:
       '@babel/core':
-        specifier: ^7.26.0
+        specifier: ^7.0.0
         version: 7.26.0
       '@babel/preset-env':
         specifier: ^7.26.0
@@ -137,11 +137,11 @@ importers:
         specifier: ^7.26.0
         version: 7.26.0(@babel/core@7.26.0)
       '@portkey/did-ui-react':
-        specifier: ^2.17.5
-        version: 2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+        specifier: ^2.17.8
+        version: 2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
       '@portkey/types':
-        specifier: ^2.17.5
-        version: 2.17.5
+        specifier: ^2.17.8
+        version: 2.17.8
 
   packages/bridge:
     dependencies:
@@ -149,11 +149,11 @@ importers:
         specifier: workspace:*
         version: link:../base
       '@portkey/contracts':
-        specifier: ^2.17.5
-        version: 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.17.8
+        version: 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/services':
-        specifier: ^2.17.5
-        version: 2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+        specifier: ^2.17.8
+        version: 2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
       '@reduxjs/toolkit':
         specifier: ^2.5.0
         version: 2.5.0(react@18.3.1)
@@ -165,14 +165,14 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@portkey/did-ui-react':
-        specifier: ^2.17.5
-        version: 2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+        specifier: ^2.17.8
+        version: 2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
       '@portkey/types':
-        specifier: ^2.17.5
-        version: 2.17.5
+        specifier: ^2.17.8
+        version: 2.17.8
       '@portkey/utils':
-        specifier: ^2.17.5
-        version: 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.17.8
+        version: 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@types/react':
         specifier: ^18.3.18
         version: 18.3.18
@@ -208,7 +208,7 @@ importers:
         version: 3.15.1
     devDependencies:
       '@babel/core':
-        specifier: ^7.26.0
+        specifier: ^7.0.0
         version: 7.26.0
       '@babel/preset-env':
         specifier: ^7.26.0
@@ -256,8 +256,8 @@ importers:
         specifier: ^5.5.2
         version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@portkey/did-ui-react':
-        specifier: ^2.17.5
-        version: 2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+        specifier: ^2.17.8
+        version: 2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
       aelf-sdk:
         specifier: 3.4.16-alpha.7
         version: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
@@ -329,7 +329,7 @@ importers:
         specifier: ^0.1.10
         version: 0.1.10
       '@babel/core':
-        specifier: ^7.26.0
+        specifier: ^7.0.0
         version: 7.26.0
       '@babel/preset-env':
         specifier: ^7.26.0
@@ -341,20 +341,20 @@ importers:
         specifier: ^7.26.0
         version: 7.26.0(@babel/core@7.26.0)
       '@portkey/contracts':
-        specifier: ^2.17.5
-        version: 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.17.8
+        version: 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/detect-provider':
         specifier: ^2.3.5
         version: 2.3.5
       '@portkey/did-ui-react':
-        specifier: ^2.17.5
-        version: 2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+        specifier: ^2.17.8
+        version: 2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
       '@portkey/provider-types':
         specifier: ^2.3.5
         version: 2.3.5
       '@portkey/utils':
-        specifier: ^2.17.5
-        version: 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.17.8
+        version: 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk:
         specifier: ^3.4.15
         version: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
@@ -371,8 +371,8 @@ importers:
         specifier: workspace:*
         version: link:../../base
       '@portkey/contracts':
-        specifier: ^2.17.5
-        version: 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.17.8
+        version: 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-bridge:
         specifier: 0.0.11-alpha.10
         version: 0.0.11-alpha.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)
@@ -384,8 +384,8 @@ importers:
         specifier: ^0.1.10
         version: 0.1.10
       '@portkey/types':
-        specifier: ^2.17.5
-        version: 2.17.5
+        specifier: ^2.17.8
+        version: 2.17.8
       '@types/bn.js':
         specifier: ^5.1.6
         version: 5.1.6
@@ -402,18 +402,18 @@ importers:
         specifier: workspace:*
         version: link:../../base
       '@portkey/contracts':
-        specifier: ^2.17.5
-        version: 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.17.8
+        version: 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/utils':
-        specifier: ^2.17.5
-        version: 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.17.8
+        version: 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
     devDependencies:
       '@portkey/did-ui-react':
-        specifier: ^2.17.5
-        version: 2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+        specifier: ^2.17.8
+        version: 2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
       '@portkey/types':
-        specifier: ^2.17.5
-        version: 2.17.5
+        specifier: ^2.17.8
+        version: 2.17.8
       father:
         specifier: ^4.5.1
         version: 4.5.1(@babel/core@7.26.0)(@types/node@22.10.3)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
@@ -427,8 +427,8 @@ importers:
         specifier: workspace:*
         version: link:../../base
       '@portkey/contracts':
-        specifier: ^2.17.5
-        version: 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.17.8
+        version: 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/detect-provider':
         specifier: ^2.3.5
         version: 2.3.5
@@ -436,15 +436,15 @@ importers:
         specifier: ^2.3.5
         version: 2.3.5
       '@portkey/utils':
-        specifier: ^2.17.5
-        version: 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.17.8
+        version: 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       bn.js:
         specifier: ^5.2.1
         version: 5.2.1
     devDependencies:
       '@portkey/types':
-        specifier: ^2.17.5
-        version: 2.17.5
+        specifier: ^2.17.8
+        version: 2.17.8
       '@types/bn.js':
         specifier: ^5.1.6
         version: 5.1.6
@@ -2763,71 +2763,71 @@ packages:
   '@polka/url@1.0.0-next.28':
     resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
 
-  '@portkey/accounts@2.17.5':
-    resolution: {integrity: sha512-dv6DP8dca990B1Ysygk8nAz3P/NG3N/HUGktbiWiNvMyi4S7mRFUMXZvRhH0v3ktT25F5qO0OrRrI+ni/v9E2w==}
+  '@portkey/accounts@2.17.8':
+    resolution: {integrity: sha512-sB6wXmb0kGup8teKrCB9fNz5LW+zQEBJKVN2ogNjdyKgnI3azFjrL7CW4ByHQWkCEaSIko9Qi+ARTppSjGl0nw==}
     peerDependencies:
       aelf-sdk: ^3.4.7
 
-  '@portkey/contracts@2.17.5':
-    resolution: {integrity: sha512-Bdv8eBP7divCC+c9Yke67gKQX3Omxkg1TITqRYcz5kjaZ2KmE6/AMju1HH11wNqrxd5NKhDVS9oO+O1ntjMq3g==}
+  '@portkey/contracts@2.17.8':
+    resolution: {integrity: sha512-7C68y1zafdmZLJSrMsKw0PwhJA+all6BgmrVU9Y/6TEIKeUl4nFJM24CsPXgOrUMa0HxrGfeWLCve4gOaIK/IA==}
     peerDependencies:
       aelf-sdk: ^3.4.7
 
   '@portkey/detect-provider@2.3.5':
     resolution: {integrity: sha512-x5Jl8IE4EGi6zdfup9LMncL04gXS/d0YxdaESC5vd7TPwvSnjra2ZJPGdZrydBzhQYHMPeKy/bZCyY/o7WH+Cg==}
 
-  '@portkey/did-ui-react@2.17.5':
-    resolution: {integrity: sha512-LMisLnSbQa+VsYrVfxOtNcT9LqE1SjifyCrS4P8rfU7l4T0DMxDOT6JbrcoJtXKVIVkuggj2AykWXAadXCtAOA==}
+  '@portkey/did-ui-react@2.17.8':
+    resolution: {integrity: sha512-JEt+Md7pp1LiMLteJu/HRxHS6Qt9vZZ8JwZN89befl2aJvGRmUeCOHd6JCqCX/4pQ4/VFVZwPe/s9o1H9z01lQ==}
     peerDependencies:
       aelf-sdk: ^3.4.7
       react: ^18.2.0
       react-dom: ^18.2.0
 
-  '@portkey/did@2.17.5':
-    resolution: {integrity: sha512-r4mrTiJWChF+fa+pL1M6jjNd13dxsHuMJhDHOgj6QX0qgJoKeJe57ZGdZdEkT8I/QkC/iIOBgdIK+JXXYXMPAQ==}
+  '@portkey/did@2.17.8':
+    resolution: {integrity: sha512-l2ACjMQFKzYrORtFgLa2eXg/Egnr39dEqxD1KPZs128Q5NptNsoQggvR6yKTYU8GuDNa3PPVc8oShxB9mh0vxg==}
     peerDependencies:
       aelf-sdk: ^3.4.7
       react: ^18.2.0
 
-  '@portkey/graphql@2.17.5':
-    resolution: {integrity: sha512-Eff9peWTkTxYX6TyOppX2eCocEYAES+ZnnvmGcEyigUHx5HcSXRlGg9zT396WkixP7fLNsJ3SjYkSVOeLV08OA==}
+  '@portkey/graphql@2.17.8':
+    resolution: {integrity: sha512-B2f0Fo/v43SayuotIBcOnp3YLV/DGjgA1cLpAOq0HnDTMLvlE2i0Q6RQRFwX+MyxUqmjTYwa9Z55c4+Z9iChKw==}
 
-  '@portkey/onboarding@2.17.5':
-    resolution: {integrity: sha512-a9SxKt69T/T80CXtwm+RPpw2zUNb1jE1QCXLVPVW1LdjrDpWpcbj7Gn3hwBIqgSRdYmx5Vy5Ott7ikMIWT+lJQ==}
+  '@portkey/onboarding@2.17.8':
+    resolution: {integrity: sha512-g0gCZmq3nFt2oi/SBjs55UTJwNg4EZB/d3JDfLaXr+jKyO3hQXq83drC+oZ5jgh5sE6dMUCZEdX4pOZm3y0DOg==}
 
   '@portkey/provider-types@2.3.5':
     resolution: {integrity: sha512-xQeY3dEz+yFptnKr/mB9eo1rW5hsLMntAjwzzpgNyJEWrV6BGBH4S1s+wiK0mdDhu2BzkJ0yVgJ2MwGhWkeLbw==}
 
-  '@portkey/ramp@2.17.5':
-    resolution: {integrity: sha512-xoKb+XGys7GFB3AV/EsiXtBOCC9X7wzaWVkY4ekAr93EzD308m4OjKQkpKVp0fn0HQNHRFsYZmGR+j9wjovDqg==}
+  '@portkey/ramp@2.17.8':
+    resolution: {integrity: sha512-9pUgbfd9qspnTWRUUxVEmFi5EH7cnyAQfzFlGhM1eDKNWFiXB85aSdP4GyE6AdWCcl1hOYftqequGA7uj4+wqw==}
 
-  '@portkey/request@2.17.5':
-    resolution: {integrity: sha512-MMbn1V5ucwsADFU2Qe3l9sXx6iocLvgv6AsfFb3vl+dxgeW3brsLfLnS2vcw0DgqaQWdRZmSIpg+uiA66qvDgg==}
+  '@portkey/request@2.17.8':
+    resolution: {integrity: sha512-h/4IEFDD/OzC/9h4dIfQuiIAifdHpl521EcaC9eqnAyDo3ZQpHNEIBowhNebgspAb4NEXu9bahB7cotBJ88I6g==}
 
-  '@portkey/services@2.17.5':
-    resolution: {integrity: sha512-ta2Tfw9FFh3iqdQiY/Kq0WRLDYRNHXWqRedGVWr3a1njCwNYM40Q5keTqgp1hZdZMMIx9xS167arhupx5JkNlg==}
+  '@portkey/services@2.17.8':
+    resolution: {integrity: sha512-wLRx8fsjJBDbb8jrJf28FnNXGuFrTVZ4w1TNCTehYKWuYcBPWMGwvtnKKVAVldRSAiaYU5gfi5VBNZhTs0KErA==}
     peerDependencies:
       aelf-sdk: ^3.4.7
       query-string: ^7.1.1
 
-  '@portkey/socket@2.17.5':
-    resolution: {integrity: sha512-eEfikdlqPjuLbFR6kW55LKF33ZjMdq2bjsv6Cm7m2F3/sfgGrorEnURk0KMqdytP1X2tB0LHQ5iINZWopegKCQ==}
+  '@portkey/socket@2.17.8':
+    resolution: {integrity: sha512-rdvQcd9jRRqs9TaCuMVS571OXdqpHS2jCzdK5g2m4uQXeWM9E2wBGEQmJnLLjaqdw1FjGXpJg5WDH0H9Dnjbvg==}
 
   '@portkey/types@2.15.10':
     resolution: {integrity: sha512-RQddcR9AfWbapYM4ovAkCXOZGULuuYCbTwYkUTaqRf0WflG3IHB+sQvDMUSMJAw0fo4dPND7Qg0hS2mvHVVWRw==}
 
-  '@portkey/types@2.17.5':
-    resolution: {integrity: sha512-QmMmZ9HpeJSA+qhRQsQd29kXYG4mbgoGdOHJGZ9p9TZCQ5Ku7QZ6ZpBqqeIfLcO+aV4cWMg4Ov4e5gp++xgn9A==}
+  '@portkey/types@2.17.8':
+    resolution: {integrity: sha512-5wDK1lsKyybAE1cRd+psLsQ8fPgF0bBtjyijPUskEFtldmODa8Rxwl8a2oId7Eh0sOuVd78G8dW579TjKahuyg==}
 
-  '@portkey/utils@2.17.5':
-    resolution: {integrity: sha512-7qyri16ZtZyc/tuAPJXiqSkaPdDQnh829jUse/Yiy4HGXpr2R87NQVj6/jWCpXf5I+MJJh6hVuIwO1/Duj1uYA==}
+  '@portkey/utils@2.17.8':
+    resolution: {integrity: sha512-BOiFq/0cpCR8bqVJDXX10gZPQmr3HvAK/KWwOpijO2kQRBnbkKgS0O7HwZkq15CpeOnQBb82wkCgy97RHn8OoQ==}
     peerDependencies:
       '@portkey/request': ^2.6.6
       aelf-sdk: ^3.4.7
       query-string: ^7.1.1
 
-  '@portkey/validator@2.17.5':
-    resolution: {integrity: sha512-cXraO4QpdQu4v7Mzx96Uh+/EFt8xcI1fCu5CYtgyJyd8m8erLg+AHISzIlt2LAzkO/QVhfSnh+QImXx0P1xV3Q==}
+  '@portkey/validator@2.17.8':
+    resolution: {integrity: sha512-f/OOPCU1YMF0rrUn8Eh1+dT68JOjZhVsg84IW8tLwWYE/pn4XuHxLNre7s78didDoJLUWUfOyehTO5knYmIg4A==}
 
   '@protobufjs/aspromise@1.1.2':
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
@@ -14048,13 +14048,13 @@ snapshots:
       '@ethersproject/properties': 5.7.0
       '@ethersproject/strings': 5.7.0
 
-  '@etransfer/core@1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
+  '@etransfer/core@1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
     dependencies:
-      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
-      '@etransfer/socket': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
+      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/socket': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
       '@etransfer/types': 1.12.0
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
-      '@portkey/types': 2.17.5
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@portkey/types': 2.17.8
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       bignumber.js: 9.1.2
       query-string: 7.1.3
@@ -14066,13 +14066,13 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@etransfer/core@1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
+  '@etransfer/core@1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
     dependencies:
-      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
-      '@etransfer/socket': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
+      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/socket': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
       '@etransfer/types': 1.12.0
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
-      '@portkey/types': 2.17.5
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@portkey/types': 2.17.8
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       bignumber.js: 9.1.2
       query-string: 7.1.3
@@ -14084,10 +14084,10 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@etransfer/request@1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
+  '@etransfer/request@1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
     dependencies:
       '@etransfer/types': 1.12.0
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       axios: 0.24.0
     transitivePeerDependencies:
       - '@portkey/contracts'
@@ -14098,10 +14098,10 @@ snapshots:
       - debug
       - query-string
 
-  '@etransfer/request@1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
+  '@etransfer/request@1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
     dependencies:
       '@etransfer/types': 1.12.0
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       axios: 0.24.0
     transitivePeerDependencies:
       - '@portkey/contracts'
@@ -14112,11 +14112,11 @@ snapshots:
       - debug
       - query-string
 
-  '@etransfer/services@1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
+  '@etransfer/services@1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
     dependencies:
-      '@etransfer/request': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/request': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@etransfer/types': 1.12.0
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@portkey/types': 2.15.10
       query-string: 7.1.3
     transitivePeerDependencies:
@@ -14126,11 +14126,11 @@ snapshots:
       - bignumber.js
       - debug
 
-  '@etransfer/services@1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
+  '@etransfer/services@1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
     dependencies:
-      '@etransfer/request': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/request': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@etransfer/types': 1.12.0
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@portkey/types': 2.15.10
       query-string: 7.1.3
     transitivePeerDependencies:
@@ -14140,10 +14140,10 @@ snapshots:
       - bignumber.js
       - debug
 
-  '@etransfer/socket@1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
+  '@etransfer/socket@1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@abp/signalr': 7.4.5(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
     transitivePeerDependencies:
       - '@portkey/contracts'
       - '@portkey/types'
@@ -14156,10 +14156,10 @@ snapshots:
       - query-string
       - utf-8-validate
 
-  '@etransfer/socket@1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
+  '@etransfer/socket@1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@abp/signalr': 7.4.5(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
     transitivePeerDependencies:
       - '@portkey/contracts'
       - '@portkey/types'
@@ -14174,13 +14174,25 @@ snapshots:
 
   '@etransfer/types@1.12.0': {}
 
-  '@etransfer/utils@1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
+  '@etransfer/utils@1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
     dependencies:
-      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@etransfer/types': 1.12.0
-      '@portkey/contracts': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/types': 2.15.10
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
+      bignumber.js: 9.1.2
+      bn.js: 5.2.1
+      query-string: 7.1.3
+
+  '@etransfer/utils@1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
+    dependencies:
+      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/types': 1.12.0
+      '@portkey/contracts': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       bignumber.js: 9.1.2
       bn.js: 5.2.1
@@ -14188,27 +14200,13 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@etransfer/utils@1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
+  '@etransfer/utils@1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
     dependencies:
-      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@etransfer/types': 1.12.0
-      '@portkey/contracts': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
-      bignumber.js: 9.1.2
-      bn.js: 5.2.1
-      query-string: 7.1.3
-    transitivePeerDependencies:
-      - debug
-
-  '@etransfer/utils@1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
-    dependencies:
-      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
-      '@etransfer/types': 1.12.0
-      '@portkey/contracts': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/types': 2.15.10
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       bignumber.js: 9.1.2
       bn.js: 5.2.1
@@ -14216,13 +14214,13 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@etransfer/utils@1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
+  '@etransfer/utils@1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
     dependencies:
-      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@etransfer/types': 1.12.0
-      '@portkey/contracts': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       bignumber.js: 9.1.2
       bn.js: 5.2.1
@@ -14831,41 +14829,41 @@ snapshots:
 
   '@polka/url@1.0.0-next.28': {}
 
-  '@portkey/accounts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/accounts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/validator': 2.17.5
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/validator': 2.17.8
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
     transitivePeerDependencies:
       - '@portkey/request'
       - query-string
 
-  '@portkey/accounts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/accounts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/validator': 2.17.5
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/validator': 2.17.8
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
     transitivePeerDependencies:
       - '@portkey/request'
       - query-string
 
-  '@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
       '@portkey/provider-types': 2.3.5
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
     transitivePeerDependencies:
       - '@portkey/request'
       - query-string
 
-  '@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
       '@portkey/provider-types': 2.3.5
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
     transitivePeerDependencies:
       - '@portkey/request'
@@ -14875,25 +14873,25 @@ snapshots:
     dependencies:
       '@portkey/provider-types': 2.3.5
 
-  '@portkey/did-ui-react@2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@portkey/did-ui-react@2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
-      '@etransfer/core': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
-      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/core': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
+      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@etransfer/types': 1.12.0
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@matt-block/react-recaptcha-v2': 2.1.0(react@18.3.1)
-      '@portkey/accounts': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/contracts': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/did': 2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/graphql': 2.17.5(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/onboarding': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))
-      '@portkey/ramp': 2.17.5(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
-      '@portkey/request': 2.17.5
-      '@portkey/services': 2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/socket': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/validator': 2.17.5
+      '@portkey/accounts': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/did': 2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/graphql': 2.17.8(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/onboarding': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))
+      '@portkey/ramp': 2.17.8(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
+      '@portkey/request': 2.17.8
+      '@portkey/services': 2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/socket': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/validator': 2.17.8
       '@rc-component/portal': 1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       antd: 4.24.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -14925,25 +14923,25 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@portkey/did-ui-react@2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@portkey/did-ui-react@2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
-      '@etransfer/core': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
-      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/core': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
+      '@etransfer/services': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@etransfer/types': 1.12.0
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.5)(@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.17.8)(@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@matt-block/react-recaptcha-v2': 2.1.0(react@18.3.1)
-      '@portkey/accounts': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/contracts': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/did': 2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/graphql': 2.17.5(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/onboarding': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))
-      '@portkey/ramp': 2.17.5(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
-      '@portkey/request': 2.17.5
-      '@portkey/services': 2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/socket': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/validator': 2.17.5
+      '@portkey/accounts': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/did': 2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/graphql': 2.17.8(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/onboarding': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))
+      '@portkey/ramp': 2.17.8(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
+      '@portkey/request': 2.17.8
+      '@portkey/services': 2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/socket': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/validator': 2.17.8
       '@rc-component/portal': 1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       antd: 4.24.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -14975,15 +14973,15 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@portkey/did@2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@portkey/did@2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
-      '@portkey/accounts': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/contracts': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/graphql': 2.17.5(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/request': 2.17.5
-      '@portkey/services': 2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/accounts': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/graphql': 2.17.8(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/request': 2.17.8
+      '@portkey/services': 2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       react: 18.3.1
     transitivePeerDependencies:
@@ -14994,15 +14992,15 @@ snapshots:
       - react-dom
       - utf-8-validate
 
-  '@portkey/did@2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@portkey/did@2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
-      '@portkey/accounts': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/contracts': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/graphql': 2.17.5(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/request': 2.17.5
-      '@portkey/services': 2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/accounts': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/graphql': 2.17.8(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/request': 2.17.8
+      '@portkey/services': 2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       react: 18.3.1
     transitivePeerDependencies:
@@ -15013,10 +15011,10 @@ snapshots:
       - react-dom
       - utf-8-validate
 
-  '@portkey/graphql@2.17.5(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@portkey/graphql@2.17.8(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
       '@apollo/client': 3.12.4(@types/react@18.3.18)(graphql@16.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(subscriptions-transport-ws@0.11.0(bufferutil@4.0.9)(graphql@16.10.0)(utf-8-validate@5.0.10))
-      '@portkey/types': 2.17.5
+      '@portkey/types': 2.17.8
       graphql: 16.10.0
       subscriptions-transport-ws: 0.11.0(bufferutil@4.0.9)(graphql@16.10.0)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
@@ -15027,22 +15025,22 @@ snapshots:
       - react-dom
       - utf-8-validate
 
-  '@portkey/onboarding@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))':
+  '@portkey/onboarding@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))':
     dependencies:
       '@portkey/detect-provider': 2.3.5
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       bowser: 2.11.0
       query-string: 7.1.3
     transitivePeerDependencies:
       - '@portkey/request'
       - aelf-sdk
 
-  '@portkey/onboarding@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))':
+  '@portkey/onboarding@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))':
     dependencies:
       '@portkey/detect-provider': 2.3.5
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       bowser: 2.11.0
       query-string: 7.1.3
     transitivePeerDependencies:
@@ -15051,15 +15049,15 @@ snapshots:
 
   '@portkey/provider-types@2.3.5':
     dependencies:
-      '@portkey/types': 2.17.5
+      '@portkey/types': 2.17.8
       '@types/readable-stream': 2.3.15
 
-  '@portkey/ramp@2.17.5(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)':
+  '@portkey/ramp@2.17.8(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)':
     dependencies:
-      '@portkey/request': 2.17.5
-      '@portkey/socket': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/request': 2.17.8
+      '@portkey/socket': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       query-string: 7.1.3
     transitivePeerDependencies:
       - aelf-sdk
@@ -15067,12 +15065,12 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@portkey/ramp@2.17.5(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)':
+  '@portkey/ramp@2.17.8(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)':
     dependencies:
-      '@portkey/request': 2.17.5
-      '@portkey/socket': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/request': 2.17.8
+      '@portkey/socket': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       query-string: 7.1.3
     transitivePeerDependencies:
       - aelf-sdk
@@ -15080,17 +15078,17 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@portkey/request@2.17.5':
+  '@portkey/request@2.17.8':
     dependencies:
-      '@portkey/types': 2.17.5
+      '@portkey/types': 2.17.8
       query-string: 7.1.3
 
-  '@portkey/services@2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@portkey/services@2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
-      '@portkey/graphql': 2.17.5(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/request': 2.17.5
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/graphql': 2.17.8(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/request': 2.17.8
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       query-string: 7.1.3
     transitivePeerDependencies:
@@ -15101,12 +15099,12 @@ snapshots:
       - react-dom
       - utf-8-validate
 
-  '@portkey/services@2.17.5(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@portkey/services@2.17.8(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
-      '@portkey/graphql': 2.17.5(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/request': 2.17.5
-      '@portkey/types': 2.17.5
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/graphql': 2.17.8(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/request': 2.17.8
+      '@portkey/types': 2.17.8
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       query-string: 7.1.3
     transitivePeerDependencies:
@@ -15117,10 +15115,10 @@ snapshots:
       - react-dom
       - utf-8-validate
 
-  '@portkey/socket@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
+  '@portkey/socket@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@abp/signalr': 7.4.5(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
     transitivePeerDependencies:
       - '@portkey/request'
       - aelf-sdk
@@ -15129,10 +15127,10 @@ snapshots:
       - query-string
       - utf-8-validate
 
-  '@portkey/socket@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
+  '@portkey/socket@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@abp/signalr': 7.4.5(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
-      '@portkey/utils': 2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
     transitivePeerDependencies:
       - '@portkey/request'
       - aelf-sdk
@@ -15143,23 +15141,23 @@ snapshots:
 
   '@portkey/types@2.15.10': {}
 
-  '@portkey/types@2.17.5': {}
+  '@portkey/types@2.17.8': {}
 
-  '@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
-      '@portkey/request': 2.17.5
+      '@portkey/request': 2.17.8
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       node-forge: 1.3.1
       query-string: 7.1.3
 
-  '@portkey/utils@2.17.5(@portkey/request@2.17.5)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/utils@2.17.8(@portkey/request@2.17.8)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
-      '@portkey/request': 2.17.5
+      '@portkey/request': 2.17.8
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       node-forge: 1.3.1
       query-string: 7.1.3
 
-  '@portkey/validator@2.17.5': {}
+  '@portkey/validator@2.17.8': {}
 
   '@protobufjs/aspromise@1.1.2': {}
 
@@ -15971,7 +15969,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 12.20.55
+      '@types/node': 22.10.3
       '@types/responselike': 1.0.3
 
   '@types/debug@4.1.12':
