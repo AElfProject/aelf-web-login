@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import {
-  TWalletInfo,
-  WalletAdapter,
+  type TWalletInfo,
+  type WalletAdapter,
   ConnectedWallet,
-  TWalletError,
+  type TWalletError,
   PORTKEYAA,
   PORTKEY_DISCOVER,
-  TChainId,
-  ICallContractParams,
-  TSignatureParams,
+  type TChainId,
+  type ICallContractParams,
+  type TSignatureParams,
   enhancedLocalStorage,
-  IWalletAdapterEvents,
+  type IWalletAdapterEvents,
   utils,
-  IMultiTransactionParams,
-  IMultiTransactionResult,
+  type IMultiTransactionParams,
+  type IMultiTransactionResult,
   LoginStatusEnum,
   IS_MANAGER_READONLY,
 } from '@aelf-web-login/wallet-adapter-base';
@@ -30,13 +30,13 @@ import {
   store,
 } from './store';
 import {
-  CreatePendingInfo,
-  DIDWalletInfo,
+  type CreatePendingInfo,
+  type DIDWalletInfo,
   getChainInfo,
   TelegramPlatform,
   did,
 } from '@portkey/did-ui-react';
-import { IBaseConfig } from '.';
+import type { IBaseConfig } from '.';
 import { EE, SET_GUARDIAN_APPROVAL_MODAL, SET_GUARDIAN_APPROVAL_PAYLOAD } from './utils';
 
 const { isPortkeyApp } = utils;
@@ -48,6 +48,7 @@ class Bridge {
   private _loginReject: (error: TWalletError) => void;
   private _logoutResolve: (arg: boolean) => void;
   private _logoutReject: (arg: boolean) => void;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   private _eventMap: Record<keyof IWalletAdapterEvents, any> = {} as IWalletAdapterEvents;
   private _noCommonBaseModal: boolean;
   private _sideChainId: TChainId;
@@ -83,15 +84,15 @@ class Bridge {
       if (TelegramPlatform.isTelegramPlatform()) {
         this._activeWallet = this._wallets.find((item) => item.name === PORTKEYAA);
         return this._activeWallet;
-      } else if (isPortkeyApp()) {
+      }
+      if (isPortkeyApp()) {
         this._activeWallet = this._wallets.find((item) => item.name === PORTKEY_DISCOVER);
         return this._activeWallet;
-      } else {
-        return (
-          this._activeWallet ||
-          this._wallets.find((item) => item.name === enhancedLocalStorage.getItem(ConnectedWallet))
-        );
       }
+      return (
+        this._activeWallet ||
+        this._wallets.find((item) => item.name === enhancedLocalStorage.getItem(ConnectedWallet))
+      );
     } catch (e) {
       return undefined;
     }
@@ -108,7 +109,7 @@ class Bridge {
       if (TelegramPlatform.isTelegramPlatform()) {
         this.autoLogin();
       } else if (isPortkeyApp()) {
-        console.log('begin to execute onUniqueWalletClick in PortkeyApp');
+        console.info('begin to execute onUniqueWalletClick in PortkeyApp');
         this.onUniqueWalletClick('PortkeyDiscover');
       } else {
         this.openLoginPanel();
@@ -134,10 +135,10 @@ class Bridge {
       this._logoutReject = reject;
 
       const disConnectAsync = async () => {
-        console.log('disconnect,isAAWallet:', this.isAAWallet);
+        console.info('disconnect,isAAWallet:', this.isAAWallet);
         try {
           if (this.isAAWallet) {
-            if (this.activeWallet!.noNeedForConfirm) {
+            if (this.activeWallet?.noNeedForConfirm) {
               await this.doubleCheckDisconnect(isForgetPin);
             } else {
               this.openConfirmLogoutPanel();
@@ -147,7 +148,7 @@ class Bridge {
             this._logoutResolve(true);
           }
         } catch (e) {
-          console.log(e);
+          console.info(e);
           this._logoutReject(false);
         }
       };
@@ -188,7 +189,7 @@ class Bridge {
   }) => {
     const isManagerReadOnly = enhancedLocalStorage.getItem(IS_MANAGER_READONLY) === 'true';
     if ((!guardiansApproved || guardiansApproved.length === 0) && !isManagerReadOnly) {
-      console.log(
+      console.info(
         'intg---clearManagerReadonlyStatus invoked by outer,isManagerReadOnly',
         isManagerReadOnly,
       );
@@ -208,7 +209,7 @@ class Bridge {
               guardiansApproved,
             },
           });
-          console.log(
+          console.info(
             'intg---clearManagerReadonlyStatus invoked by self(callSendMethod)',
             rs,
             chainId,
@@ -216,7 +217,7 @@ class Bridge {
         }),
       );
     } catch (error) {
-      console.log('intg---execute Promise.all to clearManagerReadonlyStatus error', error);
+      console.info('intg---execute Promise.all to clearManagerReadonlyStatus error', error);
     }
   };
 
@@ -228,7 +229,7 @@ class Bridge {
       return null as R;
     }
     const isManagerReadOnly = enhancedLocalStorage.getItem(IS_MANAGER_READONLY) === 'true';
-    console.log(this.isAAWallet, isManagerReadOnly, props.methodName);
+    console.info(this.isAAWallet, isManagerReadOnly, props.methodName);
     if (this.isAAWallet && isManagerReadOnly && props.methodName !== 'Approve') {
       EE.emit(SET_GUARDIAN_APPROVAL_MODAL, true);
       const { guardians } = await this.getApprovalModalGuardians();
@@ -245,13 +246,13 @@ class Bridge {
           }
         : props;
 
-      console.log('intg---finalProps', finalProps);
+      console.info('intg---finalProps', finalProps);
 
       const rs = (await this.activeWallet?.callSendMethod({
         ...finalProps,
         guardiansApproved: isRemoveReadOnlyManagerMethod ? [] : guardians,
       })) as { error?: any; [key: string]: any };
-      console.log('intg---rs of callSendMethod', rs);
+      console.info('intg---rs of callSendMethod', rs);
 
       if (!rs.error) {
         enhancedLocalStorage.setItem(IS_MANAGER_READONLY, false);
@@ -259,7 +260,7 @@ class Bridge {
           return rs as R;
         }
         const { walletInfo } = store.getState();
-        console.log(
+        console.info(
           'intg----getApprovalModalGuardians',
           guardians,
           walletInfo?.extraInfo?.portkeyInfo?.caInfo?.caAddress,
@@ -281,10 +282,9 @@ class Bridge {
       }
 
       return rs as R;
-    } else {
-      const rs = await this.activeWallet?.callSendMethod(props);
-      return rs as R;
     }
+    const rs = await this.activeWallet?.callSendMethod(props);
+    return rs as R;
   };
 
   getApprovalModalGuardians = async (): Promise<{
@@ -385,7 +385,7 @@ class Bridge {
   };
 
   onConnectErrorHandler = (err: TWalletError) => {
-    console.log('in error event', err, this.activeWallet);
+    console.info('in error event', err, this.activeWallet);
     if (!this._noCommonBaseModal) {
       this.closeLoginPanel();
       this.closeNestedModal();
@@ -403,7 +403,7 @@ class Bridge {
   };
 
   bindEvents = () => {
-    console.log('bindEvents', this.activeWallet);
+    console.info('bindEvents', this.activeWallet);
     if (!this.activeWallet) {
       return;
     }
@@ -413,7 +413,7 @@ class Bridge {
   };
 
   unbindEvents = () => {
-    console.log('unbindEvents', this.activeWallet);
+    console.info('unbindEvents', this.activeWallet);
     if (!this.activeWallet) {
       return;
     }
@@ -450,7 +450,7 @@ class Bridge {
       const walletInfo = await this._activeWallet?.login();
       this._loginResolve(walletInfo);
     } catch (e) {
-      console.log('onUniqueWalletClick--', e);
+      console.info('onUniqueWalletClick--', e);
     } finally {
       if (!this._noCommonBaseModal) {
         this.closeLoginPanel();
@@ -474,7 +474,7 @@ class Bridge {
       const walletInfo = await this.activeWallet.loginWithAcceleration(createPendingInfo);
       this._loginResolve(walletInfo);
     } catch (error) {
-      console.log('onPortkeyAAWalletCreatePending', error);
+      console.info('onPortkeyAAWalletCreatePending', error);
     } finally {
       this.closeLoadingModal();
     }
@@ -490,7 +490,7 @@ class Bridge {
       }
       this.activeWallet.onLoginComplete(didWalletInfo);
     } catch (error) {
-      console.log('onPortkeyAAWalletLoginWithAccelerationFinished', error);
+      console.info('onPortkeyAAWalletLoginWithAccelerationFinished', error);
     }
   };
 
@@ -509,39 +509,34 @@ class Bridge {
       const walletInfo = await this.activeWallet?.login(didWalletInfo);
       this._loginResolve(walletInfo);
     } catch (error) {
-      console.log('onPortkeyAAWalletLoginFinishedError', error);
+      console.info('onPortkeyAAWalletLoginFinishedError', error);
     } finally {
       this.closeLoadingModal();
     }
   };
 
   onPortkeyAAUnLock = async (pin: string): Promise<TWalletInfo> => {
+    let walletInfo: TWalletInfo;
     try {
-      const ids = setTimeout(() => {
-        clearTimeout(ids);
-        this.openLoadingModal();
-      }, 0);
+      this.openLoadingModal();
       if (!this.activeWallet?.onUnlock || typeof this.activeWallet.onUnlock !== 'function') {
-        return;
+        throw Error('no onUnlock callback');
       }
-      const walletInfo = await this.activeWallet?.onUnlock(pin);
-      console.log('onPortkeyAAUnLockSuccess----------', walletInfo);
+      walletInfo = await this.activeWallet?.onUnlock(pin);
+      console.info('onPortkeyAAUnLockSuccess----------', walletInfo);
       if (walletInfo) {
         this.closeLoginPanel();
         dispatch(setLocking(false));
         dispatch(clearLoginError());
+      } else {
+        throw Error('no walletInfo');
       }
-
-      return walletInfo;
     } catch (error) {
-      console.log('onPortkeyAAUnLockFail----------', error);
-      return;
+      console.info('onPortkeyAAUnLockFail----------', error);
     } finally {
-      const ids = setTimeout(() => {
-        clearTimeout(ids);
-        this.closeLoadingModal();
-      }, 0);
+      this.closeLoadingModal();
     }
+    return walletInfo;
   };
 
   lock = () => {

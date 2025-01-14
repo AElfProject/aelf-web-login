@@ -1,31 +1,31 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type React from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  WalletAdapter,
+  type WalletAdapter,
   utils,
   enhancedLocalStorage,
   PORTKEYAA,
   OperationTypeEnum,
   GUARDIAN_LIST_FOR_LOGIN,
 } from '@aelf-web-login/wallet-adapter-base';
-import { Bridge } from './bridge';
+import type { Bridge } from './bridge';
 import {
   CommonBaseModal,
-  PortkeyLoading,
   SignIn,
   Unlock,
-  DIDWalletInfo,
+  type DIDWalletInfo,
   TelegramPlatform,
-  CreatePendingInfo,
+  type CreatePendingInfo,
   setLoading,
   GuardianApprovalModal,
   getOperationDetails,
   ConfigProvider,
-  Theme,
+  type Theme,
   CommonModal,
   CustomSvg,
 } from '@portkey/did-ui-react';
 import '@portkey/did-ui-react/dist/assets/index.css';
-import { IBaseConfig } from '.';
+import type { IBaseConfig } from './';
 import { Modal, Button, Drawer, theme } from 'antd';
 import useTelegram from './useTelegram';
 import './ui.css';
@@ -465,6 +465,7 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
 
   const onUnlockInternal = useCallback(
     async (pin: string) => {
+      console.log('---onUnlockInternal', pin);
       const success = await bridgeInstance.onPortkeyAAUnLock(pin);
       if (!success) {
         setIsWrongPassword(true);
@@ -648,7 +649,6 @@ const SignInModal: React.FC<ISignInModalProps> = (props: ISignInModalProps) => {
         onOk={confirmLogoutHandler}
         onCancel={cancelLogoutHandler}
       />
-      <PortkeyLoading />
     </div>
     // </PortkeyProvider>
   );

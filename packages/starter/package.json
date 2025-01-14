@@ -55,22 +55,22 @@
     "@aelf-web-login/wallet-adapter-portkey-discover": "workspace:*",
     "@aelf-web-login/wallet-adapter-react": "workspace:*",
     "@ant-design/icons": "^5.5.2",
-    "@portkey/did-ui-react": "^2.17.4",
-    "aelf-sdk": "^3.4.16-alpha.7",
-    "flatted": "^3.3.1",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "@portkey/did-ui-react": "^2.17.8",
+    "aelf-sdk": "3.4.16-alpha.7",
+    "flatted": "^3.3.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.0",
-    "@umijs/lint": "^4.0.0",
-    "aelf-design": "^1.1.1",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@umijs/lint": "^4.4.4",
+    "aelf-design": "^1.1.2",
     "antd": "5.18.0",
     "dumi": "2.2.17",
-    "eslint": "^8.23.0",
-    "father": "^4.1.0",
-    "glob": "^10.3.12",
-    "stylelint": "^14.9.1"
+    "eslint": "^8.57.1",
+    "father": "^4.5.1",
+    "glob": "^10.4.5",
+    "stylelint": "^14.16.1"
   }
 }
