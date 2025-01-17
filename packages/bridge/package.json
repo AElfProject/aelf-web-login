@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-bridge",
-  "version": "0.2.2-alpha.13",
+  "version": "0.2.2-alpha.14",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
@@ -33,16 +33,16 @@
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
-    "@portkey/contracts": "^2.17.8",
-    "@portkey/services": "^2.17.8",
+    "@portkey/contracts": "^2.19.0-alpha.6",
+    "@portkey/services": "^2.19.0-alpha.6",
     "@reduxjs/toolkit": "^2.5.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@portkey/did-ui-react": "^2.17.8",
-    "@portkey/types": "^2.17.8",
-    "@portkey/utils": "^2.17.8",
+    "@portkey/did-ui-react": "^2.19.0-alpha.6",
+    "@portkey/types": "^2.19.0-alpha.6",
+    "@portkey/utils": "^2.19.0-alpha.6",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "antd": "4.24.14",
@@ -50,7 +50,7 @@
     "father": "^4.5.1"
   },
   "peerDependencies": {
-    "@portkey/did-ui-react": "^2.17.8"
+    "@portkey/did-ui-react": "^2.19.0-alpha.5"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
