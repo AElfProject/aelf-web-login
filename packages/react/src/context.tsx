@@ -2,18 +2,20 @@ import { IBridgeAPI, IConfigProps } from '@aelf-web-login/wallet-adapter-bridge'
 import React, { useMemo } from 'react';
 import init from './init';
 import { ETRANSFER_CONFIG } from './constants/config';
-import Updater from './hooks/Updater';
-
+import { PortkeyWebWalletProvider } from '@portkey/connect-web-wallet';
+import { ModalProvider } from './useModal';
+import Modals from './Modals';
 const HOOK_ERROR_MESSAGE =
   'Must call the provided initialization method`init` method before using hooks.';
 
-const WebLoginContext: React.Context<IBridgeAPI> = React.createContext<IBridgeAPI>(
-  {} as IBridgeAPI,
-);
+type TWebLoginContextValue = IBridgeAPI & { extraElementInConnectModal?: React.ReactNode };
+
+const WebLoginContext: React.Context<TWebLoginContextValue> =
+  React.createContext<TWebLoginContextValue>({} as TWebLoginContextValue);
 
 export default WebLoginContext;
 
-export function useWebLoginContext(): IBridgeAPI {
+export function useWebLoginContext(): TWebLoginContextValue {
   const bridgeAPI = React.useContext(WebLoginContext);
 
   if (!bridgeAPI) {
@@ -25,17 +27,15 @@ export function useWebLoginContext(): IBridgeAPI {
 
 export interface IWebLoginProviderProps {
   children: React.ReactNode;
-  /**
-   * @deprecated use config instead
-   */
-  bridgeAPI?: IBridgeAPI;
+
   config: IConfigProps;
+  extraElementInConnectModal?: React.ReactNode;
 }
 
 export const WebLoginProvider: React.FC<IWebLoginProviderProps> = ({
   children,
-  bridgeAPI,
   config,
+  extraElementInConnectModal,
 }) => {
   const networkType = config.baseConfig.networkType || 'MAINNET';
   const _config = useMemo(
@@ -45,20 +45,29 @@ export const WebLoginProvider: React.FC<IWebLoginProviderProps> = ({
     }),
     [config, networkType],
   );
-  const finalBridgeAPI: IBridgeAPI | undefined = useMemo(
-    () => bridgeAPI || init(_config),
-    [_config, bridgeAPI],
-  );
+  const finalBridgeAPI: IBridgeAPI | undefined = useMemo(() => init(_config), [_config]);
 
   if (!finalBridgeAPI) {
     return null;
   }
-  const { getSignIn } = finalBridgeAPI;
 
   return (
-    <WebLoginContext.Provider value={finalBridgeAPI}>
-      <Updater />
-      {getSignIn(children)}
+    <WebLoginContext.Provider value={{ ...finalBridgeAPI, extraElementInConnectModal }}>
+      <ModalProvider>
+        <PortkeyWebWalletProvider
+          options={{
+            networkType: config.baseConfig.networkType,
+            appId: config.baseConfig.appName,
+            theme: config.baseConfig.theme,
+            loginConfig: config.baseConfig.loginConfig,
+            design: config.baseConfig.design,
+          }}
+        >
+          <Modals />
+
+          {children}
+        </PortkeyWebWalletProvider>
+      </ModalProvider>
     </WebLoginContext.Provider>
   );
 };

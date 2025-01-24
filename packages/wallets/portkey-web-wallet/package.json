@@ -1,5 +1,5 @@
 {
-  "name": "@aelf-web-login/wallet-adapter-night-elf",
+  "name": "@aelf-web-login/wallet-adapter-portkey-web",
   "version": "0.2.2-alpha.13",
   "type": "module",
   "main": "dist/esm/index.js",
@@ -26,12 +26,14 @@
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
+    "@portkey/connect-web-wallet": "^2.19.0-alpha.9",
     "@portkey/contracts": "^2.19.0-alpha.9",
-    "aelf-bridge": "0.0.11-alpha.10",
+    "@portkey/detect-provider": "^2.4.0-alpha.6",
+    "@portkey/provider-types": "^2.4.0-alpha.6",
+    "@portkey/utils": "^2.19.0-alpha.9",
     "bn.js": "^5.2.1"
   },
   "devDependencies": {
-    "@aelf-react/types": "^0.1.10",
     "@portkey/types": "^2.19.0-alpha.9",
     "@types/bn.js": "^5.1.6",
     "father": "^4.5.1",

@@ -25,54 +25,39 @@ import {
 import { getContractBasic } from '@portkey/contracts';
 import { IContract } from '@portkey/types';
 
-import detectDiscoverProvider from './detectProvider';
+import detectWebProvider from './detectProvider';
 import checkSignatureParams from './signatureParams';
-import { zeroFill, openPageInDiscover } from './utils';
+import { zeroFill } from './utils';
+import { WalletInfoControl } from '@portkey/connect-web-wallet';
+import { wallet } from '@portkey/utils';
+import '@portkey/connect-web-wallet/dist/assets/index.css';
+export * from '@portkey/connect-web-wallet';
 
-const { isPortkeyApp, isMobileDevices } = utils;
-
-type TDiscoverEventsKeys = Array<Exclude<DappEvents, 'connected' | 'message' | 'error'>>;
+type TDiscoverEventsKeys = Array<
+  Exclude<DappEvents, 'connected' | 'message' | 'error' | 'webWalletVisible'>
+>;
 
 export type TPluginNotFoundCallback = (openPluginStorePage: () => void) => void;
 export type TOnClickCryptoWallet = (continueDefaultBehaviour: () => void) => void;
-export interface IPortkeyDiscoverWalletAdapterConfig {
+export interface IPortkeyWebWalletAdapterConfig {
   networkType: NetworkType;
   chainId: TChainId;
-  autoRequestAccount: boolean;
-  autoLogoutOnDisconnected: boolean;
-  autoLogoutOnNetworkMismatch: boolean;
-  autoLogoutOnAccountMismatch: boolean;
-  autoLogoutOnChainMismatch: boolean;
-  onClick?: TOnClickCryptoWallet;
-  onPluginNotFound?: TPluginNotFoundCallback;
+  disconnectConfirm?: boolean;
 }
 
-// autoRequestAccount: true,
-// autoLogoutOnAccountMismatch: true,
-// autoLogoutOnChainMismatch: true,
-// autoLogoutOnDisconnected: true,
-// autoLogoutOnNetworkMismatch: true,
-// onClick: continueDefaultBehaviour => {
-//   continueDefaultBehaviour();
-// },
-// onPluginNotFound: openStore => {
-//   console.log(234);
-//   openStore();
-// }
+export const WALLET_NAME = 'PortkeyWebWallet' as WalletName<'PortkeyWebWallet'>;
 
-export const PortkeyDiscoverName = 'PortkeyDiscover' as WalletName<'PortkeyDiscover'>;
-
-export class PortkeyDiscoverWallet extends BaseWalletAdapter {
-  name = PortkeyDiscoverName;
+export class PortkeyInnerWallet extends BaseWalletAdapter {
+  name = WALLET_NAME;
   icon =
-    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjQjhFMUZGIiByeD0iOCIvPjxwYXRoIGZpbGw9IiMwQTQzNzAiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE0LjczMSA4LjQ1Yy0zLjA3MiAxLjM1LTQuNzUgNC44MzktMy45MjEgOC4xNjcuNjggMS45ODYgMi4wNSAzLjQgNC4wODMgNC4xMjQgMy43MS45MDkgNy4xODEtMS4xMjggNi44NS01LjEzMS0uMTc3LTEuNTM3LTEuMjE0LTIuNzg2LTIuNTM2LTMuMTktMS4xNzYtLjM2LTIuNDQtLjA2Mi0zLjIyLjY2NC0uNzguNzI2LTEuMDc1IDEuNjItLjc2MiAyLjY2LjE3Mi41NzIuNTg1LjkyNyAxLjE0OCAxLjA5Ny41Mi4wNDYgMS4wNDYtLjE3NyAxLjE3MS0uNDc4LS4wNTktLjA5OS0uMTExLS4yMDgtLjE4My0uMzAxLS4zNS0uNjI1LS4wNzMtMS4yMjIuMjYtMS41MjQuNDUxLS40MSAxLjE0OC0uMzkyIDEuNjI4LS4wNTMuNzguNTUgMS4wNjMgMS45MDUuNjQgMi44MjItLjcxIDEuNTM0LTIuMzMyIDIuMTQ1LTQuMDA0IDEuNzEtMi40NjQtLjY0LTMuNjY0LTMuNDA3LTIuOTcyLTUuNDU4IDEuMTMyLTMuMzU3IDQuODQ2LTQuNTY2IDcuOTY5LTMuMjQ3IDIuMzkgMS4yNyAzLjQ5IDMuMzA1IDMuNDkgNi4yNzYtLjE3IDQuNDUyLTQuNjUyIDcuNzU1LTkuMTQ2IDYuODk2LTQuMzU3LS44MzItNy41OTQtNS4wMTYtNy4zNjEtOC45NzEuMDg1LTEuNDYxLjQxLTIuODI5IDEuMTU1LTQuMDg0IDEuOTQtMy4yNjQgNC45Ni00LjggOC43NC01LjA0OC45OTQtLjA2NSAyLjAyMy0uMDQ0IDIuOTctLjA0M2E4LjAwMSA4LjAwMSAwIDAgMC0uMzIzLS4xMjljLTEuNjk3LS42NTQtMy43OTctLjg5Mi01LjcwMy0uNi0xLjIxMi4xNS0yLjMzLjQ3OC0zLjM0Ny45NDhhLjMuMyAwIDAgMC0uMDY4LjAyYy0uNDU3LjE5Ni0uNTM0LS4yNTMtLjY5Ni0uMzg5LS4xNTgtLjEzMi0uMTM4LjAzMi0uMTM4LjAzMi4xMzguNjU4LS4yMDcuOTIzLS4yNTQuOTU2LS4yODguMTc4LS41NjQuMzcxLS44MzEuNTc0LS4wMDguMDAzLS4wMTQuMDAzLS4wMjIuMDA3LS42My4yODgtLjg5My0uMTk5LTEuMTgzLS4zNDctLjMwNy0uMTU2LS4xOS4xLS4xOS4xLjM3OS43NTcuMDUxIDEuNDA1LS4wMSAxLjUxNC0uMjcuMjktLjUyMS41OTYtLjc1Ny45MTQtLjAyNC4wMTUtLjA0OC4wMy0uMDc2LjA1NS0uNjIuNTYyLTEuMTAxLjExNy0xLjQ4NC4wMzQtLjQyMi0uMDkyLS4xODMuMTg1LS4xODMuMTg1Ljc4LjgwMi41MzQgMS43NjUuNTM0IDEuNzY1LS45OCAyLjA2LTEuMzg1IDQuNjQ1LS45MTMgNy4yMTMgMS43OCA4Ljg0NCAxMS43NCAxMS44OCAxOC4yMTMgNy4wMDcgMi41OTgtMi4xNiAzLjgxMi00Ljk0IDMuODEyLTcuOTgxIDAtMi4wMzUtLjY0LTQuMjI2LTEuNTgxLTUuNDU1LTEuMS0xLjc3NC0zLjE1OC0zLjMyMS01LjQ5NC0zLjgzNWE4Ljc3NSA4Ljc3NSAwIDAgMC01LjMwNS41MjRaIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=';
+    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjMDA3NkNDIiByeD0iOCIvPjxwYXRoIGZpbGw9IiNERkYwRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE0LjczMSA4LjQ1Yy0zLjA3MiAxLjM1LTQuNzUgNC44MzktMy45MjEgOC4xNjcuNjggMS45ODYgMi4wNSAzLjQgNC4wODMgNC4xMjQgMy43MS45MDkgNy4xODEtMS4xMjggNi44NS01LjEzMS0uMTc3LTEuNTM3LTEuMjE0LTIuNzg2LTIuNTM2LTMuMTktMS4xNzYtLjM2LTIuNDQtLjA2Mi0zLjIyLjY2NC0uNzguNzI2LTEuMDc1IDEuNjItLjc2MiAyLjY2LjE3Mi41NzIuNTg1LjkyNyAxLjE0OCAxLjA5Ny41Mi4wNDYgMS4wNDYtLjE3NyAxLjE3MS0uNDc4LS4wNTktLjA5OS0uMTExLS4yMDgtLjE4My0uMzAxLS4zNS0uNjI1LS4wNzMtMS4yMjIuMjYtMS41MjQuNDUxLS40MSAxLjE0OC0uMzkyIDEuNjI4LS4wNTMuNzguNTUgMS4wNjMgMS45MDUuNjQgMi44MjItLjcxIDEuNTM0LTIuMzMyIDIuMTQ1LTQuMDA0IDEuNzEtMi40NjQtLjY0LTMuNjY0LTMuNDA3LTIuOTcyLTUuNDU4IDEuMTMyLTMuMzU3IDQuODQ2LTQuNTY2IDcuOTY5LTMuMjQ3IDIuMzkgMS4yNyAzLjQ5IDMuMzA1IDMuNDkgNi4yNzYtLjE3IDQuNDUyLTQuNjUyIDcuNzU1LTkuMTQ2IDYuODk2LTQuMzU3LS44MzItNy41OTQtNS4wMTYtNy4zNjEtOC45NzEuMDg1LTEuNDYxLjQxLTIuODI5IDEuMTU1LTQuMDg0IDEuOTQtMy4yNjQgNC45Ni00LjggOC43NC01LjA0OC45OTQtLjA2NSAyLjAyMy0uMDQ0IDIuOTctLjA0M2E3Ljk5IDcuOTkgMCAwIDAtLjMyMy0uMTI5Yy0xLjY5Ny0uNjU0LTMuNzk3LS44OTItNS43MDMtLjYtMS4yMTIuMTUtMi4zMy40NzgtMy4zNDcuOTQ4YS4yOTkuMjk5IDAgMCAwLS4wNjguMDJjLS40NTcuMTk2LS41MzQtLjI1My0uNjk2LS4zODktLjE1OC0uMTMyLS4xMzguMDMyLS4xMzguMDMyLjEzOC42NTgtLjIwNy45MjMtLjI1NC45NTYtLjI4OC4xNzgtLjU2NC4zNzEtLjgzMS41NzQtLjAwOC4wMDMtLjAxNC4wMDMtLjAyMi4wMDctLjYzLjI4OC0uODkzLS4xOTktMS4xODMtLjM0Ny0uMzA3LS4xNTYtLjE5LjEtLjE5LjEuMzc5Ljc1Ny4wNTEgMS40MDUtLjAxIDEuNTE0LS4yNy4yOS0uNTIxLjU5Ni0uNzU3LjkxNC0uMDI0LjAxNS0uMDQ4LjAzLS4wNzYuMDU1LS42Mi41NjItMS4xMDEuMTE3LTEuNDg0LjAzNC0uNDIyLS4wOTItLjE4My4xODUtLjE4My4xODUuNzguODAyLjUzNCAxLjc2NS41MzQgMS43NjUtLjk4IDIuMDYtMS4zODUgNC42NDUtLjkxMyA3LjIxMyAxLjc4IDguODQ0IDExLjc0IDExLjg4IDE4LjIxMyA3LjAwNyAyLjU5OC0yLjE2IDMuODEyLTQuOTQgMy44MTItNy45ODEgMC0yLjAzNS0uNjQtNC4yMjYtMS41ODEtNS40NTUtMS4xLTEuNzc0LTMuMTU4LTMuMzIxLTUuNDk0LTMuODM1YTguNzc1IDguNzc1IDAgMCAwLTUuMzA1LjUyNFoiIGNsaXAtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==';
   private _loginState: LoginStateEnum;
   private _wallet: TWalletInfo | null;
   private _detectProvider: IPortkeyProvider | null;
   private _chainId: TChainId;
-  private _config: IPortkeyDiscoverWalletAdapterConfig;
+  private _config: IPortkeyWebWalletAdapterConfig;
 
-  constructor(config: IPortkeyDiscoverWalletAdapterConfig) {
+  constructor(config: IPortkeyWebWalletAdapterConfig) {
     super();
     this._loginState = LoginStateEnum.INITIAL;
     this._wallet = null;
@@ -80,9 +65,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     this._chainId = config.chainId;
     this._config = config;
     if (typeof window !== 'undefined') {
-      this.detect().then(() => {
-        this.autoRequestAccountHandler();
-      });
+      this.detect();
     }
   }
 
@@ -94,37 +77,20 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     return this._wallet as TWalletInfo;
   }
 
-  async autoRequestAccountHandler() {
-    if (!this._config.autoRequestAccount) {
-      return;
-    }
-    const canLoginEargly =
-      enhancedLocalStorage.getItem(ConnectedWallet) === this.name || isPortkeyApp();
-    if (canLoginEargly) {
-      console.log('this._config.autoRequestAccount', this._config.autoRequestAccount);
-      await this.loginEagerly();
-    }
+  get disconnectConfirm() {
+    return this._config.disconnectConfirm;
   }
 
-  // private executeOnce<T extends (...args: any) => any>(fn: T) {
-  //   if (typeof fn !== 'function') {
-  //     throw new Error('please pass a function');
-  //   }
-  //   let result: ReturnType<T>;
-  //   return (...rest: any) => {
-  //     if (fn) {
-  //       result = fn.apply(this, rest);
-  //       fn = null as any;
-  //     }
-  //     return result;
-  //   };
-  // }
+  private async getProvider() {
+    if (this._detectProvider) return this._detectProvider;
+    return await detectWebProvider();
+  }
 
   private async detect(): Promise<IPortkeyProvider> {
     if (this._detectProvider?.isConnected()) {
       return this._detectProvider;
     }
-    this._detectProvider = await detectDiscoverProvider();
+    this._detectProvider = await this.getProvider();
     if (this._detectProvider) {
       if (!this._detectProvider.isPortkey) {
         throw makeError(ERR_CODE.NOT_PORTKEY);
@@ -136,21 +102,27 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     }
   }
 
-  private async onAccountsSuccess(
-    provider: IPortkeyProvider,
-    accounts: Accounts,
-  ): Promise<TWalletInfo> {
+  private async onAccountsSuccess(accounts?: Accounts): Promise<TWalletInfo> {
     let nickName = 'Wallet 01';
-    const address = accounts[this._chainId]![0].split('_')[1];
+    const provider = await this.getProvider();
+    const walletInfo: any = await this.updateWalletCache();
+    if (!walletInfo || !walletInfo.caAddress) return;
+    const address = wallet.removeELFAddressSuffix(walletInfo?.caAddress);
     try {
-      nickName = await provider.request({ method: 'wallet_getWalletName' });
+      nickName = walletInfo?.nickName;
     } catch (error) {
       console.warn(error);
     }
+    const cacheAccounts =
+      walletInfo?.caAddress && walletInfo.originChainId
+        ? [{ chainId: walletInfo.originChainId, address: walletInfo?.caAddress }]
+        : undefined;
+
+    const _accounts = accounts ? accounts : cacheAccounts;
     this._wallet = {
       address,
       extraInfo: {
-        accounts,
+        accounts: _accounts,
         nickName,
         provider,
       },
@@ -167,34 +139,24 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
   }
 
   async login(): Promise<TWalletInfo> {
-    if (isMobileDevices() && !isPortkeyApp()) {
-      openPageInDiscover(undefined, undefined);
-      return;
-    }
     try {
-      if (!this._detectProvider) {
+      const provider = await this.getProvider();
+      if (!provider) {
         throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
       }
-
-      const provider = this._detectProvider;
       const chainId = this._chainId;
 
       this._loginState = LoginStateEnum.CONNECTING;
 
-      const network = await provider.request({ method: 'network' });
-      console.log('network', network);
-      if (network !== this._config.networkType) {
-        this.onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
-        return;
-      }
-
       let accounts = await provider.request({ method: 'accounts' });
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
-        return await this.onAccountsSuccess(provider, accounts);
+        return await this.onAccountsSuccess(accounts);
       }
       accounts = await provider.request({ method: 'requestAccounts' });
+      console.log(accounts, 'accounts=requestAccounts=login');
+
       if (accounts[chainId] && accounts[chainId]!.length > 0) {
-        return await this.onAccountsSuccess(provider, accounts);
+        return await this.onAccountsSuccess(accounts);
       } else {
         this.onAccountsFail(makeError(ERR_CODE.ACCOUNTS_IS_EMPTY));
         return;
@@ -208,45 +170,42 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
 
   async loginEagerly() {
     try {
-      if (!this._detectProvider) {
-        throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
-      }
-
-      const provider = this._detectProvider;
-      const chainId = this._chainId;
-
       this._loginState = LoginStateEnum.CONNECTING;
 
-      const { isUnlocked } = await provider.request({ method: 'wallet_getWalletState' });
+      const provider = await this.getProvider();
+
+      const { isUnlocked } = (await provider?.request({ method: 'wallet_getWalletState' })) ?? {};
 
       console.log('isUnlocked', isUnlocked);
       if (!isUnlocked) {
-        console.log('portkey-discover-loginEagerly-locked');
+        console.log('portkey-web-wallet-loginEagerly-locked');
         return;
       }
-
-      const network = await provider.request({ method: 'network' });
-      if (network !== this._config.networkType) {
-        this.onAccountsFail(makeError(ERR_CODE.NETWORK_TYPE_NOT_MATCH));
-        return;
-      }
-
-      const accounts = await provider.request({ method: 'accounts' });
-      if (accounts[chainId] && accounts[chainId]!.length > 0) {
-        await this.onAccountsSuccess(provider, accounts);
-      } else {
-        this.onAccountsFail(makeError(ERR_CODE.DISCOVER_LOGIN_EAGERLY_FAIL));
-      }
+      const accounts = await provider?.request({ method: 'accounts' });
+      await this.onAccountsSuccess(accounts);
     } catch (error) {
       this.emit('error', makeError(ERR_CODE.DISCOVER_LOGIN_EAGERLY_FAIL, error));
     }
   }
 
   async logout() {
+    const provider = await this.getProvider();
+
+    await provider?.request({ method: 'wallet_disconnect' });
     this._wallet = null;
     this._loginState = LoginStateEnum.INITIAL;
     enhancedLocalStorage.removeItem(ConnectedWallet);
+    WalletInfoControl.resetWalletInfo();
     this.emit('disconnected');
+  }
+
+  async lock() {
+    const provider = await this.getProvider();
+
+    await provider?.request({ method: 'wallet_lock' });
+    this._wallet = null;
+    this._loginState = LoginStateEnum.INITIAL;
+    this.emit('disconnected', true);
   }
 
   async getSignature(params: TSignatureParams): Promise<{
@@ -259,12 +218,14 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     if (!this._wallet) {
       throw makeError(ERR_CODE.DISCOVER_NOT_CONNECTED);
     }
-    if (!this._detectProvider) {
+    const provider = await this.getProvider();
+
+    if (!provider) {
       throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
     }
 
     const signInfo = params.signInfo;
-    const signedMsgObject = await this._detectProvider.request({
+    const signedMsgObject = await provider.request({
       method: 'wallet_getSignature',
       payload: {
         data: signInfo || params.hexToBeSign,
@@ -287,12 +248,16 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     if (!this._wallet) {
       throw makeError(ERR_CODE.DISCOVER_NOT_CONNECTED);
     }
-    if (!this._detectProvider) {
+    const provider = await this.getProvider();
+
+    if (!provider) {
+      const walletInfo = WalletInfoControl.getWalletInfo();
+      if (walletInfo?.caAddress) return wallet.removeAddressSuffix(walletInfo.caAddress);
       throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
     }
     let accounts = this._wallet.extraInfo?.accounts;
     if (!accounts[chainId] || accounts[chainId]?.length === 0) {
-      accounts = await this._detectProvider.request({ method: 'accounts' });
+      accounts = await provider.request({ method: 'accounts' });
     }
     return accounts[chainId]?.[0];
   }
@@ -301,12 +266,13 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     if (!this._wallet) {
       throw makeError(ERR_CODE.DISCOVER_NOT_CONNECTED);
     }
-    if (!this._detectProvider) {
+    const provider = await this.getProvider();
+    if (!provider) {
       throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
     }
     const { getOriginalAddress } = utils;
     try {
-      const status = await this._detectProvider?.request({
+      const status = await provider.request({
         method: MethodsWallet.GET_WALLET_MANAGER_SYNC_STATUS,
         payload: { chainId: chainId },
       });
@@ -321,24 +287,30 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     }
   }
 
-  private listenProviderEvents() {
-    if (!this._detectProvider) {
+  private async updateWalletCache() {
+    try {
+      const provider = await this.getProvider();
+      const walletInfo = await provider?.request({ method: 'walletInfo' });
+      console.log(walletInfo, provider, 'walletInfo==updateWalletCache');
+      walletInfo && WalletInfoControl.setWalletInfo(walletInfo as any);
+      return walletInfo;
+    } catch (error) {
+      console.error('setWalletCache', error);
+      return;
+    }
+  }
+
+  private async listenProviderEvents() {
+    const provider = await this.getProvider();
+
+    if (!provider) {
       return;
     }
     const onDisconnected = (error: ProviderError) => {
       console.log('onDisconnected', error);
       if (!this._wallet) return;
-      if (this._config.autoLogoutOnDisconnected) {
-        this.logout();
-      }
     };
-    const onNetworkChanged = (networkType: NetworkType) => {
-      if (networkType !== this._config.networkType) {
-        if (this._config.autoLogoutOnNetworkMismatch) {
-          this.logout();
-        }
-      }
-    };
+
     const onAccountsChanged = (accounts: Accounts) => {
       if (!this._wallet) return;
       const chainId = this._chainId;
@@ -347,16 +319,18 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
         accounts[chainId]!.length === 0 ||
         accounts[chainId]!.find((addr) => addr !== this._wallet!.address)
       ) {
-        if (this._config.autoLogoutOnAccountMismatch) {
-          this.logout();
-        }
+        //
+      } else {
+        this.updateWalletCache();
       }
+    };
+    const onNetworkChanged = () => {
+      //
+      console.log('onNetworkChanged');
     };
     const onChainChanged = (chainIds: ChainIds) => {
       if (chainIds.find((id) => id === this._chainId)) {
-        if (this._config.autoLogoutOnChainMismatch) {
-          this.logout();
-        }
+        //
       }
     };
 
@@ -367,7 +341,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
       chainChanged: onChainChanged,
     };
     (Object.keys(discoverEventsMap) as TDiscoverEventsKeys).forEach((ele) => {
-      this._detectProvider?.on(ele, discoverEventsMap[ele]);
+      provider.on(ele, discoverEventsMap[ele]);
     });
   }
 
@@ -375,10 +349,12 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     if (!this._wallet) {
       throw makeError(ERR_CODE.DISCOVER_NOT_CONNECTED);
     }
-    if (!this._detectProvider) {
+    const provider = await this.getProvider();
+
+    if (!provider) {
       throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
     }
-    const chain = await this._detectProvider.getChain(chainId);
+    const chain = await provider.getChain(chainId);
     return getContractBasic({
       contractAddress: contractAddress,
       chainProvider: chain,
@@ -395,7 +371,9 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     if (!this._wallet) {
       throw makeError(ERR_CODE.DISCOVER_NOT_CONNECTED);
     }
-    if (!this._detectProvider) {
+    const provider = await this.getProvider();
+
+    if (!provider) {
       throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
     }
     if (!contractAddress) {
@@ -403,7 +381,7 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     }
     const finalChainId = chainId || this._chainId;
     const contract = await this.getContract(finalChainId, contractAddress);
-    const rs = contract.callSendMethod(methodName, this._wallet.address, args, sendOptions);
+    const rs = contract.callSendMethod(methodName, '', args, sendOptions);
     return rs as R;
   }
 
@@ -416,7 +394,9 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     if (!this._wallet) {
       throw makeError(ERR_CODE.DISCOVER_NOT_CONNECTED);
     }
-    if (!this._detectProvider) {
+    const provider = await this.getProvider();
+
+    if (!provider) {
       throw makeError(ERR_CODE.WITHOUT_DETECT_PROVIDER);
     }
     if (!contractAddress) {
@@ -428,7 +408,9 @@ export class PortkeyDiscoverWallet extends BaseWalletAdapter {
     return rs as R;
   }
 
-  goAssets(): Promise<void> {
-    throw new Error('Method not implemented.');
+  async goAssets() {
+    const provider = await this.getProvider();
+
+    await provider?.request({ method: 'wallet_showAssets' });
   }
 }

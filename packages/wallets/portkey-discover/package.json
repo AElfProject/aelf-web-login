@@ -26,14 +26,14 @@
   },
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
-    "@portkey/contracts": "^2.17.8",
+    "@portkey/contracts": "^2.19.0-alpha.9",
     "@portkey/detect-provider": "^2.3.5",
     "@portkey/provider-types": "^2.3.5",
-    "@portkey/utils": "^2.17.8",
+    "@portkey/utils": "^2.19.0-alpha.9",
     "bn.js": "^5.2.1"
   },
   "devDependencies": {
-    "@portkey/types": "^2.17.8",
+    "@portkey/types": "^2.19.0-alpha.9",
     "@types/bn.js": "^5.1.6",
     "father": "^4.5.1",
     "typescript": "^5.7.2"

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Button, message, Divider, Flex } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 // import { demoFn } from '@aelf-web-login/wallet-adapter-bridge';
@@ -13,6 +13,7 @@ const LoginDemo: React.FC = () => {
     walletType,
     isConnected,
     loginError,
+    goAssets,
   } = useConnectWallet();
   console.log('LoginDemo init----------', isConnected);
 
@@ -45,7 +46,19 @@ const LoginDemo: React.FC = () => {
     console.log('log after execute disConnectWallet', rs);
   };
 
-  const [showAssets, setShowAssets] = useState<boolean>();
+  const _walletInfo = useMemo(() => {
+    if (!walletInfo) return walletInfo;
+    return {
+      address: walletInfo?.address,
+      name: walletInfo?.name,
+      extraInfo: {
+        accounts: walletInfo?.extraInfo?.accounts,
+        nickName: walletInfo?.extraInfo?.nickName,
+      },
+    };
+  }, [walletInfo]);
+
+  console.log(isLocking, 'isLocking===');
 
   return (
     <div>
@@ -78,12 +91,12 @@ const LoginDemo: React.FC = () => {
       <div>
         walletInfo:
         <pre style={{ overflow: 'auto', height: '300px' }}>
-          {JSON.stringify(walletInfo, undefined, 4)}
+          {JSON.stringify(_walletInfo, undefined, 4)}
         </pre>
       </div>
       <div>walletType:{walletType}</div>
       <Divider />
-      <Button onClick={() => setShowAssets(true)}>show Assets</Button>
+      <Button onClick={() => goAssets()}>show Assets</Button>
     </div>
   );
 };

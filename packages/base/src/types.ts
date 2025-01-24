@@ -67,6 +67,7 @@ export enum WalletTypeEnum {
   elf = 'NightElf',
   aa = 'PortkeyAA',
   discover = 'PortkeyDiscover',
+  web = 'PortkeyWebWallet',
 }
 export enum SignInDesignEnum {
   SocialDesign = 'SocialDesign',

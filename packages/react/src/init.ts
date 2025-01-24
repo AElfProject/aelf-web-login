@@ -6,7 +6,6 @@ import {
 
 let isTGScriptInjected = false;
 const init = (options: IConfigProps): IBridgeAPI => {
-  // noCommonBaseModal = options.baseConfig.noCommonBaseModal ?? false;
   if (options.baseConfig.showVconsole && typeof window !== 'undefined') {
     import('vconsole')
       .then((VConsole) => new VConsole.default())

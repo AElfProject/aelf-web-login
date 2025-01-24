@@ -42,17 +42,13 @@
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.26.0",
-    "@portkey/contracts": "^2.17.8",
+    "@portkey/contracts": "^2.19.0-alpha.9",
     "@portkey/detect-provider": "^2.3.5",
-    "@portkey/did-ui-react": "^2.17.8",
     "@portkey/provider-types": "^2.3.5",
-    "@portkey/utils": "^2.17.8",
+    "@portkey/utils": "^2.19.0-alpha.9",
     "aelf-sdk": "^3.4.15",
     "father": "^4.5.1",
     "identity-obj-proxy": "^3.0.0"
-  },
-  "peerDependencies": {
-    "@portkey/did-ui-react": "^2.17.8"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
