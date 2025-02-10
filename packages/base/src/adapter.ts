@@ -1,5 +1,4 @@
 import EventEmitter from 'eventemitter3';
-import { CreatePendingInfo, DIDWalletInfo } from '@portkey/did-ui-react';
 import {
   TWalletError,
   LoginStateEnum,
@@ -32,7 +31,7 @@ export interface IWalletAdapter<Name extends string = string> {
   wallet: TWalletInfo;
   disconnectConfirm?: boolean;
 
-  login(arg?: DIDWalletInfo): Promise<TWalletInfo>;
+  login(arg?: any): Promise<TWalletInfo>;
   logout(isForgetPin?: boolean): Promise<void>;
   loginEagerly(type?: string): Promise<void>;
   // getAccounts(chainId: TChainId): Promise<string>;
@@ -49,8 +48,8 @@ export interface IWalletAdapter<Name extends string = string> {
   callViewMethod<T, R>(props: ICallContractParams<T>): Promise<R>;
   onUnlock?: (pin: string) => Promise<TWalletInfo>;
   lock?: () => void;
-  loginWithAcceleration?: (createPendingInfo: CreatePendingInfo) => Promise<TWalletInfo>;
-  onLoginComplete?: (arg: DIDWalletInfo) => Promise<void>;
+  loginWithAcceleration?: (createPendingInfo: any) => Promise<TWalletInfo>;
+  onLoginComplete?: (arg: any) => Promise<void>;
   sendMultiTransaction?<T>(params: IMultiTransactionParams<T>): Promise<IMultiTransactionResult>;
   goAssets(): Promise<void>;
 }
@@ -68,7 +67,7 @@ export abstract class BaseWalletAdapter<Name extends string = string>
   abstract loginState: LoginStateEnum;
   abstract wallet: TWalletInfo;
 
-  abstract login(arg?: DIDWalletInfo): Promise<TWalletInfo>;
+  abstract login(arg?: any): Promise<TWalletInfo>;
   abstract logout(isForgetPin?: boolean): Promise<void>;
   abstract loginEagerly(type?: string): Promise<void>;
   // abstract getAccounts(chainId: TChainId): Promise<string>;

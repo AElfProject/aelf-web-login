@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-base",
-  "version": "0.3.0",
+  "version": "0.3.2-alpha.3",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
@@ -35,11 +35,7 @@
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-typescript": "^7.26.0",
-    "@portkey/did-ui-react": "^2.19.0-alpha.9",
     "@portkey/types": "^2.19.0-alpha.9"
-  },
-  "peerDependencies": {
-    "@portkey/did-ui-react": "^2.19.0-alpha.9"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

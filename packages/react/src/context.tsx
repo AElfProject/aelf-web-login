@@ -1,6 +1,6 @@
 import { IBridgeAPI, IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
 import React, { useMemo } from 'react';
-import init from './init';
+import { init } from './init';
 import { ETRANSFER_CONFIG } from './constants/config';
 import { PortkeyWebWalletProvider } from '@portkey/connect-web-wallet';
 import { ModalProvider } from './useModal';
