@@ -1,7 +1,7 @@
 import detectProvider from '@portkey/detect-provider';
 import { IPortkeyProvider } from '@portkey/provider-types';
 
-export default async function detectWebProvider(count = 0): Promise<IPortkeyProvider | null> {
+export default async function detectDiscoverProvider(): Promise<IPortkeyProvider | null> {
   let detectProviderFunc = detectProvider;
   if (typeof detectProvider !== 'function') {
     const detectProviderModule = detectProvider as any;
@@ -9,14 +9,14 @@ export default async function detectWebProvider(count = 0): Promise<IPortkeyProv
   }
   try {
     const res = await detectProviderFunc({
-      timeout: 3000,
-      providerName: 'PortkeyWebWallet',
+      timeout: 6000,
+      // providerName: 'Portkey',
+      providerName: 'FairyVault',
     });
+    console.log(res, 'detectDiscoverProvider res===');
     return res;
   } catch (e) {
-    count++;
-    console.log('detectDiscoverProvider error portkey web', e);
-    if (count > 5) return null;
-    return detectWebProvider(count);
+    console.log('detectDiscoverProvider error fairy vault', e);
+    return null;
   }
 }
