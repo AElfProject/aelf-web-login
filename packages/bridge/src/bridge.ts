@@ -15,6 +15,7 @@ import {
   LoginStatusEnum,
   ConnectedWallet,
   enhancedLocalStorage,
+  FAIRY_VAULT_DISCOVER,
 } from '@aelf-web-login/wallet-adapter-base';
 import {
   setWalletInfo,
@@ -33,7 +34,7 @@ import { EE, SET_GUARDIAN_APPROVAL_PAYLOAD } from './utils';
 import { TelegramPlatform } from '@portkey/utils';
 import { ThemeType } from '@portkey/connect-web-wallet';
 
-const { isPortkeyApp } = utils;
+const { isPortkeyApp, isFairyVaultApp } = utils;
 
 class Bridge {
   public _wallets: WalletAdapter[];
@@ -64,13 +65,27 @@ class Bridge {
   }
 
   getActiveWallet(walletName?: string) {
+    console.log(this._wallets, walletName, 'getActiveWallet, this._wallets ===');
+    console.log(window.navigator.userAgent);
     try {
+      if (walletName === FAIRY_VAULT_DISCOVER) {
+        console.log('isFairyVaultApp, by walletName');
+        this._activeWallet = this._wallets.find((item) => item.name === FAIRY_VAULT_DISCOVER);
+        return this._activeWallet;
+      }
       if (TelegramPlatform.isTelegramPlatform()) {
+        console.log('isTelegramPlatform');
         this._activeWallet = this._wallets.find((item) => item.name === PORTKEY_WEB_WALLET);
         return this._activeWallet;
       }
       if (isPortkeyApp()) {
+        console.log('isPortkeyApp');
         this._activeWallet = this._wallets.find((item) => item.name === PORTKEY_DISCOVER);
+        return this._activeWallet;
+      }
+      if (isFairyVaultApp()) {
+        console.log('isFairyVaultApp');
+        this._activeWallet = this._wallets.find((item) => item.name === FAIRY_VAULT_DISCOVER);
         return this._activeWallet;
       }
       const _walletName = walletName ?? enhancedLocalStorage.getItem(ConnectedWallet);
