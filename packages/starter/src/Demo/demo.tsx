@@ -1,4 +1,5 @@
 import { PortkeyDiscoverWallet } from '@aelf-web-login/wallet-adapter-portkey-discover';
+import { FairyVaultDiscoverWallet } from '@aelf-web-login/wallet-adapter-fairy-vault-discover';
 import { PortkeyInnerWallet } from '@aelf-web-login/wallet-adapter-portkey-web';
 
 import { NightElfWallet } from '@aelf-web-login/wallet-adapter-night-elf';
@@ -38,6 +39,15 @@ const baseConfig: IConfigProps['baseConfig'] = {
 const wallets = [
   new PortkeyInnerWallet({ networkType: NETWORK_TYPE, chainId: CHAIN_ID, disconnectConfirm: true }),
   new PortkeyDiscoverWallet({
+    networkType: NETWORK_TYPE,
+    chainId: CHAIN_ID,
+    autoRequestAccount: true, // If set to true, please contact Portkey to add whitelist @Rachel
+    autoLogoutOnDisconnected: true,
+    autoLogoutOnNetworkMismatch: true,
+    autoLogoutOnAccountMismatch: true,
+    autoLogoutOnChainMismatch: true,
+  }),
+  new FairyVaultDiscoverWallet({
     networkType: NETWORK_TYPE,
     chainId: CHAIN_ID,
     autoRequestAccount: true, // If set to true, please contact Portkey to add whitelist @Rachel

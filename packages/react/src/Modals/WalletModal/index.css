@@ -53,6 +53,10 @@
   border-radius: 16px;
   cursor: pointer;
 }
+.web-login-wallet-item img {
+  width: 32px;
+  height: 32px;
+}
 
 .web-login-wallet-list .web-login-wallet-item:last-child {
   margin-bottom: 0;

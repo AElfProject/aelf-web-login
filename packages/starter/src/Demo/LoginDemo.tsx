@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Button, message, Divider, Flex } from 'antd';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 // import { demoFn } from '@aelf-web-login/wallet-adapter-bridge';
@@ -23,10 +23,12 @@ const LoginDemo: React.FC = () => {
 
   const onConnectBtnClickHandler = async () => {
     try {
+      console.log('onConnectBtnClickHandler start');
       const rs = await connectWallet();
       console.log('onConnectBtnClickHandler', rs);
     } catch (e: any) {
-      // message.error(e.message);
+      console.log(e, 'onConnectBtnClickHandler error===');
+      message.error(e.nativeError ? e.nativeError.message : e.message, 6);
     }
   };
 

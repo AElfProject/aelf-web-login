@@ -53,6 +53,7 @@
     "@aelf-web-login/wallet-adapter-night-elf": "workspace:*",
     "@aelf-web-login/wallet-adapter-portkey-aa": "workspace:*",
     "@aelf-web-login/wallet-adapter-portkey-discover": "workspace:*",
+    "@aelf-web-login/wallet-adapter-fairy-vault-discover": "workspace:*",
     "@aelf-web-login/wallet-adapter-portkey-web": "workspace:*",
     "@aelf-web-login/wallet-adapter-react": "workspace:*",
     "@ant-design/icons": "^5.5.2",

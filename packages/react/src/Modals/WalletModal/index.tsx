@@ -9,6 +9,8 @@ import {
   NIGHT_ELF_WALLET,
   PORTKEY_DISCOVER,
   PORTKEY_WEB_WALLET,
+  FAIRY_VAULT_DISCOVER,
+  // FAIRY_VAULT_WEB_WALLET,
 } from '@aelf-web-login/wallet-adapter-base';
 import { CLOSE_ICON } from '../../assets/icon';
 
@@ -16,6 +18,8 @@ const walletMap: { [x in string]: string } = {
   [PORTKEY_WEB_WALLET]: 'Portkey SDK',
   [PORTKEY_DISCOVER]: 'Portkey Wallet',
   [NIGHT_ELF_WALLET]: 'aelf Wallet',
+  [FAIRY_VAULT_DISCOVER]: 'FairyVault Wallet',
+  // [FAIRY_VAULT_WEB_WALLET]: 'FairyVault SDK',
 };
 
 export default function WalletModal() {
@@ -67,6 +71,23 @@ export default function WalletModal() {
     [instance.theme],
   );
 
+  // return (
+  //   <Modal
+  //     prefixCls="web-login-connect-modal"
+  //     className={commonCls}
+  //     wrapClassName="web-login-connect-wallet-modal-wrapper"
+  //     open={dialogVisible}
+  //     centered
+  //     style={{ height: 700 }}
+  //     footer={null}
+  //     closable={false}
+  //     onCancel={onCancel}
+  //   >
+  //     {inner}
+  //   </Modal>
+  // );
+
+  // TODO: can not show Drawer in starter demo.
   return isMobile ? (
     <Drawer
       prefixCls="web-login-connect-modal"
