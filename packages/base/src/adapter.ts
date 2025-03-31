@@ -1,5 +1,4 @@
 import EventEmitter from 'eventemitter3';
-import { CreatePendingInfo, DIDWalletInfo } from '@portkey/did-ui-react';
 import {
   TWalletError,
   LoginStateEnum,
@@ -27,13 +26,12 @@ export interface IWalletAdapterEvents {
 export interface IWalletAdapter<Name extends string = string> {
   name: WalletName<Name>;
   icon: string;
-  darkIcon: string;
   // readyState: WalletStateEnum;
   loginState: LoginStateEnum;
   wallet: TWalletInfo;
-  noNeedForConfirm?: boolean;
+  disconnectConfirm?: boolean;
 
-  login(arg?: DIDWalletInfo): Promise<TWalletInfo>;
+  login(arg?: any): Promise<TWalletInfo>;
   logout(isForgetPin?: boolean): Promise<void>;
   loginEagerly(type?: string): Promise<void>;
   // getAccounts(chainId: TChainId): Promise<string>;
@@ -50,9 +48,10 @@ export interface IWalletAdapter<Name extends string = string> {
   callViewMethod<T, R>(props: ICallContractParams<T>): Promise<R>;
   onUnlock?: (pin: string) => Promise<TWalletInfo>;
   lock?: () => void;
-  loginWithAcceleration?: (createPendingInfo: CreatePendingInfo) => Promise<TWalletInfo>;
-  onLoginComplete?: (arg: DIDWalletInfo) => Promise<void>;
+  loginWithAcceleration?: (createPendingInfo: any) => Promise<TWalletInfo>;
+  onLoginComplete?: (arg: any) => Promise<void>;
   sendMultiTransaction?<T>(params: IMultiTransactionParams<T>): Promise<IMultiTransactionResult>;
+  goAssets(): Promise<void>;
 }
 
 export type WalletAdapter<Name extends string = string> = IWalletAdapter<Name> &
@@ -64,12 +63,11 @@ export abstract class BaseWalletAdapter<Name extends string = string>
 {
   abstract name: WalletName<Name>;
   abstract icon: string;
-  abstract darkIcon: string;
   // abstract readyState: WalletStateEnum;
   abstract loginState: LoginStateEnum;
   abstract wallet: TWalletInfo;
 
-  abstract login(arg?: DIDWalletInfo): Promise<TWalletInfo>;
+  abstract login(arg?: any): Promise<TWalletInfo>;
   abstract logout(isForgetPin?: boolean): Promise<void>;
   abstract loginEagerly(type?: string): Promise<void>;
   // abstract getAccounts(chainId: TChainId): Promise<string>;
@@ -84,4 +82,5 @@ export abstract class BaseWalletAdapter<Name extends string = string>
   abstract getWalletSyncIsCompleted(chainId: TChainId): Promise<string | boolean>;
   abstract callSendMethod<T, R>(props: ICallContractParams<T>): Promise<R>;
   abstract callViewMethod<T, R>(props: ICallContractParams<T>): Promise<R>;
+  abstract goAssets(): Promise<void>;
 }

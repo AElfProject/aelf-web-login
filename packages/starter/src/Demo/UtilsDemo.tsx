@@ -23,6 +23,7 @@ import {
 } from '@aelf-web-login/utils';
 import { Button, Divider, Flex, Modal } from 'antd';
 import { useState } from 'react';
+import AElf from 'aelf-sdk';
 
 const UtilsDemo: React.FC = () => {
   const { walletInfo, isConnected, walletType } = useConnectWallet();
@@ -74,16 +75,27 @@ const UtilsDemo: React.FC = () => {
   };
 
   const getRawTransactionHandler = async () => {
-    const rs = await getRawTransaction({
+    const rpcUrl = 'https://tdvw-test-node.aelf.io';
+    const transaction = await getRawTransaction({
       walletInfo: walletInfo,
       walletType: walletType,
-      params: { symbol: 'ELF', owner: walletInfo?.address },
-      methodName: 'GetBalance',
+      params: {
+        symbol: 'ELF',
+        to: 'LSWoBaeoXRp9QW75mCVJgNP4YurGi2oEJDYu3iAxtDH8R6UGy',
+        amount: 1,
+      },
+      methodName: 'Transfer',
       contractAddress: 'ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx',
-      caContractAddress: 'ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx',
-      rpcUrl: 'https://tdvw-test-node.aelf.io',
+      caContractAddress: '238X6iw1j8YKcHvkDYVtYVbuYk2gJnK8UoNpVCtssynSpVC8hb',
+      rpcUrl,
     });
-    setRawTransaction(rs);
+    console.log(transaction, 'rs===getRawTransactionHandler');
+    if (!transaction) return;
+    const instance = new AElf(new AElf.providers.HttpProvider(rpcUrl));
+    setRawTransaction(transaction);
+
+    const send = await instance.chain.sendTransaction(transaction);
+    console.log(send, 'send==');
   };
 
   const onLoadingHandler = () => {

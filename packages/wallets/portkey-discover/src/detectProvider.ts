@@ -14,7 +14,7 @@ export default async function detectDiscoverProvider(): Promise<IPortkeyProvider
     });
     return res;
   } catch (e) {
-    console.log('detectDiscoverProvider error', e);
+    console.log('detectDiscoverProvider error portkey discover', e);
     return null;
   }
 }

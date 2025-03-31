@@ -5,8 +5,7 @@ import {
 } from '@aelf-web-login/wallet-adapter-bridge';
 
 let isTGScriptInjected = false;
-const init = (options: IConfigProps): IBridgeAPI => {
-  // noCommonBaseModal = options.baseConfig.noCommonBaseModal ?? false;
+export const init = (options: IConfigProps): IBridgeAPI => {
   if (options.baseConfig.showVconsole && typeof window !== 'undefined') {
     import('vconsole')
       .then((VConsole) => new VConsole.default())
@@ -35,5 +34,3 @@ const init = (options: IConfigProps): IBridgeAPI => {
   const dataFromBridge = initBridge(options);
   return dataFromBridge;
 };
-
-export default init;

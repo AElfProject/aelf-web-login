@@ -1,4 +1,3 @@
-import { GuardianApprovedItem } from '@portkey/did-ui-react';
 import { IContract, LoginStatusEnum, SendOptions } from '@portkey/types';
 
 export enum WalletStateEnum {
@@ -53,7 +52,7 @@ export interface ICallContractParams<T> {
   args: T;
   chainId?: TChainId;
   sendOptions?: SendOptions;
-  guardiansApproved?: GuardianApprovedItem[];
+  guardiansApproved?: any[];
 }
 
 export interface ISendOrViewAdapter<T> extends ICallContractParams<T> {
@@ -67,6 +66,7 @@ export enum WalletTypeEnum {
   elf = 'NightElf',
   aa = 'PortkeyAA',
   discover = 'PortkeyDiscover',
+  web = 'PortkeyWebWallet',
 }
 export enum SignInDesignEnum {
   SocialDesign = 'SocialDesign',

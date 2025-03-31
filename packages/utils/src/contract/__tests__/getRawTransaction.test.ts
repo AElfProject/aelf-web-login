@@ -118,4 +118,27 @@ describe('getRawTransaction', () => {
 
     consoleLogSpy.mockRestore();
   });
+
+  it('should call getRawTransactionDiscover for WalletTypeEnum.web and return its result', async () => {
+    const walletInfo = {
+      extraInfo: {
+        provider: {
+          request: vi.fn().mockResolvedValue('mockCaHash'),
+        },
+      },
+    };
+
+    const result = await getRawTransaction({
+      walletInfo: walletInfo as unknown as TWalletInfo,
+      walletType: WalletTypeEnum.web,
+      params: {},
+      methodName: 'mockMethod',
+      contractAddress: 'mockContractAddress',
+      caContractAddress: 'mockCaContractAddress',
+      rpcUrl: 'mockRpcUrl',
+    });
+
+    expect(getRawTransactionDiscover).toHaveBeenCalledTimes(1);
+    expect(result).toBe('encodedDataMock2');
+  });
 });

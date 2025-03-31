@@ -1,5 +1,4 @@
-import { did } from '@portkey/did-ui-react';
-import { aelf } from '@portkey/utils';
+import { aelf, sigObjToStr } from '@portkey/utils';
 import { handleManagerForwardCall, getContractMethods } from '@portkey/contracts';
 import AElf from 'aelf-sdk';
 import deleteProvider from '@portkey/detect-provider';
@@ -34,7 +33,7 @@ const getRawTx = ({
   const rawTx = AElf.pbUtils.getTransaction(address, contractAddress, functionName, packedInput);
   rawTx.refBlockNumber = blockHeightInput;
   const blockHash = blockHashInput.match(/^0x/) ? blockHashInput.substring(2) : blockHashInput;
-  rawTx.refBlockPrefix = Buffer.from(blockHash, 'hex').slice(0, 4);
+  rawTx.refBlockPrefix = Buffer.from(blockHash, 'hex').subarray(0, 4);
   return rawTx;
 };
 
@@ -70,25 +69,16 @@ const handleTransaction = async ({
   });
   rawTx.params = Buffer.from(rawTx.params, 'hex');
 
-  const ser = AElf.pbUtils.Transaction.encode(rawTx).finish();
-
-  const m = AElf.utils.sha256(ser);
   // signature
-  let signatureStr = '';
-  const signatureRes = await getSignature({ provider, data: m });
-  signatureStr = signatureRes.signatureStr || '';
-  if (!signatureStr) return;
-
-  let tx = {
+  const sin = await provider.request({
+    method: MethodsWallet.GET_WALLET_TRANSACTION_SIGNATURE,
+    payload: { data: aelf.encodeTransaction(rawTx) },
+  });
+  const transaction = aelf.encodeTransaction({
     ...rawTx,
-    signature: Buffer.from(signatureStr, 'hex'),
-  };
-
-  tx = AElf.pbUtils.Transaction.encode(tx).finish();
-  if (tx instanceof Buffer) {
-    return tx.toString('hex');
-  }
-  return AElf.utils.uint8ArrayToHex(tx); // hex params
+    signature: Buffer.from(sigObjToStr(sin as any), 'hex'),
+  });
+  return transaction;
 };
 
 const createManagerForwardCall = async ({
@@ -134,19 +124,17 @@ function getAElf(rpcUrl: string) {
 }
 
 const getRawTransactionDiscover = async ({
-  caAddress,
   contractAddress,
   caContractAddress,
   rpcUrl,
+  caHash,
   params,
   methodName,
+  provider,
 }: any) => {
   try {
     const instance = aelf.getAelfInstance(rpcUrl);
-    const rst = await did.services.communityRecovery.getHolderInfoByManager({
-      caAddresses: [caAddress],
-    } as any);
-    const caHash: string = rst[0].caHash || '';
+
     const managerForwardCall = await createManagerForwardCall({
       caContractAddress,
       contractAddress,
@@ -160,8 +148,7 @@ const getRawTransactionDiscover = async ({
 
     const aelfInstance = getAElf(rpcUrl);
     const { BestChainHeight, BestChainHash } = await aelfInstance.chain.getChainStatus();
-    const provider = await deleteProvider({ providerName: 'Portkey' });
-    if (!provider) return;
+
     const fromManagerAddress = await provider.request({
       method: MethodsWallet.GET_WALLET_CURRENT_MANAGER_ADDRESS,
     });
@@ -176,6 +163,7 @@ const getRawTransactionDiscover = async ({
     });
     return transaction;
   } catch (error) {
+    console.log(error, 'error===');
     return null;
   }
 };
