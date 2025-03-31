@@ -11,6 +11,7 @@ interface IRawTransactionPrams {
   contractAddress: string;
   caContractAddress?: string;
   rpcUrl: string;
+  caHash?: string;
 }
 
 export const getRawTransaction: (params: IRawTransactionPrams) => Promise<string | null> = async ({
@@ -21,11 +22,17 @@ export const getRawTransaction: (params: IRawTransactionPrams) => Promise<string
   contractAddress,
   caContractAddress,
   rpcUrl,
+  caHash,
 }: IRawTransactionPrams) => {
   if (!rpcUrl) return;
-
+  console.log(walletType, 'walletType=');
   let res = null;
-
+  let _caHash = caHash;
+  if (!caHash) {
+    if (walletType === WalletTypeEnum.discover || walletType === WalletTypeEnum.web)
+      _caHash = await walletInfo?.extraInfo?.provider.request({ method: 'caHash' });
+  }
+  console.log(caContractAddress, 'caContractAddress==');
   try {
     switch (walletType) {
       case WalletTypeEnum.aa:
@@ -41,18 +48,22 @@ export const getRawTransaction: (params: IRawTransactionPrams) => Promise<string
         });
         break;
       case WalletTypeEnum.discover:
-        if (!walletInfo?.address) return;
+      case WalletTypeEnum.web:
+        if (!_caHash) return;
+        if (!walletInfo?.extraInfo?.provider) return;
         res = await getRawTransactionDiscover({
-          caAddress: walletInfo.address,
           contractAddress,
           caContractAddress,
           rpcUrl,
+          caHash: _caHash,
           params,
           methodName,
+          provider: walletInfo?.extraInfo?.provider,
         });
         break;
       case WalletTypeEnum.elf:
         if (!walletInfo?.address) return;
+
         res = await getRawTransactionNight({
           contractAddress,
           params,

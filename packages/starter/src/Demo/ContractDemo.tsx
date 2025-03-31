@@ -56,8 +56,6 @@ const ContractDemo: React.FC = () => {
     getWalletSyncIsCompleted,
     isConnected,
     loginOnChainStatus,
-    approvedGuardians,
-    clearManagerReadonlyStatus,
   } = useConnectWallet();
   console.log('ContractDemo init----------');
 
@@ -236,10 +234,6 @@ const ContractDemo: React.FC = () => {
   ];
 
   useEffect(() => {
-    console.log('approvedGuardians in demo', approvedGuardians);
-  }, [approvedGuardians]);
-
-  useEffect(() => {
     if (!isConnected) {
       return;
     }
@@ -262,18 +256,8 @@ const ContractDemo: React.FC = () => {
     // func();
   }, [callSendMethod, isConnected, loginOnChainStatus]);
 
-  const onTestAssetHandler = async () => {
-    const rs = await clearManagerReadonlyStatus({
-      chainIdList: ['AELF', 'tDVW'],
-      caHash: '4e67446a97d758467dc73eccce02fe13d185f0c3b8f3ea9258838cd6c1165db5',
-    });
-
-    console.log('rs in onTestAssetHandler', rs);
-  };
-
   return (
     <div>
-      <Button onClick={onTestAssetHandler}>test to Asset</Button>
       {examples.map((example) => {
         return <div key={example.name}>{example.render()}</div>;
       })}

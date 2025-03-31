@@ -1,0 +1,108 @@
+.web-login-disconnect-wallet-modal-dark .web-login-disconnect-modal-content,
+.web-login-disconnect-wallet-modal-dark .web-login-disconnect-modal-body {
+  background: #151318;
+
+  border: 1px solid #414142;
+}
+
+.web-login-disconnect-wallet-modal .web-login-disconnect-modal-content,
+.web-login-disconnect-wallet-modal .web-login-disconnect-modal-body  {
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.web-login-disconnect-modal .web-login-disconnect-modal-header {
+  display: none;
+}
+
+.web-login-disconnect-modal .web-login-disconnect-modal-content {
+  padding: 0;
+}
+.aelf-web-logout-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.aelf-web-logout-dialog-title-wrap {
+  margin: 12px 0;
+}
+
+.aelf-web-logout-dialog-title {
+  text-align: left;
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: bold;
+  color: var(--web-login-color-text-default);
+}
+
+.aelf-web-logout-dialog-title.aelf-web-logout-dialog-title-text {
+  padding: 0;
+}
+
+.aelf-web-logout-dialog-sub-title {
+  font-size: 16px;
+  line-height: 140%;
+  color: var(--web-login-color-text-default);
+}
+
+.aelf-web-logout-dialog-btn-wrap {
+  display: flex;
+  padding: 24px 0 0;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.aelf-web-logout-dialog-btn-wrap button {
+  height: 48px;
+  flex: 1;
+  border-radius: 999px;
+  font-size: 16px;
+}
+
+.aelf-web-logout-dialog-btn-wrap button:first-child {
+  border: 1.5px solid var(--web-login-color-border-neutral-secondary);
+}
+
+.aelf-web-logout-dialog-btn-wrap button:first-child:hover,
+.aelf-web-logout-dialog-btn-wrap button:first-child:active {
+  color: var(--web-login-color-text-brand-on-brand);
+  border-color: var(--web-login-color-border-neutral-secondary) !important;
+}
+
+.aelf-web-logout-dialog-btn-wrap button:last-child {
+  border: none;
+  background: var(--web-login-color-background-danger-default) !important;
+  color: var(--web-login-color-text-danger-on-danger) !important;
+}
+
+.aelf-web-logout-dialog-btn-wrap button:last-child span {
+  color: var(--web-login-color-text-danger-on-danger) !important;
+}
+
+.aelf-web-logout-dialog-btn-wrap button:last-child:hover,
+.aelf-web-logout-dialog-btn-wrap button:last-child:active {
+  background: var(--web-login-color-background-danger-hover) !important;
+}
+.aelf-web-logout-dialog-btn-wrap button span {
+  color: var(--web-login-color-text-default);
+}
+
+.web-login-disconnect-wallet-modal {
+  --web-login-color-text-default: #1f1f21;
+  --web-login-color-border-neutral-secondary: #767676;
+  --web-login-color-text-brand-on-brand: #0a4370;
+  --web-login-color-background-danger-default: #e24505;
+  --web-login-color-text-danger-on-danger: #fcece6;
+  --web-login-color-background-danger-hover: #8c2e08;
+}
+
+.web-login-disconnect-wallet-modal-dark {
+  --web-login-color-text-default: #ffffff;
+  --web-login-color-border-neutral-secondary: #5a5a5a;
+  --web-login-color-text-brand-on-brand: #0a4370;
+  --web-login-color-background-danger-default: #b73907;
+  --web-login-color-text-danger-on-danger: #fcece6;
+  --web-login-color-background-danger-hover: #8c2e08;
+}

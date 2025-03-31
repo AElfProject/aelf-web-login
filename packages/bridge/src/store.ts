@@ -1,5 +1,4 @@
 import { TWalletError, TWalletInfo, WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
-import { GuardianApprovedItem } from '@portkey/did-ui-react';
 import { LoginStatusEnum } from '@portkey/types';
 import { configureStore, createSlice, EnhancedStore } from '@reduxjs/toolkit';
 
@@ -9,7 +8,6 @@ type TState = {
   walletType: WalletTypeEnum;
   loginError: TWalletError | null;
   loginOnChainStatus: LoginStatusEnum;
-  approvedGuardians: GuardianApprovedItem[];
 };
 
 const initialState: TState = {
@@ -18,7 +16,6 @@ const initialState: TState = {
   walletType: WalletTypeEnum.unknown,
   loginError: null,
   loginOnChainStatus: LoginStatusEnum.INIT,
-  approvedGuardians: [],
 };
 
 const aelfWebLoginSlice = createSlice({
@@ -48,9 +45,6 @@ const aelfWebLoginSlice = createSlice({
     },
     setLoginOnChainStatus: (state, action) => {
       state.loginOnChainStatus = action.payload;
-    },
-    setApprovedGuardians: (state, action) => {
-      state.approvedGuardians = action.payload;
     },
   },
 });
@@ -92,7 +86,6 @@ export const {
   setLoginError,
   clearLoginError,
   setLoginOnChainStatus,
-  setApprovedGuardians,
 } = aelfWebLoginSlice.actions;
 
 export type AppDispatch = typeof store.dispatch;

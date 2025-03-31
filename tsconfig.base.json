@@ -26,7 +26,11 @@
       "@aelf-web-login/wallet-adapter-portkey-discover": [
         "./packages/wallets/portkey-discover/src"
       ],
+      "@aelf-web-login/wallet-adapter-portkey-web": ["./packages/wallets/portkey-web-wallet/src"],
       "@aelf-web-login/wallet-adapter-night-elf": ["./packages/wallets/night-elf/src"],
+      "@aelf-web-login/wallet-adapter-fairy-vault-discover": [
+        "./packages/wallets/fairy-vault-discover/src"
+      ],
       "@aelf-web-login/tools": ["./packages/tools"],
       "~/*": ["./*"]
     },

@@ -2,17 +2,20 @@
 import {
   ConnectedWallet,
   enhancedLocalStorage,
-  PORTKEYAA,
+  PORTKEY_WEB_WALLET,
 } from '@aelf-web-login/wallet-adapter-base';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { useWebLoginContext } from './context';
 import useExternalStore from './useExternalStore';
+import { useModalDispatch } from './useModal/hooks';
+import { basicModalView } from './useModal/actions';
+import { useModal } from './useModal';
 
 function useConnectWallet() {
   const { instance } = useWebLoginContext();
   const stateFromStore = useExternalStore();
-  const { walletInfo, isLocking, walletType, loginError, loginOnChainStatus, approvedGuardians } =
+  const { walletInfo, isLocking, walletType, loginError, loginOnChainStatus } =
     stateFromStore ?? {};
   const {
     connect,
@@ -24,29 +27,67 @@ function useConnectWallet() {
     callViewMethod,
     sendMultiTransaction,
     getSignature,
-    clearManagerReadonlyStatus,
-    checkLoginStatus,
+    goAssets,
   } = instance;
   const [connecting, setConnecting] = useState(false);
-
+  const dispatch = useModalDispatch();
   const isConnected = useMemo(() => {
-    if (enhancedLocalStorage.getItem(ConnectedWallet) === PORTKEYAA) {
+    if (enhancedLocalStorage.getItem(ConnectedWallet) === PORTKEY_WEB_WALLET) {
       return !!walletInfo;
     }
     return !!enhancedLocalStorage.getItem(ConnectedWallet) || !!walletInfo;
   }, [walletInfo]);
 
+  const [{ connectInfo, isDisconnect }] = useModal();
+
+  const connectResolve = useRef<(value: string) => void>();
+  const connectReject = useRef<(reason?: any) => void>();
+  const disConnectResolve = useRef<(value: boolean) => void>();
+
+  useEffect(() => {
+    if (connectInfo) {
+      if (connectInfo.errorMessage) connectReject.current?.(connectInfo.errorMessage);
+      if (connectInfo.name) connectResolve.current?.(connectInfo.name);
+    }
+  }, [connectInfo]);
+
+  useEffect(() => {
+    if (typeof isDisconnect !== 'undefined') {
+      disConnectResolve.current?.(isDisconnect);
+    }
+  }, [connectInfo, isDisconnect]);
+
   const connectWallet = useCallback(async () => {
     setConnecting(true);
-    const rs = await connect();
+    const walletName: string = await new Promise((resolve, reject) => {
+      connectResolve.current = resolve;
+      connectReject.current = reject;
+      const localWalletName = enhancedLocalStorage.getItem(ConnectedWallet);
+      if (localWalletName) return resolve(localWalletName);
+      if (!localWalletName) {
+        dispatch(basicModalView.setWalletDialog.actions(true));
+      }
+    });
+    const rs = await connect(walletName);
+
     setConnecting(false);
     return rs;
-  }, [connect]);
+  }, [connect, dispatch]);
 
   const disConnectWallet = useCallback(async () => {
+    const isDisconnect = await new Promise((resolve) => {
+      if (instance.activeWallet?.disconnectConfirm) {
+        disConnectResolve.current = resolve;
+        dispatch(basicModalView.setDisconnectDialogVisible.actions(true));
+      } else {
+        resolve(true);
+      }
+    });
+    console.log(isDisconnect, 'isDisconnect===');
+    if (!isDisconnect) return false;
     const rs = await disConnect();
     return rs;
-  }, [disConnect]);
+  }, [disConnect, dispatch, instance.activeWallet?.disconnectConfirm]);
 
   return {
     connectWallet,
@@ -59,7 +100,6 @@ function useConnectWallet() {
     isConnected,
     loginError,
     loginOnChainStatus,
-    approvedGuardians,
 
     lock,
     getAccountByChainId,
@@ -67,9 +107,8 @@ function useConnectWallet() {
     callSendMethod,
     callViewMethod,
     getSignature,
+    goAssets,
     sendMultiTransaction,
-    clearManagerReadonlyStatus,
-    checkLoginStatus,
   };
 }
 

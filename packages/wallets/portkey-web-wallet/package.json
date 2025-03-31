@@ -1,0 +1,52 @@
+{
+  "name": "@aelf-web-login/wallet-adapter-portkey-web",
+  "version": "0.3.2-alpha.3",
+  "type": "module",
+  "main": "dist/esm/index.js",
+  "module": "dist/esm/index.js",
+  "typings": "dist/esm/index.d.ts",
+  "exports": {
+    "import": "./dist/esm/index.js",
+    "require": "./dist/lib/index.js",
+    "types": "./dist/esm/index.d.ts"
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "keywords": [
+    "login",
+    "frontend",
+    "web3"
+  ],
+  "scripts": {
+    "dev": "father dev",
+    "build": "father build"
+  },
+  "dependencies": {
+    "@aelf-web-login/wallet-adapter-base": "workspace:*",
+    "@portkey/connect-web-wallet": "^2.19.0-alpha.9",
+    "@portkey/contracts": "^2.19.0-alpha.9",
+    "@portkey/detect-provider": "^2.4.0-alpha.6",
+    "@portkey/provider-types": "^2.4.0-alpha.6",
+    "@portkey/utils": "^2.19.0-alpha.9",
+    "bn.js": "^5.2.1"
+  },
+  "devDependencies": {
+    "@portkey/types": "^2.19.0-alpha.9",
+    "@types/bn.js": "^5.1.6",
+    "father": "^4.5.1",
+    "typescript": "^5.7.2"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "> 1%",
+    "ie >= 11"
+  ]
+}

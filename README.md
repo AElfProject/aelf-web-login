@@ -107,10 +107,7 @@ const baseConfig = {
   showVconsole: false,
   chainId: CHAIN_ID,
   keyboard: true,
-  noCommonBaseModal: false,
   design: SignInDesignEnum.CryptoDesign, // "SocialDesign" | "CryptoDesign" | "Web2Design"
-  titleForSocialDesign: 'Crypto wallet',
-  iconSrcForSocialDesign: 'url or base64',
 };
 
 const wallets = [
@@ -118,7 +115,7 @@ const wallets = [
     appName: APP_NAME,
     chainId: CHAIN_ID,
     autoShowUnlock: true,
-    noNeedForConfirm: false,
+    disconnectConfirm: false,
   }),
   new PortkeyDiscoverWallet({
     networkType: NETWORK_TYPE,
@@ -187,9 +184,7 @@ interface IBaseConfig {
   chainId: TChainId;
   keyboard?: boolean;
   design?: SignInDesignEnum;
-  iconSrcForSocialDesign?: string;
   titleForSocialDesign?: string;
-  noCommonBaseModal?: boolean;
   showVconsole?: boolean;
   SignInComponent?: React.FC<SignInProps & RefAttributes<ISignIn>>;
   PortkeyProviderProps?: Partial<Omit<React.ComponentProps<typeof PortkeyProvider>, 'children'>>;
