@@ -72,8 +72,8 @@ mark {
 }
 
 ::selection {
-  color: #fff;
-  background: var(--portkey-ant-primary-color);
+  /*background: var(--portkey-ant-primary-color);*/
+  /*color: #fff;*/
 }
 
 .clearfix::before {
