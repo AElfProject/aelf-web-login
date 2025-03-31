@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/doc-site",
-  "version": "0.0.1",
+  "version": "0.4.0-alpha.0",
   "description": "aelf-web-login doc site",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
