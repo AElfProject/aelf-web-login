@@ -34,16 +34,16 @@
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
     "@aelf-web-login/wallet-adapter-portkey-web": "workspace:*",
-    "@portkey/contracts": "^2.19.0-alpha.9",
-    "@portkey/services": "^2.19.0-alpha.9",
+    "@portkey/contracts": "^2.19.0-alpha.10",
+    "@portkey/services": "^2.19.0-alpha.10",
     "@portkey/connect-web-wallet": "^2.19.0-alpha.9",
     "@reduxjs/toolkit": "^2.5.0"
   },
   "devDependencies": {
-    "@portkey/types": "^2.19.0-alpha.9",
-    "@portkey/utils": "^2.19.0-alpha.9",
+    "@portkey/types": "^2.19.0-alpha.10",
+    "@portkey/utils": "^2.19.0-alpha.10",
     "babel-jest": "^29.7.0",
-    "father": "^4.5.1"
+    "father": "^4.5.2"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

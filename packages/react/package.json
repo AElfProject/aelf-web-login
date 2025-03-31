@@ -46,7 +46,7 @@
     "@babel/preset-typescript": "^7.26.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
-    "father": "^4.5.1"
+    "father": "^4.5.2"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
