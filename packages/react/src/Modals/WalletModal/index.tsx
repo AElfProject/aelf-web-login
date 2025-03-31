@@ -71,26 +71,10 @@ export default function WalletModal() {
     [instance.theme],
   );
 
-  // return (
-  //   <Modal
-  //     prefixCls="web-login-connect-modal"
-  //     className={commonCls}
-  //     wrapClassName="web-login-connect-wallet-modal-wrapper"
-  //     open={dialogVisible}
-  //     centered
-  //     style={{ height: 700 }}
-  //     footer={null}
-  //     closable={false}
-  //     onCancel={onCancel}
-  //   >
-  //     {inner}
-  //   </Modal>
-  // );
-
-  // TODO: can not show Drawer in starter demo.
   return isMobile ? (
     <Drawer
-      prefixCls="web-login-connect-modal"
+      // prefixCls="web-login-connect-modal"
+      closable={false}
       className={commonCls}
       placement="bottom"
       height={'70vh'}
