@@ -336,6 +336,21 @@ const Demo = () => {
 };
 ```
 
+## isFairyVaultApp
+
+```ts
+function isFairyVaultApp(): boolean;
+```
+
+> Determine whether the current environment is in FairyVault APP
+
+```ts
+import { isFairyVaultApp } from '@aelf-web-login/utils';
+const Demo = () => {
+  return <div>{isFairyVaultApp() + ''}</div>;
+};
+```
+
 ## isPrivateKey
 
 ```ts
