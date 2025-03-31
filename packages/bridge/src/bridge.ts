@@ -68,11 +68,6 @@ class Bridge {
     console.log(this._wallets, walletName, 'getActiveWallet, this._wallets ===');
     console.log(window.navigator.userAgent);
     try {
-      if (walletName === FAIRY_VAULT_DISCOVER) {
-        console.log('isFairyVaultApp, by walletName');
-        this._activeWallet = this._wallets.find((item) => item.name === FAIRY_VAULT_DISCOVER);
-        return this._activeWallet;
-      }
       if (TelegramPlatform.isTelegramPlatform()) {
         console.log('isTelegramPlatform');
         this._activeWallet = this._wallets.find((item) => item.name === PORTKEY_WEB_WALLET);
