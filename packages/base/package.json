@@ -35,8 +35,6 @@
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-typescript": "^7.26.0",
-  "peerDependencies": {
-    "@portkey/did-ui-react": "^2.19.0-alpha.5"
     "@portkey/types": "^2.19.0-alpha.10"
   },
   "publishConfig": {

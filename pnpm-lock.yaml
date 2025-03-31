@@ -16,8 +16,8 @@ importers:
         specifier: ^7.0.0
         version: 7.26.0
       '@babel/parser':
-        specifier: ^7.26.3
-        version: 7.26.3
+        specifier: ^7.26.5
+        version: 7.27.0
       '@babel/preset-env':
         specifier: ^7.26.0
         version: 7.26.0(@babel/core@7.26.0)
@@ -37,20 +37,20 @@ importers:
         specifier: ^2.27.11
         version: 2.27.11
       '@ianvs/prettier-plugin-sort-imports':
-        specifier: ^4.4.0
-        version: 4.4.0(prettier@3.4.2)
+        specifier: ^4.4.1
+        version: 4.4.1(prettier@3.4.2)
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.6.3
       '@testing-library/react':
-        specifier: ^16.1.0
-        version: 16.1.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^16.2.0
+        version: 16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@testing-library/react-hooks':
         specifier: ^8.0.1
         version: 8.0.1(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/node':
-        specifier: ^22.10.3
-        version: 22.10.3
+        specifier: ^22.10.7
+        version: 22.13.14
       '@types/react':
         specifier: ^18.3.18
         version: 18.3.18
@@ -59,13 +59,13 @@ importers:
         version: 18.3.5(@types/react@18.3.18)
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.18.0
-        version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
+        version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2)
       '@typescript-eslint/parser':
         specifier: ^7.18.0
-        version: 7.18.0(eslint@8.57.1)(typescript@5.7.2)
+        version: 7.18.0(eslint@8.57.1)(typescript@5.8.2)
       '@vitest/coverage-v8':
         specifier: ^2.1.8
-        version: 2.1.8(vitest@2.1.8(@types/node@22.10.3)(@vitest/ui@2.1.8)(happy-dom@15.11.7)(jsdom@23.2.0)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))
+        version: 2.1.8(vitest@2.1.8(@types/node@22.13.14)(@vitest/ui@2.1.8)(happy-dom@15.11.7)(jsdom@23.2.0)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))
       '@vitest/ui':
         specifier: ^2.1.8
         version: 2.1.8(vitest@2.1.8)
@@ -79,20 +79,20 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(eslint@8.57.1)
       eslint-plugin-prettier:
-        specifier: ^5.2.1
-        version: 5.2.1(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint@8.57.1)(prettier@3.4.2)
+        specifier: ^5.2.3
+        version: 5.2.5(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint@8.57.1)(prettier@3.4.2)
       eslint-plugin-react:
-        specifier: ^7.37.3
-        version: 7.37.3(eslint@8.57.1)
+        specifier: ^7.37.4
+        version: 7.37.4(eslint@8.57.1)
       eslint-plugin-react-hooks:
         specifier: ^4.6.2
         version: 4.6.2(eslint@8.57.1)
       eslint-plugin-unused-imports:
         specifier: ^3.2.0
-        version: 3.2.0(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)
+        version: 3.2.0(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)
       father:
-        specifier: ^4.5.1
-        version: 4.5.1(@babel/core@7.26.0)(@types/node@22.10.3)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
+        specifier: ^4.5.2
+        version: 4.5.2(@babel/core@7.26.0)(@types/node@22.13.14)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
       happy-dom:
         specifier: ^15.11.7
         version: 15.11.7
@@ -100,8 +100,8 @@ importers:
         specifier: ^8.0.3
         version: 8.0.3
       lint-staged:
-        specifier: ^15.3.0
-        version: 15.3.0
+        specifier: ^15.4.1
+        version: 15.5.0
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2
@@ -112,14 +112,14 @@ importers:
         specifier: ^5.0.10
         version: 5.0.10
       typescript:
-        specifier: ^5.7.2
-        version: 5.7.2
+        specifier: ^5.7.3
+        version: 5.8.2
       vite-tsconfig-paths:
         specifier: ^5.1.4
-        version: 5.1.4(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.3)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))
+        version: 5.1.4(typescript@5.8.2)(vite@5.4.11(@types/node@22.13.14)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))
       vitest:
         specifier: ^2.1.8
-        version: 2.1.8(@types/node@22.10.3)(@vitest/ui@2.1.8)(happy-dom@15.11.7)(jsdom@23.2.0)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
+        version: 2.1.8(@types/node@22.13.14)(@vitest/ui@2.1.8)(happy-dom@15.11.7)(jsdom@23.2.0)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
 
   packages/base:
     dependencies:
@@ -137,8 +137,8 @@ importers:
         specifier: ^7.26.0
         version: 7.26.0(@babel/core@7.26.0)
       '@portkey/types':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24
 
   packages/bridge:
     dependencies:
@@ -150,29 +150,29 @@ importers:
         version: link:../wallets/portkey-web-wallet
       '@portkey/connect-web-wallet':
         specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(date-fns@2.30.0)(encoding@0.1.13)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.19.0-alpha.9(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(date-fns@2.30.0)(encoding@0.1.13)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@portkey/contracts':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/services':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
       '@reduxjs/toolkit':
         specifier: ^2.5.0
         version: 2.5.0(react@18.3.1)
     devDependencies:
       '@portkey/types':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24
       '@portkey/utils':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       babel-jest:
         specifier: ^29.7.0
         version: 29.7.0(@babel/core@7.26.0)
       father:
-        specifier: ^4.5.1
-        version: 4.5.1(@babel/core@7.26.0)(@types/node@22.10.3)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
+        specifier: ^4.5.2
+        version: 4.5.2(@babel/core@7.26.0)(@types/node@22.13.14)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
 
   packages/react:
     dependencies:
@@ -184,10 +184,10 @@ importers:
         version: link:../bridge
       '@portkey/connect-web-wallet':
         specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(date-fns@2.30.0)(encoding@0.1.13)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.19.0-alpha.9(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(date-fns@2.30.0)(encoding@0.1.13)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@portkey/utils':
         specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       antd:
         specifier: 4.24.14
         version: 4.24.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -223,8 +223,8 @@ importers:
         specifier: ^18.3.5
         version: 18.3.5(@types/react@18.3.18)
       father:
-        specifier: ^4.5.1
-        version: 4.5.1(@babel/core@7.26.0)(@types/node@22.10.3)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
+        specifier: ^4.5.2
+        version: 4.5.2(@babel/core@7.26.0)(@types/node@22.13.14)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
 
   packages/starter:
     dependencies:
@@ -256,8 +256,8 @@ importers:
         specifier: workspace:*
         version: link:../react
       '@ant-design/icons':
-        specifier: ^5.5.2
-        version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^5.6.0
+        version: 5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       aelf-sdk:
         specifier: 3.4.16-alpha.7
         version: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
@@ -279,7 +279,7 @@ importers:
         version: 18.3.5(@types/react@18.3.18)
       '@umijs/lint':
         specifier: ^4.4.4
-        version: 4.4.4(eslint@8.57.1)(jest@29.7.0(@types/node@22.10.3))(stylelint@14.16.1)(typescript@5.7.2)
+        version: 4.4.4(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.14))(stylelint@14.16.1)(typescript@5.8.2)
       aelf-design:
         specifier: ^1.1.2
         version: 1.1.2(@types/react@18.3.18)(antd@5.18.0(date-fns@2.30.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -288,13 +288,13 @@ importers:
         version: 5.18.0(date-fns@2.30.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       dumi:
         specifier: 2.2.17
-        version: 2.2.17(@babel/core@7.26.0)(@swc/helpers@0.5.1)(@types/node@22.10.3)(@types/react@18.3.18)(eslint@8.57.1)(jest@29.7.0(@types/node@22.10.3))(lightningcss@1.22.1)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(stylelint@14.16.1)(terser@5.37.0)(type-fest@0.21.3)(typescript@5.7.2)(webpack@5.95.0)
+        version: 2.2.17(@babel/core@7.26.0)(@swc/helpers@0.5.1)(@types/node@22.13.14)(@types/react@18.3.18)(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.14))(lightningcss@1.22.1)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(stylelint@14.16.1)(terser@5.37.0)(type-fest@0.21.3)(typescript@5.8.2)(webpack@5.95.0)
       eslint:
         specifier: ^8.57.1
         version: 8.57.1
       father:
-        specifier: ^4.5.1
-        version: 4.5.1(@babel/core@7.26.0)(@types/node@22.10.3)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
+        specifier: ^4.5.2
+        version: 4.5.2(@babel/core@7.26.0)(@types/node@22.13.14)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
       glob:
         specifier: ^10.4.5
         version: 10.4.5
@@ -341,8 +341,8 @@ importers:
         specifier: ^7.26.0
         version: 7.26.0(@babel/core@7.26.0)
       '@portkey/contracts':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/detect-provider':
         specifier: ^2.3.5
         version: 2.3.5
@@ -350,14 +350,14 @@ importers:
         specifier: ^2.3.5
         version: 2.3.5
       '@portkey/utils':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk:
         specifier: ^3.4.15
         version: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       father:
-        specifier: ^4.5.1
-        version: 4.5.1(@babel/core@7.26.0)(@types/node@22.10.3)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
+        specifier: ^4.5.2
+        version: 4.5.2(@babel/core@7.26.0)(@types/node@22.13.14)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
       identity-obj-proxy:
         specifier: ^3.0.0
         version: 3.0.0
@@ -369,7 +369,7 @@ importers:
         version: link:../../base
       '@portkey/contracts':
         specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/detect-provider':
         specifier: 2.4.0-alpha.12
         version: 2.4.0-alpha.12
@@ -378,7 +378,7 @@ importers:
         version: 2.4.0-alpha.12
       '@portkey/utils':
         specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       bn.js:
         specifier: ^5.2.1
         version: 5.2.1
@@ -391,7 +391,7 @@ importers:
         version: 5.1.6
       father:
         specifier: ^4.5.1
-        version: 4.5.1(@babel/core@7.26.0)(@types/node@22.10.3)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
+        version: 4.5.1(@babel/core@7.26.0)(@types/node@22.13.14)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -402,8 +402,8 @@ importers:
         specifier: workspace:*
         version: link:../../base
       '@portkey/contracts':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-bridge:
         specifier: 0.0.11-alpha.10
         version: 0.0.11-alpha.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)
@@ -415,17 +415,17 @@ importers:
         specifier: ^0.1.10
         version: 0.1.10
       '@portkey/types':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24
       '@types/bn.js':
         specifier: ^5.1.6
         version: 5.1.6
       father:
-        specifier: ^4.5.1
-        version: 4.5.1(@babel/core@7.26.0)(@types/node@22.10.3)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
+        specifier: ^4.5.2
+        version: 4.5.2(@babel/core@7.26.0)(@types/node@22.13.14)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
       typescript:
-        specifier: ^5.7.2
-        version: 5.7.2
+        specifier: ^5.7.3
+        version: 5.8.2
 
   packages/wallets/portkey-aa:
     dependencies:
@@ -433,24 +433,24 @@ importers:
         specifier: workspace:*
         version: link:../../base
       '@portkey/contracts':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/utils':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
     devDependencies:
       '@portkey/did-ui-react':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
       '@portkey/types':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24
       father:
-        specifier: ^4.5.1
-        version: 4.5.1(@babel/core@7.26.0)(@types/node@22.10.3)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
+        specifier: ^4.5.2
+        version: 4.5.2(@babel/core@7.26.0)(@types/node@22.13.14)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
       typescript:
-        specifier: ^5.7.2
-        version: 5.7.2
+        specifier: ^5.7.3
+        version: 5.8.2
 
   packages/wallets/portkey-discover:
     dependencies:
@@ -458,8 +458,8 @@ importers:
         specifier: workspace:*
         version: link:../../base
       '@portkey/contracts':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/detect-provider':
         specifier: ^2.3.5
         version: 2.3.5
@@ -467,24 +467,24 @@ importers:
         specifier: ^2.3.5
         version: 2.3.5
       '@portkey/utils':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       bn.js:
         specifier: ^5.2.1
         version: 5.2.1
     devDependencies:
       '@portkey/types':
-        specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9
+        specifier: ^2.19.0-alpha.10
+        version: 2.19.0-alpha.24
       '@types/bn.js':
         specifier: ^5.1.6
         version: 5.1.6
       father:
-        specifier: ^4.5.1
-        version: 4.5.1(@babel/core@7.26.0)(@types/node@22.10.3)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
+        specifier: ^4.5.2
+        version: 4.5.2(@babel/core@7.26.0)(@types/node@22.13.14)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
       typescript:
-        specifier: ^5.7.2
-        version: 5.7.2
+        specifier: ^5.7.3
+        version: 5.8.2
 
   packages/wallets/portkey-web-wallet:
     dependencies:
@@ -493,10 +493,10 @@ importers:
         version: link:../../base
       '@portkey/connect-web-wallet':
         specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(date-fns@2.30.0)(encoding@0.1.13)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.19.0-alpha.9(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(date-fns@2.30.0)(encoding@0.1.13)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@portkey/contracts':
         specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/detect-provider':
         specifier: ^2.4.0-alpha.6
         version: 2.4.0-alpha.6
@@ -505,7 +505,7 @@ importers:
         version: 2.4.0-alpha.6
       '@portkey/utils':
         specifier: ^2.19.0-alpha.9
-        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+        version: 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       bn.js:
         specifier: ^5.2.1
         version: 5.2.1
@@ -518,7 +518,7 @@ importers:
         version: 5.1.6
       father:
         specifier: ^4.5.1
-        version: 4.5.1(@babel/core@7.26.0)(@types/node@22.10.3)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
+        version: 4.5.1(@babel/core@7.26.0)(@types/node@22.13.14)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0)
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -587,8 +587,8 @@ packages:
       react: '>=16.0.0'
       react-dom: '>=16.0.0'
 
-  '@ant-design/icons@5.5.2':
-    resolution: {integrity: sha512-xc53rjVBl9v2BqFxUjZGti/RfdDeA8/6KYglmInM2PNqSXc/WfuGDTifJI/ZsokJK0aeKvOIbXc9y2g8ILAhEA==}
+  '@ant-design/icons@5.6.1':
+    resolution: {integrity: sha512-0/xS39c91WjPAZOWsvi1//zjx6kAp4kxWwctR6kuU6p133w8RU0D2dSCvZC19uQyharg/sAvYxGYWl01BbZZfg==}
     engines: {node: '>=8'}
     peerDependencies:
       react: '>=16.0.0'
@@ -913,8 +913,8 @@ packages:
     resolution: {integrity: sha512-tbhNuIxNcVb21pInl3ZSjksLCvgdZy9KwJ8brv993QtIVKJBBkYXz4q4ZbAv31GdnC+R90np23L5FbEBlthAEw==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/parser@7.26.3':
-    resolution: {integrity: sha512-WJ/CvmY8Mea8iDXo6a7RK2wbmJITT5fN3BEkRuFlxVyNx8jOKIIhmC4fSkTcPcf8JyavbBwIe6OpiCOBXt/IcA==}
+  '@babel/parser@7.27.0':
+    resolution: {integrity: sha512-iaepho73/2Pz7w2eMS0Q5f83+0RKI7i4xmiYeBmDzfRVbQtTOG7Ts0S4HzJVsTMGI9keU8rNfuZr8DKfSt7Yyg==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -1453,6 +1453,10 @@ packages:
 
   '@babel/types@7.26.3':
     resolution: {integrity: sha512-vN5p+1kl59GVKMvTHt55NzzmYVxprfJD+ql7U9NFIfKCBkYE55LYtS+WtPlaYOyzydrKI8Nezd+aZextrd+FMA==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/types@7.27.0':
+    resolution: {integrity: sha512-H45s8fVLYjbhFH62dIJ3WtmJ6RSPt/3DRO0ZcT2SUiYiQyz3BLVb9ADEnLl91m74aQPS3AzzeajZHYOalWe3bg==}
     engines: {node: '>=6.9.0'}
 
   '@bcoe/v8-coverage@0.2.3':
@@ -2445,8 +2449,8 @@ packages:
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
     deprecated: Use @eslint/object-schema instead
 
-  '@ianvs/prettier-plugin-sort-imports@4.4.0':
-    resolution: {integrity: sha512-f4/e+/ANGk3tHuwRW0uh2YuBR50I4h1ZjGQ+5uD8sWfinHTivQsnieR5cz24t8M6Vx4rYvZ5v/IEKZhYpzQm9Q==}
+  '@ianvs/prettier-plugin-sort-imports@4.4.1':
+    resolution: {integrity: sha512-F0/Hrcfpy8WuxlQyAWJTEren/uxKhYonOGY4OyWmwRdeTvkh9mMSCxowZLjNkhwi/2ipqCgtXwwOk7tW0mWXkA==}
     peerDependencies:
       '@vue/compiler-sfc': 2.7.x || 3.x
       prettier: 2 || 3
@@ -2818,8 +2822,8 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@pkgr/core@0.1.1':
-    resolution: {integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==}
+  '@pkgr/core@0.2.0':
+    resolution: {integrity: sha512-vsJDAkYR6qCPu+ioGScGiMYR7LvZYIXh/dlQeviqoTWNCVfKTLYD/LkNWH4Mxsv2a5vpIRc77FN5DnmK1eBggQ==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
   '@pkgr/utils@2.4.2':
@@ -2829,8 +2833,8 @@ packages:
   '@polka/url@1.0.0-next.28':
     resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
 
-  '@portkey/accounts@2.19.0-alpha.9':
-    resolution: {integrity: sha512-VahJYzLIM/I7BOExI+KxeDcWmoL6rHwNoQaSFHJZsmFJk8RdEjiwSUS8GdSTLD7FxkE3Jw3l1Sh7MATJBDC6dg==}
+  '@portkey/accounts@2.19.0-alpha.24':
+    resolution: {integrity: sha512-AFvPE9IMkkw+qpgsPBykyubGHxsMcknwZPe+odqMBRZo1lkPFfHda6fCLq4VFsT4UyiTWsOgUH/39m5R31io8A==}
     peerDependencies:
       aelf-sdk: ^3.4.7
 
@@ -2849,6 +2853,11 @@ packages:
     peerDependencies:
       aelf-sdk: ^3.4.7
 
+  '@portkey/contracts@2.19.0-alpha.24':
+    resolution: {integrity: sha512-suq3Ez+X/b6P5pXG4na8nG6msu1yif/KV5NTsS7MyqQO6xFTpnBkxIK+R4vCGMEgjPu4sgJMqThibrzNaQXeug==}
+    peerDependencies:
+      aelf-sdk: ^3.4.7
+
   '@portkey/contracts@2.19.0-alpha.9':
     resolution: {integrity: sha512-tIyn1cjFgOoSa5naVgp7IWdVe7GHJTU87nPW0/Egpc65HZqw5t484y2S5WRbMDYCGi/bqcCZ60Anjmu6YePW7Q==}
     peerDependencies:
@@ -2863,27 +2872,27 @@ packages:
   '@portkey/detect-provider@2.4.0-alpha.6':
     resolution: {integrity: sha512-f0ZS0dvp3nz9RyB2S/EQPN9IL3mK5JHz71NFt7V+yeNp3LQpZRnO+UI9FMGkyOOyZhyphXpfDiB2jLCT01pFJw==}
 
-  '@portkey/did-ui-react@2.19.0-alpha.9':
-    resolution: {integrity: sha512-1RIMqxpWGMt2pgVGQAvfuoy9DNrdCQ9NDoR3ofhL/mvkRox9XVSsy8MIsjoZcaVNVGwaQM6ZiSGy0d+59kvAow==}
+  '@portkey/did-ui-react@2.19.0-alpha.24':
+    resolution: {integrity: sha512-5TBHvmnq1x8xWGny3tUoBBLDP7JnUraYPZaeebzWIW0QWAQuWJ8ZA7FTy1gAbxiLWJABjFnd2qSU+3LqWkmK9A==}
     peerDependencies:
       aelf-sdk: ^3.4.7
       react: ^18.2.0
       react-dom: ^18.2.0
 
-  '@portkey/did@2.19.0-alpha.9':
-    resolution: {integrity: sha512-1vis1KfpArtns1QFWTYRXnxgnGtdanqMjCc5UrqR+tGu9yySsKTW+GBIgqJ/lSRFLfSTgB+tvPo+GB3xZHFcvQ==}
+  '@portkey/did@2.19.0-alpha.24':
+    resolution: {integrity: sha512-umtIJcXsMS0iPDiVYRr+5keitIwILrA9ugTplEQrYLKqhprnZOzZv9ck7zzG8pqEmmMVhBDNBtRzc8yysesHBA==}
     peerDependencies:
       aelf-sdk: ^3.4.7
       react: ^18.2.0
 
-  '@portkey/graphql@2.19.0-alpha.9':
-    resolution: {integrity: sha512-qyDu4ydYbXQwObIvCiK3ZNK7P0YAbr7pxI+otlbi8hjuxOBuZSFsQ/jPYqjDi3Dt0rFkBHpE6C2UnHWBNd4bTw==}
+  '@portkey/graphql@2.19.0-alpha.24':
+    resolution: {integrity: sha512-qPzVFVieeq0FQgwx+LstsuFiKO/22L3g3bF5w2FsTC359UGGGkvbbSs+HhZ4WCaTRjxSPQo8bDEn8BimTht20A==}
 
   '@portkey/iframe-provider@2.4.0-alpha.8':
     resolution: {integrity: sha512-QAOJ0mHIGGnuVKUI7Q+OrR48ShXo0L7BfPNNaVu9ejiKtaeAEdXLS2tnYmzVNDOdHP3sNoZgTYZ4tB6ZSfXUbQ==}
 
-  '@portkey/onboarding@2.19.0-alpha.9':
-    resolution: {integrity: sha512-FB06iTjQwNJUArhZBD/y3k02tYQIPEMqB3k2ek4lx5R+tnNklR8fQPmj/Rb8YEjmS+N4oHFhIz2v2rToM8VVdw==}
+  '@portkey/onboarding@2.19.0-alpha.24':
+    resolution: {integrity: sha512-DmxHv6cR/TCFB6d3s8o7dbiRFtp2hRoSU05igRQNjcZzNa+lcMt09VUTkb86kcPrPaDLK2NbuM9SYk9pP6X+hQ==}
 
   '@portkey/provider-types@2.3.5':
     resolution: {integrity: sha512-xQeY3dEz+yFptnKr/mB9eo1rW5hsLMntAjwzzpgNyJEWrV6BGBH4S1s+wiK0mdDhu2BzkJ0yVgJ2MwGhWkeLbw==}
@@ -2903,20 +2912,20 @@ packages:
   '@portkey/providers@2.4.0-alpha.8':
     resolution: {integrity: sha512-Vgx3sr+14RABMtY5kvRxuP62IiAGIvb0h6GqWZEe+2SyLKiNPqagpdeMTPPDjV5jUl7n4mA779uVyp0GuXBKAg==}
 
-  '@portkey/ramp@2.19.0-alpha.9':
-    resolution: {integrity: sha512-HVN6KQC4QAt150FX4IA0rZVi7vILeZhN66zhr3ezbeLVcpJyImmFpKE8eTfrttdQ1NiTHG5Nr/xQLDuITwFXyg==}
+  '@portkey/ramp@2.19.0-alpha.24':
+    resolution: {integrity: sha512-UeajZOie+BBRZkqRPUJa26To927taf+PxC6wCsIYGnz7VYILaQYMseTrIAnXJT2IvAOacyaw8LD6xH3M7z9chw==}
 
-  '@portkey/request@2.19.0-alpha.9':
-    resolution: {integrity: sha512-45S6m6/IrTFZbmssG3iiQRkzbtOKsTcOx8MnkSDxee9VCEeNsLB+pQ2iGrpVZAYtx+jR6nY+JSH9OLnyllDovg==}
+  '@portkey/request@2.19.0-alpha.24':
+    resolution: {integrity: sha512-ZEYp6a4BtPOj1jqk5OUZiecJUD5nj0xyQ2HXSlSZjf8LVdkjVb8Azl04tMUanbIud0wy5r38XZJqw+06lUQ0Mw==}
 
-  '@portkey/services@2.19.0-alpha.9':
-    resolution: {integrity: sha512-pLZWLrxTCIyN+6aKoFtHZPnCzerxdsDFOOlZHjI+s/o1/1PnQbcqvV4i5VTFlRSkyZ/FilfAqxjU/AWvfYYYLA==}
+  '@portkey/services@2.19.0-alpha.24':
+    resolution: {integrity: sha512-PrNwN4S13ous3OX0qLIka3wcKBD6Re3+TgJwcWbXof+ag07M6zR2MzvtdIVK3t6pN4ic1sgi4UvQ6Iv68HGrsQ==}
     peerDependencies:
       aelf-sdk: ^3.4.7
       query-string: ^7.1.1
 
-  '@portkey/socket@2.19.0-alpha.9':
-    resolution: {integrity: sha512-OMjo0Gd8Co/vMO9qHTBPeAY7d/Pgah8UEhCWCmrOi1amIvp7awcn4VZOoycCq1OQKeFAks4sNXQJG9xiPNaw/Q==}
+  '@portkey/socket@2.19.0-alpha.24':
+    resolution: {integrity: sha512-e2t0ybHPauZmLgFyiOQbcwb0EdI8ujPrIO2txLzN7e5FKWTkeNqNaUwnRDFlJswhR8uiDAprS2CA9jxxPN4EDg==}
 
   '@portkey/types@2.15.10':
     resolution: {integrity: sha512-RQddcR9AfWbapYM4ovAkCXOZGULuuYCbTwYkUTaqRf0WflG3IHB+sQvDMUSMJAw0fo4dPND7Qg0hS2mvHVVWRw==}
@@ -2924,11 +2933,21 @@ packages:
   '@portkey/types@2.17.8':
     resolution: {integrity: sha512-5wDK1lsKyybAE1cRd+psLsQ8fPgF0bBtjyijPUskEFtldmODa8Rxwl8a2oId7Eh0sOuVd78G8dW579TjKahuyg==}
 
+  '@portkey/types@2.19.0-alpha.24':
+    resolution: {integrity: sha512-zJBWZFCi2t3vXia4/0H/D5Ws742x3tEKjTX4HNpYklx8cVZ4/nVuZIAjSFaR/mEImo47Q7gYpBZaFZOpPixYBg==}
+
   '@portkey/types@2.19.0-alpha.9':
     resolution: {integrity: sha512-KfW0Qcapyb/uD1lLMxwOnwUQkybaVR6tEPFGPwa+omg8rK3llk7LjevM2KR8TgZCYShNXbKv/zOkx0bXtxelLw==}
 
   '@portkey/utils@2.17.8':
     resolution: {integrity: sha512-BOiFq/0cpCR8bqVJDXX10gZPQmr3HvAK/KWwOpijO2kQRBnbkKgS0O7HwZkq15CpeOnQBb82wkCgy97RHn8OoQ==}
+    peerDependencies:
+      '@portkey/request': ^2.6.6
+      aelf-sdk: ^3.4.7
+      query-string: ^7.1.1
+
+  '@portkey/utils@2.19.0-alpha.24':
+    resolution: {integrity: sha512-q6BLA1qutarLMnKn/AZOfrP/11K+Kp0cCJqHr1ZV9lkJz+sPK+lBwpkzhb+4isnkDT5kufwSahgcuy1J2sbM/Q==}
     peerDependencies:
       '@portkey/request': ^2.6.6
       aelf-sdk: ^3.4.7
@@ -2941,8 +2960,8 @@ packages:
       aelf-sdk: ^3.4.7
       query-string: ^7.1.1
 
-  '@portkey/validator@2.19.0-alpha.9':
-    resolution: {integrity: sha512-bRPhaKSuox8qEU1hWByDWuwu2/Ayi0sIs6DGwbj6OS48vXV6qIfVuQaCdwAVGk/+ZWP16kaNwT6L2YLumBT+Tg==}
+  '@portkey/validator@2.19.0-alpha.24':
+    resolution: {integrity: sha512-ATgB+gbA8AVmyTGWnBv6ciBYXytTtjq2fqaGqzLiHQh7IlDeSCq/GsGkbVjljBcKmsGsho3RzC20Gbl5RUS9Hw==}
 
   '@protobufjs/aspromise@1.1.2':
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
@@ -3631,8 +3650,8 @@ packages:
       react-test-renderer:
         optional: true
 
-  '@testing-library/react@16.1.0':
-    resolution: {integrity: sha512-Q2ToPvg0KsVL0ohND9A3zLJWcOXXcO8IDu3fj11KhNt0UlCWyFyvnCIBkd12tidB2lkiVRG8VFqdhcqhqnAQtg==}
+  '@testing-library/react@16.2.0':
+    resolution: {integrity: sha512-2cSskAvA1QNtKc8Y9VJQRv0tm3hLVgxRGDB+KYhIaPQJ1I+RHbhIXcM+zClKXzMes/wshsMVzf4B9vS4IZpqDQ==}
     engines: {node: '>=18'}
     peerDependencies:
       '@testing-library/dom': ^10.0.0
@@ -3752,8 +3771,8 @@ packages:
   '@types/node@17.0.45':
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
 
-  '@types/node@22.10.3':
-    resolution: {integrity: sha512-DifAyw4BkrufCILvD3ucnuN8eydUfc/C1GlyrnI+LK6543w5/L3VeVgf05o3B4fqSXP1dKYLOZsKfutpxPzZrw==}
+  '@types/node@22.13.14':
+    resolution: {integrity: sha512-Zs/Ollc1SJ8nKUAgc7ivOEdIBM8JAKgrqqUYi2J997JuKO7/tpQC+WCetQ1sypiKCQWHdvdg9wBNpUPEWZae7w==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -5127,8 +5146,8 @@ packages:
   comma-separated-tokens@2.0.3:
     resolution: {integrity: sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==}
 
-  commander@12.1.0:
-    resolution: {integrity: sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==}
+  commander@13.1.0:
+    resolution: {integrity: sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==}
     engines: {node: '>=18'}
 
   commander@2.20.3:
@@ -5939,13 +5958,13 @@ packages:
       jest:
         optional: true
 
-  eslint-plugin-prettier@5.2.1:
-    resolution: {integrity: sha512-gH3iR3g4JfF+yYPaJYkN7jEl9QbweL/YfkoRlNnuIEHEz1vHVlCmWOS+eGGiRuzHQXdJFCOTxRgvju9b8VUmrw==}
+  eslint-plugin-prettier@5.2.5:
+    resolution: {integrity: sha512-IKKP8R87pJyMl7WWamLgPkloB16dagPIdd2FjBDbyRYPKo93wS/NbCOPh6gH+ieNLC+XZrhJt/kWj0PS/DFdmg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       '@types/eslint': '>=8.0.0'
       eslint: '>=8.0.0'
-      eslint-config-prettier: '*'
+      eslint-config-prettier: '>= 7.0.0 <10.0.0 || >=10.1.0'
       prettier: '>=3.0.0'
     peerDependenciesMeta:
       '@types/eslint':
@@ -5971,8 +5990,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
 
-  eslint-plugin-react@7.37.3:
-    resolution: {integrity: sha512-DomWuTQPFYZwF/7c9W2fkKkStqZmBd3uugfqBYLdkZ3Hii23WzZuOLUskGxB8qkSKqftxEeGL1TB2kMhrce0jA==}
+  eslint-plugin-react@7.37.4:
+    resolution: {integrity: sha512-BGP0jRmfYyvOyvMoRX/uoUeW+GqNj9y16bPQzqAHf3AYII/tDs+jMN0dBVkl88/OZwNGwrVFxE7riHsXVfy/LQ==}
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
@@ -6232,6 +6251,10 @@ packages:
 
   father@4.5.1:
     resolution: {integrity: sha512-dQnAAkQsImdXSiwKcRxek0JiYQDxIT7jVM6FZjejg7mf2CfhhJiWt8rBFUzmdsm4gQvq2mnb7G1i6AN8LTKuRw==}
+    hasBin: true
+
+  father@4.5.2:
+    resolution: {integrity: sha512-D7yjcptD/4WMpVkmEQanl8nZBJsMm4lCZBBxhUz7p3aa/92UTI/qICYUqieXpwUCQDPwbs4rq1v098L9pw7vvQ==}
     hasBin: true
 
   fault@2.0.1:
@@ -7769,8 +7792,8 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  lint-staged@15.3.0:
-    resolution: {integrity: sha512-vHFahytLoF2enJklgtOtCtIjZrKD/LoxlaUusd5nh7dWv/dkKQJY74ndFSzxCdv7g0ueGg1ORgTSt4Y9LPZn9A==}
+  lint-staged@15.5.0:
+    resolution: {integrity: sha512-WyCzSbfYGhK7cU+UuDDkzUiytbfbi0ZdPy2orwtM75P3WTtQBzmG40cCxIa8Ii2+XjfxzLH6Be46tUfWS85Xfg==}
     engines: {node: '>=18.12.0'}
     hasBin: true
 
@@ -7817,6 +7840,7 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -10950,12 +10974,12 @@ packages:
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
 
-  synckit@0.8.5:
-    resolution: {integrity: sha512-L1dapNV6vu2s/4Sputv8xGsCdAVlb5nRDMFU/E27D44l5U6cw1g0dGd45uLc+OXjNMmF4ntiMdCimzcjFKQI8Q==}
+  synckit@0.10.3:
+    resolution: {integrity: sha512-R1urvuyiTaWfeCggqEvpDJwAlDVdsT9NM+IP//Tk2x7qHCkSvBk/fwFgw/TLAHzZlrAnnazMcRw0ZD8HlYFTEQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
-  synckit@0.9.2:
-    resolution: {integrity: sha512-vrozgXDQwYO72vHjUb/HnFbQx1exDjoKzqx23aXEg2a9VIg2TSFZ8FmeZpTjUCFMYw7mpX4BE2SFu8wI7asYsw==}
+  synckit@0.8.5:
+    resolution: {integrity: sha512-L1dapNV6vu2s/4Sputv8xGsCdAVlb5nRDMFU/E27D44l5U6cw1g0dGd45uLc+OXjNMmF4ntiMdCimzcjFKQI8Q==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
   systemjs@6.15.1:
@@ -11267,6 +11291,11 @@ packages:
 
   typescript@5.7.2:
     resolution: {integrity: sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.8.2:
+    resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -11936,6 +11965,7 @@ packages:
   yaeti@0.0.6:
     resolution: {integrity: sha512-MvQa//+KcZCUkBTIC9blM+CU9J2GzuTytsOUwf2lidtvkx/6gnEp1QvJv34t9vdjhFmha/mUiNDbN0D0mJWdug==}
     engines: {node: '>=0.10.32'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   yallist@2.1.2:
     resolution: {integrity: sha512-ncTzHV7NvsQZkYe1DW7cbDLm0YpzHmZF5r/iyP3ZnQtMiJ+pjzisCiMNI+Sj+xQF5pXhSHxSB3uDbsBTzY/c2A==}
@@ -11950,8 +11980,8 @@ packages:
     resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
     engines: {node: '>= 6'}
 
-  yaml@2.6.1:
-    resolution: {integrity: sha512-7r0XPzioN/Q9kXBro/XPnA6kznR73DHq+GXh5ON7ZozRO6aMjbmiBuKste2wslTFkC5d1dw0GooOCepZXJ2SAg==}
+  yaml@2.7.1:
+    resolution: {integrity: sha512-10ULxpnOCQXxJvBgxsn9ptjq6uviG/htZKk9veJGhlqn3w/DxQ631zFF+nlQXLwmImeS5amR2dl2U8sg6U9jsQ==}
     engines: {node: '>= 14'}
     hasBin: true
 
@@ -12095,7 +12125,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@ant-design/icons@5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@ant-design/icons@5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@ant-design/colors': 7.2.0
       '@ant-design/icons-svg': 4.4.2
@@ -12705,7 +12735,7 @@ snapshots:
       '@babel/helper-compilation-targets': 7.25.9
       '@babel/helper-module-transforms': 7.26.0(@babel/core@7.26.0)
       '@babel/helpers': 7.26.0
-      '@babel/parser': 7.26.3
+      '@babel/parser': 7.27.0
       '@babel/template': 7.25.9
       '@babel/traverse': 7.26.4
       '@babel/types': 7.26.3
@@ -12735,7 +12765,7 @@ snapshots:
 
   '@babel/generator@7.26.3':
     dependencies:
-      '@babel/parser': 7.26.3
+      '@babel/parser': 7.27.0
       '@babel/types': 7.26.3
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
@@ -12864,9 +12894,9 @@ snapshots:
       '@babel/template': 7.25.9
       '@babel/types': 7.26.3
 
-  '@babel/parser@7.26.3':
+  '@babel/parser@7.27.0':
     dependencies:
-      '@babel/types': 7.26.3
+      '@babel/types': 7.27.0
 
   '@babel/plugin-bugfix-firefox-class-in-computed-class-key@7.25.9(@babel/core@7.26.0)':
     dependencies:
@@ -13506,14 +13536,14 @@ snapshots:
   '@babel/template@7.25.9':
     dependencies:
       '@babel/code-frame': 7.26.2
-      '@babel/parser': 7.26.3
+      '@babel/parser': 7.27.0
       '@babel/types': 7.26.3
 
   '@babel/traverse@7.26.4':
     dependencies:
       '@babel/code-frame': 7.26.2
       '@babel/generator': 7.26.3
-      '@babel/parser': 7.26.3
+      '@babel/parser': 7.27.0
       '@babel/template': 7.25.9
       '@babel/types': 7.26.3
       debug: 4.4.0
@@ -13522,6 +13552,11 @@ snapshots:
       - supports-color
 
   '@babel/types@7.26.3':
+    dependencies:
+      '@babel/helper-string-parser': 7.25.9
+      '@babel/helper-validator-identifier': 7.25.9
+
+  '@babel/types@7.27.0':
     dependencies:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
@@ -14303,13 +14338,13 @@ snapshots:
       '@ethersproject/properties': 5.7.0
       '@ethersproject/strings': 5.7.0
 
-  '@etransfer/core@1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.9)(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
+  '@etransfer/core@1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.24)(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
     dependencies:
-      '@etransfer/services': 1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
-      '@etransfer/socket': 1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.9)(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
+      '@etransfer/services': 1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/socket': 1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.24)(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
       '@etransfer/types': 1.12.0
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.9)(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
-      '@portkey/types': 2.19.0-alpha.9
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.24)(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@portkey/types': 2.19.0-alpha.24
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       bignumber.js: 9.1.2
       query-string: 7.1.3
@@ -14321,10 +14356,10 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@etransfer/request@1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
+  '@etransfer/request@1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
     dependencies:
       '@etransfer/types': 1.12.0
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       axios: 0.24.0
     transitivePeerDependencies:
       - '@portkey/contracts'
@@ -14335,11 +14370,11 @@ snapshots:
       - debug
       - query-string
 
-  '@etransfer/services@1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
+  '@etransfer/services@1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
     dependencies:
-      '@etransfer/request': 1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/request': 1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@etransfer/types': 1.12.0
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@portkey/types': 2.15.10
       query-string: 7.1.3
     transitivePeerDependencies:
@@ -14349,10 +14384,10 @@ snapshots:
       - bignumber.js
       - debug
 
-  '@etransfer/socket@1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.9)(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
+  '@etransfer/socket@1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.24)(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@abp/signalr': 7.4.5(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.9)(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.24)(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
     transitivePeerDependencies:
       - '@portkey/contracts'
       - '@portkey/types'
@@ -14367,13 +14402,13 @@ snapshots:
 
   '@etransfer/types@1.12.0': {}
 
-  '@etransfer/utils@1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
+  '@etransfer/utils@1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.15.10)(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
     dependencies:
-      '@etransfer/services': 1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/services': 1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@etransfer/types': 1.12.0
-      '@portkey/contracts': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/types': 2.15.10
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       bignumber.js: 9.1.2
       bn.js: 5.2.1
@@ -14381,13 +14416,13 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@etransfer/utils@1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.9)(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
+  '@etransfer/utils@1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.24)(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)':
     dependencies:
-      '@etransfer/services': 1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/services': 1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@etransfer/types': 1.12.0
-      '@portkey/contracts': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/types': 2.19.0-alpha.9
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/types': 2.19.0-alpha.24
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       bignumber.js: 9.1.2
       bn.js: 5.2.1
@@ -14469,7 +14504,7 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@formatjs/intl@2.10.15(typescript@5.7.2)':
+  '@formatjs/intl@2.10.15(typescript@5.8.2)':
     dependencies:
       '@formatjs/ecma402-abstract': 2.2.4
       '@formatjs/fast-memoize': 2.2.3
@@ -14479,7 +14514,7 @@ snapshots:
       intl-messageformat: 10.7.7
       tslib: 2.8.1
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.8.2
 
   '@graphql-typed-document-node/core@3.2.0(graphql@16.10.0)':
     dependencies:
@@ -14497,10 +14532,10 @@ snapshots:
 
   '@humanwhocodes/object-schema@2.0.3': {}
 
-  '@ianvs/prettier-plugin-sort-imports@4.4.0(prettier@3.4.2)':
+  '@ianvs/prettier-plugin-sort-imports@4.4.1(prettier@3.4.2)':
     dependencies:
       '@babel/generator': 7.26.3
-      '@babel/parser': 7.26.3
+      '@babel/parser': 7.27.0
       '@babel/traverse': 7.26.4
       '@babel/types': 7.26.3
       prettier: 3.4.2
@@ -14543,7 +14578,7 @@ snapshots:
   '@jest/console@29.7.0':
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       chalk: 4.1.2
       jest-message-util: 29.7.0
       jest-util: 29.7.0
@@ -14557,14 +14592,14 @@ snapshots:
       '@jest/test-result': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       ci-info: 3.9.0
       exit: 0.1.2
       graceful-fs: 4.2.11
       jest-changed-files: 29.7.0
-      jest-config: 29.7.0(@types/node@22.10.3)
+      jest-config: 29.7.0(@types/node@22.13.14)
       jest-haste-map: 29.7.0
       jest-message-util: 29.7.0
       jest-regex-util: 29.6.3
@@ -14590,7 +14625,7 @@ snapshots:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       jest-mock: 29.7.0
     optional: true
 
@@ -14611,7 +14646,7 @@ snapshots:
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -14635,7 +14670,7 @@ snapshots:
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
       '@jridgewell/trace-mapping': 0.3.25
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       chalk: 4.1.2
       collect-v8-coverage: 1.0.2
       exit: 0.1.2
@@ -14714,7 +14749,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       '@types/yargs': 16.0.9
       chalk: 4.1.2
 
@@ -14723,7 +14758,7 @@ snapshots:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       '@types/yargs': 17.0.33
       chalk: 4.1.2
 
@@ -14781,20 +14816,20 @@ snapshots:
       nanoid: 5.0.9
       react: 18.3.1
 
-  '@microsoft/api-extractor-model@7.28.4(@types/node@22.10.3)':
+  '@microsoft/api-extractor-model@7.28.4(@types/node@22.13.14)':
     dependencies:
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.63.0(@types/node@22.10.3)
+      '@rushstack/node-core-library': 3.63.0(@types/node@22.13.14)
     transitivePeerDependencies:
       - '@types/node'
 
-  '@microsoft/api-extractor@7.39.1(@types/node@22.10.3)':
+  '@microsoft/api-extractor@7.39.1(@types/node@22.13.14)':
     dependencies:
-      '@microsoft/api-extractor-model': 7.28.4(@types/node@22.10.3)
+      '@microsoft/api-extractor-model': 7.28.4(@types/node@22.13.14)
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.63.0(@types/node@22.10.3)
+      '@rushstack/node-core-library': 3.63.0(@types/node@22.13.14)
       '@rushstack/rig-package': 0.5.1
       '@rushstack/ts-command-line': 4.17.1
       colors: 1.2.5
@@ -14983,7 +15018,7 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@pkgr/core@0.1.1': {}
+  '@pkgr/core@0.2.0': {}
 
   '@pkgr/utils@2.4.2':
     dependencies:
@@ -14996,19 +15031,19 @@ snapshots:
 
   '@polka/url@1.0.0-next.28': {}
 
-  '@portkey/accounts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/accounts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
-      '@portkey/types': 2.19.0-alpha.9
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/validator': 2.19.0-alpha.9
+      '@portkey/types': 2.19.0-alpha.24
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/validator': 2.19.0-alpha.24
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
     transitivePeerDependencies:
       - '@portkey/request'
       - query-string
 
-  '@portkey/chain@2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.9)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)':
+  '@portkey/chain@2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.24)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)':
     dependencies:
-      '@portkey/contracts': 2.17.8(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.17.8(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       '@portkey/provider-types': 2.4.0-alpha.12
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
     transitivePeerDependencies:
@@ -15019,11 +15054,11 @@ snapshots:
       - query-string
       - supports-color
 
-  '@portkey/connect-web-wallet@2.19.0-alpha.9(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(date-fns@2.30.0)(encoding@0.1.13)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@portkey/connect-web-wallet@2.19.0-alpha.9(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(date-fns@2.30.0)(encoding@0.1.13)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@portkey/iframe-provider': 2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.9)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)
+      '@portkey/iframe-provider': 2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.24)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)
       '@portkey/provider-types': 2.4.0-alpha.8
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       antd: 5.22.7(date-fns@2.30.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       bignumber.js: 9.1.2
@@ -15043,11 +15078,11 @@ snapshots:
       - luxon
       - supports-color
 
-  '@portkey/connect-web-wallet@2.19.0-alpha.9(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(date-fns@2.30.0)(encoding@0.1.13)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@portkey/connect-web-wallet@2.19.0-alpha.9(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(date-fns@2.30.0)(encoding@0.1.13)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@portkey/iframe-provider': 2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.9)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)
+      '@portkey/iframe-provider': 2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.24)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)
       '@portkey/provider-types': 2.4.0-alpha.8
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       antd: 5.22.7(date-fns@2.30.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       bignumber.js: 9.1.2
@@ -15067,31 +15102,41 @@ snapshots:
       - luxon
       - supports-color
 
-  '@portkey/contracts@2.17.8(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/contracts@2.17.8(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
       '@portkey/provider-types': 2.3.5
       '@portkey/types': 2.17.8
-      '@portkey/utils': 2.17.8(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.17.8(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
     transitivePeerDependencies:
       - '@portkey/request'
       - query-string
 
-  '@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
-      '@portkey/provider-types': 2.4.0-alpha.8
-      '@portkey/types': 2.19.0-alpha.9
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/provider-types': 2.4.0-alpha.12
+      '@portkey/types': 2.19.0-alpha.24
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
     transitivePeerDependencies:
       - '@portkey/request'
       - query-string
 
-  '@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+    dependencies:
+      '@portkey/provider-types': 2.4.0-alpha.12
+      '@portkey/types': 2.19.0-alpha.24
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
+    transitivePeerDependencies:
+      - '@portkey/request'
+      - query-string
+
+  '@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
       '@portkey/provider-types': 2.4.0-alpha.8
-      '@portkey/types': 2.19.0-alpha.9
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/types': 2.19.0-alpha.24
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
     transitivePeerDependencies:
       - '@portkey/request'
@@ -15109,25 +15154,25 @@ snapshots:
     dependencies:
       '@portkey/provider-types': 2.4.0-alpha.12
 
-  '@portkey/did-ui-react@2.19.0-alpha.9(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@portkey/did-ui-react@2.19.0-alpha.24(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(i18next@23.15.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
-      '@etransfer/core': 1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.9)(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
-      '@etransfer/services': 1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/core': 1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.24)(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
+      '@etransfer/services': 1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@etransfer/types': 1.12.0
-      '@etransfer/utils': 1.12.0(@portkey/contracts@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.9)(@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
+      '@etransfer/utils': 1.12.0(@portkey/contracts@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(@portkey/types@2.19.0-alpha.24)(@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3))(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bignumber.js@9.1.2)(query-string@7.1.3)
       '@matt-block/react-recaptcha-v2': 2.1.0(react@18.3.1)
-      '@portkey/accounts': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/contracts': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/did': 2.19.0-alpha.9(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/graphql': 2.19.0-alpha.9(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/onboarding': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))
-      '@portkey/ramp': 2.19.0-alpha.9(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
-      '@portkey/request': 2.19.0-alpha.9
-      '@portkey/services': 2.19.0-alpha.9(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/socket': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
-      '@portkey/types': 2.19.0-alpha.9
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/validator': 2.19.0-alpha.9
+      '@portkey/accounts': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/did': 2.19.0-alpha.24(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/graphql': 2.19.0-alpha.24(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/onboarding': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))
+      '@portkey/ramp': 2.19.0-alpha.24(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
+      '@portkey/request': 2.19.0-alpha.24
+      '@portkey/services': 2.19.0-alpha.24(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/socket': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
+      '@portkey/types': 2.19.0-alpha.24
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/validator': 2.19.0-alpha.24
       '@rc-component/portal': 1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       antd: 4.24.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -15159,15 +15204,15 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@portkey/did@2.19.0-alpha.9(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@portkey/did@2.19.0-alpha.24(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
-      '@portkey/accounts': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/contracts': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
-      '@portkey/graphql': 2.19.0-alpha.9(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/request': 2.19.0-alpha.9
-      '@portkey/services': 2.19.0-alpha.9(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/types': 2.19.0-alpha.9
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/accounts': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/contracts': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/graphql': 2.19.0-alpha.24(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/request': 2.19.0-alpha.24
+      '@portkey/services': 2.19.0-alpha.24(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/types': 2.19.0-alpha.24
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       react: 18.3.1
     transitivePeerDependencies:
@@ -15178,10 +15223,10 @@ snapshots:
       - react-dom
       - utf-8-validate
 
-  '@portkey/graphql@2.19.0-alpha.9(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@portkey/graphql@2.19.0-alpha.24(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
       '@apollo/client': 3.12.4(@types/react@18.3.18)(graphql@16.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(subscriptions-transport-ws@0.11.0(bufferutil@4.0.9)(graphql@16.10.0)(utf-8-validate@5.0.10))
-      '@portkey/types': 2.19.0-alpha.9
+      '@portkey/types': 2.19.0-alpha.24
       graphql: 16.10.0
       subscriptions-transport-ws: 0.11.0(bufferutil@4.0.9)(graphql@16.10.0)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
@@ -15192,10 +15237,10 @@ snapshots:
       - react-dom
       - utf-8-validate
 
-  '@portkey/iframe-provider@2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.9)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)':
+  '@portkey/iframe-provider@2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.24)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)':
     dependencies:
       '@portkey/provider-types': 2.4.0-alpha.12
-      '@portkey/providers': 2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.9)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)
+      '@portkey/providers': 2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.24)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)
       '@types/elliptic': 6.4.18
       readable-stream: 4.6.0
     transitivePeerDependencies:
@@ -15206,11 +15251,11 @@ snapshots:
       - query-string
       - supports-color
 
-  '@portkey/onboarding@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))':
+  '@portkey/onboarding@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))':
     dependencies:
       '@portkey/detect-provider': 2.3.5
-      '@portkey/types': 2.19.0-alpha.9
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/types': 2.19.0-alpha.24
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       bowser: 2.11.0
       query-string: 7.1.3
     transitivePeerDependencies:
@@ -15241,9 +15286,9 @@ snapshots:
     dependencies:
       '@portkey/provider-types': 2.4.0-alpha.12
 
-  '@portkey/providers@2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.9)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)':
+  '@portkey/providers@2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.24)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)':
     dependencies:
-      '@portkey/chain': 2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.9)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)
+      '@portkey/chain': 2.4.0-alpha.8(@babel/core@7.26.0)(@portkey/request@2.19.0-alpha.24)(encoding@0.1.13)(eslint@8.57.1)(query-string@7.1.3)
       '@portkey/provider-types': 2.4.0-alpha.12
       '@portkey/provider-utils': 2.4.0-alpha.8
       '@types/readable-stream': 2.3.15
@@ -15257,12 +15302,12 @@ snapshots:
       - query-string
       - supports-color
 
-  '@portkey/ramp@2.19.0-alpha.9(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)':
+  '@portkey/ramp@2.19.0-alpha.24(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)':
     dependencies:
-      '@portkey/request': 2.19.0-alpha.9
-      '@portkey/socket': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
-      '@portkey/types': 2.19.0-alpha.9
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/request': 2.19.0-alpha.24
+      '@portkey/socket': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)
+      '@portkey/types': 2.19.0-alpha.24
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       query-string: 7.1.3
     transitivePeerDependencies:
       - aelf-sdk
@@ -15270,17 +15315,17 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@portkey/request@2.19.0-alpha.9':
+  '@portkey/request@2.19.0-alpha.24':
     dependencies:
-      '@portkey/types': 2.19.0-alpha.9
+      '@portkey/types': 2.19.0-alpha.24
       query-string: 7.1.3
 
-  '@portkey/services@2.19.0-alpha.9(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@portkey/services@2.19.0-alpha.24(@types/react@18.3.18)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
-      '@portkey/graphql': 2.19.0-alpha.9(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/request': 2.19.0-alpha.9
-      '@portkey/types': 2.19.0-alpha.9
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/graphql': 2.19.0-alpha.24(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/request': 2.19.0-alpha.24
+      '@portkey/types': 2.19.0-alpha.24
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       query-string: 7.1.3
     transitivePeerDependencies:
@@ -15291,12 +15336,12 @@ snapshots:
       - react-dom
       - utf-8-validate
 
-  '@portkey/services@2.19.0-alpha.9(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@portkey/services@2.19.0-alpha.24(@types/react@18.3.18)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(query-string@7.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
-      '@portkey/graphql': 2.19.0-alpha.9(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
-      '@portkey/request': 2.19.0-alpha.9
-      '@portkey/types': 2.19.0-alpha.9
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/graphql': 2.19.0-alpha.24(@types/react@18.3.18)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+      '@portkey/request': 2.19.0-alpha.24
+      '@portkey/types': 2.19.0-alpha.24
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       query-string: 7.1.3
     transitivePeerDependencies:
@@ -15307,10 +15352,10 @@ snapshots:
       - react-dom
       - utf-8-validate
 
-  '@portkey/socket@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
+  '@portkey/socket@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(bufferutil@4.0.9)(encoding@0.1.13)(query-string@7.1.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@abp/signalr': 7.4.5(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
-      '@portkey/utils': 2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
+      '@portkey/utils': 2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)
     transitivePeerDependencies:
       - '@portkey/request'
       - aelf-sdk
@@ -15323,32 +15368,42 @@ snapshots:
 
   '@portkey/types@2.17.8': {}
 
+  '@portkey/types@2.19.0-alpha.24': {}
+
   '@portkey/types@2.19.0-alpha.9': {}
 
-  '@portkey/utils@2.17.8(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/utils@2.17.8(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
-      '@portkey/request': 2.19.0-alpha.9
+      '@portkey/request': 2.19.0-alpha.24
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       node-forge: 1.3.1
       query-string: 7.1.3
 
-  '@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
-      '@portkey/request': 2.19.0-alpha.9
+      '@portkey/request': 2.19.0-alpha.24
       aelf-sdk: 3.4.15(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       is-url: 1.2.4
       node-forge: 1.3.1
       query-string: 7.1.3
 
-  '@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.9)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+  '@portkey/utils@2.19.0-alpha.24(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
     dependencies:
-      '@portkey/request': 2.19.0-alpha.9
+      '@portkey/request': 2.19.0-alpha.24
       aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
       is-url: 1.2.4
       node-forge: 1.3.1
       query-string: 7.1.3
 
-  '@portkey/validator@2.19.0-alpha.9': {}
+  '@portkey/utils@2.19.0-alpha.9(@portkey/request@2.19.0-alpha.24)(aelf-sdk@3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1))(query-string@7.1.3)':
+    dependencies:
+      '@portkey/request': 2.19.0-alpha.24
+      aelf-sdk: 3.4.16-alpha.7(@babel/core@7.26.0)(encoding@0.1.13)(eslint@8.57.1)
+      is-url: 1.2.4
+      node-forge: 1.3.1
+      query-string: 7.1.3
+
+  '@portkey/validator@2.19.0-alpha.24': {}
 
   '@protobufjs/aspromise@1.1.2': {}
 
@@ -15569,7 +15624,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.29.1':
     optional: true
 
-  '@rushstack/node-core-library@3.63.0(@types/node@22.10.3)':
+  '@rushstack/node-core-library@3.63.0(@types/node@22.13.14)':
     dependencies:
       colors: 1.2.5
       fs-extra: 7.0.1
@@ -15579,7 +15634,7 @@ snapshots:
       semver: 7.5.4
       z-schema: 5.0.5
     optionalDependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
 
   '@rushstack/rig-package@0.5.1':
     dependencies:
@@ -16136,7 +16191,7 @@ snapshots:
       '@types/react': 18.3.18
       react-dom: 18.3.1(react@18.3.1)
 
-  '@testing-library/react@16.1.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@testing-library/react@16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.26.0
       '@testing-library/dom': 10.4.0
@@ -16154,7 +16209,7 @@ snapshots:
 
   '@types/babel__core@7.20.5':
     dependencies:
-      '@babel/parser': 7.26.3
+      '@babel/parser': 7.27.0
       '@babel/types': 7.26.3
       '@types/babel__generator': 7.6.8
       '@types/babel__template': 7.4.4
@@ -16166,7 +16221,7 @@ snapshots:
 
   '@types/babel__template@7.4.4':
     dependencies:
-      '@babel/parser': 7.26.3
+      '@babel/parser': 7.27.0
       '@babel/types': 7.26.3
 
   '@types/babel__traverse@7.20.6':
@@ -16175,13 +16230,13 @@ snapshots:
 
   '@types/bn.js@5.1.6':
     dependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
 
   '@types/cacheable-request@6.0.3':
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       '@types/responselike': 1.0.3
 
   '@types/debug@4.1.12':
@@ -16201,11 +16256,11 @@ snapshots:
   '@types/fs-extra@11.0.1':
     dependencies:
       '@types/jsonfile': 6.1.4
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
 
   '@types/graceful-fs@4.1.9':
     dependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
 
   '@types/hapi__joi@17.1.9': {}
 
@@ -16243,11 +16298,11 @@ snapshots:
 
   '@types/jsonfile@6.1.4':
     dependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 12.20.55
+      '@types/node': 22.13.14
 
   '@types/long@4.0.2': {}
 
@@ -16265,7 +16320,7 @@ snapshots:
 
   '@types/node@17.0.45': {}
 
-  '@types/node@22.10.3':
+  '@types/node@22.13.14':
     dependencies:
       undici-types: 6.20.0
 
@@ -16277,7 +16332,7 @@ snapshots:
 
   '@types/pbkdf2@3.1.2':
     dependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
 
   '@types/prop-types@15.7.14': {}
 
@@ -16298,22 +16353,22 @@ snapshots:
 
   '@types/readable-stream@2.3.15':
     dependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       safe-buffer: 5.1.2
 
   '@types/resolve@1.20.6': {}
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 12.20.55
+      '@types/node': 22.13.14
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 22.13.14
 
   '@types/secp256k1@4.0.6':
     dependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
 
   '@types/semver@7.5.8': {}
 
@@ -16338,65 +16393,65 @@ snapshots:
     dependencies:
       '@types/yargs-parser': 21.0.3
 
-  '@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)':
+  '@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 5.62.0(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/parser': 5.62.0(eslint@8.57.1)(typescript@5.8.2)
       '@typescript-eslint/scope-manager': 5.62.0
-      '@typescript-eslint/type-utils': 5.62.0(eslint@8.57.1)(typescript@5.7.2)
-      '@typescript-eslint/utils': 5.62.0(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/type-utils': 5.62.0(eslint@8.57.1)(typescript@5.8.2)
+      '@typescript-eslint/utils': 5.62.0(eslint@8.57.1)(typescript@5.8.2)
       debug: 4.4.0
       eslint: 8.57.1
       graphemer: 1.4.0
       ignore: 5.3.2
       natural-compare-lite: 1.4.0
       semver: 7.6.3
-      tsutils: 3.21.0(typescript@5.7.2)
+      tsutils: 3.21.0(typescript@5.8.2)
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.8.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)':
+  '@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 7.18.0(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/parser': 7.18.0(eslint@8.57.1)(typescript@5.8.2)
       '@typescript-eslint/scope-manager': 7.18.0
-      '@typescript-eslint/type-utils': 7.18.0(eslint@8.57.1)(typescript@5.7.2)
-      '@typescript-eslint/utils': 7.18.0(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/type-utils': 7.18.0(eslint@8.57.1)(typescript@5.8.2)
+      '@typescript-eslint/utils': 7.18.0(eslint@8.57.1)(typescript@5.8.2)
       '@typescript-eslint/visitor-keys': 7.18.0
       eslint: 8.57.1
       graphemer: 1.4.0
       ignore: 5.3.2
       natural-compare: 1.4.0
-      ts-api-utils: 1.4.3(typescript@5.7.2)
+      ts-api-utils: 1.4.3(typescript@5.8.2)
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.8.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.7.2)':
+  '@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.8.2)':
     dependencies:
       '@typescript-eslint/scope-manager': 5.62.0
       '@typescript-eslint/types': 5.62.0
-      '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.7.2)
+      '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.8.2)
       debug: 4.4.0
       eslint: 8.57.1
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.8.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2)':
+  '@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.2)':
     dependencies:
       '@typescript-eslint/scope-manager': 7.18.0
       '@typescript-eslint/types': 7.18.0
-      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.7.2)
+      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.8.2)
       '@typescript-eslint/visitor-keys': 7.18.0
       debug: 4.4.0
       eslint: 8.57.1
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.8.2
     transitivePeerDependencies:
       - supports-color
 
@@ -16410,27 +16465,27 @@ snapshots:
       '@typescript-eslint/types': 7.18.0
       '@typescript-eslint/visitor-keys': 7.18.0
 
-  '@typescript-eslint/type-utils@5.62.0(eslint@8.57.1)(typescript@5.7.2)':
+  '@typescript-eslint/type-utils@5.62.0(eslint@8.57.1)(typescript@5.8.2)':
     dependencies:
-      '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.7.2)
-      '@typescript-eslint/utils': 5.62.0(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.8.2)
+      '@typescript-eslint/utils': 5.62.0(eslint@8.57.1)(typescript@5.8.2)
       debug: 4.4.0
       eslint: 8.57.1
-      tsutils: 3.21.0(typescript@5.7.2)
+      tsutils: 3.21.0(typescript@5.8.2)
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.8.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/type-utils@7.18.0(eslint@8.57.1)(typescript@5.7.2)':
+  '@typescript-eslint/type-utils@7.18.0(eslint@8.57.1)(typescript@5.8.2)':
     dependencies:
-      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.7.2)
-      '@typescript-eslint/utils': 7.18.0(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.8.2)
+      '@typescript-eslint/utils': 7.18.0(eslint@8.57.1)(typescript@5.8.2)
       debug: 4.4.0
       eslint: 8.57.1
-      ts-api-utils: 1.4.3(typescript@5.7.2)
+      ts-api-utils: 1.4.3(typescript@5.8.2)
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.8.2
     transitivePeerDependencies:
       - supports-color
 
@@ -16438,7 +16493,7 @@ snapshots:
 
   '@typescript-eslint/types@7.18.0': {}
 
-  '@typescript-eslint/typescript-estree@5.62.0(typescript@5.7.2)':
+  '@typescript-eslint/typescript-estree@5.62.0(typescript@5.8.2)':
     dependencies:
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/visitor-keys': 5.62.0
@@ -16446,13 +16501,13 @@ snapshots:
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.6.3
-      tsutils: 3.21.0(typescript@5.7.2)
+      tsutils: 3.21.0(typescript@5.8.2)
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.8.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/typescript-estree@7.18.0(typescript@5.7.2)':
+  '@typescript-eslint/typescript-estree@7.18.0(typescript@5.8.2)':
     dependencies:
       '@typescript-eslint/types': 7.18.0
       '@typescript-eslint/visitor-keys': 7.18.0
@@ -16461,20 +16516,20 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.5
       semver: 7.6.3
-      ts-api-utils: 1.4.3(typescript@5.7.2)
+      ts-api-utils: 1.4.3(typescript@5.8.2)
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.8.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@5.62.0(eslint@8.57.1)(typescript@5.7.2)':
+  '@typescript-eslint/utils@5.62.0(eslint@8.57.1)(typescript@5.8.2)':
     dependencies:
       '@eslint-community/eslint-utils': 4.4.1(eslint@8.57.1)
       '@types/json-schema': 7.0.15
       '@types/semver': 7.5.8
       '@typescript-eslint/scope-manager': 5.62.0
       '@typescript-eslint/types': 5.62.0
-      '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.7.2)
+      '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.8.2)
       eslint: 8.57.1
       eslint-scope: 5.1.1
       semver: 7.6.3
@@ -16482,12 +16537,12 @@ snapshots:
       - supports-color
       - typescript
 
-  '@typescript-eslint/utils@7.18.0(eslint@8.57.1)(typescript@5.7.2)':
+  '@typescript-eslint/utils@7.18.0(eslint@8.57.1)(typescript@5.8.2)':
     dependencies:
       '@eslint-community/eslint-utils': 4.4.1(eslint@8.57.1)
       '@typescript-eslint/scope-manager': 7.18.0
       '@typescript-eslint/types': 7.18.0
-      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.7.2)
+      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.8.2)
       eslint: 8.57.1
     transitivePeerDependencies:
       - supports-color
@@ -16557,18 +16612,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@umijs/bundler-vite@4.4.4(@types/node@22.10.3)(lightningcss@1.22.1)(postcss@8.4.49)(rollup@3.29.5)(sass@1.83.0)(terser@5.37.0)':
+  '@umijs/bundler-vite@4.4.4(@types/node@22.13.14)(lightningcss@1.22.1)(postcss@8.4.49)(rollup@3.29.5)(sass@1.83.0)(terser@5.37.0)':
     dependencies:
       '@svgr/core': 6.5.1
       '@umijs/bundler-utils': 4.4.4
       '@umijs/utils': 4.4.4
-      '@vitejs/plugin-react': 4.0.0(vite@4.5.2(@types/node@22.10.3)(less@4.1.3)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))
+      '@vitejs/plugin-react': 4.0.0(vite@4.5.2(@types/node@22.13.14)(less@4.1.3)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))
       core-js: 3.34.0
       less: 4.1.3
       postcss-preset-env: 7.5.0(postcss@8.4.49)
       rollup-plugin-visualizer: 5.9.0(rollup@3.29.5)
       systemjs: 6.15.1
-      vite: 4.5.2(@types/node@22.10.3)(less@4.1.3)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
+      vite: 4.5.2(@types/node@22.13.14)(less@4.1.3)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
     transitivePeerDependencies:
       - '@types/node'
       - lightningcss
@@ -16614,7 +16669,7 @@ snapshots:
       - webpack-hot-middleware
       - webpack-plugin-serve
 
-  '@umijs/bundler-webpack@4.4.4(type-fest@0.21.3)(typescript@5.7.2)(webpack@5.95.0)':
+  '@umijs/bundler-webpack@4.4.4(type-fest@0.21.3)(typescript@5.8.2)(webpack@5.95.0)':
     dependencies:
       '@svgr/core': 6.5.1
       '@svgr/plugin-jsx': 6.5.1(@svgr/core@6.5.1)
@@ -16629,7 +16684,7 @@ snapshots:
       cors: 2.8.5
       css-loader: 6.7.1(webpack@5.95.0)
       es5-imcompatible-versions: 0.1.90
-      fork-ts-checker-webpack-plugin: 8.0.0(typescript@5.7.2)(webpack@5.95.0)
+      fork-ts-checker-webpack-plugin: 8.0.0(typescript@5.8.2)(webpack@5.95.0)
       jest-worker: 29.4.3
       lightningcss: 1.22.1
       node-libs-browser: 2.2.1
@@ -16703,15 +16758,15 @@ snapshots:
       '@babel/runtime': 7.26.0
       query-string: 6.14.1
 
-  '@umijs/lint@4.4.4(eslint@8.57.1)(jest@29.7.0(@types/node@22.10.3))(stylelint@14.16.1)(typescript@5.7.2)':
+  '@umijs/lint@4.4.4(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.14))(stylelint@14.16.1)(typescript@5.8.2)':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/eslint-parser': 7.23.3(@babel/core@7.26.0)(eslint@8.57.1)
       '@stylelint/postcss-css-in-js': 0.38.0(postcss-syntax@0.36.2(postcss@8.4.49))(postcss@8.4.49)
-      '@typescript-eslint/eslint-plugin': 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
-      '@typescript-eslint/parser': 5.62.0(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/eslint-plugin': 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2)
+      '@typescript-eslint/parser': 5.62.0(eslint@8.57.1)(typescript@5.8.2)
       '@umijs/babel-preset-umi': 4.4.4
-      eslint-plugin-jest: 27.2.3(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(jest@29.7.0(@types/node@22.10.3))(typescript@5.7.2)
+      eslint-plugin-jest: 27.2.3(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.14))(typescript@5.8.2)
       eslint-plugin-react: 7.33.2(eslint@8.57.1)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.57.1)
       postcss: 8.4.49
@@ -16792,7 +16847,7 @@ snapshots:
     dependencies:
       tsx: 3.12.2
 
-  '@umijs/preset-umi@4.4.4(@types/node@22.10.3)(@types/react@18.3.18)(lightningcss@1.22.1)(rollup@3.29.5)(sass@1.83.0)(terser@5.37.0)(type-fest@0.21.3)(typescript@5.7.2)(webpack@5.95.0)':
+  '@umijs/preset-umi@4.4.4(@types/node@22.13.14)(@types/react@18.3.18)(lightningcss@1.22.1)(rollup@3.29.5)(sass@1.83.0)(terser@5.37.0)(type-fest@0.21.3)(typescript@5.8.2)(webpack@5.95.0)':
     dependencies:
       '@iconify/utils': 2.1.1
       '@svgr/core': 6.5.1
@@ -16801,8 +16856,8 @@ snapshots:
       '@umijs/bundler-esbuild': 4.4.4
       '@umijs/bundler-mako': 0.11.1
       '@umijs/bundler-utils': 4.4.4
-      '@umijs/bundler-vite': 4.4.4(@types/node@22.10.3)(lightningcss@1.22.1)(postcss@8.4.49)(rollup@3.29.5)(sass@1.83.0)(terser@5.37.0)
-      '@umijs/bundler-webpack': 4.4.4(type-fest@0.21.3)(typescript@5.7.2)(webpack@5.95.0)
+      '@umijs/bundler-vite': 4.4.4(@types/node@22.13.14)(lightningcss@1.22.1)(postcss@8.4.49)(rollup@3.29.5)(sass@1.83.0)(terser@5.37.0)
+      '@umijs/bundler-webpack': 4.4.4(type-fest@0.21.3)(typescript@5.8.2)(webpack@5.95.0)
       '@umijs/core': 4.4.4
       '@umijs/did-you-know': 1.0.3
       '@umijs/es-module-parser': 0.0.7
@@ -16920,17 +16975,17 @@ snapshots:
 
   '@vercel/ncc@0.33.3': {}
 
-  '@vitejs/plugin-react@4.0.0(vite@4.5.2(@types/node@22.10.3)(less@4.1.3)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))':
+  '@vitejs/plugin-react@4.0.0(vite@4.5.2(@types/node@22.13.14)(less@4.1.3)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.0)
       react-refresh: 0.14.2
-      vite: 4.5.2(@types/node@22.10.3)(less@4.1.3)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
+      vite: 4.5.2(@types/node@22.13.14)(less@4.1.3)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-v8@2.1.8(vitest@2.1.8(@types/node@22.10.3)(@vitest/ui@2.1.8)(happy-dom@15.11.7)(jsdom@23.2.0)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))':
+  '@vitest/coverage-v8@2.1.8(vitest@2.1.8(@types/node@22.13.14)(@vitest/ui@2.1.8)(happy-dom@15.11.7)(jsdom@23.2.0)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -16944,7 +16999,7 @@ snapshots:
       std-env: 3.8.0
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
-      vitest: 2.1.8(@types/node@22.10.3)(@vitest/ui@2.1.8)(happy-dom@15.11.7)(jsdom@23.2.0)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
+      vitest: 2.1.8(@types/node@22.13.14)(@vitest/ui@2.1.8)(happy-dom@15.11.7)(jsdom@23.2.0)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -16955,13 +17010,13 @@ snapshots:
       chai: 5.1.2
       tinyrainbow: 1.2.0
 
-  '@vitest/mocker@2.1.8(vite@5.4.11(@types/node@22.10.3)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))':
+  '@vitest/mocker@2.1.8(vite@5.4.11(@types/node@22.13.14)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))':
     dependencies:
       '@vitest/spy': 2.1.8
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
-      vite: 5.4.11(@types/node@22.10.3)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
+      vite: 5.4.11(@types/node@22.13.14)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
 
   '@vitest/pretty-format@2.1.8':
     dependencies:
@@ -16991,7 +17046,7 @@ snapshots:
       sirv: 3.0.0
       tinyglobby: 0.2.10
       tinyrainbow: 1.2.0
-      vitest: 2.1.8(@types/node@22.10.3)(@vitest/ui@2.1.8)(happy-dom@15.11.7)(jsdom@23.2.0)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
+      vitest: 2.1.8(@types/node@22.13.14)(@vitest/ui@2.1.8)(happy-dom@15.11.7)(jsdom@23.2.0)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
 
   '@vitest/utils@2.1.8':
     dependencies:
@@ -17162,7 +17217,7 @@ snapshots:
       '@aws-crypto/sha256-js': 5.2.0
       '@babel/plugin-proposal-optional-chaining': 7.21.0(@babel/core@7.26.0)
       '@babel/runtime': 7.26.0
-      '@typescript-eslint/parser': 5.62.0(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/parser': 5.62.0(eslint@8.57.1)(typescript@5.8.2)
       assert: 2.1.0
       babel-plugin-rewire: 1.2.0
       bignumber.js: 9.1.2
@@ -17185,7 +17240,7 @@ snapshots:
       readable-stream: 4.6.0
       scryptsy: 2.1.0
       stream-browserify: 3.0.0
-      typescript: 5.7.2
+      typescript: 5.8.2
       xmlhttprequest: 1.8.0
     transitivePeerDependencies:
       - '@babel/core'
@@ -17199,7 +17254,7 @@ snapshots:
       '@aws-crypto/sha256-js': 5.2.0
       '@babel/plugin-proposal-optional-chaining': 7.21.0(@babel/core@7.26.0)
       '@babel/runtime': 7.26.0
-      '@typescript-eslint/parser': 5.62.0(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/parser': 5.62.0(eslint@8.57.1)(typescript@5.8.2)
       assert: 2.1.0
       babel-plugin-rewire: 1.2.0
       bignumber.js: 9.1.2
@@ -17222,7 +17277,7 @@ snapshots:
       readable-stream: 4.6.0
       scryptsy: 2.1.0
       stream-browserify: 3.0.0
-      typescript: 5.7.2
+      typescript: 5.8.2
       xmlhttprequest: 1.8.0
     transitivePeerDependencies:
       - '@babel/core'
@@ -17418,7 +17473,7 @@ snapshots:
     dependencies:
       '@ant-design/colors': 7.2.0
       '@ant-design/cssinjs': 1.22.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@ant-design/icons': 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@ant-design/icons': 5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@ant-design/react-slick': 1.1.2(react@18.3.1)
       '@babel/runtime': 7.26.0
       '@ctrl/tinycolor': 3.6.1
@@ -17476,7 +17531,7 @@ snapshots:
       '@ant-design/colors': 7.2.0
       '@ant-design/cssinjs': 1.22.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@ant-design/cssinjs-utils': 1.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@ant-design/icons': 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@ant-design/icons': 5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@ant-design/react-slick': 1.1.2(react@18.3.1)
       '@babel/runtime': 7.26.0
       '@ctrl/tinycolor': 3.6.1
@@ -18386,7 +18441,7 @@ snapshots:
 
   comma-separated-tokens@2.0.3: {}
 
-  commander@12.1.0: {}
+  commander@13.1.0: {}
 
   commander@2.20.3: {}
 
@@ -18537,13 +18592,13 @@ snapshots:
       safe-buffer: 5.2.1
       sha.js: 2.4.11
 
-  create-jest@29.7.0(@types/node@22.10.3):
+  create-jest@29.7.0(@types/node@22.13.14):
     dependencies:
       '@jest/types': 29.6.3
       chalk: 4.1.2
       exit: 0.1.2
       graceful-fs: 4.2.11
-      jest-config: 29.7.0(@types/node@22.10.3)
+      jest-config: 29.7.0(@types/node@22.13.14)
       jest-util: 29.7.0
       prompts: 2.4.2
     transitivePeerDependencies:
@@ -18964,7 +19019,7 @@ snapshots:
 
   dumi-assets-types@2.0.0-alpha.0: {}
 
-  dumi@2.2.17(@babel/core@7.26.0)(@swc/helpers@0.5.1)(@types/node@22.10.3)(@types/react@18.3.18)(eslint@8.57.1)(jest@29.7.0(@types/node@22.10.3))(lightningcss@1.22.1)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(stylelint@14.16.1)(terser@5.37.0)(type-fest@0.21.3)(typescript@5.7.2)(webpack@5.95.0):
+  dumi@2.2.17(@babel/core@7.26.0)(@swc/helpers@0.5.1)(@types/node@22.13.14)(@types/react@18.3.18)(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.14))(lightningcss@1.22.1)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(stylelint@14.16.1)(terser@5.37.0)(type-fest@0.21.3)(typescript@5.8.2)(webpack@5.95.0):
     dependencies:
       '@ant-design/icons-svg': 4.4.2
       '@makotot/ghostui': 2.0.0(react@18.3.1)
@@ -19012,7 +19067,7 @@ snapshots:
       react-copy-to-clipboard: 5.1.0(react@18.3.1)
       react-dom: 18.3.1(react@18.3.1)
       react-error-boundary: 4.1.2(react@18.3.1)
-      react-intl: 6.8.9(react@18.3.1)(typescript@5.7.2)
+      react-intl: 6.8.9(react@18.3.1)(typescript@5.8.2)
       rehype-autolink-headings: 6.1.1
       rehype-remove-comments: 5.0.0
       rehype-stringify: 9.0.4
@@ -19023,7 +19078,7 @@ snapshots:
       remark-rehype: 10.1.0
       sass: 1.83.0
       sitemap: 7.1.2
-      umi: 4.4.4(@babel/core@7.26.0)(@types/node@22.10.3)(@types/react@18.3.18)(eslint@8.57.1)(jest@29.7.0(@types/node@22.10.3))(lightningcss@1.22.1)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(sass@1.83.0)(stylelint@14.16.1)(terser@5.37.0)(type-fest@0.21.3)(typescript@5.7.2)(webpack@5.95.0)
+      umi: 4.4.4(@babel/core@7.26.0)(@types/node@22.13.14)(@types/react@18.3.18)(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.14))(lightningcss@1.22.1)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(sass@1.83.0)(stylelint@14.16.1)(terser@5.37.0)(type-fest@0.21.3)(typescript@5.8.2)(webpack@5.95.0)
       unified: 10.1.2
       unist-util-visit: 4.1.2
       unist-util-visit-parents: 5.1.3
@@ -19451,23 +19506,23 @@ snapshots:
     dependencies:
       eslint: 8.57.1
 
-  eslint-plugin-jest@27.2.3(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(jest@29.7.0(@types/node@22.10.3))(typescript@5.7.2):
+  eslint-plugin-jest@27.2.3(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.14))(typescript@5.8.2):
     dependencies:
-      '@typescript-eslint/utils': 5.62.0(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/utils': 5.62.0(eslint@8.57.1)(typescript@5.8.2)
       eslint: 8.57.1
     optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
-      jest: 29.7.0(@types/node@22.10.3)
+      '@typescript-eslint/eslint-plugin': 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2)
+      jest: 29.7.0(@types/node@22.13.14)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  eslint-plugin-prettier@5.2.1(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint@8.57.1)(prettier@3.4.2):
+  eslint-plugin-prettier@5.2.5(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint@8.57.1)(prettier@3.4.2):
     dependencies:
       eslint: 8.57.1
       prettier: 3.4.2
       prettier-linter-helpers: 1.0.0
-      synckit: 0.9.2
+      synckit: 0.10.3
     optionalDependencies:
       eslint-config-prettier: 9.1.0(eslint@8.57.1)
 
@@ -19499,7 +19554,7 @@ snapshots:
       semver: 6.3.1
       string.prototype.matchall: 4.0.12
 
-  eslint-plugin-react@7.37.3(eslint@8.57.1):
+  eslint-plugin-react@7.37.4(eslint@8.57.1):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlast: 1.2.5
@@ -19521,12 +19576,12 @@ snapshots:
       string.prototype.matchall: 4.0.12
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-unused-imports@3.2.0(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1):
+  eslint-plugin-unused-imports@3.2.0(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1):
     dependencies:
       eslint: 8.57.1
       eslint-rule-composer: 0.3.0
     optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/eslint-plugin': 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2)
 
   eslint-rule-composer@0.3.0: {}
 
@@ -19901,9 +19956,47 @@ snapshots:
     dependencies:
       reusify: 1.0.4
 
-  father@4.5.1(@babel/core@7.26.0)(@types/node@22.10.3)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0):
+  father@4.5.1(@babel/core@7.26.0)(@types/node@22.13.14)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0):
     dependencies:
-      '@microsoft/api-extractor': 7.39.1(@types/node@22.10.3)
+      '@microsoft/api-extractor': 7.39.1(@types/node@22.13.14)
+      '@umijs/babel-preset-umi': 4.4.4
+      '@umijs/bundler-utils': 4.4.4
+      '@umijs/bundler-webpack': 4.4.4(type-fest@0.21.3)(typescript@5.3.3)(webpack@5.95.0)
+      '@umijs/case-sensitive-paths-webpack-plugin': 1.0.1
+      '@umijs/core': 4.4.4
+      '@umijs/utils': 4.4.4
+      '@vercel/ncc': 0.33.3
+      babel-plugin-dynamic-import-node: 2.3.3
+      babel-plugin-module-resolver: 4.1.0
+      babel-plugin-styled-components: 2.1.4(@babel/core@7.26.0)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      babel-plugin-transform-define: 2.0.1
+      enhanced-resolve: 5.9.3
+      esbuild: 0.17.19
+      fast-glob: 3.2.12
+      file-system-cache: 2.0.0
+      loader-runner: 4.2.0
+      minimatch: 3.1.2
+      piscina: 4.8.0
+      tsconfig-paths: 4.0.0
+      typescript: 5.3.3
+      typescript-transform-paths: 3.4.6(typescript@5.3.3)
+      v8-compile-cache: 2.3.0
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@types/node'
+      - '@types/webpack'
+      - sockjs-client
+      - styled-components
+      - supports-color
+      - type-fest
+      - webpack
+      - webpack-dev-server
+      - webpack-hot-middleware
+      - webpack-plugin-serve
+
+  father@4.5.2(@babel/core@7.26.0)(@types/node@22.13.14)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(type-fest@0.21.3)(webpack@5.95.0):
+    dependencies:
+      '@microsoft/api-extractor': 7.39.1(@types/node@22.13.14)
       '@umijs/babel-preset-umi': 4.4.4
       '@umijs/bundler-utils': 4.4.4
       '@umijs/bundler-webpack': 4.4.4(type-fest@0.21.3)(typescript@5.3.3)(webpack@5.95.0)
@@ -20085,7 +20178,7 @@ snapshots:
       typescript: 5.3.3
       webpack: 5.95.0
 
-  fork-ts-checker-webpack-plugin@8.0.0(typescript@5.7.2)(webpack@5.95.0):
+  fork-ts-checker-webpack-plugin@8.0.0(typescript@5.8.2)(webpack@5.95.0):
     dependencies:
       '@babel/code-frame': 7.26.2
       chalk: 4.1.2
@@ -20099,7 +20192,7 @@ snapshots:
       schema-utils: 3.3.0
       semver: 7.6.3
       tapable: 2.2.1
-      typescript: 5.7.2
+      typescript: 5.8.2
       webpack: 5.95.0
 
   form-data-encoder@1.7.1: {}
@@ -21224,7 +21317,7 @@ snapshots:
   istanbul-lib-instrument@5.2.1:
     dependencies:
       '@babel/core': 7.26.0
-      '@babel/parser': 7.26.3
+      '@babel/parser': 7.27.0
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.2
       semver: 6.3.1
@@ -21234,7 +21327,7 @@ snapshots:
   istanbul-lib-instrument@6.0.3:
     dependencies:
       '@babel/core': 7.26.0
-      '@babel/parser': 7.26.3
+      '@babel/parser': 7.27.0
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.2
       semver: 7.6.3
@@ -21308,7 +21401,7 @@ snapshots:
       '@jest/expect': 29.7.0
       '@jest/test-result': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       chalk: 4.1.2
       co: 4.6.0
       dedent: 1.5.3
@@ -21329,16 +21422,16 @@ snapshots:
       - supports-color
     optional: true
 
-  jest-cli@29.7.0(@types/node@22.10.3):
+  jest-cli@29.7.0(@types/node@22.13.14):
     dependencies:
       '@jest/core': 29.7.0
       '@jest/test-result': 29.7.0
       '@jest/types': 29.6.3
       chalk: 4.1.2
-      create-jest: 29.7.0(@types/node@22.10.3)
+      create-jest: 29.7.0(@types/node@22.13.14)
       exit: 0.1.2
       import-local: 3.2.0
-      jest-config: 29.7.0(@types/node@22.10.3)
+      jest-config: 29.7.0(@types/node@22.13.14)
       jest-util: 29.7.0
       jest-validate: 29.7.0
       yargs: 17.7.2
@@ -21349,7 +21442,7 @@ snapshots:
       - ts-node
     optional: true
 
-  jest-config@29.7.0(@types/node@22.10.3):
+  jest-config@29.7.0(@types/node@22.13.14):
     dependencies:
       '@babel/core': 7.26.0
       '@jest/test-sequencer': 29.7.0
@@ -21374,7 +21467,7 @@ snapshots:
       slash: 3.0.0
       strip-json-comments: 3.1.1
     optionalDependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -21407,7 +21500,7 @@ snapshots:
       '@jest/environment': 29.7.0
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       jest-mock: 29.7.0
       jest-util: 29.7.0
     optional: true
@@ -21419,7 +21512,7 @@ snapshots:
     dependencies:
       '@jest/types': 29.6.3
       '@types/graceful-fs': 4.1.9
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
@@ -21461,7 +21554,7 @@ snapshots:
   jest-mock@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       jest-util: 29.7.0
     optional: true
 
@@ -21500,7 +21593,7 @@ snapshots:
       '@jest/test-result': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       chalk: 4.1.2
       emittery: 0.13.1
       graceful-fs: 4.2.11
@@ -21529,7 +21622,7 @@ snapshots:
       '@jest/test-result': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       chalk: 4.1.2
       cjs-module-lexer: 1.4.1
       collect-v8-coverage: 1.0.2
@@ -21577,7 +21670,7 @@ snapshots:
   jest-util@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -21597,7 +21690,7 @@ snapshots:
     dependencies:
       '@jest/test-result': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       emittery: 0.13.1
@@ -21607,30 +21700,30 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
   jest-worker@29.4.3:
     dependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
   jest-worker@29.7.0:
     dependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
-  jest@29.7.0(@types/node@22.10.3):
+  jest@29.7.0(@types/node@22.13.14):
     dependencies:
       '@jest/core': 29.7.0
       '@jest/types': 29.6.3
       import-local: 3.2.0
-      jest-cli: 29.7.0(@types/node@22.10.3)
+      jest-cli: 29.7.0(@types/node@22.13.14)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -21872,10 +21965,10 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  lint-staged@15.3.0:
+  lint-staged@15.5.0:
     dependencies:
       chalk: 5.4.1
-      commander: 12.1.0
+      commander: 13.1.0
       debug: 4.4.0
       execa: 8.0.1
       lilconfig: 3.1.3
@@ -21883,7 +21976,7 @@ snapshots:
       micromatch: 4.0.8
       pidtree: 0.6.0
       string-argv: 0.3.2
-      yaml: 2.6.1
+      yaml: 2.7.1
     transitivePeerDependencies:
       - supports-color
 
@@ -21998,7 +22091,7 @@ snapshots:
 
   magicast@0.3.5:
     dependencies:
-      '@babel/parser': 7.26.3
+      '@babel/parser': 7.27.0
       '@babel/types': 7.26.3
       source-map-js: 1.2.1
 
@@ -23462,10 +23555,10 @@ snapshots:
     dependencies:
       fast-diff: 1.3.0
 
-  prettier-plugin-organize-imports@3.2.4(prettier@3.4.2)(typescript@5.7.2):
+  prettier-plugin-organize-imports@3.2.4(prettier@3.4.2)(typescript@5.8.2):
     dependencies:
       prettier: 3.4.2
-      typescript: 5.7.2
+      typescript: 5.8.2
 
   prettier-plugin-packagejson@2.4.3(prettier@3.4.2):
     dependencies:
@@ -24602,11 +24695,11 @@ snapshots:
     optionalDependencies:
       react-dom: 18.3.1(react@18.3.1)
 
-  react-intl@6.8.9(react@18.3.1)(typescript@5.7.2):
+  react-intl@6.8.9(react@18.3.1)(typescript@5.8.2):
     dependencies:
       '@formatjs/ecma402-abstract': 2.2.4
       '@formatjs/icu-messageformat-parser': 2.9.4
-      '@formatjs/intl': 2.10.15(typescript@5.7.2)
+      '@formatjs/intl': 2.10.15(typescript@5.8.2)
       '@formatjs/intl-displaynames': 6.8.5
       '@formatjs/intl-listformat': 7.7.5
       '@types/hoist-non-react-statics': 3.3.6
@@ -24616,7 +24709,7 @@ snapshots:
       react: 18.3.1
       tslib: 2.8.1
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.8.2
 
   react-is@16.13.1: {}
 
@@ -25877,14 +25970,14 @@ snapshots:
   symbol-tree@3.2.4:
     optional: true
 
+  synckit@0.10.3:
+    dependencies:
+      '@pkgr/core': 0.2.0
+      tslib: 2.8.1
+
   synckit@0.8.5:
     dependencies:
       '@pkgr/utils': 2.4.2
-      tslib: 2.8.1
-
-  synckit@0.9.2:
-    dependencies:
-      '@pkgr/core': 0.1.1
       tslib: 2.8.1
 
   systemjs@6.15.1: {}
@@ -26053,9 +26146,9 @@ snapshots:
 
   trough@2.2.0: {}
 
-  ts-api-utils@1.4.3(typescript@5.7.2):
+  ts-api-utils@1.4.3(typescript@5.8.2):
     dependencies:
-      typescript: 5.7.2
+      typescript: 5.8.2
 
   ts-easing@0.2.0: {}
 
@@ -26065,9 +26158,9 @@ snapshots:
 
   ts-toolbelt@9.6.0: {}
 
-  tsconfck@3.1.4(typescript@5.7.2):
+  tsconfck@3.1.4(typescript@5.8.2):
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.8.2
 
   tsconfig-paths@4.0.0:
     dependencies:
@@ -26081,10 +26174,10 @@ snapshots:
 
   tslib@2.8.1: {}
 
-  tsutils@3.21.0(typescript@5.7.2):
+  tsutils@3.21.0(typescript@5.8.2):
     dependencies:
       tslib: 1.14.1
-      typescript: 5.7.2
+      typescript: 5.8.2
 
   tsx@3.12.2:
     dependencies:
@@ -26179,21 +26272,23 @@ snapshots:
 
   typescript@5.7.2: {}
 
+  typescript@5.8.2: {}
+
   ultron@1.1.1: {}
 
-  umi@4.4.4(@babel/core@7.26.0)(@types/node@22.10.3)(@types/react@18.3.18)(eslint@8.57.1)(jest@29.7.0(@types/node@22.10.3))(lightningcss@1.22.1)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(sass@1.83.0)(stylelint@14.16.1)(terser@5.37.0)(type-fest@0.21.3)(typescript@5.7.2)(webpack@5.95.0):
+  umi@4.4.4(@babel/core@7.26.0)(@types/node@22.13.14)(@types/react@18.3.18)(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.14))(lightningcss@1.22.1)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(sass@1.83.0)(stylelint@14.16.1)(terser@5.37.0)(type-fest@0.21.3)(typescript@5.8.2)(webpack@5.95.0):
     dependencies:
       '@babel/runtime': 7.23.6
       '@umijs/bundler-utils': 4.4.4
-      '@umijs/bundler-webpack': 4.4.4(type-fest@0.21.3)(typescript@5.7.2)(webpack@5.95.0)
+      '@umijs/bundler-webpack': 4.4.4(type-fest@0.21.3)(typescript@5.8.2)(webpack@5.95.0)
       '@umijs/core': 4.4.4
-      '@umijs/lint': 4.4.4(eslint@8.57.1)(jest@29.7.0(@types/node@22.10.3))(stylelint@14.16.1)(typescript@5.7.2)
-      '@umijs/preset-umi': 4.4.4(@types/node@22.10.3)(@types/react@18.3.18)(lightningcss@1.22.1)(rollup@3.29.5)(sass@1.83.0)(terser@5.37.0)(type-fest@0.21.3)(typescript@5.7.2)(webpack@5.95.0)
+      '@umijs/lint': 4.4.4(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.14))(stylelint@14.16.1)(typescript@5.8.2)
+      '@umijs/preset-umi': 4.4.4(@types/node@22.13.14)(@types/react@18.3.18)(lightningcss@1.22.1)(rollup@3.29.5)(sass@1.83.0)(terser@5.37.0)(type-fest@0.21.3)(typescript@5.8.2)(webpack@5.95.0)
       '@umijs/renderer-react': 4.4.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@umijs/server': 4.4.4
       '@umijs/test': 4.4.4(@babel/core@7.26.0)
       '@umijs/utils': 4.4.4
-      prettier-plugin-organize-imports: 3.2.4(prettier@3.4.2)(typescript@5.7.2)
+      prettier-plugin-organize-imports: 3.2.4(prettier@3.4.2)(typescript@5.8.2)
       prettier-plugin-packagejson: 2.4.3(prettier@3.4.2)
     transitivePeerDependencies:
       - '@babel/core'
@@ -26494,13 +26589,13 @@ snapshots:
       unist-util-stringify-position: 3.0.3
       vfile-message: 3.1.4
 
-  vite-node@2.1.8(@types/node@22.10.3)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0):
+  vite-node@2.1.8(@types/node@22.13.14)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0):
     dependencies:
       cac: 6.7.14
       debug: 4.4.0
       es-module-lexer: 1.6.0
       pathe: 1.1.2
-      vite: 5.4.11(@types/node@22.10.3)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
+      vite: 5.4.11(@types/node@22.13.14)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -26512,47 +26607,47 @@ snapshots:
       - supports-color
       - terser
 
-  vite-tsconfig-paths@5.1.4(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.3)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)):
+  vite-tsconfig-paths@5.1.4(typescript@5.8.2)(vite@5.4.11(@types/node@22.13.14)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)):
     dependencies:
       debug: 4.4.0
       globrex: 0.1.2
-      tsconfck: 3.1.4(typescript@5.7.2)
+      tsconfck: 3.1.4(typescript@5.8.2)
     optionalDependencies:
-      vite: 5.4.11(@types/node@22.10.3)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
+      vite: 5.4.11(@types/node@22.13.14)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@4.5.2(@types/node@22.10.3)(less@4.1.3)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0):
+  vite@4.5.2(@types/node@22.13.14)(less@4.1.3)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0):
     dependencies:
       esbuild: 0.18.20
       postcss: 8.4.49
       rollup: 3.29.5
     optionalDependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       fsevents: 2.3.3
       less: 4.1.3
       lightningcss: 1.22.1
       sass: 1.83.0
       terser: 5.37.0
 
-  vite@5.4.11(@types/node@22.10.3)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0):
+  vite@5.4.11(@types/node@22.13.14)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.49
       rollup: 4.29.1
     optionalDependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       fsevents: 2.3.3
       less: 4.2.1
       lightningcss: 1.22.1
       sass: 1.83.0
       terser: 5.37.0
 
-  vitest@2.1.8(@types/node@22.10.3)(@vitest/ui@2.1.8)(happy-dom@15.11.7)(jsdom@23.2.0)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0):
+  vitest@2.1.8(@types/node@22.13.14)(@vitest/ui@2.1.8)(happy-dom@15.11.7)(jsdom@23.2.0)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0):
     dependencies:
       '@vitest/expect': 2.1.8
-      '@vitest/mocker': 2.1.8(vite@5.4.11(@types/node@22.10.3)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))
+      '@vitest/mocker': 2.1.8(vite@5.4.11(@types/node@22.13.14)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0))
       '@vitest/pretty-format': 2.1.8
       '@vitest/runner': 2.1.8
       '@vitest/snapshot': 2.1.8
@@ -26568,11 +26663,11 @@ snapshots:
       tinyexec: 0.3.2
       tinypool: 1.0.2
       tinyrainbow: 1.2.0
-      vite: 5.4.11(@types/node@22.10.3)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
-      vite-node: 2.1.8(@types/node@22.10.3)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
+      vite: 5.4.11(@types/node@22.13.14)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
+      vite-node: 2.1.8(@types/node@22.13.14)(less@4.2.1)(lightningcss@1.22.1)(sass@1.83.0)(terser@5.37.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 22.10.3
+      '@types/node': 22.13.14
       '@vitest/ui': 2.1.8(vitest@2.1.8)
       happy-dom: 15.11.7
       jsdom: 23.2.0
@@ -27067,7 +27162,7 @@ snapshots:
 
   yaml@1.10.2: {}
 
-  yaml@2.6.1: {}
+  yaml@2.7.1: {}
 
   yargs-parser@20.2.9: {}
 
