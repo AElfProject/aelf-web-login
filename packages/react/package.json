@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-react",
-  "version": "0.4.0-alpha.0",
+  "version": "0.4.0-alpha.1",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
@@ -31,8 +31,8 @@
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
     "@aelf-web-login/wallet-adapter-bridge": "workspace:*",
-    "@portkey/connect-web-wallet": "^2.19.0-alpha.9",
-    "@portkey/utils": "^2.19.0-alpha.9",
+    "@portkey/connect-web-wallet": "^2.20.0-alpha.3",
+    "@portkey/utils": "^2.20.0-alpha.3",
     "antd": "4.24.14",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
