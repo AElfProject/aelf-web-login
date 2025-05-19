@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - master-v2
     tags:
       - '!*'
 jobs:
