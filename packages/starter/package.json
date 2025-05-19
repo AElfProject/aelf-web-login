@@ -55,7 +55,7 @@
     "@aelf-web-login/wallet-adapter-portkey-discover": "workspace:*",
     "@aelf-web-login/wallet-adapter-react": "workspace:*",
     "@ant-design/icons": "^5.6.0",
-    "@portkey/did-ui-react": "2.19.0-alpha.11",
+    "@portkey/did-ui-react": "2.20.0-alpha.4",
     "aelf-sdk": "3.4.16-alpha.7",
     "flatted": "^3.3.2",
     "react": "^18.3.1",
