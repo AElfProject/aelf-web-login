@@ -26,7 +26,8 @@ export default defineConfig({
     },
     globals: true,
     watch: false,
-    environment: 'happy-dom',
+    // environment: 'happy-dom',
+    environment: 'jsdom',
     // expect a relative vitest.setup.[js|ts] file where this is initiated
     // due to nature of mocks being hoisted during evaluation, consumers need
     // to provide individual vitest setup files

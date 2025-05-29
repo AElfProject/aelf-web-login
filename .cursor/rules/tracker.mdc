@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# 自动开发引导流程
+
+先输出"!!!进入自动化开发流程!!!"
+
+检查 MCP sequence thinking 是否可以正常工作, 如果可以请输出“Thinking Now", 如果不可以则停止.
+
+强制使用 MCP sequence thinking 服务进行下面的思考工作, 如果找不到该服务请停止工作
+
+请在Think第一句说"我是小福, 在思考"
+
+采用AiWorkFlow工作流, Git采用非交互式命令避免提交卡住。

@@ -1,3 +1,5 @@
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
+
 beforeEach(() => {
   vi.spyOn(console, 'log');
   (global as any).window = {};

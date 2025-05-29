@@ -1,5 +1,5 @@
 import { NetworkEnum } from '@aelf-web-login/wallet-adapter-base';
-import { init } from '../index';
+import { init } from '../init';
 import { type IConfigProps, initBridge } from '@aelf-web-login/wallet-adapter-bridge';
 import VConsole from 'vconsole';
 
@@ -9,8 +9,9 @@ const baseOptions: IConfigProps = {
     networkType: NetworkEnum.TESTNET,
     chainId: 'tDVV',
     sideChainId: 'tDVW',
+    appName: 'vitest - react test',
   },
-  didConfig: {},
+  // didConfig: {},
   wallets: [],
 };
 

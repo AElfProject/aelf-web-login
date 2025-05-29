@@ -64,6 +64,7 @@ const LoginDemo: React.FC = () => {
 
   return (
     <div>
+      <h3>Login Demo</h3>
       <Flex gap={'small'}>
         {/* <Button
           onClick={() => {
@@ -81,6 +82,9 @@ const LoginDemo: React.FC = () => {
         </Button> */}
         <Button type="primary" onClick={onConnectBtnClickHandler} disabled={isConnected}>
           {isLocking ? 'unlock' : 'connect'}
+        </Button>
+        <Button type="default" onClick={onConnectBtnClickHandler}>
+          {isLocking ? 'unlock' : 'connect'}, if auto connect failed.
         </Button>
         <Button type="primary" onClick={lock} disabled={!isConnected}>
           lock

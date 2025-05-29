@@ -3,6 +3,7 @@
 import { PortkeyAAWallet } from '@aelf-web-login/wallet-adapter-portkey-aa';
 import { IConfigProps } from '@aelf-web-login/wallet-adapter-bridge';
 import { TChainId, SignInDesignEnum, NetworkEnum } from '@aelf-web-login/wallet-adapter-base';
+import { PortkeyInnerWallet } from '@aelf-web-login/wallet-adapter-portkey-web';
 
 const APP_NAME = 'forest';
 const CHAIN_ID = 'tDVW' as TChainId;
@@ -32,13 +33,14 @@ const baseConfig = {
 };
 
 const wallets = [
-  new PortkeyAAWallet({
-    appName: APP_NAME,
-    chainId: CHAIN_ID,
-    autoShowUnlock: true,
-    disconnectConfirm: true,
-    enableAcceleration: true,
-  }),
+  // new PortkeyAAWallet({
+  //   appName: APP_NAME,
+  //   chainId: CHAIN_ID,
+  //   autoShowUnlock: true,
+  //   disconnectConfirm: true,
+  //   enableAcceleration: true,
+  // }),
+  new PortkeyInnerWallet({ networkType: NETWORK_TYPE, chainId: CHAIN_ID, disconnectConfirm: true }),
   // new PortkeyDiscoverWallet({
   //   networkType: NETWORK_TYPE,
   //   chainId: CHAIN_ID,

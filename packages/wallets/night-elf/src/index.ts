@@ -137,6 +137,7 @@ export class NightElfWallet extends BaseWalletAdapter {
       }
       await this.login();
     } catch (error) {
+      console.log('NightELF loginEagerly error: ', error);
       this.emit('error', makeError(ERR_CODE.NIGHT_ELF_LOGIN_EAGERLY_FAIL, error));
     }
   }
