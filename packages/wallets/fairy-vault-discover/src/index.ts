@@ -328,17 +328,30 @@ export class FairyVaultDiscoverWallet extends BaseWalletAdapter {
       }
     };
     const onAccountsChanged = (accounts: Accounts) => {
+      // console.log('onAccountsChanged accounts', accounts);
+      // console.log('onAccountsChanged _chainId', this._chainId);
+      // console.log('onAccountsChanged _wallet', this._wallet);
       if (!this._wallet) return;
       const chainId = this._chainId;
+      // console.log(
+      //   'onAccountsChanged boolean',
+      //   !accounts[chainId] || accounts[chainId]!.length === 0,
+      // );
       if (
         !accounts[chainId] ||
-        accounts[chainId]!.length === 0 ||
-        accounts[chainId]!.find((addr) => addr !== this._wallet!.address)
+        accounts[chainId]!.length === 0
+        // ||
+        // accounts[chainId]!.find((addr) => addr !== this._wallet!.address)
       ) {
         if (this._config.autoLogoutOnAccountMismatch) {
           this.logout();
+          return;
         }
       }
+      if (!this._detectProvider) {
+        return;
+      }
+      this.onAccountsSuccess(this._detectProvider, accounts);
     };
     const onChainChanged = (chainIds: ChainIds) => {
       if (chainIds.find((id) => id === this._chainId)) {
