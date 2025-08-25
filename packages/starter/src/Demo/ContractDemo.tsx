@@ -168,6 +168,7 @@ const ContractDemo: React.FC = () => {
 
     useExampleCall('Buy 1 WRITE', async () => {
       return await callSendMethod({
+        chainId: 'AELF',
         contractAddress: configJson.tokenConverter,
         methodName: 'Buy',
         args: {
