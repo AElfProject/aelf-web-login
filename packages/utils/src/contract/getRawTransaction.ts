@@ -2,6 +2,7 @@ import getRawTransactionNight from './getRawTransactionNight';
 import getRawTransactionDiscover from './getRawTransactionDiscover';
 import getRawTransactionPortkey from './getRawTransactionPortkey';
 import { WalletTypeEnum, TWalletInfo } from '@aelf-web-login/wallet-adapter-base';
+import { getRawTransactionFairyVault } from './getRawTransactionFairyVault';
 
 interface IRawTransactionPrams {
   walletInfo: TWalletInfo;
@@ -58,6 +59,19 @@ export const getRawTransaction: (params: IRawTransactionPrams) => Promise<string
           caHash: _caHash,
           params,
           methodName,
+          provider: walletInfo?.extraInfo?.provider,
+        });
+        break;
+      case WalletTypeEnum.fairyVault:
+        if (!walletInfo?.address) return;
+        if (!walletInfo?.extraInfo?.provider) return;
+
+        res = await getRawTransactionFairyVault({
+          contractAddress,
+          params,
+          account: { address: walletInfo.address },
+          methodName,
+          rpcUrl,
           provider: walletInfo?.extraInfo?.provider,
         });
         break;

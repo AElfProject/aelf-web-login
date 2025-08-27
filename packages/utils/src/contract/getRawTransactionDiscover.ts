@@ -1,8 +1,7 @@
 import { aelf, sigObjToStr } from '@portkey/utils';
 import { handleManagerForwardCall, getContractMethods } from '@portkey/contracts';
 import AElf from 'aelf-sdk';
-import deleteProvider from '@portkey/detect-provider';
-import { IPortkeyProvider, MethodsWallet } from '@portkey/provider-types';
+import { MethodsWallet } from '@portkey/provider-types';
 
 type TCreateHandleManagerForwardCall = {
   caContractAddress: string;
@@ -13,7 +12,7 @@ type TCreateHandleManagerForwardCall = {
   instance: any;
 };
 
-type TGetRawTx = {
+export type TGetRawTx = {
   blockHeightInput: string;
   blockHashInput: string;
   packedInput: string;
@@ -22,7 +21,7 @@ type TGetRawTx = {
   functionName: string;
 };
 
-const getRawTx = ({
+export const getRawTx = ({
   blockHeightInput,
   blockHashInput,
   packedInput,
@@ -37,19 +36,19 @@ const getRawTx = ({
   return rawTx;
 };
 
-const getSignature = async ({ provider, data }: { provider: IPortkeyProvider; data: string }) => {
-  const signature = await provider.request({
-    method: MethodsWallet.GET_WALLET_SIGNATURE,
-    payload: { data },
-  });
-  if (!signature || signature.recoveryParam == null) return {}; // TODO
-  const signatureStr = [signature.r, signature.s, `0${signature.recoveryParam.toString()}`].join(
-    '',
-  );
-  return { signature, signatureStr };
-};
+// const getSignature = async ({ provider, data }: { provider: IPortkeyProvider; data: string }) => {
+//   const signature = await provider.request({
+//     method: MethodsWallet.GET_WALLET_SIGNATURE,
+//     payload: { data },
+//   });
+//   if (!signature || signature.recoveryParam == null) return {}; // TODO
+//   const signatureStr = [signature.r, signature.s, `0${signature.recoveryParam.toString()}`].join(
+//     '',
+//   );
+//   return { signature, signatureStr };
+// };
 
-const handleTransaction = async ({
+export const handleTransaction = async ({
   blockHeightInput,
   blockHashInput,
   packedInput,
@@ -119,7 +118,7 @@ const createManagerForwardCall = async ({
   return protoInputType.encode(message).finish();
 };
 
-function getAElf(rpcUrl: string) {
+export function getAElf(rpcUrl: string) {
   return new AElf(new AElf.providers.HttpProvider(rpcUrl));
 }
 
