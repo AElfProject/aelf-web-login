@@ -77,7 +77,7 @@ export default function WalletModal() {
       closable={false}
       className={commonCls}
       placement="bottom"
-      height={'70vh'}
+      height="auto"
       open={dialogVisible}
       onClose={onCancel}
     >
