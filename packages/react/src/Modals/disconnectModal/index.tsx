@@ -87,7 +87,7 @@ export default function WalletDisconnectModal() {
       prefixCls="web-login-disconnect-modal"
       className={commonCls}
       placement="bottom"
-      height={'282px'}
+      height="auto"
       open={disconnectModal}
     >
       {inner}
