@@ -1,8 +1,49 @@
+/* drawer */
+.web-login-disconnect-modal-content-wrapper {
+  position: absolute;
+  z-index: 1000;
+  max-width: 100vw;
+  transition: all 0.3s;
+  bottom: 0;
+  inset-inline: 0;
+  box-shadow: 0 -6px 16px 0 rgba(0, 0, 0, 0.08), 0 -3px 6px -4px rgba(0, 0, 0, 0.12), 0 -9px 28px 8px rgba(0, 0, 0, 0.05);
+}
+.web-login-disconnect-modal-content-wrapper-hidden {
+  display: none;
+}
+/* drawer end */
+
+.web-login-disconnect-modal-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: auto;
+  outline: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.web-login-disconnect-modal-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+
+.web-login-disconnect-modal-centered {
+  text-align: center;
+}
+
 .web-login-disconnect-wallet-modal-dark .web-login-disconnect-modal-content,
 .web-login-disconnect-wallet-modal-dark .web-login-disconnect-modal-body {
   background: #151318;
-
-  border: 1px solid #414142;
+  border-radius: 8px;
+  /*border: 1px solid #414142;*/
+  border: none;
+  box-shadow: 0 0 0 0.5px #414142;
 }
 
 .web-login-disconnect-wallet-modal .web-login-disconnect-modal-content,

@@ -73,7 +73,7 @@ export default function WalletModal() {
 
   return isMobile ? (
     <Drawer
-      // prefixCls="web-login-connect-modal"
+      prefixCls="web-login-connect-modal"
       closable={false}
       className={commonCls}
       placement="bottom"

@@ -5,7 +5,10 @@
 .web-login-connect-wallet-modal-dark .web-login-connect-modal-content,
 .web-login-connect-wallet-modal-dark .web-login-connect-modal-body {
   background: #151318;
-  border: 1px solid #414142;
+  border-radius: 8px;
+  border: none;
+  /*border: 1px solid #414142;*/
+  box-shadow: 0 0 0 0.5px #414142;
 }
 
 .web-login-page-close-wrap {
@@ -13,7 +16,7 @@
   width: 100%;
   flex-direction: row-reverse;
   align-items: center;
-  padding-top: 4px 8px 0 16px;
+  /*padding-top: 4px 8px 0 16px;*/
 }
 .connect-wallet-close-inner {
   padding: 10px;
