@@ -130,6 +130,10 @@
   color: var(--web-login-color-text-default);
 }
 
+.web-login-connect-btn-background-ghost {
+  background: transparent;
+}
+
 .web-login-disconnect-wallet-modal {
   --web-login-color-text-default: #1f1f21;
   --web-login-color-border-neutral-secondary: #767676;
