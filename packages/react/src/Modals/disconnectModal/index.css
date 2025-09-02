@@ -34,7 +34,7 @@
 }
 
 .web-login-disconnect-modal-centered {
-  text-align: center;
+  /*text-align: center;*/
 }
 
 .web-login-disconnect-wallet-modal-dark .web-login-disconnect-modal-content,
@@ -50,6 +50,7 @@
 .web-login-disconnect-wallet-modal .web-login-disconnect-modal-body  {
   padding: 16px;
   border-radius: 8px;
+  background: #FFF;
 }
 
 .web-login-disconnect-modal .web-login-disconnect-modal-header {
