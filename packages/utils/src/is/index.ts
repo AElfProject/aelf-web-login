@@ -3,3 +3,4 @@ export * from './isPortkeyApp';
 export * from './isPrivateKey';
 export * from './isAElfBridge';
 export * from './isMobileDevices';
+export * from './isFairyVaultApp';
