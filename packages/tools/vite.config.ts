@@ -7,14 +7,14 @@ const exclude = [...configDefaults.exclude, '**/dist/*.*', '**/.*', '**/*.setup.
 export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
-    maxConcurrency: 20,
+    maxConcurrency: 1, // Reduce concurrency to prevent React issues
     pool: 'vmThreads',
     poolOptions: {
       threads: {
         singleThread: true,
       },
     },
-    isolate: false, // only safe with the poolOptions above
+    isolate: true, // Enable isolation to prevent test interference
     css: false,
     deps: {
       optimizer: {
