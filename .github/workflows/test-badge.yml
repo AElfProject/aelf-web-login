@@ -20,7 +20,7 @@ jobs:
         package: [utils, base, react, bridge]
     steps:
       - name: Run frontend CI
-        uses: AElfProject/frontend-ci-action@v0.0.2
+        uses: AElfProject/frontend-ci-action@v0.0.3
         with:
           commit-token: ${{ secrets.COMMIT_TOKEN }}
           branch-name: "feature/badge-json"
