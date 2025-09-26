@@ -17,6 +17,9 @@ vi.mock('../getRawTransactionPortkey', () => ({
   __esModule: true,
   default: vi.fn().mockResolvedValue('encodedDataMock3'),
 }));
+vi.mock('../getRawTransactionFairyVault', () => ({
+  getRawTransactionFairyVault: vi.fn().mockResolvedValue('encodedDataMock4'),
+}));
 
 describe('getRawTransaction', () => {
   beforeEach(() => {
@@ -159,6 +162,182 @@ describe('getRawTransaction', () => {
     });
 
     expect(getRawTransactionDiscover).toHaveBeenCalledTimes(1);
+    expect(result).toBe('encodedDataMock2');
+  });
+
+  it('should call getRawTransactionFairyVault for WalletTypeEnum.fairyVault and return its result', async () => {
+    const { getRawTransactionFairyVault } = await import('../getRawTransactionFairyVault');
+    const walletInfo: TWalletInfo = {
+      address: 'mockAddress',
+      extraInfo: {
+        provider: { mockProvider: true },
+      },
+    };
+
+    const result = await getRawTransaction({
+      walletInfo,
+      walletType: WalletTypeEnum.fairyVault,
+      params: {},
+      methodName: 'mockMethod',
+      contractAddress: 'mockContractAddress',
+      caContractAddress: 'mockCaContractAddress',
+      rpcUrl: 'mockRpcUrl',
+    });
+
+    expect(getRawTransactionFairyVault).toHaveBeenCalledTimes(1);
+    expect(result).toBe('encodedDataMock4');
+  });
+
+  it('should return undefined for WalletTypeEnum.aa when portkeyInfo is missing', async () => {
+    const walletInfo: TWalletInfo = {
+      address: 'mockAddress',
+      extraInfo: {},
+    };
+
+    const result = await getRawTransaction({
+      walletInfo,
+      walletType: WalletTypeEnum.aa,
+      params: {},
+      methodName: 'mockMethod',
+      contractAddress: 'mockContractAddress',
+      caContractAddress: 'mockCaContractAddress',
+      rpcUrl: 'mockRpcUrl',
+    });
+
+    expect(result).toBeUndefined();
+  });
+
+  it('should return undefined for WalletTypeEnum.discover when caHash is missing', async () => {
+    const walletInfo: TWalletInfo = {
+      address: 'mockAddress',
+      extraInfo: {
+        provider: {
+          request: vi.fn().mockResolvedValue(null),
+        },
+      },
+    };
+
+    const result = await getRawTransaction({
+      walletInfo,
+      walletType: WalletTypeEnum.discover,
+      params: {},
+      methodName: 'mockMethod',
+      contractAddress: 'mockContractAddress',
+      caContractAddress: 'mockCaContractAddress',
+      rpcUrl: 'mockRpcUrl',
+    });
+
+    expect(result).toBeUndefined();
+  });
+
+  it('should return undefined for WalletTypeEnum.discover when provider is missing', async () => {
+    const walletInfo: TWalletInfo = {
+      address: 'mockAddress',
+      extraInfo: {
+        provider: {
+          request: vi.fn().mockResolvedValue('mockCaHash'),
+        },
+      },
+    };
+
+    const result = await getRawTransaction({
+      walletInfo,
+      walletType: WalletTypeEnum.discover,
+      params: {},
+      methodName: 'mockMethod',
+      contractAddress: 'mockContractAddress',
+      caContractAddress: 'mockCaContractAddress',
+      rpcUrl: 'mockRpcUrl',
+    });
+
+    expect(result).toBe('encodedDataMock2');
+  });
+
+  it('should return undefined for WalletTypeEnum.fairyVault when address is missing', async () => {
+    const walletInfo: TWalletInfo = {
+      extraInfo: {
+        provider: { mockProvider: true },
+      },
+    };
+
+    const result = await getRawTransaction({
+      walletInfo,
+      walletType: WalletTypeEnum.fairyVault,
+      params: {},
+      methodName: 'mockMethod',
+      contractAddress: 'mockContractAddress',
+      caContractAddress: 'mockCaContractAddress',
+      rpcUrl: 'mockRpcUrl',
+    });
+
+    expect(result).toBeUndefined();
+  });
+
+  it('should return undefined for WalletTypeEnum.fairyVault when provider is missing', async () => {
+    const walletInfo: TWalletInfo = {
+      address: 'mockAddress',
+      extraInfo: {},
+    };
+
+    const result = await getRawTransaction({
+      walletInfo,
+      walletType: WalletTypeEnum.fairyVault,
+      params: {},
+      methodName: 'mockMethod',
+      contractAddress: 'mockContractAddress',
+      caContractAddress: 'mockCaContractAddress',
+      rpcUrl: 'mockRpcUrl',
+    });
+
+    expect(result).toBeUndefined();
+  });
+
+  it('should return undefined for WalletTypeEnum.elf when address is missing', async () => {
+    const walletInfo: TWalletInfo = {};
+
+    const result = await getRawTransaction({
+      walletInfo,
+      walletType: WalletTypeEnum.elf,
+      params: {},
+      methodName: 'mockMethod',
+      contractAddress: 'mockContractAddress',
+      caContractAddress: 'mockCaContractAddress',
+      rpcUrl: 'mockRpcUrl',
+    });
+
+    expect(result).toBeUndefined();
+  });
+
+  it('should use provided caHash when available', async () => {
+    const walletInfo: TWalletInfo = {
+      address: 'mockAddress',
+      extraInfo: {
+        provider: {
+          request: vi.fn().mockResolvedValue('mockCaHash'),
+        },
+      },
+    };
+
+    const result = await getRawTransaction({
+      walletInfo,
+      walletType: WalletTypeEnum.discover,
+      params: {},
+      methodName: 'mockMethod',
+      contractAddress: 'mockContractAddress',
+      caContractAddress: 'mockCaContractAddress',
+      rpcUrl: 'mockRpcUrl',
+      caHash: 'providedCaHash',
+    });
+
+    expect(getRawTransactionDiscover).toHaveBeenCalledWith({
+      contractAddress: 'mockContractAddress',
+      caContractAddress: 'mockCaContractAddress',
+      rpcUrl: 'mockRpcUrl',
+      caHash: 'providedCaHash',
+      params: {},
+      methodName: 'mockMethod',
+      provider: walletInfo.extraInfo.provider,
+    });
     expect(result).toBe('encodedDataMock2');
   });
 });

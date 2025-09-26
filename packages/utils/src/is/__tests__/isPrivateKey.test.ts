@@ -19,4 +19,34 @@ describe('test isPrivateKey', () => {
 
     Buffer.from = originalFrom;
   });
+
+  test('returns false when private key is null', () => {
+    expect(isPrivateKey(null as any)).toBe(false);
+  });
+
+  test('returns false when private key is undefined', () => {
+    expect(isPrivateKey(undefined as any)).toBe(false);
+  });
+
+  test('returns false when private key is not a string', () => {
+    expect(isPrivateKey(123 as any)).toBe(false);
+  });
+
+  test('returns false when private key is too short', () => {
+    expect(isPrivateKey('1234567890abcdef')).toBe(false);
+  });
+
+  test('returns false when private key is too long', () => {
+    expect(
+      isPrivateKey(
+        '1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+      ),
+    ).toBe(false);
+  });
+
+  test('returns true when private key is valid 32-byte hex', () => {
+    expect(isPrivateKey('1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef')).toBe(
+      true,
+    );
+  });
 });

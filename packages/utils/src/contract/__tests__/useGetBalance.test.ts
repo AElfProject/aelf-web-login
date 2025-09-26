@@ -1,5 +1,5 @@
-import { renderHook, act } from '@testing-library/react';
-import { useGetBalance } from '../useGetBalance';
+// import { renderHook, act } from '@testing-library/react';
+// import { useGetBalance } from '../useGetBalance';
 
 // Mock ReactDOM to prevent concurrent rendering issues
 vi.mock('react-dom/client', () => ({
