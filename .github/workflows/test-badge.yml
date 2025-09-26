@@ -18,6 +18,8 @@ jobs:
     strategy:
       matrix:
         package: [utils, base, react, bridge]
+    env:
+      NODE_OPTIONS: "--max-old-space-size=4096"
     steps:
       - name: Run frontend CI
         uses: AElfProject/frontend-ci-action@v0.0.3
