@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/30</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/30</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -134,20 +134,20 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -179,26 +179,26 @@ export type modalState = {
 export const basicModalView = {
   setWalletDialog: {
     type: modalActions['setDialogVisible'],
-    actions: <span class="fstat-no" title="function not covered" >(dialogVisible: boolean, connectInfo?: IConnectInfo) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      return basicActions(modalActions['setDialogVisible'], {</span>
-<span class="cstat-no" title="statement not covered" >        dialogVisible,</span>
-<span class="cstat-no" title="statement not covered" >        connectInfo,</span>
-<span class="cstat-no" title="statement not covered" >      });</span>
-<span class="cstat-no" title="statement not covered" >    },</span>
+    actions: (dialogVisible: boolean, connectInfo?: IConnectInfo) =&gt; {
+      return basicActions(modalActions['setDialogVisible'], {
+        dialogVisible,
+        connectInfo,
+      });
+    },
   },
   setDisconnectDialogVisible: {
     type: modalActions['setDisconnectDialogVisible'],
-    actions: <span class="fstat-no" title="function not covered" >(disconnectModal: boolean, isDisconnect?: boolean) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      return basicActions(modalActions['setDisconnectDialogVisible'], {</span>
-<span class="cstat-no" title="statement not covered" >        disconnectModal,</span>
-<span class="cstat-no" title="statement not covered" >        isDisconnect,</span>
-<span class="cstat-no" title="statement not covered" >      });</span>
-<span class="cstat-no" title="statement not covered" >    },</span>
+    actions: (disconnectModal: boolean, isDisconnect?: boolean) =&gt; {
+      return basicActions(modalActions['setDisconnectDialogVisible'], {
+        disconnectModal,
+        isDisconnect,
+      });
+    },
   },
 &nbsp;
   destroy: {
     type: modalActions['destroy'],
-    actions: <span class="fstat-no" title="function not covered" >() =&gt; basicActions(modalActions['destroy']),</span>
+    actions: () =&gt; basicActions(modalActions['destroy']),
   },
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -208,7 +208,7 @@ export const basicModalView = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-09-26T08:42:50.084Z
+                at 2025-09-26T08:45:26.500Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
