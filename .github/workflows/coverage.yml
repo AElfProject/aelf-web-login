@@ -16,6 +16,7 @@ jobs:
     strategy:
       matrix:
         package: [utils, base, react, bridge]
+      max-parallel: 1
 
     steps:
       - name: Checkout repository
