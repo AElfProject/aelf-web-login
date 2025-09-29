@@ -18,9 +18,11 @@ jobs:
     strategy:
       matrix:
         package: [utils, base, react, bridge]
+    env:
+      NODE_OPTIONS: "--max-old-space-size=4096"
     steps:
       - name: Run frontend CI
-        uses: AElfProject/frontend-ci-action@v0.0.2
+        uses: AElfProject/frontend-ci-action@v0.0.3
         with:
           commit-token: ${{ secrets.COMMIT_TOKEN }}
           branch-name: "feature/badge-json"

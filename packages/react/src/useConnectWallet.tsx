@@ -3,6 +3,7 @@ import {
   ConnectedWallet,
   enhancedLocalStorage,
   PORTKEY_WEB_WALLET,
+  WalletTypeEnum,
 } from '@aelf-web-login/wallet-adapter-base';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -11,6 +12,7 @@ import useExternalStore from './useExternalStore';
 import { useModalDispatch } from './useModal/hooks';
 import { basicModalView } from './useModal/actions';
 import { useModal } from './useModal';
+import { isFairyVaultApp } from '@aelf-web-login/utils';
 
 function useConnectWallet() {
   const { instance } = useWebLoginContext();
@@ -62,6 +64,9 @@ function useConnectWallet() {
     const walletName: string = await new Promise((resolve, reject) => {
       connectResolve.current = resolve;
       connectReject.current = reject;
+      // FairyVaultApp default connect
+      if (isFairyVaultApp()) return resolve(WalletTypeEnum.fairyVault);
+
       const localWalletName = enhancedLocalStorage.getItem(ConnectedWallet);
       if (localWalletName) return resolve(localWalletName);
       if (!localWalletName) {

@@ -17,7 +17,8 @@ beforeAll(() => {
 });
 
 afterEach(() => {
-  cleanup();
+  // Remove global cleanup to prevent React concurrent rendering issues
+  // Each test file should handle its own cleanup
   vi.clearAllMocks();
 });
 

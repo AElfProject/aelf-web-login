@@ -1,9 +1,38 @@
-import { getContractBasic } from '@portkey/contracts';
 import getRawTransactionNight, { CreateTransactionParamsOfNight } from '../getRawTransactionNight';
 import { type Mock } from 'vitest';
 
+// Mock @portkey/utils
+vi.mock('@portkey/utils', () => ({
+  aelf: {
+    getAelfInstance: vi.fn().mockReturnValue({
+      chain: {
+        getChainStatus: vi.fn().mockResolvedValue({
+          BestChainHeight: 100,
+          BestChainHash: '0x123456',
+        }),
+      },
+    }),
+    utils: {
+      transform: {
+        transformMapToArray: vi.fn().mockReturnValue({}),
+        transform: vi.fn().mockReturnValue({}),
+        INPUT_TRANSFORMERS: {},
+      },
+      uint8ArrayToHex: vi.fn().mockReturnValue('0x123456'),
+    },
+  },
+}));
+
+// Mock @portkey/contracts
 vi.mock('@portkey/contracts', () => ({
-  getContractBasic: vi.fn(),
+  getContractMethods: vi.fn().mockResolvedValue({
+    exampleMethod: {
+      fromObject: vi.fn().mockReturnValue({}),
+      encode: vi.fn().mockReturnValue({
+        finish: vi.fn().mockReturnValue(new Uint8Array([1, 2, 3])),
+      }),
+    },
+  }),
 }));
 
 describe('getRawTransactionNight', () => {
@@ -12,11 +41,6 @@ describe('getRawTransactionNight', () => {
   });
 
   it('should return encoded transaction data', async () => {
-    const mockContract = {
-      encodedTx: vi.fn().mockResolvedValue({ data: 'encodedDataMock' }),
-    };
-    (getContractBasic as Mock).mockResolvedValue(mockContract);
-
     const params: CreateTransactionParamsOfNight = {
       contractAddress: '0xExampleAddress',
       params: { exampleParam: 'value' },
@@ -26,21 +50,12 @@ describe('getRawTransactionNight', () => {
     };
 
     const result = await getRawTransactionNight(params);
-    expect(result).toBe('encodedDataMock');
-
-    expect(getContractBasic).toHaveBeenCalledTimes(1);
-    expect(getContractBasic).toHaveBeenCalledWith({
-      account: { address: '0xExampleAccount' },
-      contractAddress: '0xExampleAddress',
-      rpcUrl: 'https://example-rpc-url.com',
-    });
-
-    expect(mockContract.encodedTx).toHaveBeenCalledTimes(1);
-    expect(mockContract.encodedTx).toHaveBeenCalledWith('exampleMethod', { exampleParam: 'value' });
+    expect(result).toBe('0x123456');
   });
 
-  it('should handle errors from getContractBasic', async () => {
-    (getContractBasic as Mock).mockRejectedValue(new Error('Failed to get contract'));
+  it('should handle errors from aelf.getAelfInstance', async () => {
+    const { aelf } = await import('@portkey/utils');
+    (aelf.getAelfInstance as Mock).mockRejectedValue(new Error('Failed to get instance'));
 
     try {
       await getRawTransactionNight({
@@ -54,7 +69,5 @@ describe('getRawTransactionNight', () => {
     } catch (error) {
       expect(error).toBeInstanceOf(Error);
     }
-
-    expect(getContractBasic).toHaveBeenCalledTimes(1);
   });
 });

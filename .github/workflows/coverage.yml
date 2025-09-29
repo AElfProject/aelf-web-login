@@ -16,6 +16,8 @@ jobs:
     strategy:
       matrix:
         package: [utils, base, react, bridge]
+    env:
+      NODE_OPTIONS: "--max-old-space-size=4096"
 
     steps:
       - name: Checkout repository
@@ -24,10 +26,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Install pnpm
         run: npm install -g pnpm
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+            ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
@@ -52,7 +64,7 @@ jobs:
           output: packages/${{ matrix.package }}/coverage/badge.svg
 
       - name: Upload coverage report to artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ matrix.package }}
           path: packages/${{ matrix.package }}/coverage
@@ -66,7 +78,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Download coverage artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: coverage
 

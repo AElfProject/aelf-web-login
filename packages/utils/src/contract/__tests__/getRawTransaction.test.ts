@@ -19,6 +19,10 @@ vi.mock('../getRawTransactionPortkey', () => ({
 }));
 
 describe('getRawTransaction', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('should call getRawTransactionPortkey for WalletTypeEnum.aa and return its result', async () => {
     // Arrange
     const walletInfo = {
@@ -47,7 +51,14 @@ describe('getRawTransaction', () => {
 
   it('should call getRawTransactionDiscover for WalletTypeEnum.discover and return its result', async () => {
     // Arrange
-    const walletInfo: TWalletInfo = { address: 'mockAddress' };
+    const walletInfo: TWalletInfo = {
+      address: 'mockAddress',
+      extraInfo: {
+        provider: {
+          request: vi.fn().mockResolvedValue('mockCaHash'),
+        },
+      },
+    };
     // Act
     const result = await getRawTransaction({
       walletInfo,
@@ -95,7 +106,14 @@ describe('getRawTransaction', () => {
   });
 
   it('should log and return null when an error occurs', async () => {
-    const walletInfo: TWalletInfo = { address: 'mockAddress' };
+    const walletInfo: TWalletInfo = {
+      address: 'mockAddress',
+      extraInfo: {
+        provider: {
+          request: vi.fn().mockResolvedValue('mockCaHash'),
+        },
+      },
+    };
 
     const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation();
 
@@ -116,6 +134,8 @@ describe('getRawTransaction', () => {
     expect(consoleLogSpy).toHaveBeenCalledWith('getRawTransaction error', expect.any(Error));
     expect(result).toBeNull();
 
+    // Reset mock after test
+    (getRawTransactionDiscover as Mock).mockResolvedValue('encodedDataMock2');
     consoleLogSpy.mockRestore();
   });
 

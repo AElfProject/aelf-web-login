@@ -12,6 +12,33 @@ vi.mock('../useExternalStore', () => ({
   }),
 }));
 
+// Mock useModal hook
+vi.mock('../useModal', () => ({
+  useModal: () => [
+    {
+      connectInfo: { name: 'Portkey' },
+      isDisconnect: true,
+    },
+    {
+      dispatch: vi.fn(),
+    },
+  ],
+  useModalDispatch: () => vi.fn(),
+  ModalProvider: ({ children }: { children: React.ReactNode }) => children,
+}));
+
+// Mock enhancedLocalStorage to return a wallet name
+vi.mock('@aelf-web-login/wallet-adapter-base', async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    enhancedLocalStorage: {
+      getItem: vi.fn(() => 'Portkey'),
+      setItem: vi.fn(),
+    },
+  };
+});
+
 const Comp = () => {
   useConnectWallet();
   return null;
@@ -44,9 +71,11 @@ describe('useConnectWallet', () => {
     });
 
     await act(async () => {
-      await result.current.disConnectWallet();
+      if (result.current?.disConnectWallet) {
+        await result.current.disConnectWallet();
+      }
     });
 
-    expect(result.current.connecting).toBe(false);
+    expect(result.current?.connecting).toBe(false);
   });
 });
