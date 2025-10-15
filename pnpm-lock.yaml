@@ -176,6 +176,9 @@ importers:
 
   packages/react:
     dependencies:
+      '@aelf-web-login/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@aelf-web-login/wallet-adapter-base':
         specifier: workspace:*
         version: link:../base
