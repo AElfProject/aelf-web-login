@@ -169,7 +169,9 @@ export class FairyVaultDiscoverWallet extends BaseWalletAdapter {
 
   async login(): Promise<TWalletInfo> {
     if (isMobileDevices() && !isFairyVaultApp()) {
-      openPageInDiscover(undefined, undefined);
+      // TODO: open in FairyVault App
+      // openPageInDiscover(undefined, undefined);
+      this.emit('error', makeError(ERR_CODE.DISCOVER_LOGIN_REQUIRED_APP));
       return;
     }
     try {
