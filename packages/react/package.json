@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-react",
-  "version": "0.4.0-alpha.10",
+  "version": "0.4.0-alpha.11",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
@@ -29,9 +29,9 @@
     "test:ui": "pnpm test:dev --ui"
   },
   "dependencies": {
+    "@aelf-web-login/utils": "workspace:*",
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
     "@aelf-web-login/wallet-adapter-bridge": "workspace:*",
-    "@aelf-web-login/utils": "workspace:*",
     "@portkey/connect-web-wallet": "^2.20.0-alpha.3",
     "@portkey/utils": "^2.20.0-alpha.3",
     "antd": "4.24.14",
@@ -47,7 +47,8 @@
     "@babel/preset-typescript": "^7.26.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
-    "father": "^4.5.2"
+    "father": "^4.5.2",
+    "jsdom": "^27.0.1"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

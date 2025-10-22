@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-fairy-vault-discover",
-  "version": "0.4.0-alpha.10",
+  "version": "0.4.0-alpha.11",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
@@ -27,8 +27,8 @@
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
     "@portkey/contracts": "^2.20.0-alpha.3",
-    "@portkey/detect-provider": "2.4.0-alpha.12",
-    "@portkey/provider-types": "2.4.0-alpha.12",
+    "@portkey/detect-provider": "^2.5.0-alpha.5",
+    "@portkey/provider-types": "^2.5.0-alpha.5",
     "@portkey/utils": "^2.20.0-alpha.3",
     "bn.js": "^5.2.1"
   },
