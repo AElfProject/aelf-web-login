@@ -12,6 +12,7 @@ export default async function detectDiscoverProvider(): Promise<IPortkeyProvider
       timeout: 6000,
       // providerName: 'Portkey',
       providerName: 'FairyVault',
+      eventName: 'fairyVaultInitEvent',
     });
     console.log(res, 'detectDiscoverProvider res===');
     return res;
