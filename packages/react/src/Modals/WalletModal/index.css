@@ -41,6 +41,11 @@
   padding: 0;
   border-radius: 8px;
 }
+
+.web-login-connect-wallet-modal-dark {
+  background: #151318 !important;
+}
+
 .web-login-connect-wallet-modal-dark .web-login-connect-modal-content,
 .web-login-connect-wallet-modal-dark .web-login-connect-modal-body {
   background: #151318;

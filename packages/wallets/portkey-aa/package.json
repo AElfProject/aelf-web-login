@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-portkey-aa",
-  "version": "0.4.0-alpha.13",
+  "version": "0.4.0-alpha.14",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
