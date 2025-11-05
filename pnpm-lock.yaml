@@ -504,11 +504,11 @@ importers:
         specifier: ^2.20.0-alpha.3
         version: 2.20.0-alpha.4(@portkey/request@2.18.0)(aelf-sdk@3.5.0)(query-string@7.1.3)
       '@portkey/detect-provider':
-        specifier: ^2.4.0-alpha.6
-        version: 2.4.0-alpha.12
+        specifier: ^2.5.0-alpha.6
+        version: 2.5.0-alpha.6
       '@portkey/provider-types':
-        specifier: ^2.4.0-alpha.6
-        version: 2.4.0-alpha.12
+        specifier: ^2.5.0-alpha.6
+        version: 2.5.0-alpha.6
       '@portkey/utils':
         specifier: ^2.20.0-alpha.3
         version: 2.20.0-alpha.4(@portkey/request@2.18.0)(aelf-sdk@3.5.0)(query-string@7.1.3)
@@ -5564,12 +5564,6 @@ packages:
     resolution: {integrity: sha512-x5Jl8IE4EGi6zdfup9LMncL04gXS/d0YxdaESC5vd7TPwvSnjra2ZJPGdZrydBzhQYHMPeKy/bZCyY/o7WH+Cg==}
     dependencies:
       '@portkey/provider-types': 2.3.5
-
-  /@portkey/detect-provider@2.4.0-alpha.12:
-    resolution: {integrity: sha512-oFfcYeUGkVumoKZAxZRR8EtmsQP9FQAY4EVuf27QepnUodBr5iBCqqn+vt8cDdTvIYDZvffh2XdH2iaLuOYPDw==}
-    dependencies:
-      '@portkey/provider-types': 2.4.0-alpha.12
-    dev: false
 
   /@portkey/detect-provider@2.5.0-alpha.6:
     resolution: {integrity: sha512-zRq8dPaUpPI1JxXHDIy1kCBTcPmt9RdjH+KYrl6FuKu659vw3zbWYnRMW/s7UOTYm/38x+KrkQ+zcyxV4HZxEw==}
