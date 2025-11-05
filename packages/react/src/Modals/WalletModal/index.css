@@ -46,6 +46,10 @@
   background: #151318 !important;
 }
 
+.web-login-connect-wallet-modal-dark .web-login-connect-drawer-content {
+  background: #151318;
+}
+
 .web-login-connect-wallet-modal-dark .web-login-connect-modal-content,
 .web-login-connect-wallet-modal-dark .web-login-connect-modal-body {
   background: #151318;
