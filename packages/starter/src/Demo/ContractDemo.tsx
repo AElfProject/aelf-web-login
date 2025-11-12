@@ -166,6 +166,18 @@ const ContractDemo: React.FC = () => {
       });
     }),
 
+    useExampleCall('call getBalance in AELF', async () => {
+      return callViewMethod({
+        chainId: 'AELF',
+        contractAddress: configJson.multiToken,
+        methodName: 'GetBalance',
+        args: {
+          symbol: 'ELF',
+          owner: await getAccountByChainId('AELF'),
+        },
+      });
+    }),
+
     useExampleCall('Buy 1 WRITE', async () => {
       return await callSendMethod({
         chainId: 'AELF',

@@ -273,6 +273,9 @@ export class NightElfWallet extends BaseWalletAdapter {
       throw makeError(ERR_CODE.NIGHT_ELF_NOT_CONNECTED);
     }
 
+    const chainStatus = await bridge.chain.getChainStatus();
+    console.log('Before getContract, NightELF chainStatus:', chainStatus);
+
     return getContractBasic({
       contractAddress: contractAddress,
       aelfInstance: bridge,
