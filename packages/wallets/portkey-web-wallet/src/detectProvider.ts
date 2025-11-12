@@ -9,7 +9,7 @@ export default async function detectWebProvider(count = 0): Promise<IPortkeyProv
   }
   try {
     const res = await detectProviderFunc({
-      timeout: 3000,
+      timeout: 9000,
       providerName: 'PortkeyWebWallet',
     });
     return res;
