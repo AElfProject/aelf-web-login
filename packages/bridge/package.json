@@ -1,6 +1,6 @@
 {
   "name": "@aelf-web-login/wallet-adapter-bridge",
-  "version": "0.4.0-alpha.18",
+  "version": "0.4.0-alpha.19",
   "type": "module",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
@@ -34,14 +34,14 @@
   "dependencies": {
     "@aelf-web-login/wallet-adapter-base": "workspace:*",
     "@aelf-web-login/wallet-adapter-portkey-web": "workspace:*",
-    "@portkey/contracts": "^2.20.0-alpha.3",
-    "@portkey/services": "^2.20.0-alpha.3",
-    "@portkey/connect-web-wallet": "^2.20.0-alpha.3",
+    "@portkey/contracts": "^2.22.0-alpha.11",
+    "@portkey/services": "^2.22.0-alpha.11",
+    "@portkey/connect-web-wallet": "^2.22.0-alpha.11",
     "@reduxjs/toolkit": "^2.5.0"
   },
   "devDependencies": {
-    "@portkey/types": "^2.20.0-alpha.3",
-    "@portkey/utils": "^2.20.0-alpha.3",
+    "@portkey/types": "^2.22.0-alpha.11",
+    "@portkey/utils": "^2.22.0-alpha.11",
     "babel-jest": "^29.7.0",
     "father": "^4.5.2"
   },
