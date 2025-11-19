@@ -42,10 +42,10 @@
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.26.0",
-    "@portkey/contracts": "^2.20.0-alpha.3",
+    "@portkey/contracts": "^2.22.0-alpha.11",
     "@portkey/detect-provider": "^2.3.5",
     "@portkey/provider-types": "^2.3.5",
-    "@portkey/utils": "^2.20.0-alpha.3",
+    "@portkey/utils": "^2.22.0-alpha.11",
     "aelf-sdk": "^3.4.15",
     "father": "^4.5.2",
     "identity-obj-proxy": "^3.0.0"
