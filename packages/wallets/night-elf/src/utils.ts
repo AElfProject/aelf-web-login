@@ -1,11 +1,11 @@
 import { INightElfWalletAdapterConfig } from './index';
-import { makeError, utils, ERR_CODE } from '@aelf-web-login/wallet-adapter-base';
+import { makeError, utils, ERR_CODE, WalletTypeEnum } from '@aelf-web-login/wallet-adapter-base';
 import type { AElfDappBridge, PublicKey } from '@aelf-react/types';
 import AelfBridgeCheck from './AelfBridgeCheck';
 import NightElfCheck from './NightElfCheck';
 
 export const getBridges = async (nodes: INightElfWalletAdapterConfig['nodes'], appName: string) => {
-  const { isMobileDevices } = utils;
+  const { isMobileDevices, checkConnectedWallet } = utils;
   try {
     const isAElfBridge = isMobileDevices() && !(window as any)?.NightElf;
     console.log('aelf-wallet-debug----------1');
@@ -24,7 +24,8 @@ export const getBridges = async (nodes: INightElfWalletAdapterConfig['nodes'], a
     const bridges: { [key: string]: AElfDappBridge } = {};
     console.log('nodes:', nodes);
     if (!nodes || Object.keys(nodes).length === 0) {
-      throw makeError(ERR_CODE.INIT_BRIDGE_ERROR);
+      checkConnectedWallet(WalletTypeEnum.elf);
+      throw makeError(ERR_CODE.NIGHT_ELF_NOT_DETECTED);
     }
     Object.entries(nodes).forEach(([k, v]) => {
       if (!firstKey) firstKey = k;
@@ -35,7 +36,8 @@ export const getBridges = async (nodes: INightElfWalletAdapterConfig['nodes'], a
     const bridge = bridges[firstKey];
     return { bridge, node, bridges };
   } catch (e) {
-    throw makeError(ERR_CODE.INIT_BRIDGE_ERROR);
+    checkConnectedWallet(WalletTypeEnum.elf);
+    throw makeError(ERR_CODE.NIGHT_ELF_NOT_DETECTED);
   }
 };
 

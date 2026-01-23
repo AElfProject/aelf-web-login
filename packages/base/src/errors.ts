@@ -26,6 +26,7 @@ export const ERR_CODE = {
   IN_FINISH_BUT_STATUS_IS_NOT_SUCCESS: 10023,
   UNKNOWN: 10024,
   DISCOVER_LOGIN_REQUIRED_APP: 10025,
+  NIGHT_ELF_NOT_DETECTED: 10026,
 };
 
 export const ERR_CODE_MSG: {
@@ -59,6 +60,7 @@ export const ERR_CODE_MSG: {
   10023: 'Login completed, but the isLoginStatus is not success. Please log in again',
   10024: 'Unknown error',
   10025: 'Please use the FairyVault app or the FairyVault browser extension on your computer.',
+  10026: 'NightElf is not detected or has been disabled. Please connect in again.',
 };
 
 export function makeError(code: number, nativeError?: any): TWalletError {
